@@ -19,7 +19,7 @@
 <!-- wp:html -->
 <img src="https://blog.atlant.is/wp-content/uploads/2020/09/loyd.png" class="aligncenter" style="width:300px;height:auto;">
 <div style="text-align:center;">
-Loyd's impossible goal state with the \$1000 cash prize
+Loyd's impossible goal state with a \$1000 cash prize
 </div>
 <!-- /wp:html -->
 
@@ -38,7 +38,7 @@ Loyd's impossible goal state with the \$1000 cash prize
 <!-- /wp:paragraph -->
 
 <!-- wp:list -->
-<ul><li>the <a href="https://en.wikipedia.org/wiki/Parity_of_a_permutation">parity of the permutation</a> of the squares on the grid,</li><li>versus the parity of the <a href="https://en.wikipedia.org/wiki/Taxicab_distance">taxicab distance</a> (number of rows plus number of columns) traveled by the blank square</li></ul>
+<ul><li>the&nbsp;<a href="https://en.wikipedia.org/wiki/Parity_of_a_permutation">parity of the permutation</a>&nbsp;of the squares on the grid,</li><li>versus the parity of the&nbsp;<a href="https://en.wikipedia.org/wiki/Taxicab_distance">taxicab distance</a>&nbsp;(number of rows plus number of columns) traveled by the blank square</li></ul>
 <!-- /wp:list -->
 
 <!-- wp:paragraph -->
@@ -75,7 +75,7 @@ The puzzle initial state maps to the identity element in $\mathcal{S}_{18}$: $e 
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>The mapping to $\mathcal{S}_{18}$ is invariant under horizontal moves. Of course it is not invariant under vertical moves, as illustrated in the picture below:</p>
+<p>The mapping to $\mathcal{S}_{18}$ is invariant under horizontal moves. It is however not invariant under vertical moves, as illustrated in the picture below:</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:html -->
@@ -96,7 +96,7 @@ After moving tile $11$ down (type $\gamma 3\!\!\downarrow$ below), the puzzle ma
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>\begin{equation}<br>\mathcal{P} = \left\{s\in\mathcal{S}_{18}\quad<br>\left|\quad<br>\begin{array}{l}<br>s(4)=\alpha\;\;\text{or}\;\;s(\alpha)=\alpha\\<br>\text{and:}\quad s(8)=\beta\;\;\text{or}\;\;s(\beta)=\beta\\<br>\text{and:}\quad s(12)=\gamma\;\;\text{or}\;\;s(\gamma)=\gamma<br>\end{array}<br>\right.<br>\;<br>\right\}<br>\end{equation}</p>
+<p>\begin{equation}<br>\mathcal{P} = \left\{s\in\mathcal{S}_{18}\quad<br>\left|\quad<br>\begin{array}{ll}<br>&amp;\big(s(4)=\alpha\;\;\text{or}\;\;s(\alpha)=\alpha\big)\\<br>\text{and}&amp;\big(s(8)=\beta\;\;\text{or}\;\;s(\beta)=\beta\big)\\<br>\text{and}&amp;\big(s(12)=\gamma\;\;\text{or}\;\;s(\gamma)=\gamma\big)<br>\end{array}<br>\right.<br>\;<br>\right\}<br>\end{equation}</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -108,15 +108,11 @@ After moving tile $11$ down (type $\gamma 3\!\!\downarrow$ below), the puzzle ma
 <!-- /wp:list -->
 
 <!-- wp:paragraph -->
-<p>Let $\mathcal{L}\subset\mathcal{P}\times\mathcal{S}_{18}$ be the set of all legal moves.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>We sort moves according to their type, where there are $24$ possible types, depending on:</p>
+<p>Note that moves can be sorted according to their type, where there are $24$ possible types, depending on:</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:list -->
-<ul><li>which horizontal separation is crossed: $\alpha$, $\beta$, or $\gamma$,</li><li>in which column does the move happen: $1$, $2$, $3$, or $4$,</li><li>which is the direction of the move: <em>up</em> or <em>down</em>.</li></ul>
+<ul><li>which horizontal separation is crossed: $\alpha$, $\beta$, or $\gamma$,</li><li>which column does the move happen in: $1$, $2$, $3$, or $4$,</li><li>which is the direction of the move: <em>up</em> or <em>down</em>.</li></ul>
 <!-- /wp:list -->
 
 <!-- wp:paragraph -->
@@ -131,7 +127,7 @@ Type $\gamma3\!\!\downarrow$ legal moves
 <!-- /wp:html -->
 
 <!-- wp:paragraph -->
-<p>Let us split $\mathcal{L}$ by type of moves:</p>
+<p>Finally let $\mathcal{L}\subset\mathcal{P}\times\mathcal{S}_{18}$ be the set of all legal moves and let us split $\mathcal{L}$ by type of move:</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -155,7 +151,7 @@ Type $\gamma3\!\!\downarrow$ legal moves
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>\begin{equation}<br>\forall \text{ type }t, \forall (s, p) \in \mathcal{L}_t, \quad \pi(p)\;=\;1<br>\label{EvenParity}<br>\end{equation}</p>
+<p>\begin{equation}<br>\forall (s, p) \in \mathcal{L}, \quad \pi(p)\;=\;1<br>\label{EvenParity}<br>\end{equation}</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3} -->
