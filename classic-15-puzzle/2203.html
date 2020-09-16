@@ -1,0 +1,203 @@
+<!-- wp:group -->
+<div class="wp-block-group"><div class="wp-block-group__inner-container"><!-- wp:html -->
+[auto-iframe link=https://fredatatlantis.github.io/FifteenPuzzle.js/fifteenpuzzle.html width=100% height=300 autosize=yes]
+<!-- /wp:html -->
+
+<!-- wp:html -->
+<div style="text-align:center;font-family:Inter,sans-serif;font-size:15px;color:gray">15-puzzle by Mark Rohlich</figcaption></div>
+<!-- /wp:html --></div></div>
+<!-- /wp:group -->
+
+<!-- wp:heading -->
+<h2>Genesis</h2>
+<!-- /wp:heading -->
+
+<!-- wp:quote -->
+<blockquote class="wp-block-quote"><p>The Fifteen Puzzle consists of fifteen numbered square tiles in a 4×4 square grid, with one position empty or blank. Any tile horizontally or vertically adjacent to the blank can be moved into the blank position. The task is to rearrange the tiles from some random initial configuration into a desired goal configuration, ideally or optimally using the fewest moves possible.</p><p>The Fifteen Puzzle was invented by Sam Loyd[^1] in the 1870s [zotpressInText item="{6833562:DA682IHW}"], and appeared in the scientific literature shortly thereafter [zotpressInText item="{6833562:929MI6GN}"]. The editor of the journal added the following comment to the paper: “The ‘15’ puzzle for the last few weeks has been prominently before the American public, and may safely be said to have engaged the attention of nine out of ten persons of both sexes and of all ages and conditions of the community.”</p><p>One reason for the world-wide Fifteen Puzzle craze was that Loyd offered a $1000 cash prize to transform a particular initial state to a particular goal state. Johnson and Story proved that it wasn’t possible, that the entire state space was divided into even and odd permutations, and that there is no way to transform one into the other by legal moves.</p><cite>[zotpressInText item="{6833562:Q2GV7Z5H}"]</cite></blockquote>
+<!-- /wp:quote -->
+
+<!-- wp:html -->
+<img src="https://blog.atlant.is/wp-content/uploads/2020/09/loyd.png" class="aligncenter" style="width:300px;height:auto;">
+<div style="text-align:center;">
+Loyd's impossible goal state with the \$1000 cash prize
+</div>
+<!-- /wp:html -->
+
+<!-- wp:luckywp/tableofcontents /-->
+
+<!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Proof of insolvability</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The classical proof[^2] for the insolvability of the puzzle involves an argument on:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul><li>the <a href="https://en.wikipedia.org/wiki/Parity_of_a_permutation">parity of the permutation</a> of the squares on the grid,</li><li>versus the parity of the <a href="https://en.wikipedia.org/wiki/Taxicab_distance">taxicab distance</a> (number of rows plus number of columns) traveled by the blank square</li></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>A summer conversation with G.R., who was not aware of the question or the proof, lead to his suggesting a subtle and interesting variant which fully dispenses with the blank square. Here it goes...</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Variant</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The classical proof works by identifying the set of possible puzzle states with the group $\mathcal{S}_{16}$ of permutations of the squares on the grid. Instead, the variant chooses to work with the group $\mathcal{S}_{18}$ of permutations of the  <em>fifteen</em> tiles plus <em>three</em> fictitious elements $\alpha$, $\beta$, $\gamma$, which represent the horizontal separations between the rows of the puzzle.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>To identify a puzzle state with an element of $\mathcal{S}_{18}$, simply read the tiles from left to right, top to bottom, and don't forget to read the horizontal separators too, as illustrated in the picture below:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<table style="border-style:none;">
+<tr style="border-style:none;"><td style="border-style:none;text-align:center;">Physical state</td><td style="border-style:none;text-align:center;">Element in $\mathcal{S}_{18}$</td></tr>
+
+<tr style="border-style:none;"><td style="border-style:none;text-align:center;"><img src="https://blog.atlant.is/wp-content/uploads/2020/09/initial-phy.png" class="aligncenter" style="width:295;height:272;"></td>
+<td style="border-style:none;text-align:center;"><img src="https://blog.atlant.is/wp-content/uploads/2020/09/initial-s18.png" class="aligncenter" style="width:331;height:242;"></td></tr>
+</table>
+
+<div style="text-align:center;">
+The puzzle initial state maps to the identity element in $\mathcal{S}_{18}$: $e = (1,2,3,4,\alpha,5,6,7,8,\beta,9,10,11,12,\gamma,13,14,15)$
+</div>
+<!-- /wp:html -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Observe</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The mapping to $\mathcal{S}_{18}$ is invariant under horizontal moves. Of course it is not invariant under vertical moves, as illustrated in the picture below:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<table style="border-style:none;">
+<tr style="border-style:none;"><td style="border-style:none;text-align:center;">Physical state</td><td style="border-style:none;text-align:center;">Element in $\mathcal{S}_{18}$</td></tr>
+
+<tr style="border-style:none;"><td style="border-style:none;text-align:center;"><img src="https://blog.atlant.is/wp-content/uploads/2020/09/gamma3down-phy.png" class="aligncenter" style="width:auto;height:auto;"></td>
+<td style="border-style:none;text-align:center;"><img src="https://blog.atlant.is/wp-content/uploads/2020/09/gamma3down-s18.png" class="aligncenter" style="width:auto;height:auto;"></td></tr>
+</table>
+
+<div style="text-align:center;">
+After moving tile $11$ down (type $\gamma 3\!\!\downarrow$ below), the puzzle maps to: $(1,2,3,4,\alpha,5,6,7,8,\beta,9,10,12,\gamma,13,14,11,15)\in\mathcal{S}_{18}$
+</div>
+<!-- /wp:html -->
+
+<!-- wp:paragraph -->
+<p>Let $\mathcal{P} \subset \mathcal{S}_{18}$ be the set of all puzzle states, legal and non-legal:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>\begin{equation}<br>\mathcal{P} = \left\{s\in\mathcal{S}_{18}\quad<br>\left|\quad<br>\begin{array}{l}<br>s(4)=\alpha\;\;\text{or}\;\;s(\alpha)=\alpha\\<br>\text{and:}\quad s(8)=\beta\;\;\text{or}\;\;s(\beta)=\beta\\<br>\text{and:}\quad s(12)=\gamma\;\;\text{or}\;\;s(\gamma)=\gamma<br>\end{array}<br>\right.<br>\;<br>\right\}<br>\end{equation}</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Given a legal move in $\mathcal{P}$ we can map it to a pair $(s, p)\in\mathcal{P}\times\mathcal{S}_{18}$, where:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul><li>$s\in\mathcal{P}$ is the state of the puzzle before the move,</li><li>$p\in\mathcal{S}_{18}$ is the permutation corresponding to the move,</li><li>$(p\circ s)\in\mathcal{P}$ is the state of the puzzle after the move.</li></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>Let $\mathcal{L}\subset\mathcal{P}\times\mathcal{S}_{18}$ be the set of all legal moves.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>We sort moves according to their type, where there are $24$ possible types, depending on:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul><li>which horizontal separation is crossed: $\alpha$, $\beta$, or $\gamma$,</li><li>in which column does the move happen: $1$, $2$, $3$, or $4$,</li><li>which is the direction of the move: <em>up</em> or <em>down</em>.</li></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>The figure below illustrates type $\gamma3\!\!\downarrow$:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:html -->
+<img src="https://blog.atlant.is/wp-content/uploads/2020/09/gamma3down.png" class="aligncenter" style="width:300px;height:auto;">
+<div style="text-align:center;">
+Type $\gamma3\!\!\downarrow$ legal moves
+</div>
+<!-- /wp:html -->
+
+<!-- wp:paragraph -->
+<p>Let us split $\mathcal{L}$ by type of moves:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>\begin{equation}<br>\mathcal{L}\quad=\quad\bigcup_{\text{all types }t}\mathcal{L}_t<br>\end{equation}</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>where $\mathcal{L}_t$ is the set of all legal moves of type $t$. For example: $\mathcal{L}_{\gamma3\downarrow}$ is the set of all pairs $(s, p)\in\mathcal{P}\times\mathcal{S}_{18}$ such that: the fourth row in $s$ in not full $(\ref{MoveStart})$,  and $p$ is the cycle defined by $(\ref{MoveEnd})$:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>\begin{equation}<br>\left\{<br>\begin{array}{l}<br>s(\alpha)=\alpha\\<br>s(\beta)=\beta\\<br>s(\gamma)=\gamma<br>\end{array}<br>\right.<br>\label{MoveStart}<br>\end{equation}</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>\begin{equation}<br>p\;=\;\big(s(11)s(14)s(13)s(\gamma)s(12)\big)\quad\text{(cycle)}<br>\label{MoveEnd}<br>\end{equation}</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Note that the length of cycle $p$ is always 5, and does not depend on the type of the move. Hence $p$ is a permutation with <em>even parity</em>:[^3]</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>\begin{equation}<br>\forall \text{ type }t, \forall (s, p) \in \mathcal{L}_t, \quad \pi(p)\;=\;1<br>\label{EvenParity}<br>\end{equation}</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
+<h3>Conclude</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Consider a legal puzzle state $s\in\mathcal{P}$. There exists a sequence of legal moves $(s_0,p_0), \cdots, (s_n,p_n)$ in $\mathcal{L}$, such that:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>\begin{equation}<br>\left\{<br>\begin{array}{l}<br>s_0=e\quad(\text{identity in }\mathcal{S}_{18})\\<br>\forall i &lt; n,\quad s_{i+1}=p_i\circ s_i\\<br>s_n=s<br>\end{array}<br>\right.<br>\end{equation}</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>It follows per $(\ref{EvenParity})$ that $s=(p_n\circ p_{n-1}\circ\cdots\circ p_0)$ is a permutation with even parity.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Hence Loyd's \$1000-cash puzzle goal state is not legal.$\quad\Box$</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator {"color":"primary","className":"is-style-default"} -->
+<hr class="wp-block-separator has-text-color has-background has-primary-background-color has-primary-color is-style-default"/>
+<!-- /wp:separator -->
+
+<!-- wp:paragraph -->
+<p>[^1]: Although this is <a href="https://en.wikipedia.org/wiki/15_puzzle">disputed</a>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>[^2]: As given on <a href="https://en.wikipedia.org/wiki/15_puzzle">wikipedia</a> or <a href="https://www.youtube.com/watch?v=YI1WqYKHi78&amp;vl=fr">numberphile</a>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>[^3]: The <a href="https://fr.wikipedia.org/wiki/Signature_d%27une_permutation">parity of a permutation</a> $p\in\mathcal{S}_{n}$ is defined as $\pi(p)=\prod_{1\le i&lt;j\le n}{\big(\text{sgn}(p(j)-p(i))\big)}$. $\pi$ is a group-morphism from $\big(\mathcal{S}_{18}, \circ\big)$ to $\big(\{-1,1\},\times\big)$.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>References</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>[zotpressInTextBib style="apa" sort="ASC"]</p>
+<!-- /wp:paragraph -->
