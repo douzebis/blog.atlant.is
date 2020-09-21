@@ -58,9 +58,9 @@ _Et de lier le tout avec des brins de bruyère_
  _Et de combattre pour une cause oubliée il y a longtemps_Then she’ll be a true love of mine  
 _Alors elle sera mon véritable amour_
 
-Pourrait-on imaginer la scène dialoguée entre William et Dolores dans l'esprit bicaméral((Dernier épisode de la première saison.)) ?
+Pourrait-on imaginer la scène dialoguée entre William et Dolores dans l'esprit bicaméral\[efn\_note\]Dernier épisode de la première saison.\[/efn\_note\] ?
 
-La généalogie du texte est intéressante. Il entremêle l'adaptation d'une ballade traditionnelle anglaise du XVIIIe siècle - _Scarborough Fair_ ((Are you going to Scarborough Fair?  
+La généalogie du texte est intéressante. Il entremêle l'adaptation d'une ballade traditionnelle anglaise du XVIIIe siècle - _Scarborough Fair_ \[efn\_note\]Are you going to Scarborough Fair?  
 Parsley, sage, rosemary and thyme.  
 Remember me to one who lives there,  
 For she was once a true love of mine  
@@ -75,15 +75,15 @@ Parsley, sage, rosemary and thyme.
 Lying between sea foam and sea sand,  
 Or he'll not be a true love of mine.  
   
-...)) - et un poème - _Canticle_ - retravaillé d'une autre chanson de Paul Simon : _The side of a hill_.
+...\[/efn\_note\] - et un poème - _Canticle_ - retravaillé d'une autre chanson de Paul Simon : _The side of a hill_.
 
 Dans la ballade traditionnelle, un jeune homme s'adresse à l'auditoire et nous prie de porter un message à son ancienne amoureuse : si elle réalise une série de tâches impossibles, elle sera à nouveau son vrai amour. Comme en un dialogue complice, un couplet sur deux donne la réplique à l'amoureuse, qui formule à son tour des exigences impossibles.
 
-Dans la chanson de Simon et Garfunkel, il n'y a pas cette symétrie, toutes les requêtes sont prononcées par le jeune homme. Peut-être cette forme convenait mieux pour leur duo ? Peut-être convenait-elle mieux pour évoquer les dernière pensées d'un soldat agonisant((Le _Scarborough Fair_ de Simon et Garfunkel est un chant pacifiste à replacer dans le contexte de la guerre au Vietnam.)) ?
+Dans la chanson de Simon et Garfunkel, il n'y a pas cette symétrie, toutes les requêtes sont prononcées par le jeune homme. Peut-être cette forme convenait mieux pour leur duo ? Peut-être convenait-elle mieux pour évoquer les dernière pensées d'un soldat agonisant\[efn\_note\]Le _Scarborough Fair_ de Simon et Garfunkel est un chant pacifiste à replacer dans le contexte de la guerre au Vietnam.\[/efn\_note\] ?
 
 Le refrain "_Parsley, sage, rosemary and thyme_" ferait référence aux vertus représentées par ces herbes au Moyen Âge : le bien-être pour le persil, la force pour la sauge, l'amour pour le romarin, le courage pour le thym.
 
-_[The side of a hill](https://www.youtube.com/watch?v=wBnMtxWY28g)_((On the side of a hill in a land called Somewhere  
+_[The side of a hill](https://www.youtube.com/watch?v=wBnMtxWY28g)_\[efn\_note\]On the side of a hill in a land called Somewhere  
 A little boy lies asleep in the earth  
 While down in the valley a cruel war rages  
 And people forget what a child's life is worth  
@@ -96,4 +96,4 @@ That ended a life at the age of seven years
 And the war rages on in the land called Somewhere  
 And generals order their men to kill  
 And to fight for a cause they've long ago forgotten  
-While the little cloud weeps on the side of a hill)), publié sous le pseudonyme de Paul Kayne, fait partie du premier album solo de Simon : _Songbook_, sorti en 1965. Peut-être avait-il lu le dormeur du val ?
+While the little cloud weeps on the side of a hill\[/efn\_note\], publié sous le pseudonyme de Paul Kayne, fait partie du premier album solo de Simon : _Songbook_, sorti en 1965. Peut-être avait-il lu le dormeur du val ?

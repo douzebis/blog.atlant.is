@@ -38,11 +38,11 @@ If you shop for love in a bargain store
  _Annonce sa destination finale_Can you choose another track?  
  _Peux-tu choisir une autre voie ?_
 
-Will I wake up from these violent dreams((“These violent delights have violent ends  
+Will I wake up from these violent dreams\[efn\_note\]“These violent delights have violent ends  
 And in their triumph die, like fire and powder  
 Which, as they kiss, consume”  
 ― William Shakespeare, Romeo and Juliet  
-Voir aussi WestWorld.))  
+Voir aussi WestWorld.\[/efn\_note\]  
  _Vais-je m'éveiller de ces rêves violents_With my hair as white as the morning moon?  
  _Les cheveux blancs comme la lune du matin ?_
 

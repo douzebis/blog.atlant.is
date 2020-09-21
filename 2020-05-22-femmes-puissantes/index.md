@@ -10,7 +10,7 @@ Erika Jayne, Brooke Candy (left to right)
 [Drip](https://www.youtube.com/watch?v=Cjb7hEf_HRo), from [Brooke Candy](https://en.wikipedia.org/wiki/Brooke_Candy)'s SEXORCISM album. Kinky.
 
 Pussy lunch, strip club buffet  
-If he don't spend, I'm M.I.A((Missing In Action))  
+If he don't spend, I'm M.I.A\[efn\_note\]Missing In Action\[/efn\_note\]  
 Pay my rent, throw it on my face  
 Big Mac pussy and a ass soufflé  
 Call an ambulance, this pussy's lethal  

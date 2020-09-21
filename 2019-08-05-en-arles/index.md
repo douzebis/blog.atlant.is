@@ -5,7 +5,7 @@ date: "2019-08-05"
 
 ![](https://blog.atlant.is/wp-content/uploads/2019/08/eclipse.jpg)
 
-Dans Arle((Pour la graphie d'Arle -- et d'Aliscams -- voir par exemple [lettropolis](http://www.lettropolis.fr/Blog/2014/09/04/arles-les-alyscamps/).)), où sont les Aliscams,  
+Dans Arle\[efn\_note\]Pour la graphie d'Arle -- et d'Aliscams -- voir par exemple [lettropolis](http://www.lettropolis.fr/Blog/2014/09/04/arles-les-alyscamps/).\[/efn\_note\], où sont les Aliscams,  
 Quand l’ombre est rouge, sous les roses,  
 Et clair le temps,
 

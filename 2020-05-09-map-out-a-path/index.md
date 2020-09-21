@@ -11,4 +11,4 @@ I'm much more judgmental these days. Finishing a song is more satisfying now bec
 
 I'm trying to be as honest as I can expressing myself musically and lyrically, editing out what might be considered obscure but not trying to oversimplify or be condescending. And then I have to let go, even if I don't immediately understand the words. What I meant eventually reveals itself. You can be too familiar with the process, which I've been doing since I was 15. Sometimes, instead of manipulating the craft, you have to just be the vessel through which some sort of inspiration will flow. With this record, it took me a while to map out a path.
 
-— Paul Simon ((Edna Gundersen, June 19th, 2006, [_Simon says new album is truly a 'Surprise'_](https://www.usatoday.com/life/music/news/2006-06-18-paul-simon_x.htm).))
+— Paul Simon \[/efn\_note\]Edna Gundersen, June 19th, 2006, [_Simon says new album is truly a 'Surprise'_](https://www.usatoday.com/life/music/news/2006-06-18-paul-simon_x.htm).\[efn\_note\]
