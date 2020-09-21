@@ -7,10 +7,4 @@ Eventually you will commit a huge file to your git repository by mistake. Use `[
 
 Installation:
 
-\# Install on MacOS
-brew install git-filter-repo
-
 Example:
-
-\# Remove file "oops.iso" from git repository
-git filter-repo --invert-paths --path oops.iso --force

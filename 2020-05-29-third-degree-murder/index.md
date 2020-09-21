@@ -1,5 +1,5 @@
 ---
-title: "Third degree murder?"
+title: "Murder in the third degree?"
 date: "2020-05-29"
 ---
 
