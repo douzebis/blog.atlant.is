@@ -11,3 +11,6 @@ PNGS:= \
 	/Applications/draw.io.app/Contents/MacOS/draw.io -x --crop -t -e -o $@ $<
 
 all: $(PNGS)
+
+clean:
+	rm -f $(PNGS)
