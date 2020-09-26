@@ -1117,6 +1117,22 @@ no for $n>1$
 
 Efficiency of various strategies
 
+#### Top strategies
+
+The top strategies are obtained by repeatedly double-resetting the strategy $\[00\]$:
+
+\\begin{align}  
+\\mathbf{T}\_0 \\;  
+&\\stackrel{\\text{def}}{=} \\; \[-1\] \\\\  
+\\forall n \\in \\mathbb{N}, \\quad \\mathbf{T}\_{n+1} \\;  
+&\\stackrel{\\text{def}}{=} \\; DR(\[00\], \\mathbf{T}\_n) \\nonumber  
+\\end{align}
+
+\\begin{align}  
+\\mu(\\mathbf{T}\_0) &= 0\\\\  
+\\forall n > 0, \\quad \\mu(\\mathbf{T}\_n) &= {1 \\over 4}\\\\  
+\\end{align}
+
 #### Lowest-white strategies
 
 The lowest-white strategies are obtained by repeatedly left-resetting the strategy $\[00\]$:
@@ -1125,7 +1141,7 @@ The lowest-white strategies are obtained by repeatedly left-resetting the strate
 \\mathbf{W}\_0 \\;  
 &\\stackrel{\\text{def}}{=} \\; \[-1\] \\\\  
 \\forall n \\in \\mathbb{N}, \\quad \\mathbf{W}\_{n+1} \\;  
-&\\stackrel{\\text{def}}{=} \\; \[00\] \\rightarrow \\mathbf{W}\_n \\nonumber  
+&\\stackrel{\\text{def}}{=} \\; \\mathbf{W}\_n \\rightarrow \[00\] \\nonumber  
 \\end{align}
 
 Applying $(\\ref{LeftResetRule})$ we get:
@@ -1148,7 +1164,7 @@ The lowest-black strategies are obtained by repeatedly right-resetting the strat
 \\mathbf{B}\_0 \\;  
 &\\stackrel{\\text{def}}{=} \\; \[-1\] \\\\  
 \\forall n \\in \\mathbb{N}, \\quad \\mathbf{B}\_{n+1} \\;  
-&\\stackrel{\\text{def}}{=} \\; \\mathbf{B}\_n \\leftarrow \[00\] \\nonumber  
+&\\stackrel{\\text{def}}{=} \\; \[00\] \\leftarrow \\mathbf{B}\_n \\nonumber  
 \\end{align}
 
 Applying $(\\ref{RightResetRule})$ we get:
@@ -1209,6 +1225,15 @@ $1433 \\over 4096$
 $\[01002123 \\text{-} 01002120 \\text{-} 41002123 \\text{-} 41002125$  
 $01002123 \\text{-} 01002120 \\text{-} 41002123 \\text{-} 41002120\]$
 
+$\\mathbf{C}\_7$
+
+$5734 \\over 16384$
+
+$\[01002123 \\text{-} 01002120 \\text{-} 41002123 \\text{-} 41002125$  
+$01002123 \\text{-} 01002120 \\text{-} 41002123 \\text{-} 41002120$  
+$61002123 \\text{-} 01002120 \\text{-} 41002123 \\text{-} 41002125$  
+$61002123 \\text{-} 01002120 \\text{-} 41002123 \\text{-} 41002120\]$
+
 Carter strategies
 
 _Carter_ strategies are defined by repeatedly shifting and double-shifting the strategy $\[00\]$:
@@ -1241,34 +1266,50 @@ rate
 
 Tuple
 
-$\\mathbf{R}\_0$
-
-$0$
-
-$\[-1\]$
-
 $\\mathbf{R}\_1$
 
 $22 \\over 64$
 
-$\[01002120\]$
+$\[21002122\]$
 
 $\\mathbf{R}\_2$
 
-$1432 \\over 4096$
+$358 \\over 1024$
 
-$\[31002123 \\text{-} 41002124 \\text{-} 31002123 \\text{-} 31002123$  
-$51002125 \\text{-} 41002124 \\text{-} 51002125 \\text{-} 31002123\]$
+$\[51002125 \\text{-} 41002124 \\text{-} 31002123 \\text{-} 31002123$  
+$51002125 \\text{-} 41002124 \\text{-} 51002125 \\text{-} 51002125\]$
+
+$\\mathbf{R}\_3$
+
+  
+$5734 \\over 16384$
+
+$\[61002126 \\text{-} 41002124 \\text{-} 31002123 \\text{-} 31002123$  
+$51002125 \\text{-} 41002124 \\text{-} 51002125 \\text{-} 61002126$  
+$71002127 \\text{-} 41002124 \\text{-} 31002123 \\text{-} 31002123$  
+$51002125 \\text{-} 41002124 \\text{-} 51002125 \\text{-} 71002127$  
+$61002126 \\text{-} 41002124 \\text{-} 31002123 \\text{-} 31002123$  
+$51002125 \\text{-} 41002124 \\text{-} 51002125 \\text{-} 61002126$  
+$61002126 \\text{-} 41002124 \\text{-} 31002123 \\text{-} 31002123$  
+$51002125 \\text{-} 41002124 \\text{-} 51002125 \\text{-} 61002126$  
+$81002128 \\text{-} 41002124 \\text{-} 31002123 \\text{-} 31002123$  
+$51002125 \\text{-} 41002124 \\text{-} 51002125 \\text{-} 81002128$  
+$71002127 \\text{-} 41002124 \\text{-} 31002123 \\text{-} 31002123$  
+$51002125 \\text{-} 41002124 \\text{-} 51002125 \\text{-} 71002127$  
+$81002128 \\text{-} 41002124 \\text{-} 31002123 \\text{-} 31002123$  
+$51002125 \\text{-} 41002124 \\text{-} 51002125 \\text{-} 81002128$  
+$61002126 \\text{-} 41002124 \\text{-} 31002123 \\text{-} 31002123$  
+$51002125 \\text{-} 41002124 \\text{-} 51002125 \\text{-} 61002126\]$
 
 Reyes strategies
 
 _Reyes_ strategies are defined by repeatedly double-resetting the Carter strategy $\\mathbf{C}\_3$:
 
 \\begin{align}  
-\\mathbf{R}\_0 \\;  
-&\\stackrel{\\text{def}}{=} \\; \[-1\] \\\\  
-\\forall n \\in \\mathbb{N}, \\quad \\mathbf{R}\_{n+1} \\;  
-&\\stackrel{\\text{def}}{=} \\; DR(\\mathbf{R}\_n, \\mathbf{C}\_3). \\nonumber  
+\\mathbf{R}\_1 \\;  
+&\\stackrel{\\text{def}}{=} \\; \\mathbf{C}\_3 \\\\  
+\\forall n > 0, \\quad \\mathbf{R}\_{n+1} \\;  
+&\\stackrel{\\text{def}}{=} \\; DR(\\mathbf{C}\_3, \\mathbf{R}\_n). \\nonumber  
 \\end{align}
 
 Applying $(\\ref{DoubleResetRule})$ we get:
