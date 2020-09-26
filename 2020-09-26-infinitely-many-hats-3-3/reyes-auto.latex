@@ -1,0 +1,44 @@
+\documentclass[preview]{standalone}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}[level/.style={sibling distance=240mm/2^(1*(#1))},edge from parent/.style={}]
+\node [draw,thick,fill=gray!20](root){in:}
+ child {node [draw,circle,fill=white](l0_0) {}
+  child {node [draw,circle,fill=white](l1_0) {}
+   child {node [draw,circle,fill=white](l2_0) {}
+    child {node [draw,thick,fill=gray!20](l3_4) {out: $n${\scriptsize +}$2$}
+    }
+   }
+   child {node [draw,circle,fill=white](l2_2) {}
+    child {node [draw,thick,fill=gray!20](l3_2) {out: $n$}
+    }
+    child {node [draw,thick,fill=gray!20](l3_6) {out: $n${\scriptsize +}$2$}
+    }
+   }
+  }
+  child {node [draw,circle,fill=white](l1_1) {}
+   child {node [draw,thick,fill=gray!20](l2_1) {out: $n${\scriptsize +}$1$}
+   }
+   child {node [draw,circle,fill=white](l2_3) {}
+    child {node [draw,thick,fill=gray!20](l3_3) {out: $n$}
+    }
+   }
+  }
+ }
+;
+\path (root) edge[draw,-latex] node[above right]{\{$n${\scriptsize =}0\}} (l0_0);
+\path (l0_0) edge[draw,-latex,bend left] node[above]{0} (l1_0);
+\path (l0_0) edge[draw,-latex,bend right] node[above]{1} (l1_1);
+\path (l1_0) edge[draw,-latex, bend left] node[below right]{0} (l2_0);
+\path (l1_0) edge[draw,-latex] node[above right]{1} (l2_2);
+\path (l1_1) edge[draw,-latex] node[above left]{0} (l2_1);
+\path (l1_1) edge[draw,-latex, bend right] node[below left]{1} (l2_3);
+\path (l2_0) edge[draw,-latex,bend left=75] node[above left]{0} node[below, sloped]{\{$n${\scriptsize +=}$3$\}}(l0_0);
+\path (l2_0) edge[draw,-latex] node[left]{1} (l3_4);
+\path (l2_2) edge[draw,-latex] node[left]{0} (l3_2);
+\path (l2_2) edge[draw,-latex] node[right]{1} (l3_6);
+\path (l2_3) edge[draw,-latex] node[left]{0} (l3_3);
+\path (l2_3) edge[draw,-latex,bend right=75] node[above right]{1} node[below, sloped]{\{$n${\scriptsize +=}$3$\}} (l0_0);
+
+\end{tikzpicture}
+\end{document}

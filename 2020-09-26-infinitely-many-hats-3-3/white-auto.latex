@@ -1,0 +1,16 @@
+\documentclass[preview]{standalone}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}[level/.style={sibling distance=240mm/2^(1*(#1))},edge from parent/.style={}]
+\node [draw,thick,fill=gray!20](root){in:}
+ child {node [draw,circle,fill=white](l0_0) {}
+  child {node [draw,fill=gray!20](l1_1) {out: $n$}
+  }
+ }
+;
+\path (root) edge[draw,-latex] node[above right]{\{$n${\scriptsize =}$0$\}} (l0_0);
+\path (l0_0) edge[draw,-latex] node[below right]{1} (l1_1);
+\path (l0_0) edge[draw,>=latex,out=225,in=135,loop] node[above=2mm]{\{$n${\scriptsize ++}\}} node[below left]{0} (l0_0);
+
+\end{tikzpicture}
+\end{document}
