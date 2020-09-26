@@ -52,7 +52,7 @@ $$\\text{Id} =
 
 Initial puzzle state
 
-Associated element in $\\mathcal{S}\_{18} $
+Element of $\\mathcal{S}\_{18} $
 
 Note that moving a tile horizontally does not change the representation in $\\mathcal{S}\_{18}$, but moving a tile vertically does:
 
@@ -62,7 +62,7 @@ Note that moving a tile horizontally does not change the representation in $\\ma
 
 After moving tile $11$ down
 
-Associated element in $\\mathcal{S}\_{18} $
+Element of $\\mathcal{S}\_{18} $
 
 After tile $11$ has been moved down, the representation of the puzzle becomes:
 
@@ -163,7 +163,7 @@ And so on\[efn\_note\]
 \\mathcal{M}\_{\\downarrow\_{c4}}&(12\\;c\\;13\\;14\\;15)\\\\  
 \\hline  
 \\end{array}  
-\[/efn\_note\]... Hence all moves have length $5$ and even parity:
+\[/efn\_note\]... Hence all moves are cycles of length $5$ and even parity:
 
 $$  
 \\forall (s, e) \\in \\mathcal{M}, \\quad \\pi(e \\circ s^{-1}) = 1  
