@@ -113,7 +113,7 @@ Search performance for $n = 5$ (chrome on MacBook Pro 2015, 3.1 GHz)
 2. Uses an argument on "positions permutation" which allows to consider only _crushed_ strategies (for which $\\forall s, \\; s(t) \\le t$). For $n = 5$ this decreases the cardinality of the problem by an additional factor of $6$.
 3. Computes the hit score incrementally, changing one strategy choice at a time. For $n = 5$ this decreases the execution time by an additional factor of $32$.
 4. Uses a smart representation of strategy choices as bit patterns, which enables a faster computation of the incremental hit score.
-5. Eliminates most loops, indices, and array accesses by automatically generating "unfolded specialized" search code, optimized for each specific search query\[/efn\_note\]This technique leverages the ability of JavaScript to process _self-modifying_ code, for example using the _worker_ construct.\[efn\_note\]. To have a look at the generated code, try e.g.: `search -n 4 -c` in the _Try it yourself_ window.
+5. Eliminates most loops, indices, and array accesses by automatically generating "unfolded specialized" search code, optimized for each specific search query\[efn\_note\]This technique leverages the ability of JavaScript to process _self-modifying_ code, for example using the _worker_ construct.\[/efn\_note\]. To have a look at the generated code, try e.g.: `search -n 4 -c` in the _Try it yourself_ window.
 6. Tries to keep code and data of the search algorithm as much as possible within the processor cache. (Significant performance decrease is observed with less concise code.)
 
 Automatically generated code pattern for the search algorithm

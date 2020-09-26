@@ -3,7 +3,7 @@ title: "GUL L'ABI"
 date: "2020-05-27"
 ---
 
-**Gul l'Abi -- _Pour mon père_**\[/efn\_note\]Traduction sans doute très approximative de cette chanson de Acid Arab, en collaboration avec A-Wa.\[efn\_note\]
+**Gul l'Abi -- _Pour mon père_**\[efn\_note\]Traduction sans doute très approximative de cette chanson de Acid Arab, en collaboration avec A-Wa.\[/efn\_note\]
 
 [![](https://blog.atlant.is/wp-content/uploads/2020/05/gul-l-abi.jpg)](https://www.youtube.com/watch?v=0e0txlm7KUo)
 
