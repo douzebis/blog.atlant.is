@@ -231,7 +231,8 @@ the frozen version, and the author's go-ahead for the next one.
    - The plot of heights and the onyx tree become live in the page on a
      click (the option reserved in spec 0001).
 
-8. **Evidence and open questions.**
+8. **Evidence and open questions.** (Done 2026-11-17; the questions keep
+   their order and get a guide instead of being reordered.)
    - The numerical table becomes a plot; the table goes to the appendix.
    - One box, "checked by computer", says what was verified, up to where,
      and with which program of `research/jane-s-rosary/`.

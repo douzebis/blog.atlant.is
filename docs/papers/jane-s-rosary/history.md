@@ -189,7 +189,23 @@ In progress. Steps done:
     zoomed. Without JavaScript the picture stays a link.
   - The dependency sketch planned for this step is the diagram of "How to
     read this paper" (step 3).
+- Step 8 (2026-11-17): evidence and open questions.
+  - The numerical table moves from Section 11 to an appendix
+    ("Appendix: numerical data"); Section 11 keeps Figure 13 and two
+    sentences on what the long run shows.
+  - New section "Checked by computer", after the coda: what was tested,
+    on what range, by which program of `research/jane-s-rosary/`, what
+    was not tested, and the caution about heights.
+  - The open questions keep their order and their letters; a guide at
+    the head of Section 12 says which one to pick and why (C the most
+    teasing, A and B the most likely, D with an explicit constant, F
+    probably out of reach, G an invitation). They are not reordered, so
+    that their letters stay in order.
 
 Statements compared with the 2026-11-17 version
 (`python tools/compare_statements.py content/versions/jane-s-infinite-rosary/2026-11-17/index.md content/posts/2022-12-02-jane-s-infinite-rosary/index.md`):
-28 before, 28 after, 0 differences.
+28 before, 28 after, 1 difference, explained:
+
+- Conjecture B: its last words, "in agreement with the table above",
+  become "in agreement with Figure 13", because the table moved to the
+  appendix (step 8). The conjecture itself is unchanged.

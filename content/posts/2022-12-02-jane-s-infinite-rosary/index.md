@@ -1211,27 +1211,16 @@ rather than a sharp estimate: the truth seems to be $\rho^{-1}(m) \approx m\log 
 
 #### Numerical data
 
-The first $2^{27}$ moves of the reluctant recitation:
-
-| $t$ | $F(t)$ | $t/F(t)$ | $F(t)\log_2 t\,/\,t$ | $u(t)/t$ | $u(t) - t\log_3 2$ | $\log_2 \max_{i\le t}\rho(i)$ |
-|---|---|---|---|---|---|---|
-| $2^{10}$ | 269 | 3.81 | 2.63 | 0.635742 | 4.9 | 14.3 |
-| $2^{12}$ | 902 | 4.54 | 2.64 | 0.632568 | 6.7 | 16.6 |
-| $2^{14}$ | 3 548 | 4.62 | 3.03 | 0.631409 | 7.8 | 20.6 |
-| $2^{16}$ | 9 709 | 6.75 | 2.37 | 0.631088 | 10.4 | 23.8 |
-| $2^{18}$ | 30 424 | 8.62 | 2.09 | 0.630970 | 10.6 | 25.4 |
-| $2^{20}$ | 125 595 | 8.35 | 2.40 | 0.630941 | 12.2 | 26.9 |
-| $2^{22}$ | 438 795 | 9.56 | 2.30 | 0.630933 | 13.8 | 30.1 |
-| $2^{24}$ | 1 614 095 | 10.39 | 2.31 | 0.630931 | 14.2 | 33.3 |
-| $2^{26}$ | 5 088 361 | 13.19 | 1.97 | 0.630930 | 16.0 | 35.1 |
-| $2^{27}$ | 10 801 813 | 12.43 | 2.17 | 0.630930 | 15.9 | 37.3 |
-
-($\log_3 2 = 0.6309297\ldots$) In particular the recitation tells every bead
-below $10\,801\,813$ within its first $2^{27}$ moves.
+The first $2^{27}$ moves of the reluctant recitation were run by computer.
+Within these moves Jane tells every bead below $10\,801\,813$, and the
+proportion of her up moves agrees with $\log_3 2 = 0.6309297\ldots$ to six
+decimal places. Figure 13 shows two of the quantities measured; all of them
+are in the [table of the appendix](#appendix-numerical-data).
 
 ![Figure 13](images/figure-13.svg)
 
-> Figure 13: two columns of the table, for every power of two from $2^{10}$
+> Figure 13: two columns of the table of the appendix, for every power of two
+> from $2^{10}$
 > to $2^{27}$. On the left, $F(t)\log_2 t / t$ wanders between $2$ and $3$
 > without drifting: the frontier advances like $t/\log t$ (Conjecture A). On
 > the right, the excess of up moves over $t\log_3 2$ grows like a straight
@@ -1299,6 +1288,19 @@ in A359005 and A359008.
 
 ### 12. Conjectures and open questions
 
+Seven questions, in the order of the paper. For the reader who would like to
+pick one:
+
+- *Question C* is the easiest to state and the most teasing: is a certain
+  proportion exactly one half?
+- *Conjectures A and B* would replace the rough bounds of Part IV by the
+  truth, and the numbers leave little doubt about what the truth is.
+- *Conjecture D* comes with an explicit constant and a heuristic that one may
+  try to make rigorous; *Question E* asks for the extremes.
+- *Conjecture F* is probably out of reach: it is of the same kind as Mahler's
+  problem on the powers of $3/2$.
+- *Question G* is an invitation to play with other rules.
+
 **Conjecture A (the frontier).** $F(t) = \Theta(t/\log t)$; equivalently the
 largest index $\max_{m' \le m}\rho^{-1}(m')$ is of order $m\log m$. Numerically
 $F(t)\log_2 t / t$ stays between $1.9$ and $3.1$ for
@@ -1310,7 +1312,7 @@ seem to occupy $\Theta(\log t)$ further levels, each only partially.
 constant $C$ and all $t \ge 2$ (numerically
 $\max_{i \le t}\rho(i) \leq t^{3/2}$ for $t = 2^5, \ldots, 2^{27}$). By
 Theorem 5 this would give $u(t) = t\log_3 2 + O(\log t)$, in agreement with
-the table above.
+Figure 13.
 
 **Question C (runs).** Among Jane's first $t$ down moves, let $p_r(t)$ be the
 proportion of those that are preceded by exactly $r$ consecutive up moves. Do
@@ -1359,6 +1361,33 @@ $\log_2 3$. Which other natural rules ("up unless...", random tie-breaking,
 sidewalks with labels $1 + \lfloor n/k \rfloor$, ...) produce permutations of
 $\mathbb{N}$?
 
+## Checked by computer
+
+The proofs above stand on their own. Still, whatever could be tested was
+tested, by programs that are kept with the sources of this site, in
+[`research/jane-s-rosary`](https://github.com/douzebis/blog.atlant.is/tree/main/research/jane-s-rosary);
+one command runs all but the long one.
+
+| What | Tested on | Program |
+|---|---|---|
+| The two ways of computing the height agree | beads below $60\,000$ | `check_shortest.py` |
+| Proposition 1 | beads below $10^6$ | `check_shortest.py` |
+| Lemma 2, Corollary 1, Theorem 1 (parts 2 to 5) | beads below $60\,000$ | `check_shortest.py` |
+| Theorem 2: never stuck, no bead told twice, no gap | $300\,000$ moves | `check_reluctant.py` |
+| Theorem 2: never stuck. Theorem 3: all beads below $10\,801\,813$ told | $2^{27}$ moves | `walk.c` |
+| Lemmas 4 and 5 | beads below $5\,000$ and $20\,000$ | `check_reluctant.py` |
+| Theorem 5, part 1 | $300\,000$ moves | `check_reluctant.py` |
+| Proposition 2, Lemmas 6 and 7, the computation behind Lemma 8, the table of $C(n)$ | onyx beads below $20\,000$ | `check_onyx.py` |
+| The four programs printed in this paper | against the programs above | `check_paper_code.py` |
+| The numbers quoted with the open questions | see Section 12 | `walk.c`, `height_statistics.py` |
+
+Theorems 4 and 6 and the corollaries of Theorem 4 are statements about
+infinitely many beads at once, and were not tested as such. One caution about
+heights: the exploration that serves as a reference only visits the beads up
+to a bound, so what it finds are lengths of actual recitations, that is, upper
+bounds for the heights; that it agrees with the fast algorithm is strong
+evidence, and the proof is Lemma 2 and Theorem 1.
+
 ## Names at a glance
 
 | Name | Notation | In short | Defined in |
@@ -1385,6 +1414,25 @@ $\mathbb{N}$?
 | foraging sequence | $\boldsymbol{\Phi}(i)$ | the onyx beads whose up-chains Jane visits, in order | [Section 10](#10-janes-onyx-rosary) |
 | up moves, frontier | $u(t)$, $F(t)$ | the number of up moves among the first $t$; the smallest bead not yet told | [Section 11](#11-how-reluctant-is-jane) |
 | irrationality exponent | $\mu_0$ | how badly $\log_2 3$ is approximated by fractions | [Section 11](#11-how-reluctant-is-jane) |
+
+## Appendix: numerical data
+
+The first $2^{27}$ moves of the reluctant recitation (program `walk.c`). Here
+$F(t)$ is the smallest bead not yet told after $t$ moves and $u(t)$ is the
+number of up moves among them; $\log_3 2 = 0.6309297\ldots$
+
+| $t$ | $F(t)$ | $t/F(t)$ | $F(t)\log_2 t\,/\,t$ | $u(t)/t$ | $u(t) - t\log_3 2$ | $\log_2 \max_{i\le t}\rho(i)$ |
+|---|---|---|---|---|---|---|
+| $2^{10}$ | 269 | 3.81 | 2.63 | 0.635742 | 4.9 | 14.3 |
+| $2^{12}$ | 902 | 4.54 | 2.64 | 0.632568 | 6.7 | 16.6 |
+| $2^{14}$ | 3 548 | 4.62 | 3.03 | 0.631409 | 7.8 | 20.6 |
+| $2^{16}$ | 9 709 | 6.75 | 2.37 | 0.631088 | 10.4 | 23.8 |
+| $2^{18}$ | 30 424 | 8.62 | 2.09 | 0.630970 | 10.6 | 25.4 |
+| $2^{20}$ | 125 595 | 8.35 | 2.40 | 0.630941 | 12.2 | 26.9 |
+| $2^{22}$ | 438 795 | 9.56 | 2.30 | 0.630933 | 13.8 | 30.1 |
+| $2^{24}$ | 1 614 095 | 10.39 | 2.31 | 0.630931 | 14.2 | 33.3 |
+| $2^{26}$ | 5 088 361 | 13.19 | 1.97 | 0.630930 | 16.0 | 35.1 |
+| $2^{27}$ | 10 801 813 | 12.43 | 2.17 | 0.630930 | 15.9 | 37.3 |
 
 ## References
 
