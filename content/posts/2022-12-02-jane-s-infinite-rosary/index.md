@@ -298,10 +298,19 @@ observation about the beads sitting "above" a white bead.
 2. The other one, call it $b$, is black. Both $b\mu$ and $b\nu$ are white, and
    $b\mu\lambda DD = b\nu\lambda DD = w\lambda$.
 
-In pictures, both statements say that a diagram commutes: going from $w$ up
-the right-hand side, across, and down the left-hand side leads to
-$w\lambda$, from which one up move leads back to $w$. Here $x$ and $y$ stand
-for $\mu$ or $\nu$:
+**How to read the diagrams.** All the diagrams of this paper are read in the
+same way. An arrow carries the name of a move ($U$, $D$) or of a move run
+backwards ($\lambda$, $\mu$, $\nu$), and leads from a bead to the bead that
+this name gives. A diagram *commutes* when two routes that follow its arrows
+from one bead to another always arrive at the same bead; when the arrows go
+round in a loop, this means that the loop closes.
+
+Both statements of Lemma 1 say that a loop closes. Start from $w$, in the
+bottom right corner: go up the right-hand side, across the top, and down the
+left-hand side; you arrive at $w\lambda$, from which one up move leads back
+to $w$. With $w = 7$ in the first diagram: up to $v = 16$, across to
+$16\lambda = 10$, down to $10D = 4$, and $4U = 7$. Here $x$ and $y$ stand for
+$\mu$ or $\nu$:
 
 $$
 \begin{CD}
@@ -371,8 +380,14 @@ $$
 @VVDV @AA\nu A\\
 2k+1 @>U>> 3k+2
 \end{CD}
-\qquad\Box
 $$
+
+Each arrow of these six diagrams is one line of arithmetic; in the first one,
+for instance, $(6k+4)\lambda = \lfloor (12k+8)/3 \rfloor = 4k+2$ and
+$(4k+2)D = 2k$. In all six the loop closes: the left-hand side comes down
+onto the very bead, $w\lambda$, from which the bottom arrow leads up to $w$.
+This is statement 1 for the small diagrams and statement 2 for the tall
+ones. $\quad\Box$
 
 **Lemma 2 (white beads).** For every white bead $w$ there is a minimal
 recitation to $w$ that ends with an up move. Equivalently,

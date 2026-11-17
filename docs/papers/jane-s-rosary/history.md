@@ -201,6 +201,12 @@ In progress. Steps done:
     teasing, A and B the most likely, D with an explicit constant, F
     probably out of reach, G an invitation). They are not reordered, so
     that their letters stay in order.
+- Touch-ups to the diagrams (2026-11-17, at the author's request, before
+  step 9): a paragraph "How to read the diagrams", stated once, at the
+  first diagrams (Lemma 1); the loop of the first diagram traced with
+  bead 7, in one sentence and without a new diagram; a closing paragraph
+  to the proof of Lemma 1 saying how to check a diagram and what the six
+  of them establish.
 
 Statements compared with the 2026-11-17 version
 (`python tools/compare_statements.py content/versions/jane-s-infinite-rosary/2026-11-17/index.md content/posts/2022-12-02-jane-s-infinite-rosary/index.md`):
