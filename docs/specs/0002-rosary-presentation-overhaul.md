@@ -80,13 +80,13 @@ questions) is mathematically complete but hard to enter:
   passages can be brought face to face. On a narrow screen the panes are
   stacked.
 - The original post is kept as a third version,
-  `/versions/jane-s-infinite-rosary/2022-12/`: the text of the WordPress
-  export (20 December 2022), with its 20 commutative diagrams, its
-  embedded frames replaced by the older figure pages of
-  `figures/jane-s-rosary/`. It is imported as it was (export damage
-  repaired, nothing improved). The later text of January 2023, which the
-  WordPress site still serves, is not in the export and is not kept; see
-  `docs/papers/jane-s-rosary/history.md`.
+  `/versions/jane-s-infinite-rosary/2023-01/`: the text as it stood in
+  January 2023, converted from the page that the WordPress site serves,
+  with its 26 diagrams as pictures and its 12 embedded figures. It is
+  imported as it was (what WordPress did to it repaired, nothing
+  improved); see `docs/papers/jane-s-rosary/history.md`.
+- Three versions are kept in all: that one, the revision of November
+  2026, and the current paper.
 - The overhaul is done in place, at the paper's usual address, in the
   steps below; each step is one or a few commits that name this spec.
 
@@ -254,8 +254,8 @@ the frozen version, and the author's go-ahead for the next one.
 
 ## Decisions (2026-11-17)
 
-- Three versions are kept: the original post (2022-2023), the revision of
-  November 2026, and the overhauled paper.
+- Three versions are kept: the original post (as of January 2023), the
+  revision of November 2026, and the overhauled paper.
 - The blog version keeps its playful voice: the "treat" tone, the
   epigraphs, the rosary vocabulary.
 - Sketches, context and examples take precedence over length.

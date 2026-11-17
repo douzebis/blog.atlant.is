@@ -28,6 +28,7 @@ if (!site) {
 // blocks, no tags, entities decoded.
 function visibleText(html) {
   return html
+    .replace(/<!--[\s\S]*?-->/g, " ")
     .replace(/<(script|style|pre|code)\b[^>]*>[\s\S]*?<\/\1>/gi, " ")
     .replace(/<[^>]*>/g, " ")
     .replace(/&lt;/g, "<")

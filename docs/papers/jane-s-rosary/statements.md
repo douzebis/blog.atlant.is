@@ -49,12 +49,8 @@ overhaul, spec 0002):
 
 Status of the statements across versions:
 
-- 2022-12: the content of Theorem 1 was "Conjecture 1" (verified to 10^6),
-  that of Theorem 3 was "Conjecture 2" (verified to 7,884,654), the remark
-  on seeds was "Conjecture 3" (verified to 10^7); that the reluctant
-  recitation never stops was proved by a case analysis on diagrams.
-- 2023-01 (the WordPress site, not kept here): Theorems 1, 2 and 4 are
-  stated as theorems; that the reluctant recitation tells every bead is
-  "Conjecture 3".
+- 2023-01: Theorems 1, 2 and 4 are stated and proved (with other proofs
+  than today's); that the reluctant recitation tells every bead is
+  "Conjecture 3", with two lemmas toward it.
 - 2026-11: Theorem 3 is proved; Theorems 5 and 6 and the open questions A
   to G are new.

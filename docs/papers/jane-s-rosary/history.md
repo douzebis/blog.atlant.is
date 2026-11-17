@@ -12,46 +12,50 @@ file is the detailed account. Earlier versions are kept, unmodified, under
 `content/versions/jane-s-infinite-rosary/` and listed with their digests in
 `docs/papers/frozen-versions.sha256`.
 
-## 2022-12 — the original post
+## 2023-01 — the original post
 
-- Published on the WordPress blog on 2022-12-02 and worked on in the
-  following weeks. The text kept here is the one of the Markdown export
-  (`douzebis/blog.atlant.is-import`, committed on 2022-12-20).
-- Kept as `content/versions/jane-s-infinite-rosary/2022-12/`, imported on
-  2026-11-17. The import repairs the export and improves nothing:
-  - the export's escaping of Markdown characters is undone;
-  - display formulas written without delimiters (`align`, `CD`) are put
-    between `$$`; two diagrams that stood side by side are one display;
-  - the two code listings get their fences back;
-  - the eleven embedded figures use the `frame` shortcode and the site's
-    copy of the figure pages; `reluctant-chant.html`, which the post
-    names, no longer exists and is replaced by its later name,
-    `reluctant-recitation.html`;
-  - the WordPress footnote becomes a Markdown footnote; the table of
-    contents shortcode and the MathJax 2 configuration line are dropped;
-  - captions get the anchors that the text links to.
-- Not repaired: the post's own slips (for example `nu()` written without
-  backslash) and its unfinished last section, in French.
+- Published on the WordPress blog on 2022-12-02 and worked on until
+  January 2023. The text kept is the one the WordPress site still served
+  on 2026-11-17 (`blog.douzeb.is/?p=6271`). Its date, 2023-01-05, is the
+  date of the last change to the figures it embeds; the date of the last
+  edit of the text itself is not known.
+- Kept as `content/versions/jane-s-infinite-rosary/2023-01/`, converted
+  on 2026-11-17 from the page served by WordPress (HTML) with Pandoc. The
+  conversion repairs what WordPress and its plugins did to the text and
+  improves nothing:
+  - the page title, the table of contents (a plugin) and what the author
+    had commented out are left out;
+  - formulas: line-break tags removed; `align` and `equation` displays
+    written without delimiters are put between `$$`; dashes and curly
+    quotes that WordPress put inside formulas are turned back;
+  - the 26 commutative diagrams were written with `xymatrix` and drawn by
+    MathJax 3.2 with the XyJax 3.0.1 extension, which the site's MathJax 4
+    does not have. They are kept as pictures (SVG, a light and a dark
+    variant), drawn once with that same setup in a headless browser; their
+    sources are in `diagrams-2023-01.md`;
+  - the rows of columns (a label and a diagram each) are kept as rows;
+  - the 12 embedded figures use the `frame` shortcode, with their
+    proportions and the link that covered each of them, on the site's copy
+    of the figure pages (which now have themes);
+  - the two footnotes (a plugin) become Markdown footnotes; the one
+    citation (a plugin that fills it in the browser) is written
+    "(Caruso, 2012)" and its reference is copied from the page;
+  - the four code listings get their fences back; blocks that the text
+    links to keep their anchors.
+- Not repaired: the text's own slips.
 - Content: the height and its exploration algorithm; shortest recitations
-  ending in a white or a black bead, with 20 commutative diagrams;
-  Conjecture 1 (the larger lambex wins) and the fast algorithm that depends
-  on it; the reluctant recitation never stops (proof by diagrams);
-  Conjecture 2 (it tells every bead); Conjecture 3 (seeds of neighbors of
-  black beads).
-
-## 2023-01 — the post as it stands on the WordPress site (not kept here)
-
-- The post went on changing until January 2023; that text is the one
-  still served by the WordPress site (`blog.douzeb.is/?p=6271`) and the
-  one the 2026 revision started from. It is not in the Markdown export.
-- With respect to the 2022-12 text it has: Theorem 1 and Theorem 2 in
-  place of Conjecture 1 and of the proof by cases; "Conjecture 3: Jane's
-  reluctant recitation tells all beads" with two lemmas; the onyx rosary
-  with Theorem 4 and the canonical onyx mapping; a list of references;
-  the newer figure pages (`deconstructed.html`, `height-plot.html`,
-  `irrational-log2-3.html`, `onyx-ordering.html`).
-- Importing it would mean converting the WordPress page (HTML) to
-  Markdown. Not done.
+  ending in a white or a black bead; Theorem 1 (the predecessor with the
+  larger lambex) with the fast algorithm; Theorem 2 (the reluctant
+  recitation never halts); "Conjecture 3: Jane's reluctant recitation
+  tells all beads", with two lemmas; the onyx rosary with Theorem 4 and
+  the canonical onyx mapping; a "work in progress" part with the onyx
+  sequences and the foraging sequence.
+- An earlier state of the post (20 December 2022, from the Markdown
+  export `douzebis/blog.atlant.is-import`, with Conjectures 1 to 3 and 20
+  `CD` diagrams) was imported first and shown on the preview for about an
+  hour on 2026-11-17; it was replaced by this one at the author's request
+  (three versions are kept: this one, the 2026 revision, the current
+  paper). The export remains in its repository.
 
 ## 2026-11-17 — the revision with complete proofs
 
@@ -75,7 +79,7 @@ file is the detailed account. Earlier versions are kept, unmodified, under
 
 In progress. Steps done:
 
-- Step 1 (2026-11-17): the 2022-12 and 2026-11-17 versions frozen; comparison page;
+- Step 1 (2026-11-17): the 2023-01 and 2026-11-17 versions frozen; comparison page;
   `tools/compare_statements.py`; this history; `statements.md`;
   `research/jane-s-rosary/` (programs rewritten from the working scripts
   and rerun; same results).
