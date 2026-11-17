@@ -134,6 +134,15 @@ iframe {
   height: auto;
 }
 
+/* Drawings on a white background keep their colors in dark mode (inverting
+   them would turn black beads white); they are only dimmed a little, so
+   that the white does not glare. */
+@media (prefers-color-scheme: dark) {
+  img.diagram {
+    filter: brightness(0.86);
+  }
+}
+
 /* A picture alone in its paragraph (a figure) is centered. */
 p > a:only-child > img,
 p > img:only-child {

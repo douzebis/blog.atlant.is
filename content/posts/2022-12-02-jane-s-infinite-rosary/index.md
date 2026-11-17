@@ -8,6 +8,8 @@ date: "2022-12-02"
 revised: "2026-11-14"
 language: "en"
 math: true
+diagrams:
+  - "images/reluctant-jane-1024x422.png"
 categories:
   - "friandises"
   - "math"
@@ -189,16 +191,81 @@ observation about the beads sitting "above" a white bead.
 2. The other one, call it $b$, is black. Both $b\mu$ and $b\nu$ are white, and
    $b\mu\lambda DD = b\nu\lambda DD = w\lambda$.
 
-*Proof.* Direct computation:
+In pictures, both statements say that a diagram commutes: going from $w$ up
+the right-hand side, across, and down the left-hand side leads to
+$w\lambda$, from which one up move leads back to $w$. Here $x$ and $y$ stand
+for $\mu$ or $\nu$:
 
-| $w$ | $w\lambda$ | $v$ | $v\lambda$ | $b$ | $b\mu,\ b\nu$ | $b\mu\lambda,\ b\nu\lambda$ | their $D$ |
-|---|---|---|---|---|---|---|---|
-| $3k+1$ | $2k$ | $w\nu = 6k+4$ | $4k+2$ | $w\mu = 6k+3$ | $12k+7,\ 12k+8$ | $8k+4,\ 8k+5$ | $4k+1,\ 4k+2$ |
-| $3k+2$ | $2k+1$ | $w\mu = 6k+5$ | $4k+3$ | $w\nu = 6k+6$ | $12k+13,\ 12k+14$ | $8k+8,\ 8k+9$ | $4k+3,\ 4k+4$ |
+$$
+\begin{CD}
+v\lambda @<\lambda<< v\\
+@VVDV @AAxA\\
+w\lambda @>U>> w
+\end{CD}
+\qquad\qquad
+\begin{CD}
+by\lambda @<\lambda<< by\\
+@VVDV @AAyA\\
+by\lambda D @. b\\
+@VVDV @AAxA\\
+w\lambda @>U>> w
+\end{CD}
+$$
 
-and $(4k+1)D = (4k+2)D = 2k$, $(4k+3)D = (4k+4)D = 2k+1$. $\quad\Box$
+*Proof.* Direct computation. If $w = 3k+1$, then $w\lambda = 2k$, the white
+bead is $v = w\nu = 6k+4$ and the black bead is $b = w\mu = 6k+3$:
 
-In pictures: $w \xleftarrow{\;D\;} v \xleftarrow{\;U\;} v\lambda \xrightarrow{\;D\;} w\lambda \xrightarrow{\;U\;} w$.
+$$
+\begin{CD}
+4k+2 @<\lambda<< 6k+4\\
+@VVDV @AA\nu A\\
+2k @>U>> 3k+1
+\end{CD}
+\qquad
+\begin{CD}
+8k+4 @<\lambda<< 12k+7\\
+@VVDV @AA\mu A\\
+4k+1 @. 6k+3\\
+@VVDV @AA\mu A\\
+2k @>U>> 3k+1
+\end{CD}
+\qquad
+\begin{CD}
+8k+5 @<\lambda<< 12k+8\\
+@VVDV @AA\nu A\\
+4k+2 @. 6k+3\\
+@VVDV @AA\mu A\\
+2k @>U>> 3k+1
+\end{CD}
+$$
+
+If $w = 3k+2$, then $w\lambda = 2k+1$, the white bead is $v = w\mu = 6k+5$
+and the black bead is $b = w\nu = 6k+6$:
+
+$$
+\begin{CD}
+4k+3 @<\lambda<< 6k+5\\
+@VVDV @AA\mu A\\
+2k+1 @>U>> 3k+2
+\end{CD}
+\qquad
+\begin{CD}
+8k+8 @<\lambda<< 12k+13\\
+@VVDV @AA\mu A\\
+4k+3 @. 6k+6\\
+@VVDV @AA\nu A\\
+2k+1 @>U>> 3k+2
+\end{CD}
+\qquad
+\begin{CD}
+8k+9 @<\lambda<< 12k+14\\
+@VVDV @AA\nu A\\
+4k+4 @. 6k+6\\
+@VVDV @AA\nu A\\
+2k+1 @>U>> 3k+2
+\end{CD}
+\qquad\Box
+$$
 
 **Lemma 2 (white beads).** For every white bead $w$ there is a minimal
 recitation to $w$ that ends with an up move. Equivalently,
@@ -223,6 +290,22 @@ to $b$ that ends with *up*-*down*.
 
 *Proof.* A black bead can only be reached by a down move (Fact 1), from $b\mu$
 or $b\nu$, which are both white; apply Lemma 2. $\quad\Box$
+
+For $b = 3k$ the two candidates are:
+
+$$
+\begin{CD}
+4k @<\lambda<< 6k+1\\
+@. @AA\mu A\\
+{} @. 3k
+\end{CD}
+\qquad\qquad
+\begin{CD}
+4k+1 @<\lambda<< 6k+2\\
+@. @AA\nu A\\
+{} @. 3k
+\end{CD}
+$$
 
 So a minimal recitation can be built backwards: from a white bead apply
 $\lambda$; from a black bead choose between $\mu$ and $\nu$. Theorem 1 says

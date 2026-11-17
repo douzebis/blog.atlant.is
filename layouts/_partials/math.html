@@ -5,7 +5,7 @@
       "tex" hugo.Data.mathjax.tex
       "output" (dict
         "matchFontHeight" false
-        "displayOverflow" "scroll"
+        "displayOverflow" "linebreak"
         "linebreaks" (dict "inline" true))
 }}
     <script id="mathjax-config">window.MathJax = {{ $config | jsonify | safeJS }};</script>

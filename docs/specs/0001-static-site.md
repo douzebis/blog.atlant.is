@@ -113,7 +113,8 @@ CommonMark as implemented by Hugo's Goldmark, with these extensions and no
 others:
 
 - front matter in YAML: `title`, `date`, `language` (`en` or `fr`), and
-  optionally `categories`, `revised`, `math`, `draft`, `wordpress_id`
+  optionally `categories`, `revised`, `math`, `diagrams`, `draft`,
+  `wordpress_id`
   (the key cannot be `lang`, which Hugo reserves);
 - pipe tables, footnotes, heading identifiers;
 - mathematics between `$...$` (inline) and `$$...$$` (display), protected
@@ -131,8 +132,9 @@ normal case; the rosary paper uses none.
 Rules for mathematics, so that the same source works with MathJax and
 with LaTeX:
 
-- only commands of LaTeX with `amsmath`, `amssymb` and `amsthm`; no
-  MathJax-only extension and no `\require`;
+- only commands of LaTeX with `amsmath`, `amssymb`, `amsthm` and `amscd`
+  (commutative diagrams, `\begin{CD}`); no MathJax-only extension and no
+  `\require`;
 - macros of a post are defined once, in a block that both MathJax and
   Pandoc read (`\newcommand` in a math block at the top of the post);
 - an equation that is referred to is written as an `equation` or `align`
@@ -155,6 +157,13 @@ with LaTeX:
   Inline delimiters `$...$` and `\(...\)`, display delimiters `$$...$$`
   and `\[...\]`; LaTeX environments are written inside `$$...$$`. CHTML
   output with the fonts served from the site.
+- A displayed formula wider than the text is broken across lines by
+  MathJax (`displayOverflow: linebreak`); a formula inside a paragraph may
+  break at its operators; a formula in a table cell never breaks.
+- A table wider than the text scrolls inside its own box. A table that
+  does not fit the text width on a desktop screen should be reworked in
+  the source (in the rosary paper, the table of Lemma 1 became
+  commutative diagrams).
 - A page with `math: true` shows a short notice when JavaScript is off.
 
 ### Build
@@ -205,6 +214,11 @@ with LaTeX:
 - The posts keep the public address of a figure
   (`https://douzebis.github.io/jane-s-rosary/...`); the link template
   rewrites it to the site's copy (`hugo.toml`, `params.localCopies`).
+- In dark mode the pictures keep their colors and white background and
+  are only dimmed: inverting them would swap black and white beads. The
+  template marks as drawings the images named `figure-*` and those listed
+  in the post's `diagrams` front matter. Pictures drawn for a dark
+  background would need a dark theme in the figures' own code.
 - Not done, possible later: showing a live figure in the page itself when
   the reader clicks its picture, for the figures where zooming matters
   (the plot of heights, the onyx ordering).

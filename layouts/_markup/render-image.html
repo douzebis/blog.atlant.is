@@ -3,7 +3,11 @@
 {{- $source := .Destination -}}
 {{- $resource := .Page.Resources.Get .Destination -}}
 {{- with $resource }}{{ $source = .RelPermalink }}{{ end -}}
+{{- /* Drawings on a white background (the figures, and any image the post
+       lists under `diagrams`) are dimmed in dark mode by the style sheet. */ -}}
+{{- $diagram := or (strings.HasPrefix (path.Base .Destination) "figure-") (in (.Page.Params.diagrams | default slice) .Destination) -}}
 <img src="{{ $source | safeURL }}" alt="{{ .PlainText }}"
+  {{- if $diagram }} class="diagram"{{ end }}
   {{- with .Title }} title="{{ . }}"{{ end }}
   {{- with $resource }} width="{{ .Width }}" height="{{ .Height }}"{{ end }}
   {{- if gt .Ordinal 0 }} loading="lazy"{{ end }}>
