@@ -400,7 +400,27 @@ most $(s \pm 1)\lambda \leq \frac{2}{3}(s+1) < s$.
 $d_i = b_iD = c_i + 1$. The same computation as above gives
 $c_i = (3n-1)\lambda^i$ and $d_i = (3n+1)\lambda^i$, with $c_i$ and $d_i$ white
 for $i \leq e$. Write $a, b, c, d$ for $a_{e+1}, b_{e+1}, c_{e+1}, d_{e+1}$.
-By Lemma 2 and Corollary 1,
+In pictures, the two ladders below commute:
+
+$$
+\begin{CD}
+3n @<D<< a_0 @>\lambda>> a_1 @>\lambda>> \cdots @>\lambda>> a\\
+@. @. @VVDV @. @VVDV\\
+{} @. 3n-1 @>\lambda>> c_1 @>\lambda>> \cdots @>\lambda>> c
+\end{CD}
+$$
+
+$$
+\begin{CD}
+3n @<D<< b_0 @>\lambda>> b_1 @>\lambda>> \cdots @>\lambda>> b\\
+@. @. @VVDV @. @VVDV\\
+{} @. 3n+1 @>\lambda>> d_1 @>\lambda>> \cdots @>\lambda>> d
+\end{CD}
+$$
+
+Every bead from which a $\lambda$ arrow starts is white, so by Lemma 2 it
+is one higher than the bead the arrow points to. Reading the rows from right
+to left, and using Corollary 1 for the step down to $3n$,
 
 $$h(3n) = \min\big(h(a), h(b)\big) + e + 2, \qquad
   h(3n-1) = h(c) + e + 1, \qquad h(3n+1) = h(d) + e + 1. \tag{$\ast$}$$
@@ -526,7 +546,9 @@ $n = nU\lambda \in V_j$, contradicting (a). So (a) holds at time $i+1$.
 
 *No gap at time $i+1$.* Let $w = \rho(i+1)$ be white and suppose
 $g = w\lambda \notin V_{i+1}$. The last move was not an up move (it would have
-come from $g$), so $\rho(i) \in \{w\mu, w\nu\}$. We use Lemma 1.
+come from $g$), so $\rho(i) \in \{w\mu, w\nu\}$. We use Lemma 1 and its two
+diagrams: Jane arrived at $w$ down the right-hand side, and the left-hand
+side shows that $g$ had been told before.
 
 - If $\rho(i)$ is the white bead $v$: by (b), $v\lambda \in V_i$, and
   $v\lambda \neq \rho(i)$, so Lemma 3 gives $g = v\lambda D \in V_i$.

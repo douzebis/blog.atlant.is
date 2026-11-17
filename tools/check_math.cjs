@@ -11,8 +11,9 @@
 // is the configuration the pages use (data/mathjax.json), SITE_DIR is the
 // built site.  A page is checked when it loads MathJax.  Reported: formulas
 // that MathJax cannot read, commands it does not know, references to
-// labels that no formula of the page defines, and \require (the sources
-// must stay plain LaTeX).
+// labels that no formula of the page defines, \require (the sources must
+// stay plain LaTeX), and TeX left in the text outside any formula (a
+// formula that the Markdown processor broke before MathJax could see it).
 
 const fs = require("fs");
 const path = require("path");
@@ -21,6 +22,19 @@ const [modules, configFile, site] = process.argv.slice(2);
 if (!site) {
   console.error("usage: check_math.cjs NODE_MODULES CONFIG.json SITE_DIR");
   process.exit(2);
+}
+
+// The text of a page as a reader sees it: no scripts, styles or code
+// blocks, no tags, entities decoded.
+function visibleText(html) {
+  return html
+    .replace(/<(script|style|pre|code)\b[^>]*>[\s\S]*?<\/\1>/gi, " ")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, "&");
 }
 
 function htmlFiles(dir) {
@@ -100,6 +114,18 @@ async function main() {
           await error.retry;
         }
       }
+    }
+    // What is left of the text once the formulas are taken out must not
+    // look like TeX.
+    let rest = visibleText(html);
+    for (const item of document.math) {
+      rest = rest.replace(item.start.delim + item.math + item.end.delim, " ");
+    }
+    for (const match of rest.matchAll(/\\(?:begin|end)\{[a-zA-Z*]+\}|\$\$/g)) {
+      const around = rest
+        .slice(Math.max(0, match.index - 30), match.index + 50)
+        .replace(/\s+/g, " ");
+      errors.push(`${page}: TeX outside any formula: ...${around}...`);
     }
     const labels = document.inputJax[0].parseOptions.tags.allLabels;
     for (const [label, where] of referenced) {

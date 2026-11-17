@@ -180,6 +180,19 @@ class CheckMath(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
         self.assertIn("undefined label", result.stderr)
 
+    def test_formula_broken_by_markup_fails(self) -> None:
+        # What the Markdown processor leaves when it takes "<D<< a @>" for a
+        # tag: the display is cut in two and MathJax sees no formula.
+        result = self.run_math(
+            r"$$ \begin{CD} 3n @</p><p>\lambda>> a \end{CD} $$ and $x$"
+        )
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("outside any formula", result.stderr)
+
+    def test_dollars_in_code_are_ignored(self) -> None:
+        result = self.run_math(r"<code>$$ \begin{x}</code> and $x$")
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_require_fails(self) -> None:
         result = self.run_math(r"$\require{cancel} x$")
         self.assertEqual(result.returncode, 1)

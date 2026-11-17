@@ -1,0 +1,9 @@
+{{- /* A formula goes to MathJax as written, but as text of the page: its
+       "<", ">" and "&" are escaped.  Without this a formula such as
+       "a<b" or a diagram arrow "@<D<<" would be read by the browser as the
+       start of a tag and silently cut. */ -}}
+{{- if eq .Type "block" -}}
+\[{{ .Inner | htmlEscape | safeHTML }}\]
+{{- else -}}
+\({{ .Inner | htmlEscape | safeHTML }}\)
+{{- end -}}

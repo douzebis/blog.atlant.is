@@ -158,6 +158,10 @@ with LaTeX:
   Inline delimiters `$...$` and `\(...\)`, display delimiters `$$...$$`
   and `\[...\]`; LaTeX environments are written inside `$$...$$`. CHTML
   output with the fonts served from the site.
+- In the page a formula is ordinary text: the template for formulas
+  (`layouts/_markup/render-passthrough.html`) escapes its `<`, `>` and
+  `&`, and writes it between `\(...\)` or `\[...\]`. Without the
+  escaping, a formula such as `a<b` would be cut by the browser.
 - A displayed formula wider than the text is broken across lines by
   MathJax (`displayOverflow: linebreak`); a formula inside a paragraph may
   break at its operators; a formula in a table cell never breaks.
@@ -180,7 +184,8 @@ with LaTeX:
   1. every formula of every page with `math: true` is found and read by
      MathJax (Node, same MathJax version and settings as the pages) and
      must convert without error; unknown commands, references to
-     undefined labels and `\require` are errors (`tools/check_math.cjs`);
+     undefined labels, `\require`, and TeX left in the text outside any
+     formula are errors (`tools/check_math.cjs`);
   2. every internal link and every referenced image resolves to a file of
      the output, fragments included, and no page or style sheet loads
      anything from another host (`tools/check_site.py`);
