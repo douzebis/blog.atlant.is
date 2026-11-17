@@ -450,8 +450,9 @@ only moves up. This takes four names; bead $7$ is the example again.
   what she tells if she only moves down; it is finite and ends in $0$:
   $\downarrow\!(7) = \{7, 3, 1, 0\}$.
 - **Seed**: $\sigma(n)$ is the unique black bead from which $n$ is reached by up
-  moves only. **Lambex**: $\Lambda(n)$ is the number of those up moves. In other
-  words $n = \sigma(n)U^{\Lambda(n)}$ and $\sigma(n) = n\lambda^{\Lambda(n)}$.
+  moves only. **Lambex** (for "$\lambda$-exponent"): $\Lambda(n)$ is the number
+  of those up moves. In other words $n = \sigma(n)U^{\Lambda(n)}$ and
+  $\sigma(n) = n\lambda^{\Lambda(n)}$, which is where the name comes from.
   Going back from bead $7$ by $\lambda$ gives $4, 2, 1, 0$, and $0$ is black:
   $\sigma(7) = 0$ and $\Lambda(7) = 4$. Its neighbor $8$ goes back to $5$ and
   then to the black bead $3$: $\sigma(8) = 3$ and $\Lambda(8) = 2$.
@@ -1432,7 +1433,7 @@ evidence, and the proof is Lemma 2 and Theorem 1.
 | height | $h(n)$ | the least number of moves from bead $0$ to $n$ | [Section 1](#1-prelude-names) |
 | heap coordinate | $x = n + 1$ | the position shifted by one: down halves it | [Section 1](#1-prelude-names) |
 | up-chain, down-chain | $\uparrow\!(n)$, $\downarrow\!(n)$ | the beads reached from $n$ by up moves only, by down moves only | [Section 4](#4-interlude-more-names) |
-| seed, lambex | $\sigma(n)$, $\Lambda(n)$ | the black bead at the start of the up-chain through $n$; the number of up moves from it to $n$ | [Section 4](#4-interlude-more-names) |
+| seed, lambex | $\sigma(n)$, $\Lambda(n)$ | the black bead at the start of the up-chain through $n$; the number of up moves from it to $n$ (the "$\lambda$-exponent") | [Section 4](#4-interlude-more-names) |
 | winner | "$\mu$ wins", "$\nu$ wins" | of $3n\mu$ and $3n\nu$, the one with the larger lambex | [Section 5](#5-theorem-1-minimal-recitations-ending-in-a-black-bead) |
 | reluctant recitation | $\rho(i)$, $V_i$ | Jane's $i$-th bead when she moves down whenever she can; the beads told so far | [Section 6](#6-janes-reluctant-recitation) |
 | cone | | the beads above $m$ in the binary tree | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |

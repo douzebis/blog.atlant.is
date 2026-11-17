@@ -289,6 +289,10 @@ In progress. Steps done:
     "6,000 levels below"), and the author decided (2026-11-17) that the
     wording may be adapted as long as the origin is given. They are
     therefore signed "freely translated".
+- The name "lambex" is explained where it is defined and in the table of
+  names (2026-11-17): it stands for "lambda-exponent", the exponent of
+  lambda in sigma(n) = n lambda^Lambda(n); etymology confirmed by the
+  author, who coined the word in 2022.
 
 Statements compared with the 2026-11-17 version
 (`python tools/compare_statements.py content/versions/jane-s-infinite-rosary/2026-11-17/index.md content/posts/2022-12-02-jane-s-infinite-rosary/index.md`):
