@@ -32,3 +32,16 @@ SPDX-License-Identifier = "CC-BY-4.0"
 path = "figures/**"
 SPDX-FileCopyrightText = "Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)"
 SPDX-License-Identifier = "MIT"
+
+# Earlier versions of the papers are kept byte for byte: no header is
+# added to their files (docs/invariants/0003-frozen-versions.md).
+[[annotations]]
+path = "content/versions/**"
+SPDX-FileCopyrightText = "Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+# Kept outputs of long runs.
+[[annotations]]
+path = "research/**/results/**"
+SPDX-FileCopyrightText = "Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)"
+SPDX-License-Identifier = "MIT"

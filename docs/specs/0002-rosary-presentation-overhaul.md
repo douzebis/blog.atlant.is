@@ -65,7 +65,9 @@ questions) is mathematically complete but hard to enter:
 - Before any change, the current paper is frozen as a version: a copy of
   its directory (text and pictures) under
   `content/versions/jane-s-infinite-rosary/2026-11-17/`, served at
-  `/versions/jane-s-infinite-rosary/2026-11-17/`.
+  `/versions/jane-s-infinite-rosary/2026-11-17/`. A version is recorded
+  with `python tools/check_frozen.py docs/papers/frozen-versions.sha256
+  --freeze DIRECTORY`.
 - A frozen version is never edited afterwards. It carries a banner ("An
   earlier version of this paper, of 17 November 2026. Read the current
   version."), is left out of the home page and the feed, and asks search
@@ -77,12 +79,14 @@ questions) is mathematically complete but hard to enter:
   its own scrolling and its own table of sections, so that corresponding
   passages can be brought face to face. On a narrow screen the panes are
   stacked.
-- The original post of December 2022 (WordPress, last changed January
-  2023) is kept as a third version,
-  `/versions/jane-s-infinite-rosary/2023-01/`: imported from the WordPress
-  export with its 20 commutative diagrams, its embedded frames replaced by
-  the older figure pages of `figures/jane-s-rosary/`. It is imported as it
-  was (export damage repaired, nothing improved).
+- The original post is kept as a third version,
+  `/versions/jane-s-infinite-rosary/2022-12/`: the text of the WordPress
+  export (20 December 2022), with its 20 commutative diagrams, its
+  embedded frames replaced by the older figure pages of
+  `figures/jane-s-rosary/`. It is imported as it was (export damage
+  repaired, nothing improved). The later text of January 2023, which the
+  WordPress site still serves, is not in the export and is not kept; see
+  `docs/papers/jane-s-rosary/history.md`.
 - The overhaul is done in place, at the paper's usual address, in the
   steps below; each step is one or a few commits that name this spec.
 
@@ -142,9 +146,10 @@ checks.
 Each step ends with a build, a look at the result on the preview next to
 the frozen version, and the author's go-ahead for the next one.
 
-1. **Freeze and tooling.** Version mechanism, comparison page,
-   `compare_statements.py`, `docs/papers/jane-s-rosary/` with the history
-   so far (2022 original, 2026 revision), `research/jane-s-rosary/`.
+1. **Freeze and tooling.** (Done 2026-11-17.) Version mechanism,
+   comparison page, `compare_statements.py`, `docs/papers/jane-s-rosary/`
+   with the history so far (2022 original, 2026 revision),
+   `research/jane-s-rosary/`.
 
 2. **Opening.** Rewritten first screen:
    - two or three sentences that state the puzzle (the rosary, up and
@@ -243,9 +248,9 @@ the frozen version, and the author's go-ahead for the next one.
 ## Invariants
 
 - A frozen version is never modified
-  (`docs/invariants/0003-frozen-versions.md`; test: the build compares the
+  (`docs/invariants/0003-frozen-versions.md`; the build compares the
   digest of each directory under `content/versions/` with the digest
-  recorded when it was frozen).
+  recorded when it was frozen; tests in `tools/test_checks.py`).
 
 ## Decisions (2026-11-17)
 

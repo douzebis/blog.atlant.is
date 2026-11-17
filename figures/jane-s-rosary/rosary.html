@@ -34,7 +34,11 @@
         // P.n          Count of nodes to display
         // P.labels     ['position', 'label', 'height', 'reluctant_inv']
         // P.arrows     ['none', 'up', 'down', 'both', 'to3']
+        // Without them: positions, no arrows (as the first version of the
+        // post calls this page).
         N = parseInt(P.n)
+        const LABELS = P.labels || 'position'
+        const ARROWS = P.arrows || 'none'
 
         // Create nodes
         var nodes = new vis.DataSet([])
@@ -50,7 +54,7 @@
                         size: BASE/4/N,
                         color: is_white(i) ? hsl_to_col(0, 0., 50.) : hsl_to_col(0, 0., 90.),
                     },
-                    label: i == N-1 ? '..' : f_label(i, P.labels),
+                    label: i == N-1 ? '..' : f_label(i, LABELS),
                     x: diam/2 + i*(BASE - diam)/N,
                     y: 0,
                 }
@@ -59,7 +63,7 @@
 
         // Create edges
         var edges = new vis.DataSet([])
-        if (P.arrows == 'none') {
+        if (ARROWS == 'none') {
             for (let i = 0; i < N - 1; ++i) {
                 edges.add([
                     {
@@ -72,7 +76,7 @@
                     },
                 ])
             }
-        } else if (P.arrows == 'to3') {
+        } else if (ARROWS == 'to3') {
             for (let i of [1, 2, 4, 7, 3]) {
                 edges.add([
                     {
@@ -93,7 +97,7 @@
                 ])
             }
         } else {
-            if (P.arrows == 'up' || P.arrows == 'both') {
+            if (ARROWS == 'up' || ARROWS == 'both') {
                 for (let i = 0; i < N - 1; ++i) {
                     edges.add([
                         {
@@ -108,7 +112,7 @@
                     ])
                 }
             }
-            if (P.arrows == 'down' || P.arrows == 'both') {
+            if (ARROWS == 'down' || ARROWS == 'both') {
                 for (let i = 1; i < N - 1; ++i) {
                     edges.add([
                         {

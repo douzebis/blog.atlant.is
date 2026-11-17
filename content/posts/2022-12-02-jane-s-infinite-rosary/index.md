@@ -8,6 +8,16 @@ date: "2022-12-02"
 revised: "2026-11-14"
 language: "en"
 math: true
+compare: "compare/jane-s-infinite-rosary"
+history:
+  - date: "2022-12-20"
+    text: "The original post, three weeks after its first publication. Shortest recitations are described by a conjecture; that the reluctant recitation tells every bead is a conjecture too."
+    version: "versions/jane-s-infinite-rosary/2022-12"
+  - date: "2026-11-17"
+    text: "Complete proofs: Theorems 1 to 6, the onyx ordering, numerical data and new open questions."
+    version: "versions/jane-s-infinite-rosary/2026-11-17"
+  - date: "2026-11-17"
+    text: "Presentation overhaul, in progress."
 diagrams:
   - "images/reluctant-jane-1024x422.png"
 categories:

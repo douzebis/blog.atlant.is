@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="{{ .RelPermalink }}">
     {{- end }}
     <link rel="icon" href="data:,">
+    {{- if .Params.version_of }}
+    <meta name="robots" content="noindex">
+    {{- end }}
     {{- with site.Home.OutputFormats.Get "rss" }}
     <link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .RelPermalink }}">
     {{- end }}

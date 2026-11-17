@@ -128,10 +128,13 @@ h3 {
 }
 
 img,
-video,
-iframe {
+video {
   max-width: 100%;
   height: auto;
+}
+
+iframe {
+  max-width: 100%;
 }
 
 /* Drawings on a white background keep their colors in dark mode (inverting
@@ -213,6 +216,29 @@ thead th {
   border: 1px solid var(--rule);
   border-radius: 4px;
   font-size: 0.9rem;
+}
+
+.history {
+  margin: -1rem 0 2rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.history summary {
+  cursor: pointer;
+}
+
+.history ul {
+  padding-left: 1.2rem;
+}
+
+iframe.frame {
+  display: block;
+  margin: 1rem auto;
+  border: none;
+  /* The older figures are drawn for a white page. */
+  background: #fff;
+  border-radius: 4px;
 }
 
 mjx-container[display="true"] {

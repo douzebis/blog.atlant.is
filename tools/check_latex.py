@@ -8,7 +8,8 @@ usage: check_latex.py CONTENT_DIR
 
 Every index.md whose front matter says `math: true` is converted to LaTeX
 (nothing is compiled).  Any Pandoc warning is an error.  This keeps the
-sources usable for a LaTeX version of the papers.
+sources usable for a LaTeX version of the papers.  Earlier versions of a
+paper (content/versions) are not concerned: they are kept as they were.
 """
 
 import pathlib
@@ -22,6 +23,8 @@ def main() -> int:
     checked = 0
     failed = 0
     for path in sorted(content.rglob("*.md")):
+        if "versions" in path.relative_to(content).parts:
+            continue
         front = re.match(r"---\n(.*?)\n---\n", path.read_text(), re.S)
         if front is None or not re.search(r"^math:\s*true\s*$", front.group(1), re.M):
             continue

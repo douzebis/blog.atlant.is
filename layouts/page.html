@@ -11,6 +11,32 @@
         <time datetime="{{ $revised.Format "2006-01-02" }}">{{ partial "date.html" (dict "date" $revised "lang" $lang) }}</time>
         {{- end }}
       </p>
+      {{- with .Params.version_of }}
+      {{- /* An earlier version, kept as it was. */ -}}
+      {{- $current := site.GetPage . }}
+      <p class="notice">
+        An earlier version of this paper, of {{ partial "date.html" (dict "date" (time.AsTime $.Params.version_date) "lang" "en") }}.
+        {{ with $.Params.version_note }}{{ . }}{{ end }}
+        <a href="{{ $current.RelPermalink }}">Read the current version</a>.
+      </p>
+      {{- end }}
+      {{- with .Params.history }}
+      <details class="history">
+        <summary>History of this paper</summary>
+        <ul>
+          {{- range . }}
+          <li>
+            <time datetime="{{ .date }}">{{ partial "date.html" (dict "date" (time.AsTime .date) "lang" $lang) }}</time>:
+            {{ .text | markdownify }}
+            {{- with .version }}{{ with site.GetPage . }} (<a href="{{ .RelPermalink }}">this version</a>){{ end }}{{ end }}
+          </li>
+          {{- end }}
+        </ul>
+        {{- with $.Params.compare }}{{ with site.GetPage . }}
+        <p><a href="{{ .RelPermalink }}">Compare two versions side by side</a>.</p>
+        {{- end }}{{ end }}
+      </details>
+      {{- end }}
     </header>
     {{- if .Params.math }}
     <noscript>

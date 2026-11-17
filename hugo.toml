@@ -35,3 +35,9 @@ disableKinds = ["taxonomy", "term"]
 [[params.localCopies]]
   from = "https://blog.atlant.is/figures/"
   to = "figures/"
+
+# The earliest version of the rosary paper names the figures where they
+# were then.
+[[params.localCopies]]
+  from = "https://douzebis.github.io/jane-s-rosary/"
+  to = "figures/jane-s-rosary/"

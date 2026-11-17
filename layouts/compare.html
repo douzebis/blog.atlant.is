@@ -1,0 +1,80 @@
+{{- /* Two versions of a paper next to each other.  The paper is named by
+       the `paper` parameter; its versions are those of its `history`. */ -}}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>{{ .Title }} – {{ site.Title }}</title>
+    <link rel="icon" href="data:,">
+    {{- with resources.Get "css/compare.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}">
+    {{- end }}
+  </head>
+  <body>
+    {{- $paper := site.GetPage .Params.paper }}
+    <header>
+      <a href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a>
+      <span>{{ $paper.Title }}: versions side by side</span>
+    </header>
+    <main>
+      {{- range $side := slice "left" "right" }}
+      <section class="pane" data-side="{{ $side }}">
+        <div class="controls">
+          <label>Version
+            <select class="version">
+              {{- range $paper.Params.history }}
+              {{- $address := $paper.RelPermalink }}
+              {{- with .version }}{{ with site.GetPage . }}{{ $address = .RelPermalink }}{{ end }}{{ end }}
+              <option value="{{ $address }}" data-key="{{ .date }}">{{ .date }}{{ if not .version }} (current){{ end }}</option>
+              {{- end }}
+            </select>
+          </label>
+          <label>Section
+            <select class="section"></select>
+          </label>
+        </div>
+        <iframe title="{{ $side }} version"></iframe>
+      </section>
+      {{- end }}
+    </main>
+    <script>
+      // Each pane shows one version; "?left=DATE&right=DATE" in the address
+      // chooses them (by default the previous version and the current one).
+      const params = new URLSearchParams(window.location.search);
+      document.querySelectorAll(".pane").forEach((pane) => {
+        const side = pane.dataset.side;
+        const version = pane.querySelector(".version");
+        const section = pane.querySelector(".section");
+        const frame = pane.querySelector("iframe");
+        const options = [...version.options];
+        const asked = options.find((o) => o.dataset.key === params.get(side));
+        const fallback = side === "right" ? options[options.length - 1]
+          : options[Math.max(0, options.length - 2)];
+        version.value = (asked || fallback).value;
+        const show = () => { frame.src = version.value; };
+        version.addEventListener("change", () => {
+          params.set(side, version.selectedOptions[0].dataset.key);
+          history.replaceState(null, "", "?" + params.toString());
+          show();
+        });
+        // The list of sections is read from the version shown.
+        frame.addEventListener("load", () => {
+          section.replaceChildren(new Option("(top)", ""));
+          frame.contentDocument.querySelectorAll("h2[id], h3[id]").forEach((h) => {
+            const indent = h.tagName === "H3" ? " " : "";
+            section.add(new Option(indent + h.textContent.trim(), h.id));
+          });
+        });
+        section.addEventListener("change", () => {
+          const target = section.value
+            ? frame.contentDocument.getElementById(section.value)
+            : frame.contentDocument.body;
+          target.scrollIntoView();
+        });
+        show();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,110 @@
+/*
+ * SPDX-FileCopyrightText: 2026 Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+:root {
+  --text: #1c1c1a;
+  --muted: #666660;
+  --background: #fdfdfb;
+  --rule: #d9d9d2;
+  --link: #1a5a96;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #e4e4de;
+    --muted: #a0a098;
+    --background: #191918;
+    --rule: #3c3c38;
+    --link: #8fbfe8;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  color: var(--text);
+  background: var(--background);
+  font-family: system-ui, sans-serif;
+  font-size: 0.9rem;
+}
+
+header {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+header a {
+  color: inherit;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+header span {
+  color: var(--muted);
+}
+
+main {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.pane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pane + .pane {
+  border-left: 1px solid var(--rule);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--rule);
+  color: var(--muted);
+}
+
+.controls select {
+  max-width: 16rem;
+  font: inherit;
+}
+
+iframe {
+  flex: 1;
+  width: 100%;
+  border: none;
+}
+
+/* On a narrow screen the two versions are stacked. */
+@media (max-width: 50rem) {
+  main {
+    flex-direction: column;
+  }
+
+  .pane + .pane {
+    border-left: none;
+    border-top: 2px solid var(--rule);
+  }
+}

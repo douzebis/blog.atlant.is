@@ -42,7 +42,14 @@ nix-build site.nix --argstr baseURL http://127.0.0.1:8000/
 - `layouts/`, `assets/`: the site's own templates and style sheet.
 - `data/mathjax.json`: MathJax's TeX settings, shared by the pages and by
   the formula check.
+- `content/versions/<paper>/<date>/`: earlier versions of a paper, kept
+  as they were; `content/compare/`: pages showing two versions side by
+  side.
 - `figures/`: the code of the interactive figures, served at `/figures/`.
+- `research/<paper>/`: the programs and notes behind a paper; its README
+  goes from each checked statement to the command that checks it.
+- `docs/papers/<paper>/`: what was done to a paper (`history.md`) and the
+  state of its statements (`statements.md`).
 - `tools/`: the build checks and their tests; `tools/capture-figures/`
   takes the pictures of interactive figures, in a light and a dark
   variant.

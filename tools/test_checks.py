@@ -199,5 +199,150 @@ class CheckMath(unittest.TestCase):
         self.assertIn("require", result.stderr)
 
 
+class CheckFrozen(unittest.TestCase):
+    def run_frozen(
+        self, root: pathlib.Path, *more: str
+    ) -> subprocess.CompletedProcess[str]:
+        return subprocess.run(
+            [
+                sys.executable,
+                str(TOOLS / "check_frozen.py"),
+                str(root / "record"),
+                "--root",
+                str(root),
+                *more,
+            ],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+
+    def test_frozen_version_lifecycle(self) -> None:
+        with tempfile.TemporaryDirectory() as name:
+            root = pathlib.Path(name)
+            version = root / "content" / "versions" / "paper" / "2026-01-01"
+            (version / "images").mkdir(parents=True)
+            (version / "index.md").write_text("text\n")
+            (version / "images" / "a.png").write_bytes(b"picture")
+
+            # Only a version can be frozen.
+            result = self.run_frozen(root, "--freeze", "content/versions/nothing")
+            self.assertEqual(result.returncode, 1)
+            self.assertIn("not a version", result.stderr)
+
+            # A version that is not in the record is an error.
+            result = self.run_frozen(root)
+            self.assertEqual(result.returncode, 1)
+            self.assertIn("not in the record", result.stderr)
+
+            name_in_record = "content/versions/paper/2026-01-01"
+            result = self.run_frozen(root, "--freeze", name_in_record)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(self.run_frozen(root).returncode, 0)
+
+            # Freezing twice is refused.
+            self.assertEqual(
+                self.run_frozen(root, "--freeze", name_in_record).returncode, 1
+            )
+
+            # A changed text, a changed picture, a new file, a renamed file.
+            (version / "index.md").write_text("other text\n")
+            self.assertIn("modified", self.run_frozen(root).stderr)
+            (version / "index.md").write_text("text\n")
+            self.assertEqual(self.run_frozen(root).returncode, 0)
+            (version / "images" / "a.png").write_bytes(b"other picture")
+            self.assertIn("modified", self.run_frozen(root).stderr)
+            (version / "images" / "a.png").write_bytes(b"picture")
+            (version / "new.txt").write_text("")
+            self.assertIn("modified", self.run_frozen(root).stderr)
+            (version / "new.txt").unlink()
+            (version / "images" / "a.png").rename(version / "images" / "b.png")
+            self.assertIn("modified", self.run_frozen(root).stderr)
+            (version / "images" / "b.png").rename(version / "images" / "a.png")
+            self.assertEqual(self.run_frozen(root).returncode, 0)
+
+            # A recorded version that disappeared.
+            (version / "index.md").unlink()
+            (version / "images" / "a.png").unlink()
+            (version / "images").rmdir()
+            version.rmdir()
+            self.assertIn("missing", self.run_frozen(root).stderr)
+
+
+PAPER = """---
+title: t
+---
+
+Some text.
+
+**Theorem 1.** For all $n$:
+
+1. first claim;
+2. second claim,
+   $$x = y.$$
+
+In words: a comment that is not part of the statement.
+
+*Proof.* Clear. $\\Box$
+
+**Lemma 2 (name).** A single
+paragraph.
+
+**Conjecture A (thing).** Maybe.
+"""
+
+
+class CompareStatements(unittest.TestCase):
+    def compare(self, old: str, new: str) -> subprocess.CompletedProcess[str]:
+        with tempfile.TemporaryDirectory() as name:
+            root = pathlib.Path(name)
+            (root / "old.md").write_text(old)
+            (root / "new.md").write_text(new)
+            return subprocess.run(
+                [
+                    sys.executable,
+                    str(TOOLS / "compare_statements.py"),
+                    str(root / "old.md"),
+                    str(root / "new.md"),
+                ],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+
+    def test_same_statements(self) -> None:
+        result = self.compare(PAPER, PAPER)
+        self.assertEqual(result.returncode, 0, result.stdout)
+        self.assertIn("3 statements before, 3 after, 0 differences", result.stdout)
+
+    def test_presentation_changes_do_not_count(self) -> None:
+        new = PAPER.replace("Some text.", "Another opening.\n\n## A heading")
+        new = new.replace("In words: a comment", "In other words: a remark")
+        new = new.replace("*Proof.* Clear.", "*Proof.* By a longer argument.")
+        new = new.replace("A single\nparagraph.", "A single paragraph.")
+        result = self.compare(PAPER, new)
+        self.assertEqual(result.returncode, 0, result.stdout)
+
+    def test_reworded_statement_is_reported(self) -> None:
+        result = self.compare(
+            PAPER, PAPER.replace("second claim", "second claim, weaker")
+        )
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("reworded: Theorem 1", result.stdout)
+
+    def test_changed_formula_in_statement_is_reported(self) -> None:
+        result = self.compare(PAPER, PAPER.replace("$$x = y.$$", "$$x = z.$$"))
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("reworded: Theorem 1", result.stdout)
+
+    def test_removed_and_added_statements_are_reported(self) -> None:
+        new = PAPER.replace("**Lemma 2 (name).** A single\nparagraph.\n\n", "")
+        new += "\n**Question B (other).** Why?\n"
+        result = self.compare(PAPER, new)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("removed: Lemma 2", result.stdout)
+        self.assertIn("added: Question B", result.stdout)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,15 @@
+{{- /* An interactive figure shown inside the page:
+         {{< frame src="ADDRESS" height="180" >}}              full width
+         {{< frame src="ADDRESS" width="632" height="632" >}}  fixed size
+       The address is rewritten to the site's own copy like a link
+       (hugo.toml, params.localCopies).  A full-width frame takes the height
+       of the figure once it is drawn; `height` is where it starts from.  Used by the earliest version of the
+       rosary paper; newer texts show a picture that links to the figure. */ -}}
+{{- $source := .Get "src" -}}
+{{- range site.Params.localCopies -}}
+  {{- if strings.HasPrefix $source .from -}}
+    {{- $source = printf "%s%s" (.to | relURL) (strings.TrimPrefix .from $source) -}}
+  {{- end -}}
+{{- end -}}
+<iframe class="frame" src="{{ $source | safeURL }}" loading="lazy" title="Interactive figure"
+  {{- with .Get "width" }} width="{{ . }}"{{ else }} style="width: 100%" onload="this.style.height = this.contentDocument.documentElement.scrollHeight + 'px'"{{ end }} height="{{ .Get "height" }}"></iframe>
