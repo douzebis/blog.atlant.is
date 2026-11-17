@@ -23,6 +23,11 @@ nothing until the reader follows them.
   address and the `fonts` path).
 - `tools/check_site.py`, run by every build, rejects any page or style
   sheet that loads something from another host.
+- The interactive figures and their libraries are copied into the site by
+  the build, and the CDN addresses in the figure pages are rewritten to
+  these copies (`site.nix`). The figure pages are pages of the site, so
+  the check above covers them: an address that the rewriting misses makes
+  the build fail.
 
 ## Regression tests
 
@@ -40,5 +45,8 @@ nothing until the reader follows them.
   the site (script, one TeX extension, 13 fonts, 2 font tables, the speech
   files). This must be repeated when MathJax is upgraded or when a post
   uses a MathJax feature that loads further files.
+- Same manual verification for the figures on 2026-11-17: a headless
+  Chromium loading a live figure from a local build requested files from
+  the site only.
 - A post that embeds a frame or a video from another host needs an
   explicit decision; the check will refuse it until then.

@@ -7,7 +7,8 @@
     {{- with .Description | default .Summary | plainify | strings.TrimSpace | truncate 160 }}
     <meta name="description" content="{{ . }}">
     {{- end }}
-    {{- with resources.Get "css/main.css" | minify | fingerprint }}
+    {{- $css := slice (resources.Get "css/main.css") (resources.Get "css/syntax.css") | resources.Concat "css/site.css" }}
+    {{- with $css | minify | fingerprint }}
     <link rel="stylesheet" href="{{ .RelPermalink }}">
     {{- end }}
     <link rel="icon" href="data:,">

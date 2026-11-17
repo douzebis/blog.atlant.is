@@ -61,8 +61,8 @@ exists only as a Markdown file that no site publishes.
   sources convertible.
 - Comments, search, newsletter.
 - A tracking script in the pages. View statistics: see "Open questions".
-- Changing the interactive figures or moving them into the site. They stay
-  in their repositories and are linked.
+- Changing the interactive figures. Their code stays in its repository;
+  the build copies it into the site at a fixed commit (see "Figures").
 - Decommissioning WordPress, setting up the self-hosted server and
   switching the domain.
 - PDF output of the papers.
@@ -184,6 +184,31 @@ with LaTeX:
 - nixpkgs is pinned by revision and hash in `default.nix`, as in
   `levine-hats`.
 
+### Figures
+
+- A figure is a picture in the post's directory, written in plain
+  Markdown as an image that links to the live version, followed by its
+  caption:
+  `[![Figure 1](images/figure-01.png)](https://.../rosary.html?...)`.
+  The source therefore works on GitHub and converts to LaTeX as a picture.
+- Pictures of interactive figures are taken once with
+  `tools/capture-figures/capture.sh` (headless browser, twice the screen
+  resolution, fonts provided by its `shell.nix`) and committed. The list
+  of figures of a post is kept next to the tool
+  (`tools/capture-figures/jane-s-rosary.tsv`).
+- The live versions are served by the site itself. The build fetches the
+  figures' repository at a fixed commit and the three libraries they use
+  at fixed versions, each with a hash (`site.nix`): vis-network 10.1.5
+  (654 kB), jQuery 3.6.1 (90 kB), uPlot 1.6.7 (38 kB). It copies them
+  under `figures/` and rewrites the CDN addresses in the figure pages to
+  these copies. Nothing of this is committed to the site's repository.
+- The posts keep the public address of a figure
+  (`https://douzebis.github.io/jane-s-rosary/...`); the link template
+  rewrites it to the site's copy (`hugo.toml`, `params.localCopies`).
+- Not done, possible later: showing a live figure in the page itself when
+  the reader clicks its picture, for the figures where zooming matters
+  (the plot of heights, the onyx ordering).
+
 ### Languages
 
 Each post states its language in `language`. The page's `<html lang>`
@@ -213,8 +238,8 @@ as the document root of `blog.atlant.is`.
   listed in the commit message.
 - Its image is added to the bundle (`images/reluctant-jane-1024x422.png`,
   taken from the export repository).
-- The eight interactive figures stay links to
-  `douzebis.github.io/jane-s-rosary/...`, as in the source.
+- Its eleven figures are pictures, each linking to its live version (see
+  "Figures").
 - Acceptance: the built page is compared by eye with GitHub's rendering of
   the same file, section by section; all 29 display equations, both
   `\tag`s and the five tables render; the page is readable at phone width
@@ -281,7 +306,8 @@ build input.
 - Hugo, with client-side MathJax served from the site.
 - Theorems, proofs and references stay plain Markdown conventions, as in
   the rosary paper.
-- Interactive figures are links for now.
+- Figures are pictures linking to live versions served by the site, with
+  the figure code and its libraries pinned (2026-11-17).
 - One site with a language per post, no separate language trees.
 - Old WordPress links (`?p=1183`) are a matter for the final server, which
   can redirect them; the front matter keeps the WordPress identifier.
@@ -298,13 +324,15 @@ for the preview, both invariant documents.
 
 Remaining before the status becomes `implemented`:
 
-- first push, Pages source set to "GitHub Actions", and a look at the
-  published preview;
-- the author's reading of the rendered paper against the source (three
+- (done 2026-11-17: first push, Pages source set to "GitHub Actions";
+  the workflow built the site twice with identical output and published
+  it at <https://douzebis.github.io/blog.atlant.is/>, where the page, its
+  image, MathJax and the fonts are served and the formulas render;)
+- the author's reading of the rendered paper against the source (a few
   regions were compared by eye on screenshots at 900 px and 390 px wide,
-  not the whole page);
-- confirmation that the paper's image is the author's own (it is recorded
-  under CC BY 4.0 like the text).
+  not the whole page).
+
+The header image is the author's own (confirmed 2026-11-17).
 
 ## Open questions
 

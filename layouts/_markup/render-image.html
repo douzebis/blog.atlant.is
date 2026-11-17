@@ -1,0 +1,10 @@
+{{- /* Images of the post's own directory get their size (no layout shift
+       while they load); all but the first are loaded when approached. */ -}}
+{{- $source := .Destination -}}
+{{- $resource := .Page.Resources.Get .Destination -}}
+{{- with $resource }}{{ $source = .RelPermalink }}{{ end -}}
+<img src="{{ $source | safeURL }}" alt="{{ .PlainText }}"
+  {{- with .Title }} title="{{ . }}"{{ end }}
+  {{- with $resource }} width="{{ .Width }}" height="{{ .Height }}"{{ end }}
+  {{- if gt .Ordinal 0 }} loading="lazy"{{ end }}>
+{{- /* no trailing newline */ -}}

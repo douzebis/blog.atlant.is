@@ -42,7 +42,8 @@ nix-build site.nix --argstr baseURL http://127.0.0.1:8000/
 - `layouts/`, `assets/`: the site's own templates and style sheet.
 - `data/mathjax.json`: MathJax's TeX settings, shared by the pages and by
   the formula check.
-- `tools/`: the build checks and their tests.
+- `tools/`: the build checks and their tests; `tools/capture-figures/`
+  takes the pictures of interactive figures.
 - `docs/specs/`, `docs/invariants/`: specifications and guarantees.
 
 ## Writing a post

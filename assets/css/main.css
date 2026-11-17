@@ -134,6 +134,14 @@ iframe {
   height: auto;
 }
 
+/* A picture alone in its paragraph (a figure) is centered. */
+p > a:only-child > img,
+p > img:only-child {
+  display: block;
+  margin: 0 auto;
+  border-radius: 4px;
+}
+
 blockquote {
   margin: 1.2rem 0;
   padding: 0.1rem 1rem;
@@ -154,7 +162,6 @@ code {
 }
 
 pre {
-  /* The highlighter sets its own light background inline. */
   padding: 0.8rem 1rem;
   border-radius: 4px;
   overflow-x: auto;

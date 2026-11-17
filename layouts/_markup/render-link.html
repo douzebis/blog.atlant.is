@@ -1,0 +1,10 @@
+{{- /* Links to an address that the site serves from its own copy point at
+       the copy (hugo.toml, params.localCopies). */ -}}
+{{- $destination := .Destination -}}
+{{- range site.Params.localCopies -}}
+  {{- if strings.HasPrefix $destination .from -}}
+    {{- $destination = printf "%s%s" (.to | relURL) (strings.TrimPrefix .from $destination) -}}
+  {{- end -}}
+{{- end -}}
+<a href="{{ $destination | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text }}</a>
+{{- /* no trailing newline: it would show as a space before punctuation */ -}}

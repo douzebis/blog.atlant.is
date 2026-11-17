@@ -30,13 +30,17 @@ black and white beads. Starting from the end, the beads are numbered
 $n = 0, 1, 2, \ldots$ and each carries a label $L(n) = 1, 1, 2, 2, 3, 3, \ldots$
 Every third bead, including bead $0$, is black; the other beads are white.
 
-> Figure 1 (interactive): [the rosary, bead positions](https://douzebis.github.io/jane-s-rosary/rosary.html?n=10&labels=position&arrows=none&interactive=yes)
+[![Figure 1](images/figure-01.png)](https://douzebis.github.io/jane-s-rosary/rosary.html?n=10&labels=position&arrows=none&interactive=yes)
+
+> Figure 1: the rosary, bead positions ([live version](https://douzebis.github.io/jane-s-rosary/rosary.html?n=10&labels=position&arrows=none&interactive=yes)).
 
 Jane tells the beads of her rosary in a special way. She always starts at bead
 $0$. Each time she is done with a bead $n$, she moves on, either *up* to bead
 $n + L(n)$ or *down* to bead $n - L(n)$.
 
-> Figure 2 (interactive): [telling the beads](https://douzebis.github.io/jane-s-rosary/rosary.html?n=10&labels=label&arrows=both&interactive=yes)
+[![Figure 2](images/figure-02.png)](https://douzebis.github.io/jane-s-rosary/rosary.html?n=10&labels=label&arrows=both&interactive=yes)
+
+> Figure 2: telling the beads ([live version](https://douzebis.github.io/jane-s-rosary/rosary.html?n=10&labels=label&arrows=both&interactive=yes)).
 
 **Can Jane tell every bead of her rosary?**
 
@@ -114,7 +118,9 @@ the multiplication by $3/2$ (up).
 
 By definition $h(0) = 0$.
 
-> Figure 3 (interactive): [the height of bead 3 is 5](https://douzebis.github.io/jane-s-rosary/rosary.html?n=10&labels=label&arrows=to3&interactive=yes)
+[![Figure 3](images/figure-03.png)](https://douzebis.github.io/jane-s-rosary/rosary.html?n=10&labels=label&arrows=to3&interactive=yes)
+
+> Figure 3: the height of bead 3 is 5 ([live version](https://douzebis.github.io/jane-s-rosary/rosary.html?n=10&labels=label&arrows=to3&interactive=yes)).
 
 **Proposition 1.** Every bead has a finite height. Moreover, for all $n \geq 1$,
 
@@ -168,7 +174,9 @@ def height(n: int) -> int:
         rings.append(new_ring)
 ```
 
-> Figure 4 (interactive): [plot of the heights of beads](https://douzebis.github.io/jane-s-rosary/height-plot.html?n=10000)
+[![Figure 4](images/figure-04.png)](https://douzebis.github.io/jane-s-rosary/height-plot.html?n=10000)
+
+> Figure 4: plot of the heights of beads ([live version](https://douzebis.github.io/jane-s-rosary/height-plot.html?n=10000)).
 
 ## 3. Minimal recitations
 
@@ -240,9 +248,13 @@ $$\gamma(n) = \Big(\frac{\sigma(n)}{3},\ \Lambda(n)\Big)$$
 
 is a bijection between $\mathbb{N}$ and $\mathbb{N}\times\mathbb{N}$.
 
-> Figure 5 (interactive): [the rosary deconstructed, one up-chain per row](https://douzebis.github.io/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=none&label=position&color=none&arrows=none&interactive=yes)
->
-> Figure 6 (interactive): [the same, with heights](https://douzebis.github.io/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic&label=height&color=height&arrows=yes&interactive=yes)
+[![Figure 5](images/figure-05.png)](https://douzebis.github.io/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=none&label=position&color=none&arrows=none&interactive=yes)
+
+> Figure 5: the rosary deconstructed, one up-chain per row ([live version](https://douzebis.github.io/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=none&label=position&color=none&arrows=none&interactive=yes)).
+
+[![Figure 6](images/figure-06.png)](https://douzebis.github.io/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic&label=height&color=height&arrows=yes&interactive=yes)
+
+> Figure 6: the same, with heights ([live version](https://douzebis.github.io/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic&label=height&color=height&arrows=yes&interactive=yes)).
 
 In heap coordinates the up-chain of $0$ reads $1, 2, 3, 5, 8, 12, 18, 27, 41,
 \ldots$ ([A061419](https://oeis.org/A061419)); by [OW91] every up-chain grows
@@ -283,7 +295,9 @@ with the larger lambex, equivalently the smaller seed, lies on a minimal
 recitation*; and which one it is can be read off the base-3 expansion of
 $2n+1$.
 
-> Figure 7 (interactive): [when in doubt, choose the predecessor with the larger lambex](https://douzebis.github.io/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=back&label=position&color=position&arrows=yes&interactive=yes)
+[![Figure 7](images/figure-07.png)](https://douzebis.github.io/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=back&label=position&color=position&arrows=yes&interactive=yes)
+
+> Figure 7: when in doubt, choose the predecessor with the larger lambex ([live version](https://douzebis.github.io/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=back&label=position&color=position&arrows=yes&interactive=yes)).
 
 *Proof.* **(1) and (2).** We have $a_0 = 6n+1$ and $b_0 = 6n+2$. For
 $i \leq e$, $a_i + 2 = 2^i 3^{e+1-i} q$ is divisible by $3$, so
@@ -374,7 +388,9 @@ $V_i = \{\rho(0), \ldots, \rho(i)\}$ for the set of beads told so far. For
 instance $\rho(0), \rho(1), \ldots = 0, 1, 2, 4, 7, 3, 5, 8, 13, 6, 10, 16, 25,
 12, \ldots$, so $\rho(5) = 3$ and $\rho(13) = 12$.
 
-> Figure 8 (interactive): [Jane's reluctant recitation](https://douzebis.github.io/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes)
+[![Figure 8](images/figure-08.png)](https://douzebis.github.io/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes)
+
+> Figure 8: Jane's reluctant recitation ([live version](https://douzebis.github.io/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes)).
 
 ```python
 def rho(i: int) -> int:
@@ -411,7 +427,9 @@ except possibly for the path Jane is currently descending.
 is injective, and it never creates a gap in an up-chain: for every $i$ and
 every white bead $w \in V_i$, we have $w\lambda \in V_i$.
 
-> Figure 9 (interactive): [the reluctant recitation fills the up-chains from the left](https://douzebis.github.io/jane-s-rosary/deconstructed.html?n=31&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes)
+[![Figure 9](images/figure-09.png)](https://douzebis.github.io/jane-s-rosary/deconstructed.html?n=31&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes)
+
+> Figure 9: the reluctant recitation fills the up-chains from the left ([live version](https://douzebis.github.io/jane-s-rosary/deconstructed.html?n=31&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes)).
 
 *Proof.* By induction on $i$ we prove: (a) $\rho(0), \ldots, \rho(i)$ are
 defined and distinct; (b) the no-gap property holds at all times $j \leq i$.
@@ -481,7 +499,9 @@ $$\alpha = \log_2\frac{3}{2} = \log_2 3 - 1 .$$
 $\log_2(1 + \frac{1}{3x}) < \frac{1}{2x}$. (2) By Lemma 4,
 $y \leq x/2^k < y+1$ and $\log_2(1 + \frac{1}{y}) < \frac{3}{2y}$. $\quad\Box$
 
-> Figure 10 (interactive): [the multiples of $\log_2(3/2)$ are dense in the circle](https://douzebis.github.io/jane-s-rosary/irrational-log2-3.html?n=40&interactive=yes)
+[![Figure 10](images/figure-10.png)](https://douzebis.github.io/jane-s-rosary/irrational-log2-3.html?n=40&interactive=yes)
+
+> Figure 10: the multiples of $\log_2(3/2)$ are dense in the circle ([live version](https://douzebis.github.io/jane-s-rosary/irrational-log2-3.html?n=40&interactive=yes)).
 
 *Proof of Theorem 3.* Fix a bead $m$ and suppose that $m$ is never told.
 
@@ -566,7 +586,9 @@ $b_{e+1}\lambda = \frac{2}{3}a_{e+1}$ if $\nu$ wins, and at most
 $a_{e+1}\lambda \le \frac{2}{3}a_{e+1}$ if $\mu$ wins. Since
 $a_{e+1} \leq a_1 = 4n$, this gives $\sigma(v) \leq \frac{8n}{3}$. $\quad\Box$
 
-> Figure 11 (interactive): [the onyx ordering](https://douzebis.github.io/jane-s-rosary/onyx-ordering.html?n=1000&interactive=yes)
+[![Figure 11](images/figure-11.png)](https://douzebis.github.io/jane-s-rosary/onyx-ordering.html?n=1000&interactive=yes)
+
+> Figure 11: the onyx ordering ([live version](https://douzebis.github.io/jane-s-rosary/onyx-ordering.html?n=1000&interactive=yes)).
 
 We say that $n$ **covers** $m$ when $\boldsymbol{\pi}(n) = m$.
 
