@@ -273,6 +273,13 @@ In progress. Steps done:
   kept): the dictionary of the opening says that Jane Street's page
   counts its squares from 1, so that its square n + 1 is bead n; the
   captions of Figures 1 and 2 say that up is to the right.
+- An epigraph for Part IV (2026-11-17, chosen by the author): Killy's
+  answer in *Blame!*, "From below. Over 5,000 floors below.", with the
+  question before it and the reply after it. The wording is the one the
+  author supplied (an English text of LOG. 4); it has NOT been checked
+  against a printed edition, and web searches did not find the line (the
+  2017 film says "6,000 levels below"). To be verified, with the edition,
+  before the campaign is closed.
 
 Statements compared with the 2026-11-17 version
 (`python tools/compare_statements.py content/versions/jane-s-infinite-rosary/2026-11-17/index.md content/posts/2022-12-02-jane-s-infinite-rosary/index.md`):
