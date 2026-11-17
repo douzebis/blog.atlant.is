@@ -37,7 +37,7 @@ Every third bead, including bead $0$, is black; the other beads are white.
 
 [![Figure 1](images/figure-01.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=position&arrows=none&interactive=yes)
 
-> Figure 1: the rosary. Each bead shows its position; every third bead is black ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=position&arrows=none&interactive=yes)).
+> Figure 1: the rosary. Each bead shows its position; every third bead is black. Up is to the right, down to the left ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=position&arrows=none&interactive=yes)).
 
 Jane tells the beads of her rosary in a special way. She always starts at bead
 $0$. Each time she is done with a bead $n$, she moves on, either *up* to bead
@@ -45,7 +45,7 @@ $n + L(n)$ or *down* to bead $n - L(n)$.
 
 [![Figure 2](images/figure-02.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=both&interactive=yes)
 
-> Figure 2: telling the beads. Each bead shows its label, and its two arrows, one up and one down, reach as many places away as the label says ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=both&interactive=yes)).
+> Figure 2: telling the beads. Each bead shows its label, and its two arrows, one up (to the right) and one down (to the left), reach as many places away as the label says ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=both&interactive=yes)).
 
 **Can Jane tell every bead of her rosary?** Yes, and easily: every bead can be
 reached from bead $0$. The fun starts with two finer questions.
@@ -96,7 +96,7 @@ in disguise, and three entries of the
 
 | Here | On the sidewalk | OEIS |
 |---|---|---|
-| bead $n$, moves up and down | slab $n$, jumps forward and backward | |
+| bead $n$, moves up and down | square $n + 1$ (the page counts from $1$; the OEIS says slab $n$), jumps forward and backward | |
 | height $h(n)$ | minimum number of jumps from slab $0$ to slab $n$ | [A358838](https://oeis.org/A358838) |
 | reluctant recitation $\rho$ | the greedy walk | [A359005](https://oeis.org/A359005) |
 | the move at which bead $m$ is told, $\rho^{-1}(m)$ | the inverse mapping of the greedy walk | [A359008](https://oeis.org/A359008) |
