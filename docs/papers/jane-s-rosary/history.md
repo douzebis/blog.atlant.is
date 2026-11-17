@@ -128,6 +128,25 @@ In progress. Steps done:
   Not done: links from each later use of a name to the table, and one
   epigraph per part (the three epigraphs stay where they are; Parts II and
   IV have none).
+- Step 5 (2026-11-17): a sketch before each main proof, under the label
+  "The idea" (for Theorem 5: "Why log_3 2"), and a line "Used:" after it.
+  - Theorem 1: the sketch carries the two ladder diagrams, which move out
+    of the proof; the proof refers to them.
+  - Theorem 2: why a gap in an up-chain is the only danger, and what the
+    diagrams of Lemma 1 are for.
+  - Theorem 3: four numbered points (the cone to avoid, the cone as an arc
+    of phases, what the moves do to the phase, the irrational rotation),
+    in place of the two-line announcement of the lemmas.
+  - Theorem 4: where the covers are found and why a bead of the chain
+    loses only finitely often.
+  - Theorem 5: the heuristic 3^u = 2^t, then what parts (1) and (2) add;
+    the proof of (2) is marked as the most technical passage, which can be
+    skipped.
+  - Theorem 6: the statement in words; counting in place of waiting.
+  No proof is moved to a later section: on rereading, the proof of
+  Theorem 6 is short, and the heavy one, Theorem 5 (2), is better kept
+  with its statement and marked as skippable. The arguments are
+  unchanged.
 
 Statements compared with the 2026-11-17 version
 (`python tools/compare_statements.py content/versions/jane-s-infinite-rosary/2026-11-17/index.md content/posts/2022-12-02-jane-s-infinite-rosary/index.md`):

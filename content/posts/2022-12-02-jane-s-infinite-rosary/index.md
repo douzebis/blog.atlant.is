@@ -496,6 +496,39 @@ $2n+1$.
 
 > Figure 7: when in doubt, choose the predecessor with the larger lambex ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=back&label=position&color=position&arrows=yes&interactive=yes)).
 
+*The idea.* Follow the two candidates $a_0 = 3n\mu$ and $b_0 = 3n\nu$
+backwards along their up-chains. They are neighbors, and they stay neighbors,
+$b_i = a_i + 1$, for $e + 1$ steps back. All the beads met on the way are
+white, except one of the last two, $a = a_{e+1}$ and $b = b_{e+1}$: that one
+is a seed, and the other candidate goes on further back. This is (1), (2)
+and (3), and it is plain arithmetic modulo $3$.
+
+For the heights, look one row down. The beads $c_i = a_iD$ and $d_i = b_iD$
+below the two candidates' chains turn out to be the chains of the two
+neighbors of our black bead, $3n - 1$ and $3n + 1$:
+
+$$
+\begin{CD}
+3n @<D<< a_0 @>\lambda>> a_1 @>\lambda>> \cdots @>\lambda>> a\\
+@. @. @VVDV @. @VVDV\\
+{} @. 3n-1 @>\lambda>> c_1 @>\lambda>> \cdots @>\lambda>> c
+\end{CD}
+$$
+
+$$
+\begin{CD}
+3n @<D<< b_0 @>\lambda>> b_1 @>\lambda>> \cdots @>\lambda>> b\\
+@. @. @VVDV @. @VVDV\\
+{} @. 3n+1 @>\lambda>> d_1 @>\lambda>> \cdots @>\lambda>> d
+\end{CD}
+$$
+
+By Lemma 2, walking along a row costs one move per arrow. So the heights of
+$3n$, $3n - 1$ and $3n + 1$ are read off the four beads at the right-hand
+ends, $a$, $b$, $c = c_{e+1}$ and $d = d_{e+1}$. Exactly two of these four are
+black, and comparing them comes down to statement (4) for a smaller black
+bead: this is the induction.
+
 *Proof.* **(1) and (2).** We have $a_0 = 6n+1$ and $b_0 = 6n+2$. For
 $i \leq e$, $a_i + 2 = 2^i 3^{e+1-i} q$ is divisible by $3$, so
 $a_i \equiv 1$ and $b_i \equiv 2 \pmod 3$: both are white, and one checks
@@ -514,25 +547,8 @@ most $(s \pm 1)\lambda \leq \frac{2}{3}(s+1) < s$.
 $d_i = b_iD = c_i + 1$. The same computation as above gives
 $c_i = (3n-1)\lambda^i$ and $d_i = (3n+1)\lambda^i$, with $c_i$ and $d_i$ white
 for $i \leq e$. Write $a, b, c, d$ for $a_{e+1}, b_{e+1}, c_{e+1}, d_{e+1}$.
-In pictures, the two ladders below commute:
-
-$$
-\begin{CD}
-3n @<D<< a_0 @>\lambda>> a_1 @>\lambda>> \cdots @>\lambda>> a\\
-@. @. @VVDV @. @VVDV\\
-{} @. 3n-1 @>\lambda>> c_1 @>\lambda>> \cdots @>\lambda>> c
-\end{CD}
-$$
-
-$$
-\begin{CD}
-3n @<D<< b_0 @>\lambda>> b_1 @>\lambda>> \cdots @>\lambda>> b\\
-@. @. @VVDV @. @VVDV\\
-{} @. 3n+1 @>\lambda>> d_1 @>\lambda>> \cdots @>\lambda>> d
-\end{CD}
-$$
-
-Every bead from which a $\lambda$ arrow starts is white, so by Lemma 2 it
+So the two ladders drawn above commute. Every bead from which a $\lambda$
+arrow starts is white, so by Lemma 2 it
 is one higher than the bead the arrow points to. Reading the rows from right
 to left, and using Corollary 1 for the step down to $3n$,
 
@@ -565,6 +581,8 @@ the black bead $a$ gives $h(a) \geq h(a+1) = h(b)$, a contradiction; hence
 $h(3n) = h(b) + e + 2$, which gives (5). Then $d = bD$ yields
 $h(3n+1) \leq h(3n)$, and $d$ is black with $h(d) < h(3n)$, so
 $h(c) = h(d-1) \leq h(d)$ and $h(3n-1) \leq h(3n)$. $\quad\Box$
+
+*Used:* Lemma 2 and Corollary 1.
 
 #### Computing the height in logarithmic time
 
@@ -654,6 +672,15 @@ every white bead $w \in V_i$, we have $w\lambda \in V_i$.
 
 > Figure 9: the reluctant recitation fills the up-chains from the left ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=31&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes)).
 
+*The idea.* Jane is stuck if the bead below her and the bead above her have
+both been told. Suppose she stands on $n$, wants to go up, and finds $nU$
+already told. Then $nU$, a white bead, was told at a time when the bead
+before it in its up-chain, $nU\lambda = n$, was not: a *gap* in the up-chain.
+So it is enough to show that Jane never creates a gap, and this is what the
+two diagrams of Lemma 1 are for: whichever way Jane comes down onto a white
+bead $w$, they show that $w\lambda$ lies below a bead she has told before,
+and Lemma 3 says that she has then told $w\lambda$ too.
+
 *Proof.* By induction on $i$ we prove: (a) $\rho(0), \ldots, \rho(i)$ are
 defined and distinct; (b) the no-gap property holds at all times $j \leq i$.
 Both are clear for $i = 0$.
@@ -680,6 +707,8 @@ side shows that $g$ had been told before.
 
 Both cases contradict $g \notin V_{i+1}$. $\quad\Box$
 
+*Used:* Fact 1, Lemma 1 and Lemma 3.
+
 ### 8. Theorem 3: Jane's reluctant recitation tells all beads
 
 **Theorem 3.** $\rho$ is a permutation of $\mathbb{N}$: the reluctant
@@ -688,9 +717,30 @@ recitation tells every bead exactly once.
 (The previous version of this note stated this as Conjecture 3, checked by
 computer for all beads below $7\,884\,654$, and proved only a dichotomy.)
 
-Injectivity is Theorem 2. For surjectivity we need two lemmas. The first one
-describes down-chains; the second one says that, on a logarithmic scale, an up
-move is a rotation by an irrational angle and down moves do nothing.
+That Jane tells no bead twice is Theorem 2. What remains is that she leaves
+no bead out.
+
+*The idea.* Suppose some bead $m$ is never told.
+
+1. Then Jane stays out of the whole *cone* of $m$, that is, of everything
+   above $m$ in the binary tree: had she told a bead up there, she would have
+   come down to $m$ (Lemma 3).
+2. The cone of $m$ is easy to recognize in heap coordinates: its beads are
+   those for which $x = n + 1$, written in binary, starts with the digits of
+   $m + 1$. On a logarithmic scale this is a condition on the fractional part
+   of $\log_2 x$ alone, the *phase* of the bead: it must fall in a fixed arc
+   of the circle (Lemma 4).
+3. A down move erases the last binary digit of $x$ and leaves the leading
+   ones alone: the phase hardly moves. An up move multiplies $x$ by $3/2$, or
+   very nearly: the phase turns by $\alpha = \log_2(3/2)$ (Lemma 5).
+4. So Jane's phase goes round the circle in steps of $\alpha$, and $\alpha$ is
+   irrational: the steps never close up, and they visit every arc (Figure
+   10). Sooner or later the phase falls in the arc of $m$: Jane is in the
+   cone, which she was supposed to avoid.
+
+The "hardly" and "very nearly" hide errors of size about $1/x$. They do no
+harm once Jane is far up, and she does go far up, for want of fresh beads
+lower down.
 
 **Lemma 4 (binary prefixes).** $\downarrow\!(n)$ consists of the beads $m$ such
 that the binary expansion of $m+1$ is a prefix of that of $n+1$:
@@ -841,6 +891,17 @@ We say that $n$ **covers** $m$ when $\boldsymbol{\pi}(n) = m$.
 
 #### Theorem 4: every onyx bead has infinitely many covers
 
+*The idea.* The covers of the onyx bead $m$ are found along the up-chain of
+the black bead $3m$. Whenever a bead $k$ of that chain sits just above a
+black bead, $kD = 3n$, it is one of the two candidates for the last step down
+to $3n$; and if it wins, $n$ covers $m$. Two things are needed. First, that
+the chain passes just above a black bead infinitely often: this happens each
+time the parity changes along the chain (Lemma 6), and it changes forever
+(Lemma 7). Second, that $k$ loses only finitely often. By Theorem 1, $k$ can
+only lose to a neighbor $k \pm 1$ with a smaller seed: our chain would then
+run side by side with one of the finitely many chains that start lower. And
+two up-chains run side by side only finitely many times (Lemma 8).
+
 **Lemma 6 (parity).** For every bead $n$: $\ 3 \mid nUD$ if and only if $n$ and
 $nU$ have *different* parities.
 
@@ -892,6 +953,8 @@ By Lemma 8 (applied twice, exchanging the roles of the two chains for the
 "$-1$" part), this set is finite for each of the finitely many $j < m$. So all
 but finitely many $k \in S_m$ are winners, and distinct $k$ give distinct
 onyx beads $n = kD/3$ covering $m$. $\quad\Box$
+
+*Used:* Theorem 1 and Lemmas 6, 7 and 8.
 
 #### Corollary: the canonical onyx mapping
 
@@ -987,6 +1050,26 @@ Trivially $F(t) \leq t + 1$.
 3. Consequently
    $$\frac{u(t)}{t} = \log_3 2 + O\big(t^{-1/2}\big) \approx 0.63093 .$$
 
+*Why $\log_3 2$.* In heap coordinates an up move multiplies $x$ by $3/2$ and
+a down move divides it by $2$, give or take the rounding. After $t$ moves,
+$u$ of them up, Jane is therefore near
+
+$$x \approx \frac{(3/2)^u}{2^{\,t-u}} = \frac{3^u}{2^t} .$$
+
+If she is neither astronomically far nor, which is impossible, below $1$,
+then $3^u$ and $2^t$ must be of the same order: $u/t \approx \log_3 2$.
+
+Part (1) keeps the books of the rounding errors. They add up to no more than
+a logarithm, because Jane never tells a bead twice. Part (2) says how far
+Jane can be: after $t$ moves her bead has at most about $2\sqrt{t}$ binary
+digits. The reason is the rotation of Theorem 3 once more: a walker who is
+very far up has, on her way, entered many different branches of the tree, and
+each of them had to be told all the way down (Lemma 3); with only $t$ beads
+told, there is a limit to that.
+
+The proof of (2) is the most technical passage of the paper. It can be
+skipped: nothing later depends on its details.
+
 *Proof.* (1) Sum the identities of Lemma 5 over the first $t$ moves (each down
 move being a run of length $1$): with $x_t = \rho(t) + 1$,
 
@@ -1041,6 +1124,9 @@ move; and an up move increases $\log_2(n+1)$ by at most $1$.
 
 (3) follows from (1) and (2). $\quad\Box$
 
+*Used:* Theorem 2, Lemma 3, Lemma 5, and, for the square root in (2), the
+irrationality exponent of $\log_2 3$ introduced below.
+
 The square root in (2) is certainly far from the truth: numerically
 $\rho(t)$ grows polynomially (see Conjecture B), in which case
 $u(t) = t\log_3 2 + O(\log t)$.
@@ -1070,6 +1156,19 @@ $$\rho^{-1}(m) \leq \kappa\,(m+1)^{2\mu_0 - 1},
   \qquad\text{hence}\qquad
   F(t) \geq (t/\kappa)^{1/(2\mu_0 - 1)} - 1 .$$
 
+In words: every bead is told after a number of moves bounded by a fixed power
+of its position; and after $t$ moves, all the beads up to a fixed (small)
+power of $t$ have been told.
+
+*The idea.* The proof of Theorem 3 has one step that gives no bound: "wait
+until Jane has left the beads below $N$ for good". Counting replaces waiting.
+There are only $N + 1$ beads up to $N$, so Jane makes at most $N + 2$
+excursions above $N$; and an excursion that lasts long enough enters the cone
+of $m$. "Long enough" is Lemma 9, and this is where the arithmetic of
+$\log_2 3$ comes in: the rotation by $\alpha$ reaches every arc of length $w$
+within a number of steps that is a power of $1/w$, because $\log_2 3$ is not
+too well approximated by fractions.
+
 *Proof.* We rerun the proof of Theorem 3 with a clock. Let $z = m + 1$, so
 that $w_m \geq 1/z$. Let $J$ be given by Lemma 9 for arcs of length $w_m/3$,
 so $J \leq (6z)^{\nu}/c$, and let $N = 6Jz$, so that $2J/N \leq w_m/3$ and
@@ -1090,6 +1189,9 @@ moves. Altogether
 $\rho^{-1}(m) \leq 2\big((N+2)J + N + 1\big) \leq 30\,J^2 z
 \leq \kappa\, z^{2\nu + 1}$. The bound on $F$ follows since the right-hand
 side is increasing in $m$. $\quad\Box$
+
+*Used:* the proof of Theorem 3, Lemma 9, and the irrationality exponent of
+$\log_2 3$.
 
 With Rhin's exponent, $2\mu_0 - 1 \le 16.24$. This is a proof of concept
 rather than a sharp estimate: the truth seems to be $\rho^{-1}(m) \approx m\log m$

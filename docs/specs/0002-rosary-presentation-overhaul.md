@@ -195,7 +195,9 @@ the frozen version, and the author's go-ahead for the next one.
    each later use. The postfix notation is kept and justified once (it
    reads in the order of the moves). The epigraphs stay, one per part.
 
-5. **Sketches before proofs.**
+5. **Sketches before proofs.** (Done 2026-11-17 for Theorems 1 to 6; no
+   proof deferred, see the history; the pictures of a cone and of the
+   phases belong to step 7.)
    - Theorem 1: the existing "in words" paragraph, plus the ladder
      diagrams placed before the proof instead of inside it.
    - Theorem 3: a half-page sketch (down-chains are binary prefixes; a
