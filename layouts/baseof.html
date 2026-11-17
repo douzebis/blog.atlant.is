@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="{{ partial "lang.html" . }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} – {{ site.Title }}{{ end }}</title>
+    {{- with .Description | default .Summary | plainify | strings.TrimSpace | truncate 160 }}
+    <meta name="description" content="{{ . }}">
+    {{- end }}
+    {{- with resources.Get "css/main.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}">
+    {{- end }}
+    <link rel="icon" href="data:,">
+    {{- with site.Home.OutputFormats.Get "rss" }}
+    <link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .RelPermalink }}">
+    {{- end }}
+    {{- if .Params.math }}{{ partial "math.html" . }}{{ end }}
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-title" href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a>
+      <span class="site-tagline" lang="fr">{{ site.Params.tagline }}</span>
+    </header>
+    <main>
+      {{- block "main" . }}{{ end }}
+    </main>
+    <footer class="site-footer">
+      <p>
+        © {{ site.Params.author }}. Texts and the author's own figures are
+        licensed under
+        <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>,
+        unless stated otherwise.
+      </p>
+    </footer>
+  </body>
+</html>

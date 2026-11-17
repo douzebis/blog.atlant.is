@@ -1,0 +1,30 @@
+{{ define "main" }}
+  {{- $lang := partial "lang.html" . }}
+  <article>
+    <header class="post-header">
+      <h1>{{ .Title }}</h1>
+      <p class="post-meta">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ partial "date.html" (dict "date" .Date "lang" $lang) }}</time>
+        {{- with .Params.revised }}
+        {{- $revised := time.AsTime . }}
+        · {{ if eq $lang "fr" }}révisé le{{ else }}revised{{ end }}
+        <time datetime="{{ $revised.Format "2006-01-02" }}">{{ partial "date.html" (dict "date" $revised "lang" $lang) }}</time>
+        {{- end }}
+      </p>
+    </header>
+    {{- if .Params.math }}
+    <noscript>
+      <p class="notice">
+        {{ if eq $lang "fr" -}}
+        Les formules de cette page sont affichées par un script (MathJax).
+        Sans JavaScript, elles apparaissent sous leur forme LaTeX.
+        {{- else -}}
+        The formulas on this page are displayed by a script (MathJax).
+        Without JavaScript they appear in their LaTeX form.
+        {{- end }}
+      </p>
+    </noscript>
+    {{- end }}
+    {{ .Content }}
+  </article>
+{{ end }}

@@ -1,0 +1,13 @@
+# SPDX-FileCopyrightText: 2026 Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)
+#
+# SPDX-License-Identifier: MIT
+
+# Build outputs and Hugo's working files.
+/result
+/result-*
+/public/
+/resources/
+/.hugo_build.lock
+/vendor/
+__pycache__/
+.ruff_cache/

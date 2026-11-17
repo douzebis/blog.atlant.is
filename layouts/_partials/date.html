@@ -1,0 +1,7 @@
+{{- /* A date written out in the language given: (dict "date" d "lang" l). */ -}}
+{{- $months := slice "janvier" "février" "mars" "avril" "mai" "juin" "juillet" "août" "septembre" "octobre" "novembre" "décembre" -}}
+{{- if eq .lang "fr" -}}
+  {{- if eq .date.Day 1 }}1er{{ else }}{{ .date.Day }}{{ end }} {{ index $months (sub (int .date.Month) 1) }} {{ .date.Year -}}
+{{- else -}}
+  {{- .date.Format "January 2, 2006" -}}
+{{- end -}}

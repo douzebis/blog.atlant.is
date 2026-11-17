@@ -1,0 +1,210 @@
+/*
+ * SPDX-FileCopyrightText: 2026 Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+:root {
+  --text: #1c1c1a;
+  --muted: #666660;
+  --background: #fdfdfb;
+  --rule: #d9d9d2;
+  --link: #1a5a96;
+  --code-background: #f1f1ec;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #e4e4de;
+    --muted: #a0a098;
+    --background: #191918;
+    --rule: #3c3c38;
+    --link: #8fbfe8;
+    --code-background: #262624;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 106.25%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0 auto;
+  padding: 0 1rem;
+  max-width: 44rem;
+  color: var(--text);
+  background: var(--background);
+  font-family: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+  line-height: 1.6;
+  overflow-wrap: break-word;
+}
+
+a {
+  color: var(--link);
+  text-underline-offset: 0.15em;
+}
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 1rem;
+  padding: 1.5rem 0 1rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.site-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-tagline,
+.post-meta,
+.site-footer,
+.post-list time {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.site-tagline {
+  font-style: italic;
+}
+
+.site-footer {
+  margin-top: 4rem;
+  padding: 1rem 0 2rem;
+  border-top: 1px solid var(--rule);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.25;
+  margin: 2.2rem 0 0.8rem;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: 1.9rem;
+  margin-top: 2rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+}
+
+h3 {
+  font-size: 1.15rem;
+}
+
+.post-header h1 {
+  margin-bottom: 0.3rem;
+}
+
+.post-meta {
+  margin: 0 0 2rem;
+}
+
+.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-list li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 1rem;
+  padding: 0.4rem 0;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+blockquote {
+  margin: 1.2rem 0;
+  padding: 0.1rem 1rem;
+  border-left: 3px solid var(--rule);
+  color: var(--muted);
+}
+
+pre,
+code {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.85em;
+}
+
+code {
+  background: var(--code-background);
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+}
+
+pre {
+  /* The highlighter sets its own light background inline. */
+  padding: 0.8rem 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  line-height: 1.45;
+  background: var(--code-background);
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin: 1.2rem 0;
+}
+
+table {
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+
+th,
+td {
+  padding: 0.35rem 0.7rem;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  white-space: nowrap;
+}
+
+thead th {
+  border-bottom-width: 2px;
+}
+
+.notice {
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+mjx-container[display="true"] {
+  margin: 1rem 0 !important;
+}
+
+/* MathJax lets a long formula break across lines inside a paragraph; in a
+   table cell a formula stays in one piece and the table scrolls instead. */
+.table-wrap mjx-container,
+.table-wrap mjx-container * {
+  white-space: nowrap !important;
+}

@@ -1,0 +1,53 @@
+# SPDX-FileCopyrightText: 2026 Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)
+#
+# SPDX-License-Identifier: MIT
+
+# Builds the site with Nix and publishes it on GitHub Pages as a preview.
+# The repository's Pages source must be set to "GitHub Actions".
+name: pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v31
+      - name: Build the site
+        run: |
+          nix-build site.nix \
+            --argstr baseURL "https://douzebis.github.io/blog.atlant.is/" \
+            2>&1 | tee /tmp/site-build.log
+      - name: Build it again and compare (docs/invariants/0001)
+        run: |
+          nix-build site.nix \
+            --argstr baseURL "https://douzebis.github.io/blog.atlant.is/" \
+            --check 2>&1 | tee /tmp/site-rebuild.log
+      - name: Copy the site out of the Nix store
+        run: cp -rL result public
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,29 @@
+# SPDX-FileCopyrightText: 2026 Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)
+#
+# SPDX-License-Identifier: MIT
+
+baseURL = "https://blog.atlant.is/"
+title = "Atlantis"
+locale = "en"
+enableGitInfo = false
+disableKinds = ["taxonomy", "term"]
+
+[params]
+  tagline = "Prends garde à la douceur des choses"
+  author = "Frederic Ruget"
+
+[markup.goldmark.renderer]
+  # The posts exported from WordPress contain raw HTML.
+  unsafe = true
+
+[markup.goldmark.extensions.passthrough]
+  # Formulas go to MathJax untouched by the Markdown processor.
+  enable = true
+
+[markup.goldmark.extensions.passthrough.delimiters]
+  block = [['$$', '$$'], ['\[', '\]']]
+  inline = [['$', '$'], ['\(', '\)']]
+
+[markup.highlight]
+  noClasses = true
+  style = "friendly"

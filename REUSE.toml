@@ -1,0 +1,26 @@
+# SPDX-FileCopyrightText: 2026 Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)
+#
+# SPDX-License-Identifier: MIT
+
+version = 1
+
+# Templates: a license comment at the top of a template would be copied
+# into every page, and for some partials into the middle of an attribute.
+[[annotations]]
+path = "layouts/**"
+SPDX-FileCopyrightText = "Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)"
+SPDX-License-Identifier = "MIT"
+
+# Data files read by Hugo: JSON has no comments, and Hugo reads every file
+# of the directory.
+[[annotations]]
+path = "data/**"
+SPDX-FileCopyrightText = "Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)"
+SPDX-License-Identifier = "MIT"
+
+# Images of the posts that are the author's own work.  Images from third
+# parties get their own entry, with their own holder and license.
+[[annotations]]
+path = "content/posts/2022-12-02-jane-s-infinite-rosary/images/**"
+SPDX-FileCopyrightText = "Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)"
+SPDX-License-Identifier = "CC-BY-4.0"

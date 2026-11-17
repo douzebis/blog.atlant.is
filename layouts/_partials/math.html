@@ -1,0 +1,12 @@
+{{- /* MathJax, served by the site itself.  The TeX settings are shared with
+       the build check (data/mathjax.json). */ -}}
+{{- $config := dict
+      "loader" (dict "paths" (dict "fonts" ("mathjax-fonts" | absURL)))
+      "tex" hugo.Data.mathjax.tex
+      "output" (dict
+        "matchFontHeight" false
+        "displayOverflow" "scroll"
+        "linebreaks" (dict "inline" true))
+}}
+    <script id="mathjax-config">window.MathJax = {{ $config | jsonify | safeJS }};</script>
+    <script defer src="{{ "mathjax/tex-chtml.js" | relURL }}"></script>
