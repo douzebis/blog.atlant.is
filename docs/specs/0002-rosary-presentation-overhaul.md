@@ -168,8 +168,13 @@ the frozen version, and the author's go-ahead for the next one.
    - one enticing open question (Conjecture A or the "$p_1 = 1/2$"
      question) as a teaser.
 
-3. **Roadmap.** The paper becomes three parts with a short map and a
-   dependency sketch (a small diagram: which part needs which lemma):
+3. **Roadmap.** (Done 2026-11-17, with four parts and a coda instead of
+   three parts: Theorems 5 and 6 form a part of their own after the onyx
+   rosary, so that the sections keep their order and their numbers, and
+   the theorems and lemmas appear in the order of their numbers. Section
+   numbers are unchanged too.) The paper becomes three parts with a short
+   map and a dependency sketch (a small diagram: which part needs which
+   lemma):
    - Part I, shortest recitations: height, Lemmas 1-2, Theorem 1, the
      logarithmic algorithm;
    - Part II, the reluctant recitation: Theorems 2, 3, then 5 and 6;

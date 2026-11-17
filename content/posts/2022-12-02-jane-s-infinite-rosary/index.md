@@ -104,7 +104,45 @@ favorite: look at each of Jane's down moves and count the up moves that
 came just before it. After $2^{27}$ moves, the count is exactly one in
 $49.993\%$ of the cases. Is the true proportion one half?
 
-## 1. Prelude: names
+## How to read this paper
+
+The paper has four parts and a coda. They lean on each other less than their
+order suggests:
+
+$$
+\begin{CD}
+\textbf{I} @>\text{Lemma 1}>> \textbf{II} @>\text{Theorem 3}>> \textbf{IV}\\
+@V\text{Theorem 1}VV @VV\text{Theorem 3}V\\
+\textbf{III} @>>> \text{Corollary 3}
+\end{CD}
+$$
+
+- **Part I, shortest recitations** (Sections 1 to 5): the names, the height,
+  Theorem 1 and the fast algorithm. It needs nothing.
+- **Part II, the reluctant recitation** (Sections 6 to 8): Theorems 2 and 3.
+  From Part I it needs the names (Section 1 and the first lines of Section 4)
+  and one elementary lemma (Lemma 1, in Section 3). It does not use
+  Theorem 1: a reader in a hurry to see why reluctant Jane tells every bead
+  can read Section 1 and Lemma 1, and jump to Section 6.
+- **Part III, the onyx rosary** (Sections 9 and 10): Theorem 4. It is built
+  on Theorem 1; only its last corollary, on Jane's foraging sequence, uses
+  Theorem 3.
+- **Part IV, the pace of the recitation** (Section 11): Theorems 5 and 6. It
+  continues Part II and uses neither Theorem 1 nor Part III.
+- **Coda** (Section 12): what is still open.
+
+Theorems, lemmas and conjectures keep the numbers they had in the previous
+version of this paper.
+
+## Part I. Shortest recitations
+
+*Sections 1 to 5.* The names of things, the height of a bead, and what a
+shortest recitation looks like: always one step up from $n\lambda$ to reach a
+white bead $n$ (Lemma 2), and, to reach a black bead, a choice between two
+ways that Theorem 1 settles. The part ends with the fast algorithm for the
+height.
+
+### 1. Prelude: names
 
 > To weave the magic of a thing, you see, one must find its true name out.
 >
@@ -157,7 +195,7 @@ the Josephus problem [OW91]; black beads are those with $x \equiv 1 \pmod 3$.
 Most of what follows is an interplay between this binary structure (down) and
 the multiplication by $3/2$ (up).
 
-## 2. The height of a bead
+### 2. The height of a bead
 
 By definition $h(0) = 0$.
 
@@ -194,7 +232,7 @@ asymptotically attained along the recitation that only moves up, so
 $\liminf h(n)/\ln n = 1/\ln(3/2) \approx 2.466$. See Section 12 for what
 $h(n)/\ln n$ does for a typical $n$.
 
-### Computing the height by exploration
+#### Computing the height by exploration
 
 ```python
 import itertools
@@ -221,7 +259,7 @@ def height(n: int) -> int:
 
 > Figure 4: plot of the heights of beads ([live version](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000)).
 
-## 3. Minimal recitations
+### 3. Minimal recitations
 
 Everything in this section, and Theorem 2 later on, rests on one elementary
 observation about the beads sitting "above" a white bead.
@@ -352,7 +390,7 @@ So a minimal recitation can be built backwards: from a white bead apply
 $\lambda$; from a black bead choose between $\mu$ and $\nu$. Theorem 1 says
 which one to choose.
 
-## 4. Interlude: more names
+### 4. Interlude: more names
 
 > Hey, Louie. The man is dry. Give him one on the house, okay?
 >
@@ -389,7 +427,7 @@ $\sigma(n) \leq n\lambda$ for white $n$, we get for all $n > 0$:
 $\sigma(3n-1) \leq 2n-1$ and $\sigma(3n+1) \leq 2n$. (This was "Conjecture 3"
 in the very first version of this note.)
 
-## 5. Theorem 1: minimal recitations ending in a black bead
+### 5. Theorem 1: minimal recitations ending in a black bead
 
 Let $3n > 0$ be a black bead. Write
 
@@ -493,7 +531,7 @@ $h(3n) = h(b) + e + 2$, which gives (5). Then $d = bD$ yields
 $h(3n+1) \leq h(3n)$, and $d$ is black with $h(d) < h(3n)$, so
 $h(c) = h(d-1) \leq h(d)$ and $h(3n-1) \leq h(3n)$. $\quad\Box$
 
-### Computing the height in logarithmic time
+#### Computing the height in logarithmic time
 
 Lemma 2 and Theorem 1 give an algorithm that computes $h(n)$ in $O(\log n)$
 arithmetic operations and constant space:
@@ -519,7 +557,13 @@ def height(n: int) -> int:
 
 (It agrees with the exploration algorithm for all $n < 60000$.)
 
-## 6. Jane's reluctant recitation
+## Part II. The reluctant recitation
+
+*Sections 6 to 8.* Jane's reluctant rule, the proof that it never leaves her
+stuck (Theorem 2) and the proof that it leads her to every bead (Theorem 3).
+From Part I this part uses the names and Lemma 1, nothing more.
+
+### 6. Jane's reluctant recitation
 
 The reluctant recitation was suggested by
 [Neal Gersh Tolunsky](https://oeis.org/wiki/User:Neal_Gersh_Tolunsky). Jane
@@ -565,7 +609,7 @@ So *Jane never leaves a bead before the bead below it has been told.* In heap
 coordinates: the set of told beads is always a subtree containing the root,
 except possibly for the path Jane is currently descending.
 
-## 7. Theorem 2: Jane's reluctant recitation never halts
+### 7. Theorem 2: Jane's reluctant recitation never halts
 
 **Theorem 2.** The reluctant recitation is well defined for all times, $\rho$
 is injective, and it never creates a gap in an up-chain: for every $i$ and
@@ -601,7 +645,7 @@ side shows that $g$ had been told before.
 
 Both cases contradict $g \notin V_{i+1}$. $\quad\Box$
 
-## 8. Theorem 3: Jane's reluctant recitation tells all beads
+### 8. Theorem 3: Jane's reluctant recitation tells all beads
 
 **Theorem 3.** $\rho$ is a permutation of $\mathbb{N}$: the reluctant
 recitation tells every bead exactly once.
@@ -688,7 +732,14 @@ contradicts Step 1. $\quad\Box$
 2. The argument is not effective because of Step 2. Section 11 makes it
    effective.
 
-## 9. Interlude: for a few names more
+## Part III. The onyx rosary
+
+*Sections 9 and 10.* Shortest recitations, followed backwards, hop from black
+bead to black bead. Keeping only the black beads gives a tree, the onyx
+rosary, in which every bead has infinitely many children (Theorem 4). This
+part rests on Theorem 1.
+
+### 9. Interlude: for a few names more
 
 > **Colonnello Mortimer**: Che succede ragazzo?
 > **Il Monco**: No, niente vecchio, non mi tornavano i conti. Ne mancava uno.
@@ -716,9 +767,9 @@ contradicts Step 1. $\quad\Box$
   $\boldsymbol{\pi}(n) = \min(\boldsymbol{\mu}(n), \boldsymbol{\nu}(n))$ by
   Theorem 1.
 
-## 10. Jane's onyx rosary
+### 10. Jane's onyx rosary
 
-### Onyx ordering
+#### Onyx ordering
 
 **Proposition 2.** For every onyx bead $n > 0$,
 $\boldsymbol{\pi}(n) \leq 8n/9 < n$. Consequently the onyx ordering is a
@@ -738,7 +789,7 @@ $a_{e+1} \leq a_1 = 4n$, this gives $\sigma(v) \leq \frac{8n}{3}$. $\quad\Box$
 
 We say that $n$ **covers** $m$ when $\boldsymbol{\pi}(n) = m$.
 
-### Theorem 4: every onyx bead has infinitely many covers
+#### Theorem 4: every onyx bead has infinitely many covers
 
 **Lemma 6 (parity).** For every bead $n$: $\ 3 \mid nUD$ if and only if $n$ and
 $nU$ have *different* parities.
@@ -792,7 +843,7 @@ By Lemma 8 (applied twice, exchanging the roles of the two chains for the
 but finitely many $k \in S_m$ are winners, and distinct $k$ give distinct
 onyx beads $n = kD/3$ covering $m$. $\quad\Box$
 
-### Corollary: the canonical onyx mapping
+#### Corollary: the canonical onyx mapping
 
 Order the covers of each onyx bead increasingly and number them from $0$: let
 $\boldsymbol{s}_n(k)$ be the $k$-th cover of $n$, and for $n > 0$ let
@@ -820,7 +871,7 @@ surjectivity is Theorem 4. $\quad\Box$
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | $C(n)$ | $()$ | $(0)$ | $(0,0)$ | $(0,1)$ | $(1)$ | $(0,2)$ | $(0,0,0)$ | $(1,0)$ | $(1,0,0)$ | $(1,0,0,0)$ | $(2)$ |
 
-### Jane's foraging sequence
+#### Jane's foraging sequence
 
 Jane's foraging sequence $(\boldsymbol{\Phi}(i))_{i \ge 0}$ is the sequence of
 onyx beads obtained from the reluctant recitation by replacing each $\rho(i)$
@@ -860,7 +911,13 @@ def Phi(n: int) -> int:
             n -= 1
 ```
 
-## 11. How reluctant is Jane?
+## Part IV. The pace of the recitation
+
+*Section 11.* Theorem 3 says that every bead gets its turn; this part says
+how Jane spends her time (Theorem 5) and how long a bead may have to wait
+(Theorem 6). It continues Part II and uses neither Theorem 1 nor Part III.
+
+### 11. How reluctant is Jane?
 
 This section makes Theorem 3 quantitative. Let $u(t)$ be the number of up
 moves among Jane's first $t$ moves, and let
@@ -870,7 +927,7 @@ $$F(t) = \min\big(\mathbb{N}\setminus V_t\big)$$
 be the smallest bead that has not been told after $t$ moves (the *frontier*).
 Trivially $F(t) \leq t + 1$.
 
-### Theorem 5: Jane moves up with frequency $\log_3 2$
+#### Theorem 5: Jane moves up with frequency $\log_3 2$
 
 **Theorem 5.**
 
@@ -938,7 +995,7 @@ The square root in (2) is certainly far from the truth: numerically
 $\rho(t)$ grows polynomially (see Conjecture B), in which case
 $u(t) = t\log_3 2 + O(\log t)$.
 
-### Theorem 6: bead $m$ is told in polynomial time
+#### Theorem 6: bead $m$ is told in polynomial time
 
 Let $\mu_0$ be an *irrationality exponent* of $\log_2 3$: a real number such
 that $|\log_2 3 - p/q| \geq c\,q^{-\mu_0}$ for some $c > 0$ and all integers
@@ -988,7 +1045,7 @@ With Rhin's exponent, $2\mu_0 - 1 \le 16.24$. This is a proof of concept
 rather than a sharp estimate: the truth seems to be $\rho^{-1}(m) \approx m\log m$
 (Conjecture A).
 
-### Numerical data
+#### Numerical data
 
 The first $2^{27}$ moves of the reluctant recitation:
 
@@ -1008,7 +1065,9 @@ The first $2^{27}$ moves of the reluctant recitation:
 ($\log_3 2 = 0.6309297\ldots$) In particular the recitation tells every bead
 below $10\,801\,813$ within its first $2^{27}$ moves.
 
-## 12. Conjectures and open questions
+## Coda
+
+### 12. Conjectures and open questions
 
 **Conjecture A (the frontier).** $F(t) = \Theta(t/\log t)$; equivalently the
 largest index $\max_{m' \le m}\rho^{-1}(m')$ is of order $m\log m$. Numerically

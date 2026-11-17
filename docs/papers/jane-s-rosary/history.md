@@ -94,6 +94,17 @@ In progress. Steps done:
   opened the paper); "And what is still open" (the question whether
   p_1 = 1/2). The header picture gets a caption. The former list of two
   questions with theorem numbers is gone; nothing else is removed.
+- Step 3 (2026-11-17): roadmap. A section "How to read this paper" after
+  the opening, with a small diagram of what each part needs from the
+  others. The twelve sections keep their numbers and titles and are
+  grouped in four parts and a coda, each part opening with a few lines on
+  what it does and what it rests on: I, shortest recitations (Sections 1
+  to 5); II, the reluctant recitation (6 to 8); III, the onyx rosary (9
+  and 10); IV, the pace of the recitation (11); coda (12). Headings move
+  one level down accordingly. The dependencies were read off the proofs:
+  Part II uses Lemma 1 and the names from Part I, not Theorem 1; Part III
+  rests on Theorem 1 and uses Theorem 3 only for Corollary 3; Part IV uses
+  Lemmas 3 and 5 and Theorem 3.
 
 Statements compared with the 2026-11-17 version
 (`python tools/compare_statements.py content/versions/jane-s-infinite-rosary/2026-11-17/index.md content/posts/2022-12-02-jane-s-infinite-rosary/index.md`):
