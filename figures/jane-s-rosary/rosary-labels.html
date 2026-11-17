@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Network</title>
+    <script
+        type="text/javascript"
+        src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+    ></script>
+    <style type="text/css">
+        #mynetwork {
+            width: 600px;
+            height: 60px;
+            border: 0px solid lightgray;
+        }
+    </style>
+</head>
+<body>
+    <div id="mynetwork"></div>
+    <script
+        type="text/javascript"
+        src="./rosary-lib.js"
+    ></script>
+    <script
+        type="text/javascript"
+        src="./janestreet.js"
+    ></script>
+    <script type="text/javascript">
+        const params = new Proxy(new URLSearchParams(window.location.search), {
+            get: (searchParams, prop) => searchParams.get(prop),
+        })
+        console.log(params)  // TODO
+
+        const N = params.n
+        console.log(N)  // TODO
+        function nameEdge(i, j) {
+            if (i < j) {
+                return N*i + j
+            } else if (j < i) {
+                return N*j + i
+            } else {
+                return undefined
+            }
+        }
+
+        function giveI(n) {
+            return Math.trunc(n / nodesNB)
+        }
+
+        function giveJ(n) {
+            return n % nodesNB
+        }
+
+        // Create nodes
+        var nodes = new vis.DataSet([])
+        for (let i = 0; i < N; ++i) {
+            nodes.add([
+                {
+                    id: i,
+                    shape: 'circle',
+                    widthConstraint: {minimum: 20, maximum: 20},
+                    color: is_black(i) ? HSLToHex(0, 0., 50.) : HSLToHex(0, 0., 90.),
+                    font: {
+                        color: is_white(i) ? HSLToHex(0, 0., 50.) : HSLToHex(0, 0., 90.),
+                    },
+                    label: i == N-1 ? '...' : '' + label(i),
+                    x: 30. + 50.*i,
+                    y: 30.,
+                }
+            ])
+        }
+
+        // Create edges
+        var edges = new vis.DataSet([])
+        for (let i = 1; i < N; ++i) {
+            edges.add([
+                {
+                    id: nameEdge(i - 1, i),
+                    from: i - 1,
+                    to: i,
+                    color: HSLToHex(0, 0., 50.),
+                    smooth: false,
+                    width: 1,
+                },
+            ])
+        }
+
+      // Create a network
+      var container = document.getElementById("mynetwork")
+      var data = {
+        nodes: nodes,
+        edges: edges,
+      }
+      var options = {
+        // https://github.com/visjs/vis-network/issues/671
+        autoResize: false,
+        interaction: {
+            dragNodes: true,
+            dragView: false,
+            keyboard: false,
+            zoomView: false
+        },
+        physics: false,
+      }
+      var network = new vis.Network(container, data, options);
+    </script>
+  </body>
+</html>

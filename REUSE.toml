@@ -24,3 +24,11 @@ SPDX-License-Identifier = "MIT"
 path = "content/posts/2022-12-02-jane-s-infinite-rosary/images/**"
 SPDX-FileCopyrightText = "Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)"
 SPDX-License-Identifier = "CC-BY-4.0"
+
+# Interactive figures (HTML and JavaScript), by the author.  Those of
+# jane-s-rosary were imported from github.com/douzebis/jane-s-rosary at
+# commit 947bd74582e5ae7309160c69ef2521e4180de533 (2023-01-05).
+[[annotations]]
+path = "figures/**"
+SPDX-FileCopyrightText = "Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)"
+SPDX-License-Identifier = "MIT"

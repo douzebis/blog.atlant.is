@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Network</title>
+    <script
+        type="text/javascript"
+        src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+    ></script>
+    <style type="text/css">
+        #mynetwork {
+            width: 632px;
+            height: 632px;
+            border: 0px solid lightgray;
+        }
+    </style>
+</head>
+<body>
+    <div id="mynetwork"></div>
+    <script
+        type="text/javascript"
+        src="./rosary-lib.js"
+    ></script>
+    <script type="text/javascript">
+        const params = new Proxy(new URLSearchParams(window.location.search), {
+            get: (searchParams, prop) => searchParams.get(prop),
+        })
+        // console.log(params)  // TODO
+        // let {toto: i, titi: j} = {toto: 1, titi: 42}
+        // console.log(i)
+        // console.log(j)
+        // let {rel: a, corel: b} = relucs(9, 9)
+        // console.log(a)
+        // console.log(b)
+
+        const Width = params.width
+        const Height = params.height
+        const Labels = params.labels  // ['none', 'position', 'label', 'height', 'reluctant']
+        const Arrows = params.arrows  // ['none', 'naked', 'numbered', 'height', 'sigma', 'back']
+        const Colors = params.colors  // ['none', 'reluctant']
+        const Length = params.n  // ['all']
+
+        const {rel: relu, corel: corelu} = relucs(Width, Height)
+
+        const N = Width * Height
+        //console.log(N)  // TODO
+        function nameEdge(i, j) {
+            return N*i + j
+        }
+
+        function giveI(n) {
+            return Math.trunc(n / nodesNB)
+        }
+
+        function giveJ(n) {
+            return n % nodesNB
+        }
+
+        // Create nodes
+        // https://visjs.github.io/vis-network/docs/network/nodes.html
+        var nodes = new vis.DataSet([])
+        for (let s = 0; s < Height; ++s) {
+            for (let e = 0; e < Width; ++e) {
+                let nodeId = s*Width + e
+                let bead = ord(3*s, e)
+                let lab = label(bead)
+                let l = ''
+                switch(bead) {
+                    case 1:
+                        l = '1' + super_st
+                        break
+                    case 2:
+                        l = '2' + super_nd
+                            break
+                    case 3:
+                        l = '3' + super_rd
+                            break
+                    default:
+                        l = '' + bead + super_th
+                        break
+                }
+                if (Length == 'all' || corelu[bead] < Length) {
+                    switch (Labels) {
+                        case 'position':
+                            break
+                        case 'label':
+                            l = '' + label(bead)
+                            break
+                        case 'height':
+                            l = arrow_up + height(bead)
+                            break
+                        case 'reluctant':
+                            l = arrow_reluctant + corelu[bead]
+                            break
+                        default:
+                            l = ''
+                            break
+                    }
+                }
+                if ((Length != 'all' && Length <= corelu[bead])
+                    || Colors == 'none') {
+                    col = e == 0 ? HSLToHex(0, 0., 50.) : HSLToHex(0, 0., 90.)
+                    fcol = e != 0 ? HSLToHex(0, 0., 50.) : HSLToHex(0, 0., 90.)
+                } else if (Labels == 'height' || Arrows == 'back') {
+                    col = HSLToHex(13*(23-height(bead)), 80., 75.)
+                    fcol = HSLToHex(0, 0., 20.)
+                } else {
+                    col = HSLToHex(4*corelu[bead], 80., 75.)
+                    fcol = HSLToHex(0, 0., 20.)
+                }
+                nodes.add([
+                    {
+                        id: nodeId,
+                        shape: 'circle',
+                        widthConstraint: {minimum: 30, maximum: 30},
+                        color: col,
+                        font: {
+                            color: fcol,
+                        },
+                        label: l,
+                        x: 16. + 60.*e,
+                        y: 16. + 60.*(Width - s),
+                    }
+                ])
+            }
+        }
+
+        // Create edges
+        // https://visjs.github.io/vis-network/docs/network/edges.html
+        var edges = new vis.DataSet([])
+        switch (Arrows) {
+            case 'naked':
+            case 'numbered':
+                for (let s = 0; s < Width; ++s) {
+                    for (let e = 0; e < Height; ++e) {
+                        let node = s*Width + e
+                        let bead = ord(3*s, e)
+                        let corel = corelu[bead]
+                        let bead2 = relu[corel + 1]
+                        let s2 = seed(bead2)/3 | 0
+                        let e2 = lambex(bead2)
+                        let node2 = s2*Width + e2
+                        if ((Length == 'all' || corel < Length - 1)
+                            && e2 < Width && s2 < Height) {
+                            if (s2 == s) {
+                                smooth = false
+                            } else {
+                                smooth = {enabled: true, type: 'curvedCW'}
+                            }
+                            edges.add([
+                                {
+                                    id: nameEdge(node, node2),
+                                    from: node,
+                                    to: node2,
+                                    arrows: {to: {enabled: true, scaleFactor: 0.2}},
+                                    color: HSLToHex(4*corel, 80., 70.),
+                                    label: Arrows == 'naked' ? '' : ''+(corelu[bead]+1),
+                                    font: {size: 10, vadjust: -7},
+                                    smooth: smooth,
+                                    width: 3,
+                                },
+                            ])
+                        }
+                    }
+                }
+                break
+            case 'sigma':
+                for (let s = 1; s < Width; ++s) {
+                    let node = s*Width
+                    let bead = ord(3*s, 0)
+                    new Array(bead-1, bead+1).forEach(bead2 => {
+                        let s2 = seed(bead2)/3 | 0
+                        let e2 = lambex(bead2)
+                        let node2 = s2*Width + e2
+                        if (e2 < Width && s2 < Height) {
+                            edges.add([
+                                {
+                                    id: nameEdge(node, node2),
+                                    from: node,
+                                    to: node2,
+                                    arrows: {to: {enabled: true, scaleFactor: 0.2}},
+                                    color: HSLToHex(18*bead, 100., 60.),
+                                    smooth: {enabled: true, type: 'curvedCCW'},
+                                    width: 5,
+                                },
+                            ])
+                        }
+                    })
+                }
+                break
+            case 'height':
+            case 'back':
+                for (let s = 0; s < Width; ++s) {
+                    for (let e = 0; e < Height; ++e) {
+                        let node = s*Width + e
+                        let bead = ord(3*s, e)
+                        if (is_white(bead)) {
+                            let bead2 = lambda(bead)
+                            let s2 = seed(bead2)/3 | 0
+                            let e2 = lambex(bead2)
+                            let node2 = s2*Width + e2
+                            if (e2 < Width && s2 < Height) {
+                                edges.add([
+                                    {
+                                        id: nameEdge(node, node2),
+                                        from: node,
+                                        to: node2,
+                                        arrows: {to: {enabled: true, scaleFactor: 0.2}},
+                                        color: HSLToHex(13*(23-height(bead)), 80., 65.),
+                                        smooth: false,
+                                        width: 4,
+                                    },
+                                ])
+                            }
+                        } else if (bead != 0) {
+                            new Array(mu(bead), nu(bead)).forEach(bead2 => {
+                                if (Arrows != 'back' && bead2 != back(bead)) return
+                                let s2 = seed(bead2)/3 | 0
+                                let e2 = lambex(bead2)
+                                let node2 = s2*Width + e2
+                                if (e2 < Width && s2 < Height) {
+                                    edges.add([
+                                        {
+                                            id: nameEdge(node, node2),
+                                            from: node,
+                                            to: node2,
+                                            arrows: {to: {enabled: true, scaleFactor: 0.2}},
+                                            color: HSLToHex(13*(23-height(bead)), 80., 65.),
+                                            dashes: bead2 == back(bead) ? false : true,
+                                            smooth: {
+                                                enabled: true,
+                                                type: bead2 == back(bead) ? 'curvedCW' : 'curvedCCW'
+                                            },
+                                            width: 4,
+                                        },
+                                    ])
+                                }
+                            })
+                        }
+                    }
+                }
+                break
+            default:
+                break
+        }
+
+      // Create a network
+      var container = document.getElementById("mynetwork")
+      var data = {
+        nodes: nodes,
+        edges: edges,
+      }
+      var options = {
+        // https://github.com/visjs/vis-network/issues/671
+        autoResize: false,
+        interaction: {
+            dragNodes: false,
+            dragView: false,
+            keyboard: false,
+            zoomView: false
+        },
+        physics: false,
+      }
+      var network = new vis.Network(container, data, options);
+    </script>
+  </body>
+</html>
