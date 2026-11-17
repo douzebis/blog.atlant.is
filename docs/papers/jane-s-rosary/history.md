@@ -105,6 +105,29 @@ In progress. Steps done:
   Part II uses Lemma 1 and the names from Part I, not Theorem 1; Part III
   rests on Theorem 1 and uses Theorem 3 only for Corollary 3; Part IV uses
   Lemmas 3 and 5 and Theorem 3.
+- Step 4 (2026-11-17): names. On rereading, the three "names" sections
+  already stand right before the first use of what they define (Section 1
+  before Sections 2 and 3, Section 4 before Theorem 1, Section 9 before
+  the onyx rosary), so they are kept, with their numbers and titles, and
+  made easier instead of being dissolved:
+  - the postfix notation is justified once (a recitation reads in the
+    order of its moves);
+  - bead 7 is followed through the definitions of Sections 1, 4, 8 and 9
+    (its label, its neighbors up and down, where Jane can come from, its
+    height, its heap coordinate, its up-chain and down-chain, its seed and
+    lambex, its phase; then the black bead 3, reached through 7, for the
+    canonical recitation and the onyx predecessor); every value was
+    checked by computation;
+  - each list of names says in a sentence what the names are for; the
+    list of Section 1 is split in two (the moves, then the moves run
+    backwards);
+  - cone and phase get a plain-words explanation where they are defined;
+  - a table "Names at a glance" at the end lists every name with its
+    notation, a one-line meaning and a link to the section that defines
+    it; "How to read this paper" points to it.
+  Not done: links from each later use of a name to the table, and one
+  epigraph per part (the three epigraphs stay where they are; Parts II and
+  IV have none).
 
 Statements compared with the 2026-11-17 version
 (`python tools/compare_statements.py content/versions/jane-s-infinite-rosary/2026-11-17/index.md content/posts/2022-12-02-jane-s-infinite-rosary/index.md`):

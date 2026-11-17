@@ -1,6 +1,10 @@
-{{- /* Tables scroll inside their own box on narrow screens. */ -}}
+{{- /* Tables scroll inside their own box on narrow screens.  A table of
+       figures keeps each cell on one line; a table with sentences in it
+       (class "prose") lets them wrap. */ -}}
+{{- $prose := false -}}
+{{- range .TBody }}{{ range . }}{{ if gt (len (.Text | plainify)) 48 }}{{ $prose = true }}{{ end }}{{ end }}{{ end -}}
 <div class="table-wrap">
-  <table>
+  <table{{ if $prose }} class="prose"{{ end }}>
     <thead>
       {{- range .THead }}
       <tr>

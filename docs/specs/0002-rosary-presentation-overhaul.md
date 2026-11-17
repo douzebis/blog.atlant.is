@@ -182,7 +182,12 @@ the frozen version, and the author's go-ahead for the next one.
    Sections are renumbered accordingly; theorem numbers do not change
    (the OEIS entries and the 2023 version refer to them).
 
-4. **Names where they are needed.** The three "names" sections are
+4. **Names where they are needed.** (Done 2026-11-17, differently: the
+   three sections already stand right before the first use of their names,
+   so they are kept and made easier, with the running example, a sentence
+   on what each list is for, and the reference table at the end; see the
+   history. No links from each later use; the epigraphs are left where
+   they are.) The three "names" sections are
    dissolved: each operator ($U$, $D$, $\lambda$, $\mu$, $\nu$), then
    seed, lambex, cone, phase, onyx, is introduced at first use, with the
    same running example (bead 7: $7U = 11$, $7D = 3$, $7\lambda = 4$,

@@ -211,6 +211,12 @@ thead th {
   border-bottom-width: 2px;
 }
 
+table.prose th,
+table.prose td {
+  white-space: normal;
+  vertical-align: top;
+}
+
 .notice {
   padding: 0.6rem 1rem;
   border: 1px solid var(--rule);

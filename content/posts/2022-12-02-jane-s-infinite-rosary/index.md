@@ -132,7 +132,8 @@ $$
 - **Coda** (Section 12): what is still open.
 
 Theorems, lemmas and conjectures keep the numbers they had in the previous
-version of this paper.
+version of this paper. Every name used in the paper is listed in a
+[table at the end](#names-at-a-glance), with the section where it is defined.
 
 ## Part I. Shortest recitations
 
@@ -148,20 +149,36 @@ height.
 >
 > Ursula K. Le Guin, *A Wizard of Earthsea*
 
-Throughout, $\mathbb{N} = \{0, 1, 2, \ldots\}$. Unary operators are written in
-postfix notation and compose from left to right: $nUD$ means "go up from $n$,
-then down".
+Throughout, $\mathbb{N} = \{0, 1, 2, \ldots\}$. Moves are written *after* the
+bead they apply to, and read from left to right: $nUD$ means "go up from $n$,
+then down". This way a recitation reads in the order in which Jane tells it:
+$0\,UUUUD$ is bead $0$, four moves up, one move down, and that is bead $3$.
+
+Only seven names are needed to begin with. Bead $7$ will serve as an example
+throughout.
 
 - **Bead**: a natural number $n$ (the position of the bead in the rosary).
 - **Black bead**: a bead divisible by $3$. **White bead**: any other bead.
-- **Label**: $L(n) = 1 + \lfloor n/2 \rfloor$.
+  Bead $7$ is white.
+- **Label**: $L(n) = 1 + \lfloor n/2 \rfloor$. The label of bead $7$ is $4$.
 - **Up**: $U : \mathbb{N} \to \mathbb{N}$, $\; nU = n + L(n) = \lfloor 3n/2 \rfloor + 1$.
+  From bead $7$, up leads to $7U = 11$.
 - **Down**: $D : \mathbb{N}\setminus\{0\} \to \mathbb{N}$, $\; nD = n - L(n) = \lceil n/2 \rceil - 1$.
-- **Lambda**: $\lambda : \mathbb{N}\setminus 3\mathbb{N} \to \mathbb{N}$, $\; n\lambda = \lfloor 2n/3 \rfloor$.
-- **Mu** and **nu**: $n\mu = 2n+1$ and $n\nu = 2n+2$.
+  From bead $7$, down leads to $7D = 3$.
+
+The next three run the moves backwards: they say where Jane may have come
+from.
+
+- **Lambda**: $\lambda : \mathbb{N}\setminus 3\mathbb{N} \to \mathbb{N}$, $\; n\lambda = \lfloor 2n/3 \rfloor$,
+  the bead from which an up move leads to the white bead $n$. Jane comes up
+  to bead $7$ from $7\lambda = 4$.
+- **Mu** and **nu**: $n\mu = 2n+1$ and $n\nu = 2n+2$, the two beads from which
+  a down move leads to $n$. Jane comes down to bead $7$ from $7\mu = 15$ or
+  from $7\nu = 16$.
 
 $U$, $\lambda$, $\mu$, $\nu$ are strictly increasing and $D$ is non-decreasing.
-The operators $\lambda$, $\mu$, $\nu$ are the inverse branches of $U$ and $D$:
+That $\lambda$, $\mu$, $\nu$ are the inverse branches of $U$ and $D$ is the
+content of:
 
 **Fact 1.**
 
@@ -172,13 +189,20 @@ The operators $\lambda$, $\mu$, $\nu$ are the inverse branches of $U$ and $D$:
 2. For every $n$, the beads that go down to $n$ are exactly the odd bead $n\mu$
    and the even bead $n\nu$: $n\mu D = n\nu D = n$.
 
-More names:
+So a white bead such as $7$ can be reached in three ways (up from $4$, down
+from $15$ or from $16$), and a black bead such as $3$ in two ways only, both
+from above (down from $7$ or from $8$). Much of Part I is about which way is
+shortest.
+
+Three more names, for sequences of moves:
 
 - **Recitation**: a finite or infinite sequence $(a_i)$ of beads with
   $a_{i+1} \in \{a_iU, a_iD\}$. Its **length** is its number of moves.
 - **Minimal recitation** from $n$ to $m$: a recitation of minimal length.
   Unless stated otherwise, a minimal recitation *to* $m$ starts at bead $0$.
-- **Height**: $h(n)$ is the length of a minimal recitation to $n$.
+- **Height**: $h(n)$ is the length of a minimal recitation to $n$. The
+  recitation $0, 1, 2, 4, 7$ shows that $h(7) \leq 4$ (in fact $h(7) = 4$,
+  by Lemma 2 below).
 
 **Heap coordinates.** It is often convenient to shift positions by one and
 write $x = n + 1 \geq 1$. In these coordinates,
@@ -189,7 +213,9 @@ $$\text{down}: x \mapsto \lfloor x/2 \rfloor, \qquad
 
 In other words, *the rosary is the infinite binary tree in heap order*: moving
 down means moving to the parent, i.e. erasing the last binary digit of $n+1$,
-and $n\mu$, $n\nu$ are the two children of $n$. Moving up is the map
+and $n\mu$, $n\nu$ are the two children of $n$. Bead $7$ is $x = 8$, or
+$1000$ in binary: its parent is $x = 4$ (bead $3$) and its children are
+$x = 16$ and $x = 17$ (beads $15$ and $16$). Moving up is the map
 $x \mapsto \lceil 3x/2 \rceil$ studied by Odlyzko and Wilf in connection with
 the Josephus problem [OW91]; black beads are those with $x \equiv 1 \pmod 3$.
 Most of what follows is an interplay between this binary structure (down) and
@@ -396,12 +422,21 @@ which one to choose.
 >
 > Ridley Scott, *Blade Runner* (1982)
 
-- **Up-chain**: $\uparrow\!(n) = \{nU^i \mid i \in \mathbb{N}\}$.
-- **Down-chain**: $\downarrow\!(n) = \{nD^i \mid i \geq 0,\ nD^i \text{ defined}\}$;
-  it is finite and ends in $0$.
+Theorem 1 compares two beads by looking at where they come from when one
+only moves up. This takes four names; bead $7$ is the example again.
+
+- **Up-chain**: $\uparrow\!(n) = \{nU^i \mid i \in \mathbb{N}\}$, what Jane tells
+  if she starts at $n$ and only moves up:
+  $\uparrow\!(7) = \{7, 11, 17, 26, \ldots\}$.
+- **Down-chain**: $\downarrow\!(n) = \{nD^i \mid i \geq 0,\ nD^i \text{ defined}\}$,
+  what she tells if she only moves down; it is finite and ends in $0$:
+  $\downarrow\!(7) = \{7, 3, 1, 0\}$.
 - **Seed**: $\sigma(n)$ is the unique black bead from which $n$ is reached by up
   moves only. **Lambex**: $\Lambda(n)$ is the number of those up moves. In other
   words $n = \sigma(n)U^{\Lambda(n)}$ and $\sigma(n) = n\lambda^{\Lambda(n)}$.
+  Going back from bead $7$ by $\lambda$ gives $4, 2, 1, 0$, and $0$ is black:
+  $\sigma(7) = 0$ and $\Lambda(7) = 4$. Its neighbor $8$ goes back to $5$ and
+  then to the black bead $3$: $\sigma(8) = 3$ and $\Lambda(8) = 2$.
 
 By Fact 1, the up-chains of the black beads partition the rosary,
 $\mathbb{N} = \biguplus_{n} \uparrow\!(3n)$, and
@@ -670,6 +705,13 @@ $m \in\ \downarrow\!(n)$, and the **phase** of a bead $n$ as
 
 $$\theta(n) = \log_2(n+1) \bmod 1 \ \in \mathbb{R}/\mathbb{Z}.$$
 
+The cone of $m$ is everything above $m$ in the binary tree: the cone of bead
+$3$ is $\{3,\ 7, 8,\ 15, 16, 17, 18,\ \ldots\}$. If Jane tells one of these
+beads, she tells bead $3$ as well: by Lemma 3 she cannot leave a bead for good
+before the bead below it is told. The
+phase forgets how high a bead is in the tree and remembers only where it
+stands within its level: bead $7$, the first of its level, has phase $0$.
+
 By Lemma 4, $n$ is in the cone of $m$ if and only if $n \geq m$ and
 $\theta(n)$ lies in the arc
 $A_m = \big[\log_2(m+1),\ \log_2(m+2)\big) \bmod 1$, whose length is
@@ -746,17 +788,25 @@ part rests on Theorem 1.
 >
 > Sergio Leone, *Per qualche dollaro in più* (1965)
 
+Bold letters are for the onyx rosary, which lives on the black beads only.
+The example is the black bead $3$, reached through our bead $7$.
+
 - **Canonical recitation** $\boldsymbol{C}(n)$: the recitation
   $0 = a_0, a_1, \ldots, a_{h(n)} = n$ defined backwards by
   $a_{i-1} = a_i\lambda$ if $a_i$ is white, and $a_{i-1} =$ the winner among
   $a_i\mu$, $a_i\nu$ (the one with the larger lambex) if $a_i$ is black. By
-  Lemma 2 and Theorem 1 it is a minimal recitation to $n$.
+  Lemma 2 and Theorem 1 it is a minimal recitation to $n$. For the black
+  bead $3$ the candidates are $3\mu = 7$, with lambex $4$, and $3\nu = 8$,
+  with lambex $2$: bead $7$ wins, and
+  $\boldsymbol{C}(3) = 0, 1, 2, 4, 7, 3$.
 - **Onyx rosary**: the rosary obtained by removing all white beads. **Onyx
   bead** $n$ is the black bead $3n$.
 - **Onyx predecessor**: for an onyx bead $n > 0$,
   $\boldsymbol{\pi}(n) = \frac{1}{3}\sigma(v)$ where $v$ is the winner among
   $3n\mu$, $3n\nu$. The black beads met by the canonical recitation to $3n$
   are exactly $3n, 3\boldsymbol{\pi}(n), 3\boldsymbol{\pi}^2(n), \ldots, 0$.
+  For onyx bead $1$ (the black bead $3$) the winner is $7$, whose seed is
+  $0$: $\boldsymbol{\pi}(1) = 0$.
 - **Onyx ordering**: $m \boldsymbol{\preceq} n$ if and only if $3m$ appears in
   the canonical recitation to $3n$, i.e. $m = \boldsymbol{\pi}^j(n)$ for some
   $j \geq 0$.
@@ -1128,6 +1178,33 @@ surjectivity only uses down-closure, injectivity and the irrationality of
 $\log_2 3$. Which other natural rules ("up unless...", random tie-breaking,
 sidewalks with labels $1 + \lfloor n/k \rfloor$, ...) produce permutations of
 $\mathbb{N}$?
+
+## Names at a glance
+
+| Name | Notation | In short | Defined in |
+|---|---|---|---|
+| bead; black, white | $n$ | a natural number; black if divisible by $3$ | [Section 1](#1-prelude-names) |
+| label | $L(n)$ | $1 + \lfloor n/2 \rfloor$, the length of Jane's step at $n$ | [Section 1](#1-prelude-names) |
+| up, down | $nU$, $nD$ | $n + L(n)$ and $n - L(n)$ | [Section 1](#1-prelude-names) |
+| lambda | $n\lambda$ | the bead from which up leads to the white bead $n$ | [Section 1](#1-prelude-names) |
+| mu, nu | $n\mu$, $n\nu$ | the two beads from which down leads to $n$ | [Section 1](#1-prelude-names) |
+| recitation, minimal recitation | | a sequence of moves; one of least length | [Section 1](#1-prelude-names) |
+| height | $h(n)$ | the least number of moves from bead $0$ to $n$ | [Section 1](#1-prelude-names) |
+| heap coordinate | $x = n + 1$ | the position shifted by one: down halves it | [Section 1](#1-prelude-names) |
+| up-chain, down-chain | $\uparrow\!(n)$, $\downarrow\!(n)$ | the beads reached from $n$ by up moves only, by down moves only | [Section 4](#4-interlude-more-names) |
+| seed, lambex | $\sigma(n)$, $\Lambda(n)$ | the black bead at the start of the up-chain through $n$; the number of up moves from it to $n$ | [Section 4](#4-interlude-more-names) |
+| winner | "$\mu$ wins", "$\nu$ wins" | of $3n\mu$ and $3n\nu$, the one with the larger lambex | [Section 5](#5-theorem-1-minimal-recitations-ending-in-a-black-bead) |
+| reluctant recitation | $\rho(i)$, $V_i$ | Jane's $i$-th bead when she moves down whenever she can; the beads told so far | [Section 6](#6-janes-reluctant-recitation) |
+| cone | | the beads above $m$ in the binary tree | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |
+| phase | $\theta(n)$ | $\log_2(n+1)$ modulo $1$ | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |
+| the angle | $\alpha$ | $\log_2(3/2)$, by which an up move turns the phase | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |
+| canonical recitation | $\boldsymbol{C}(n)$ | the minimal recitation that always takes the winner | [Section 9](#9-interlude-for-a-few-names-more) |
+| onyx bead | $n$ | the black bead $3n$ | [Section 9](#9-interlude-for-a-few-names-more) |
+| onyx predecessor, ordering, height | $\boldsymbol{\pi}(n)$, $\boldsymbol{\preceq}$, $\boldsymbol{h}(n)$ | the previous black bead on the canonical recitation; the order and the depth it defines | [Section 9](#9-interlude-for-a-few-names-more) |
+| cover, canonical onyx mapping | $\boldsymbol{\iota}(n)$, $C(n)$ | $n$ covers $\boldsymbol{\pi}(n)$; its rank among the covers; the address of $n$ in the onyx tree | [Section 10](#10-janes-onyx-rosary) |
+| foraging sequence | $\boldsymbol{\Phi}(i)$ | the onyx beads whose up-chains Jane visits, in order | [Section 10](#10-janes-onyx-rosary) |
+| up moves, frontier | $u(t)$, $F(t)$ | the number of up moves among the first $t$; the smallest bead not yet told | [Section 11](#11-how-reluctant-is-jane) |
+| irrationality exponent | $\mu_0$ | how badly $\log_2 3$ is approximated by fractions | [Section 11](#11-how-reluctant-is-jane) |
 
 ## References
 
