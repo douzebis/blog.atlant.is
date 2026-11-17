@@ -67,6 +67,51 @@ file is the detailed account. Earlier versions are kept, unmodified, under
   (polynomial time); postfix notation; numerical data to 2^27 moves; open
   questions A to G. The paper's own appendix lists the changes with
   respect to the January 2023 text.
+- The list of changes with respect to the January 2023 text, as it stood
+  in the paper's own appendix until 2026-11-17 (step 9 of spec 0002 moved
+  it here; "Section" numbers are those of the revision):
+
+  - **Conjecture 3 is now Theorem 3** (Section 8). The former "Theorem 3"
+    (a dichotomy) and the former Lemma 2 (bound $b(m)$ along a single up-chain)
+    are superseded: the key new remark is that down moves preserve the phase
+    $\log_2(n+1) \bmod 1$, so the rotation argument applies to the whole
+    recitation and not only to one up-chain.
+  - New quantitative results: Theorem 5 (frequency of up moves, growth of
+    $\rho$), Theorem 6 (polynomial bound on $\rho^{-1}$), numerical table, and a
+    list of conjectures.
+  - **Theorem 2** has a new, shorter proof: the twelve commutative diagrams are
+    replaced by the commutation Lemma 1 and the down-closure Lemma 3. The same
+    Lemma 1 also proves the lemma on white beads. No base case ("moves up to the
+    20th") is needed any more.
+  - **Theorem 1**: the "easy" claims are now proved, with an explicit rule
+    ($2n+1 = 3^e q$) for which of $\mu$, $\nu$ wins; the base case is made
+    explicit ($3n = 3$, the only case where $c = 0$); the caption of Figure 7
+    said "lower lambex", whereas the minimal recitation goes through the
+    predecessor with the *larger* lambex (to be checked against the figure).
+  - **Fixed**: the fast `height` algorithm (the printed version returns
+    $6$ for $n = 3$ and loops forever on $n = 6$, because of the `+ 1` in its
+    `case 2`); the bound $h(n) \leq 6\log n/\log(9/8)$, which fails at $n = 1$
+    (replaced by Proposition 1, which also has a better constant and a lower
+    bound).
+  - **Fixed**: former Lemma 3 (now Lemma 6) had the parity condition reversed;
+    former Lemma 5 (now Lemma 8) claimed "at most 2 elements", which is false,
+    and had no proof; former Lemma 4 (now Lemma 7) is stated for tails of
+    up-chains, which is what Theorem 4 needs.
+  - **Theorem 4**: the proof is rewritten (the index sets $S_n$, $P_{3n}$ mixed
+    beads and onyx beads); the properties of the onyx ordering that were stated
+    without proof ($m \boldsymbol{\preceq} n \Rightarrow m \le n$,
+    well-foundedness, tree structure) are now Proposition 2.
+  - **Corollary 2**: the canonical onyx mapping is now read from the root, so
+    that "prefix" is correct (with the former definition and table it should
+    have been "suffix"); it is a bijection, not just an injection.
+  - Former "Conjecture 3" of the first version ($\sigma(3n \mp 1) \le 2n$) is a
+    one-line remark in Section 4.
+  - Lemma numbering: old Lemma 1 → Lemma 4; old Lemma 2 → removed (see Lemma 5);
+    old Lemmas 3, 4, 5 → Lemmas 6, 7, 8.
+  - Typos: "bean" → "bead"; "$L$ is a strictly increasing function" under *Up*
+    → $U$; "contant" → "constant"; "$\lambda_i$" → "$\lambda^i$" in the second
+    diagram of Theorem 1; "$d_1{i+1}$" → "$d_{i+1}$".
+
 - On the site (2026-11-17, before freezing):
   - the eleven figures as pictures, in light and dark variants, linking to
     live versions served by the site;
@@ -207,6 +252,22 @@ In progress. Steps done:
   bead 7, in one sentence and without a new diagram; a closing paragraph
   to the proof of Lemma 1 saying how to check a diagram and what the six
   of them establish.
+- Step 9 (2026-11-17): housekeeping.
+  - The appendix "changes with respect to the January 2023 version"
+    leaves the paper; its text is kept above, under the 2026-11-17
+    version. Two parentheticals that spoke of "the previous version" are
+    reworded (after Theorem 3 and after Lemma 8); the remark that the
+    2023 caption of Figure 7 was to be checked against the figure is
+    settled: the caption written in step 7 was checked against it.
+  - References: complete entries with links; new [Ba75] for Baker's
+    theory, which the text invoked without a reference; the OEIS entry
+    gets a key. Rhin's bound 8.616 for log 3 / log 2 was confirmed from
+    secondary sources (a web search), not from the paper itself.
+  - A summary of three sentences in the front matter (`description`),
+    used as the description of the page.
+  - Equations: nothing to change. The only equations referred to are the
+    two marked (*) and (**), each used within one proof, which the rules
+    of spec 0001 allow.
 
 Statements compared with the 2026-11-17 version
 (`python tools/compare_statements.py content/versions/jane-s-infinite-rosary/2026-11-17/index.md content/posts/2022-12-02-jane-s-infinite-rosary/index.md`):

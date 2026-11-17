@@ -239,7 +239,7 @@ the frozen version, and the author's go-ahead for the next one.
    - The open questions keep their section, reordered by appeal, each
      with its evidence in one or two lines.
 
-9. **Housekeeping.**
+9. **Housekeeping.** (Done 2026-11-17; see the history.)
    - Equations that are referred to get automatic numbers and labels
      (spec 0001, rules for mathematics).
    - References as a proper list with complete entries.

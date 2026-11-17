@@ -8,6 +8,7 @@ date: "2022-12-02"
 revised: "2026-11-14"
 language: "en"
 math: true
+description: "Jane tells the beads of an infinite rosary by moving up or down by the label of the bead she is on. We describe the shortest ways to each bead and compute their length in logarithmic time. We then prove that reluctant Jane, who moves down whenever she can, tells every bead exactly once, and that she moves up with frequency log 2 / log 3."
 compare: "compare/jane-s-infinite-rosary"
 history:
   - date: "2023-01-05"
@@ -731,8 +732,8 @@ Both cases contradict $g \notin V_{i+1}$. $\quad\Box$
 **Theorem 3.** $\rho$ is a permutation of $\mathbb{N}$: the reluctant
 recitation tells every bead exactly once.
 
-(The previous version of this note stated this as Conjecture 3, checked by
-computer for all beads below $7\,884\,654$, and proved only a dichotomy.)
+(The January 2023 version of this note stated this as a conjecture, checked
+by computer for all beads below $7\,884\,654$.)
 
 That Jane tells no bead twice is Theorem 2. What remains is that she leaves
 no bead out.
@@ -958,7 +959,7 @@ $b_{r+1} - a_{r+1} = (b_r - a_r) + L(b_r) - L(a_r)$ is non-decreasing in $r$,
 and when $b_r - a_r = 1$ it remains equal to $1$ if and only if $a_r$ is even.
 By Lemma 7 this happens exactly for $r \leq v_2(a+2)$. $\quad\Box$
 
-(The previous version claimed "at most 2 elements", which is false:
+(Two up-chains can keep each other company for a while:
 $\uparrow\!(255) \cap (\uparrow\!(21) + 1)$ has 9 elements,
 $255, 383, 575, \ldots, 6560$. Only finiteness matters below.)
 
@@ -1162,8 +1163,8 @@ $u(t) = t\log_3 2 + O(\log t)$.
 
 Let $\mu_0$ be an *irrationality exponent* of $\log_2 3$: a real number such
 that $|\log_2 3 - p/q| \geq c\,q^{-\mu_0}$ for some $c > 0$ and all integers
-$p$ and $q \ge 1$. Baker's theory of linear forms in logarithms shows that
-such a $\mu_0$ exists; Rhin's measure [Rh87] gives $\mu_0 \leq 8.616$.
+$p$ and $q \ge 1$. Baker's theory of linear forms in logarithms [Ba75] shows
+that such a $\mu_0$ exists; Rhin's measure [Rh87] gives $\mu_0 \leq 8.616$.
 
 **Lemma 9 (covering time of a rotation).** Let $\nu = \mu_0 - 1$, so that
 $\lVert q\alpha \rVert \geq c\,q^{-\nu}$ for all $q \geq 1$. For every
@@ -1451,62 +1452,25 @@ number of up moves among them; $\log_3 2 = 0.6309297\ldots$
 
 ## References
 
+- [Ba75] A. Baker, *Transcendental Number Theory*, Cambridge University
+  Press, 1975.
 - [Ca12] X. Caruso, *Application des fractions continues à la construction des
-  gammes musicales*, Revue des Mathématiques de l'Enseignement Supérieur 123
-  (2012).
+  gammes musicales*, Revue des Mathématiques de l'Enseignement Supérieur
+  123, no. 1 (2012).
 - [JS22] Jane Street, *Traversing the Infinite Sidewalk* (2022),
   <https://www.janestreet.com/numberphile2022>.
 - [Ma68] K. Mahler, *An unsolved problem on the powers of 3/2*, J. Austral.
   Math. Soc. 8 (1968), 313–321.
+- [OEIS] OEIS Foundation, *The On-Line Encyclopedia of Integer Sequences*,
+  <https://oeis.org>: sequences [A061419](https://oeis.org/A061419),
+  [A358838](https://oeis.org/A358838), [A359005](https://oeis.org/A359005),
+  [A359008](https://oeis.org/A359008), A360593 to A360595, A360744 to
+  A360746.
 - [OW91] A. M. Odlyzko and H. S. Wilf, *Functional iteration and the Josephus
-  problem*, Glasgow Math. J. 33 (1991), 235–240.
+  problem*, Glasgow Math. J. 33 (1991), 235–240,
+  [doi:10.1017/S0017089500008272](https://doi.org/10.1017/S0017089500008272).
 - [Rh87] G. Rhin, *Approximants de Padé et mesures effectives
   d'irrationalité*, Séminaire de Théorie des Nombres, Paris 1985–86, Progr.
   Math. 71, Birkhäuser (1987), 155–164.
 - [Sós58] V. T. Sós, *On the distribution mod 1 of the sequence $n\alpha$*,
   Ann. Univ. Sci. Budapest. Eötvös Sect. Math. 1 (1958), 127–134.
-- OEIS Foundation, *The On-Line Encyclopedia of Integer Sequences*, sequences
-  A061419, A358838, A359005, A359008, A360593 to A360595, A360744 to A360746.
-
-## Appendix: changes with respect to the January 2023 version
-
-- **Conjecture 3 is now Theorem 3** (Section 8). The former "Theorem 3"
-  (a dichotomy) and the former Lemma 2 (bound $b(m)$ along a single up-chain)
-  are superseded: the key new remark is that down moves preserve the phase
-  $\log_2(n+1) \bmod 1$, so the rotation argument applies to the whole
-  recitation and not only to one up-chain.
-- New quantitative results: Theorem 5 (frequency of up moves, growth of
-  $\rho$), Theorem 6 (polynomial bound on $\rho^{-1}$), numerical table, and a
-  list of conjectures.
-- **Theorem 2** has a new, shorter proof: the twelve commutative diagrams are
-  replaced by the commutation Lemma 1 and the down-closure Lemma 3. The same
-  Lemma 1 also proves the lemma on white beads. No base case ("moves up to the
-  20th") is needed any more.
-- **Theorem 1**: the "easy" claims are now proved, with an explicit rule
-  ($2n+1 = 3^e q$) for which of $\mu$, $\nu$ wins; the base case is made
-  explicit ($3n = 3$, the only case where $c = 0$); the caption of Figure 7
-  said "lower lambex", whereas the minimal recitation goes through the
-  predecessor with the *larger* lambex (to be checked against the figure).
-- **Fixed**: the fast `height` algorithm (the printed version returns
-  $6$ for $n = 3$ and loops forever on $n = 6$, because of the `+ 1` in its
-  `case 2`); the bound $h(n) \leq 6\log n/\log(9/8)$, which fails at $n = 1$
-  (replaced by Proposition 1, which also has a better constant and a lower
-  bound).
-- **Fixed**: former Lemma 3 (now Lemma 6) had the parity condition reversed;
-  former Lemma 5 (now Lemma 8) claimed "at most 2 elements", which is false,
-  and had no proof; former Lemma 4 (now Lemma 7) is stated for tails of
-  up-chains, which is what Theorem 4 needs.
-- **Theorem 4**: the proof is rewritten (the index sets $S_n$, $P_{3n}$ mixed
-  beads and onyx beads); the properties of the onyx ordering that were stated
-  without proof ($m \boldsymbol{\preceq} n \Rightarrow m \le n$,
-  well-foundedness, tree structure) are now Proposition 2.
-- **Corollary 2**: the canonical onyx mapping is now read from the root, so
-  that "prefix" is correct (with the former definition and table it should
-  have been "suffix"); it is a bijection, not just an injection.
-- Former "Conjecture 3" of the first version ($\sigma(3n \mp 1) \le 2n$) is a
-  one-line remark in Section 4.
-- Lemma numbering: old Lemma 1 → Lemma 4; old Lemma 2 → removed (see Lemma 5);
-  old Lemmas 3, 4, 5 → Lemmas 6, 7, 8.
-- Typos: "bean" → "bead"; "$L$ is a strictly increasing function" under *Up*
-  → $U$; "contant" → "constant"; "$\lambda_i$" → "$\lambda^i$" in the second
-  diagram of Theorem 1; "$d_1{i+1}$" → "$d_{i+1}$".
