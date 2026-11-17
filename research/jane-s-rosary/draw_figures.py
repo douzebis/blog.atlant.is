@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)
+#
+# SPDX-License-Identifier: MIT
+
 """Draw the two figures of the paper that are not interactive.
 
 usage: python draw_figures.py OUTDIR
