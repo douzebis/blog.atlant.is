@@ -296,7 +296,9 @@ In progress. Steps done:
 
 Statements compared with the 2026-11-17 version
 (`python tools/compare_statements.py content/versions/jane-s-infinite-rosary/2026-11-17/index.md content/posts/2022-12-02-jane-s-infinite-rosary/index.md`):
-28 before, 28 after, 1 difference, explained:
+28 before, 28 after, 3 differences, explained:
+
+- Lemma 1 and Theorem 1: a bead renamed, no change of content.
 
 - Conjecture B: its last words, "in agreement with the table above",
   become "in agreement with Figure 13", because the table moved to the

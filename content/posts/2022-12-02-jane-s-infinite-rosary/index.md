@@ -295,7 +295,7 @@ observation about the beads sitting "above" a white bead.
 
 **Lemma 1 (commutation).** Let $w$ be a white bead.
 
-1. Exactly one of $w\mu$, $w\nu$ is white. Call it $v$. Then $v\lambda D = w\lambda$.
+1. Exactly one of $w\mu$, $w\nu$ is white. Call it $\hat{w}$. Then $\hat{w}\lambda D = w\lambda$.
 2. The other one, call it $b$, is black. Both $b\mu$ and $b\nu$ are white, and
    $b\mu\lambda DD = b\nu\lambda DD = w\lambda$.
 
@@ -309,13 +309,13 @@ round in a loop, this means that the loop closes.
 Both statements of Lemma 1 say that a loop closes. Start from $w$, in the
 bottom right corner: go up the right-hand side, across the top, and down the
 left-hand side; you arrive at $w\lambda$, from which one up move leads back
-to $w$. With $w = 7$ in the first diagram: up to $v = 16$, across to
+to $w$. With $w = 7$ in the first diagram: up to $\hat{w} = 16$, across to
 $16\lambda = 10$, down to $10D = 4$, and $4U = 7$. Here $x$ and $y$ stand for
 $\mu$ or $\nu$:
 
 $$
 \begin{CD}
-v\lambda @<\lambda<< v\\
+\hat{w}\lambda @<\lambda<< \hat{w}\\
 @VVDV @AAxA\\
 w\lambda @>U>> w
 \end{CD}
@@ -330,7 +330,7 @@ w\lambda @>U>> w
 $$
 
 *Proof.* Direct computation. If $w = 3k+1$, then $w\lambda = 2k$, the white
-bead is $v = w\nu = 6k+4$ and the black bead is $b = w\mu = 6k+3$:
+bead is $\hat{w} = w\nu = 6k+4$ and the black bead is $b = w\mu = 6k+3$:
 
 $$
 \begin{CD}
@@ -356,7 +356,7 @@ $$
 \end{CD}
 $$
 
-If $w = 3k+2$, then $w\lambda = 2k+1$, the white bead is $v = w\mu = 6k+5$
+If $w = 3k+2$, then $w\lambda = 2k+1$, the white bead is $\hat{w} = w\mu = 6k+5$
 and the black bead is $b = w\nu = 6k+6$:
 
 $$
@@ -396,15 +396,16 @@ $h(w) = h(w\lambda) + 1$.
 
 *Proof.* By strong induction on $h = h(w)$. Take a minimal recitation
 $\mathcal{R}$ to $w$ and assume that it ends with a down move, from a bead
-$v' \in \{w\mu, w\nu\}$ of height $h - 1$. We exhibit a recitation to
+$p \in \{w\mu, w\nu\}$ of height $h - 1$. We exhibit a recitation to
 $w\lambda$ of length at most $h - 1$; appending one up move then gives a
 recitation to $w$ of length at most $h$ that ends with an up move.
 
-- If $v'$ is the white bead $v$ of Lemma 1: by induction $h(v\lambda) = h - 2$,
-  and $v\lambda D = w\lambda$, so $h(w\lambda) \leq h - 1$.
-- If $v'$ is the black bead $b$ of Lemma 1: by Fact 1, $\mathcal{R}$ reaches
-  $b$ by a down move from a white bead $v'' \in \{b\mu, b\nu\}$ of height
-  $h - 2$. By induction $h(v''\lambda) = h - 3$, and $v''\lambda DD = w\lambda$,
+- If $p$ is the white bead $\hat{w}$ of Lemma 1: by induction
+  $h(\hat{w}\lambda) = h - 2$, and $\hat{w}\lambda D = w\lambda$, so
+  $h(w\lambda) \leq h - 1$.
+- If $p$ is the black bead $b$ of Lemma 1: by Fact 1, $\mathcal{R}$ reaches
+  $b$ by a down move from a white bead $p' \in \{b\mu, b\nu\}$ of height
+  $h - 2$. By induction $h(p'\lambda) = h - 3$, and $p'\lambda DD = w\lambda$,
   so $h(w\lambda) \leq h - 1$. $\quad\Box$
 
 **Corollary 1 (black beads).** For every black bead $b > 0$,
@@ -502,9 +503,9 @@ $$2n + 1 = 3^e q \quad\text{with } 3 \nmid q, \qquad\text{and}\qquad
    $\sigma(3n\mu) \neq \sigma(3n\nu)$, and
    $$\Lambda(3n\mu) > \Lambda(3n\nu) \iff \sigma(3n\mu) < \sigma(3n\nu).$$
 4. $h(3n) \geq h(3n-1)$ and $h(3n) \geq h(3n+1)$.
-5. Let $v$ be the winner ($v = 3n\mu$ if $\mu$ wins, $v = 3n\nu$ if $\nu$ wins).
-   Then $h(3n) = h(\sigma(v)) + \Lambda(v) + 1$: there is a minimal recitation
-   to $3n$ ending in $\sigma(v)\,U^{\Lambda(v)}D$.
+5. Let $w$ be the winner ($w = 3n\mu$ if $\mu$ wins, $w = 3n\nu$ if $\nu$ wins).
+   Then $h(3n) = h(\sigma(w)) + \Lambda(w) + 1$: there is a minimal recitation
+   to $3n$ ending in $\sigma(w)\,U^{\Lambda(w)}D$.
 
 In words: of the two beads $3n\mu$ and $3n\nu$ above a black bead, *the one
 with the larger lambex, equivalently the smaller seed, lies on a minimal
@@ -720,13 +721,14 @@ come from $g$), so $\rho(i) \in \{w\mu, w\nu\}$. We use Lemma 1 and its two
 diagrams: Jane arrived at $w$ down the right-hand side, and the left-hand
 side shows that $g$ had been told before.
 
-- If $\rho(i)$ is the white bead $v$: by (b), $v\lambda \in V_i$, and
-  $v\lambda \neq \rho(i)$, so Lemma 3 gives $g = v\lambda D \in V_i$.
+- If $\rho(i)$ is the white bead $\hat{w}$: by (b), $\hat{w}\lambda \in V_i$,
+  and $\hat{w}\lambda \neq \rho(i)$, so Lemma 3 gives
+  $g = \hat{w}\lambda D \in V_i$.
 - If $\rho(i)$ is the black bead $b$: a black bead is never reached by an up
-  move, so $\rho(i-1) = v''$ for some $v'' \in \{b\mu, b\nu\}$, which is white.
-  By (b), $v''\lambda \in V_{i-1}$. Applying Lemma 3 twice (to $v''\lambda$ and
-  then to $v''\lambda D$, neither of which is the current bead $v''$) gives
-  $g = v''\lambda DD \in V_{i-1}$.
+  move, so $\rho(i-1) = p$ for some $p \in \{b\mu, b\nu\}$, which is white.
+  By (b), $p\lambda \in V_{i-1}$. Applying Lemma 3 twice (to $p\lambda$ and
+  then to $p\lambda D$, neither of which is the current bead $p$) gives
+  $g = p\lambda DD \in V_{i-1}$.
 
 Both cases contradict $g \notin V_{i+1}$. $\quad\Box$
 
@@ -885,7 +887,7 @@ The example is the black bead $3$, reached through our bead $7$.
 - **Onyx rosary**: the rosary obtained by removing all white beads. **Onyx
   bead** $n$ is the black bead $3n$.
 - **Onyx predecessor**: for an onyx bead $n > 0$,
-  $\boldsymbol{\pi}(n) = \frac{1}{3}\sigma(v)$ where $v$ is the winner among
+  $\boldsymbol{\pi}(n) = \frac{1}{3}\sigma(w)$ where $w$ is the winner among
   $3n\mu$, $3n\nu$. The black beads met by the canonical recitation to $3n$
   are exactly $3n, 3\boldsymbol{\pi}(n), 3\boldsymbol{\pi}^2(n), \ldots, 0$.
   For onyx bead $1$ (the black bead $3$) the winner is $7$, whose seed is
@@ -914,7 +916,7 @@ $\boldsymbol{h}(n)$ from the root.
 *Proof.* With the notations of Theorem 1, the winner's seed is at most
 $b_{e+1}\lambda = \frac{2}{3}a_{e+1}$ if $\nu$ wins, and at most
 $a_{e+1}\lambda \le \frac{2}{3}a_{e+1}$ if $\mu$ wins. Since
-$a_{e+1} \leq a_1 = 4n$, this gives $\sigma(v) \leq \frac{8n}{3}$. $\quad\Box$
+$a_{e+1} \leq a_1 = 4n$, this gives $\sigma(w) \leq \frac{8n}{3}$. $\quad\Box$
 
 [![Figure 12](images/figure-12.png)](https://blog.atlant.is/figures/jane-s-rosary/onyx-ordering.html?n=1000&interactive=yes "live")
 
