@@ -1,0 +1,23 @@
+{{- /* A click on the picture of an interactive figure (a link marked
+       data-live by layouts/_markup/render-link.html) puts the figure in its
+       place.  The figure is a page of this site, shown in a frame that takes
+       the height of what it draws. */ -}}
+<script>
+  document.querySelectorAll("a[data-live]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      if (event.ctrlKey || event.metaKey || event.shiftKey) return;
+      event.preventDefault();
+      const picture = link.querySelector("img");
+      const frame = document.createElement("iframe");
+      frame.className = "frame live";
+      frame.title = picture ? picture.alt : "Interactive figure";
+      frame.style.width = "100%";
+      frame.style.height = (picture ? picture.clientHeight : 400) + "px";
+      frame.addEventListener("load", () => {
+        frame.style.height = frame.contentDocument.documentElement.scrollHeight + "px";
+      });
+      frame.src = link.href;
+      link.replaceWith(frame);
+    });
+  });
+</script>

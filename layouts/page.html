@@ -53,4 +53,5 @@
     {{- end }}
     {{ .Content }}
   </article>
+  {{- if strings.Contains .Content "data-live" }}{{ partial "live.html" . }}{{ end }}
 {{ end }}

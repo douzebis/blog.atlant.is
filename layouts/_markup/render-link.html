@@ -1,10 +1,16 @@
 {{- /* Links to an address that the site serves from its own copy point at
-       the copy (hugo.toml, params.localCopies). */ -}}
+       the copy (hugo.toml, params.localCopies).
+
+       A link written with the title "live", around the picture of an
+       interactive figure, is marked so that a click shows the figure in
+       place of its picture (layouts/_partials/live.html); without
+       JavaScript it stays an ordinary link. */ -}}
 {{- $destination := .Destination -}}
 {{- range site.Params.localCopies -}}
   {{- if strings.HasPrefix $destination .from -}}
     {{- $destination = printf "%s%s" (.to | relURL) (strings.TrimPrefix .from $destination) -}}
   {{- end -}}
 {{- end -}}
-<a href="{{ $destination | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text }}</a>
+<a href="{{ $destination | safeURL }}"
+  {{- if eq .Title "live" }} data-live{{ else }}{{ with .Title }} title="{{ . }}"{{ end }}{{ end }}>{{ .Text }}</a>
 {{- /* no trailing newline: it would show as a space before punctuation */ -}}

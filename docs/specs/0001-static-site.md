@@ -233,9 +233,12 @@ with LaTeX:
   the screen resolution, fonts provided by its `shell.nix`) and committed.
   The list of figures of a post is kept next to the tool
   (`tools/capture-figures/jane-s-rosary.tsv`).
-- Not done, possible later: showing a live figure in the page itself when
-  the reader clicks its picture, for the figures where zooming matters
-  (the plot of heights, the onyx ordering).
+- A picture whose link carries the title "live"
+  (`[![Figure 4](images/figure-04.png)](ADDRESS "live")`) is replaced, on
+  a click, by the live figure itself, in a frame of the site
+  (`layouts/_partials/live.html`). Used where zooming matters: the plot
+  of heights and the onyx tree of the rosary paper. Without JavaScript,
+  and in the LaTeX conversion, it is an ordinary link.
 
 ### Languages
 

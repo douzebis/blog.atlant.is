@@ -36,7 +36,7 @@ Every third bead, including bead $0$, is black; the other beads are white.
 
 [![Figure 1](images/figure-01.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=position&arrows=none&interactive=yes)
 
-> Figure 1: the rosary, bead positions ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=position&arrows=none&interactive=yes)).
+> Figure 1: the rosary. Each bead shows its position; every third bead is black ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=position&arrows=none&interactive=yes)).
 
 Jane tells the beads of her rosary in a special way. She always starts at bead
 $0$. Each time she is done with a bead $n$, she moves on, either *up* to bead
@@ -44,7 +44,7 @@ $n + L(n)$ or *down* to bead $n - L(n)$.
 
 [![Figure 2](images/figure-02.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=both&interactive=yes)
 
-> Figure 2: telling the beads ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=both&interactive=yes)).
+> Figure 2: telling the beads. Each bead shows its label, and its two arrows, one up and one down, reach as many places away as the label says ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=both&interactive=yes)).
 
 **Can Jane tell every bead of her rosary?** Yes, and easily: every bead can be
 reached from bead $0$. The fun starts with two finer questions.
@@ -229,7 +229,7 @@ By definition $h(0) = 0$.
 
 [![Figure 3](images/figure-03.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=to3&interactive=yes)
 
-> Figure 3: the height of bead 3 is 5 ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=to3&interactive=yes)).
+> Figure 3: the height of bead $3$ is $5$. Beads show their labels and the arrows are numbered in the order of the moves: four up, then one down onto bead $3$, the fourth from the left ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=to3&interactive=yes)).
 
 **Proposition 1.** Every bead has a finite height. Moreover, for all $n \geq 1$,
 
@@ -283,9 +283,9 @@ def height(n: int) -> int:
         rings.append(new_ring)
 ```
 
-[![Figure 4](images/figure-04.png)](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000)
+[![Figure 4](images/figure-04.png)](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000 "live")
 
-> Figure 4: plot of the heights of beads ([live version](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000)).
+> Figure 4: the heights of the first $10\,000$ beads, with positions on a logarithmic scale. Look at the horizontal dashes: long runs of neighboring beads share the same height. Click the picture to explore it ([live version](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000)).
 
 ### 3. Minimal recitations
 
@@ -449,11 +449,11 @@ is a bijection between $\mathbb{N}$ and $\mathbb{N}\times\mathbb{N}$.
 
 [![Figure 5](images/figure-05.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=none&label=position&color=none&arrows=none&interactive=yes)
 
-> Figure 5: the rosary deconstructed, one up-chain per row ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=none&label=position&color=none&arrows=none&interactive=yes)).
+> Figure 5: the rosary deconstructed. Each row is an up-chain and starts from a black bead, on the left: an up move is a step to the right, and $\lambda$ is a step to the left. Bead $7$ sits in the bottom row, four steps from its seed $0$ ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=none&label=position&color=none&arrows=none&interactive=yes)).
 
 [![Figure 6](images/figure-06.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic&label=height&color=height&arrows=yes&interactive=yes)
 
-> Figure 6: the same, with heights ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic&label=height&color=height&arrows=yes&interactive=yes)).
+> Figure 6: the same, with heights in place of positions. Each arrow leads to a bead from the one before it on a shortest recitation: white beads are reached from their left (Lemma 2), black beads from one of the two beads above them in the binary tree ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic&label=height&color=height&arrows=yes&interactive=yes)).
 
 In heap coordinates the up-chain of $0$ reads $1, 2, 3, 5, 8, 12, 18, 27, 41,
 \ldots$ ([A061419](https://oeis.org/A061419)); by [OW91] every up-chain grows
@@ -496,7 +496,7 @@ $2n+1$.
 
 [![Figure 7](images/figure-07.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=back&label=position&color=position&arrows=yes&interactive=yes)
 
-> Figure 7: when in doubt, choose the predecessor with the larger lambex ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=back&label=position&color=position&arrows=yes&interactive=yes)).
+> Figure 7: when in doubt, choose the predecessor with the larger lambex. Each arrow points to where a shortest recitation comes from. White beads point one step to the left. A black bead, in the left column, has two candidates: the solid arrow points to the winner, the dashed one to the loser, and the winner is always the one further to the right in its row ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=back&label=position&color=position&arrows=yes&interactive=yes)).
 
 *The idea.* Follow the two candidates $a_0 = 3n\mu$ and $b_0 = 3n\nu$
 backwards along their up-chains. They are neighbors, and they stay neighbors,
@@ -633,7 +633,7 @@ instance $\rho(0), \rho(1), \ldots = 0, 1, 2, 4, 7, 3, 5, 8, 13, 6, 10, 16, 25,
 
 [![Figure 8](images/figure-08.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes)
 
-> Figure 8: Jane's reluctant recitation ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes)).
+> Figure 8: Jane's reluctant recitation on the deconstructed rosary. Each arrow carries the number of the move, and the beads are colored in the order in which they are told, from red to violet. An up move is a step to the right; a down move jumps to another row ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes)).
 
 ```python
 def rho(i: int) -> int:
@@ -672,7 +672,7 @@ every white bead $w \in V_i$, we have $w\lambda \in V_i$.
 
 [![Figure 9](images/figure-09.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=31&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes)
 
-> Figure 9: the reluctant recitation fills the up-chains from the left ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=31&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes)).
+> Figure 9: the same after $31$ moves. The beads told so far, in color, fill every row from the left without leaving a hole: this is the no-gap property of Theorem 2 ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=31&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes)).
 
 *The idea.* Jane is stuck if the bead below her and the bead above her have
 both been told. Suppose she stands on $n$, wants to go up, and finds $nU$
@@ -737,7 +737,7 @@ no bead out.
    very nearly: the phase turns by $\alpha = \log_2(3/2)$ (Lemma 5).
 4. So Jane's phase goes round the circle in steps of $\alpha$, and $\alpha$ is
    irrational: the steps never close up, and they visit every arc (Figure
-   10). Sooner or later the phase falls in the arc of $m$: Jane is in the
+   11). Sooner or later the phase falls in the arc of $m$: Jane is in the
    cone, which she was supposed to avoid.
 
 The "hardly" and "very nearly" hide errors of size about $1/x$. They do no
@@ -764,6 +764,16 @@ before the bead below it is told. The
 phase forgets how high a bead is in the tree and remembers only where it
 stands within its level: bead $7$, the first of its level, has phase $0$.
 
+![Figure 10](images/figure-10.svg)
+
+> Figure 10: the binary tree of the rosary, each bead placed above its phase;
+> the root, bead $0$, is at the bottom. The cone of bead $3$ is the shaded
+> strip. A down move follows a gray line to the parent, which is straight
+> below, or nearly so as soon as the beads are large. An up move (the arrows,
+> drawn from the beads of the cone) carries a bead to the right by about
+> $\alpha \approx 0.585$ of the width, wrapping around: it leaves the strip,
+> and the question is when Jane's phase will come back to it.
+
 By Lemma 4, $n$ is in the cone of $m$ if and only if $n \geq m$ and
 $\theta(n)$ lies in the arc
 $A_m = \big[\log_2(m+1),\ \log_2(m+2)\big) \bmod 1$, whose length is
@@ -783,9 +793,9 @@ $$\alpha = \log_2\frac{3}{2} = \log_2 3 - 1 .$$
 $\log_2(1 + \frac{1}{3x}) < \frac{1}{2x}$. (2) By Lemma 4,
 $y \leq x/2^k < y+1$ and $\log_2(1 + \frac{1}{y}) < \frac{3}{2y}$. $\quad\Box$
 
-[![Figure 10](images/figure-10.png)](https://blog.atlant.is/figures/jane-s-rosary/irrational-log2-3.html?n=40&interactive=yes)
+[![Figure 11](images/figure-11.png)](https://blog.atlant.is/figures/jane-s-rosary/irrational-log2-3.html?n=40&interactive=yes)
 
-> Figure 10: the multiples of $\log_2(3/2)$ are dense in the circle ([live version](https://blog.atlant.is/figures/jane-s-rosary/irrational-log2-3.html?n=40&interactive=yes)).
+> Figure 11: the first $40$ multiples of $\log_2 3$ on a circle of length $1$, which are also those of $\alpha$. No two of them coincide, and the gaps between them keep shrinking ([live version](https://blog.atlant.is/figures/jane-s-rosary/irrational-log2-3.html?n=40&interactive=yes)).
 
 *Proof of Theorem 3.* Fix a bead $m$ and suppose that $m$ is never told.
 
@@ -885,9 +895,9 @@ $b_{e+1}\lambda = \frac{2}{3}a_{e+1}$ if $\nu$ wins, and at most
 $a_{e+1}\lambda \le \frac{2}{3}a_{e+1}$ if $\mu$ wins. Since
 $a_{e+1} \leq a_1 = 4n$, this gives $\sigma(v) \leq \frac{8n}{3}$. $\quad\Box$
 
-[![Figure 11](images/figure-11.png)](https://blog.atlant.is/figures/jane-s-rosary/onyx-ordering.html?n=1000&interactive=yes)
+[![Figure 12](images/figure-12.png)](https://blog.atlant.is/figures/jane-s-rosary/onyx-ordering.html?n=1000&interactive=yes "live")
 
-> Figure 11: the onyx ordering ([live version](https://blog.atlant.is/figures/jane-s-rosary/onyx-ordering.html?n=1000&interactive=yes)).
+> Figure 12: the onyx tree on the first $70$ onyx beads, with its root, bead $0$, at the bottom. Each bead hangs from its onyx predecessor. Bead $0$ already has six children here ($1$, $4$, $10$, $15$, $23$ and $52$), and Theorem 4 says that more will keep coming, for every bead. Click the picture for the tree on $1\,000$ beads ([live version](https://blog.atlant.is/figures/jane-s-rosary/onyx-ordering.html?n=1000&interactive=yes)).
 
 We say that $n$ **covers** $m$ when $\boldsymbol{\pi}(n) = m$.
 
@@ -1218,6 +1228,15 @@ The first $2^{27}$ moves of the reluctant recitation:
 
 ($\log_3 2 = 0.6309297\ldots$) In particular the recitation tells every bead
 below $10\,801\,813$ within its first $2^{27}$ moves.
+
+![Figure 13](images/figure-13.svg)
+
+> Figure 13: two columns of the table, for every power of two from $2^{10}$
+> to $2^{27}$. On the left, $F(t)\log_2 t / t$ wanders between $2$ and $3$
+> without drifting: the frontier advances like $t/\log t$ (Conjecture A). On
+> the right, the excess of up moves over $t\log_3 2$ grows like a straight
+> line in $\log t$, far below the $\sqrt{t}$ that Theorem 5 allows
+> (Conjecture B).
 
 ## Coda
 

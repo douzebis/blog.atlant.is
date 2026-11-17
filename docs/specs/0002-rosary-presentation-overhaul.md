@@ -222,7 +222,7 @@ the frozen version, and the author's go-ahead for the next one.
    and is not analogous; what is new here, stated carefully and only
    after a literature check.
 
-7. **Figures.**
+7. **Figures.** (Done 2026-11-17; see the history.)
    - Every caption says what to look at.
    - New pictures: the dependency sketch; a cone and its phases (Theorem
      3); the numerical data as a plot.

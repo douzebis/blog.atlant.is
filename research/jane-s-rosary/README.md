@@ -59,6 +59,9 @@ and the lemmas they rest on).
   nothing is asserted.
 - `walk.c`: the long run; `results/walk-27.log` is its output for 2^27
   moves (about 20 seconds and 2 GB of memory).
+- `draw_figures.py`: draws Figures 10 and 13 of the paper (SVG, light and
+  dark) into the paper's `images` directory:
+  `python draw_figures.py ../../content/posts/2022-12-02-jane-s-infinite-rosary/images`.
 - `run-quick-checks.sh`: all the checks but the long run.
 - `notes.md`: working notes from the revision of November 2026, as they
   were written (they name the programs by their earlier names:

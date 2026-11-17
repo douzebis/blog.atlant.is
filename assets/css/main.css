@@ -247,6 +247,15 @@ iframe.frame {
   border-radius: 4px;
 }
 
+/* A live figure put in place of its picture follows the page's theme. */
+iframe.frame.live {
+  background: none;
+}
+
+a[data-live] {
+  cursor: zoom-in;
+}
+
 /* A figure with a fixed proportion, optionally covered by a link. */
 .frame-box {
   position: relative;

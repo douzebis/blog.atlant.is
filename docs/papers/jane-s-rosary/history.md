@@ -171,6 +171,24 @@ In progress. Steps done:
     states; the claim about cycles of the 3x+1 map is the standard
     counting argument, not taken from a reference.
   - New reference [JS22].
+- Step 7 (2026-11-17): figures.
+  - Every caption now says what to look at (which bead is which, what the
+    arrows and the colors mean, what the picture shows of a statement).
+  - Two new figures, drawn by `research/jane-s-rosary/draw_figures.py` as
+    SVG in light and dark variants: Figure 10, the binary tree with each
+    bead above its phase, the cone of bead 3 as a strip, and up moves as
+    shifts by alpha (Section 8); Figure 13, two columns of the numerical
+    table as plots (Section 11).
+  - The figures after them move up: the circle of multiples is Figure 11
+    (was 10), the onyx tree is Figure 12 (was 11). Picture files are
+    renamed accordingly.
+  - Figure 12 is redrawn on 70 onyx beads, so that it can be read; its
+    live version keeps 1,000 beads.
+  - Figures 4 (heights) and 12 (onyx tree) come alive in the page on a
+    click: the picture is replaced by the figure itself, which can be
+    zoomed. Without JavaScript the picture stays a link.
+  - The dependency sketch planned for this step is the diagram of "How to
+    read this paper" (step 3).
 
 Statements compared with the 2026-11-17 version
 (`python tools/compare_statements.py content/versions/jane-s-infinite-rosary/2026-11-17/index.md content/posts/2022-12-02-jane-s-infinite-rosary/index.md`):
