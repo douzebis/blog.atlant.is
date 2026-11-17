@@ -83,6 +83,17 @@ In progress. Steps done:
   `tools/compare_statements.py`; this history; `statements.md`;
   `research/jane-s-rosary/` (programs rewritten from the working scripts
   and rerun; same results).
+- Step 2 (2026-11-17): new opening. In order: the rosary and its moves
+  (unchanged, with Figures 1 and 2); the easy answer; "How fast?" (height,
+  the example of bead 3, Theorem 1 and the logarithmic algorithm); "What
+  if Jane is reluctant?" (her rule, her first 14 beads, Theorems 2, 3, 5
+  and 6 in words); "Why it works, in one breath" (halving against
+  multiplying by 3/2, the irrational rotation); the onyx rosary in one
+  sentence (Theorem 4); "Where this comes from" (a dictionary with Jane
+  Street's sidewalk and the three OEIS entries, in place of the list that
+  opened the paper); "And what is still open" (the question whether
+  p_1 = 1/2). The header picture gets a caption. The former list of two
+  questions with theorem numbers is gone; nothing else is removed.
 
 Statements compared with the 2026-11-17 version
 (`python tools/compare_statements.py content/versions/jane-s-infinite-rosary/2026-11-17/index.md content/posts/2022-12-02-jane-s-infinite-rosary/index.md`):

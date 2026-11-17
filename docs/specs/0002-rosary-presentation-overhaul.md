@@ -151,7 +151,9 @@ the frozen version, and the author's go-ahead for the next one.
    with the history so far (2022 original, 2026 revision),
    `research/jane-s-rosary/`.
 
-2. **Opening.** Rewritten first screen:
+2. **Opening.** (Done 2026-11-17; the opening figure is the header
+   picture, which is a detail of Figure 8, now with a caption, so that the
+   figures keep their numbers.) Rewritten first screen:
    - two or three sentences that state the puzzle (the rosary, up and
      down moves);
    - the headline results in words: every bead can be told and shortest

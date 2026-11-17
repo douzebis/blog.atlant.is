@@ -27,15 +27,7 @@ categories:
 
 ![](images/reluctant-jane-1024x422.png)
 
-This treat was inspired by [Jane Street](https://www.janestreet.com/)'s puzzle
-[Traversing the Infinite Sidewalk](https://www.janestreet.com/numberphile/).
-See also the [On-Line Encyclopedia of Integer Sequences](https://oeis.org/):
-
-- [A358838](https://oeis.org/A358838): minimum number of jumps needed to go
-  from slab 0 to slab $n$ in Jane Street's infinite sidewalk,
-- [A359005](https://oeis.org/A359005): Jane Street's infinite sidewalk's greedy
-  walk,
-- [A359008](https://oeis.org/A359008): the inverse mapping of the greedy walk.
+> Reluctant Jane at work (a detail of Figure 8).
 
 Jane owns a special rosary. It has a single end and is made of infinitely many
 black and white beads. Starting from the end, the beads are numbered
@@ -54,24 +46,63 @@ $n + L(n)$ or *down* to bead $n - L(n)$.
 
 > Figure 2: telling the beads ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=both&interactive=yes)).
 
-**Can Jane tell every bead of her rosary?**
+**Can Jane tell every bead of her rosary?** Yes, and easily: every bead can be
+reached from bead $0$. The fun starts with two finer questions.
 
-The answer to the plain question is an easy *yes* (every bead has a finite
-*height*). This note is about two finer questions:
+**How fast?** The least number of moves needed to reach bead $n$ is its
+*height*. Bead $3$, only three beads away from bead $0$, has height $5$: Jane
+must go up four times, to bead $7$, before one move down brings her to it.
+*Theorem 1* says what shortest recitations look like, bead by bead, and turns
+into a program that computes the height of bead $n$ in about $\log n$ steps,
+without searching.
 
-1. What do *shortest* recitations look like? Theorem 1 describes them
-   completely and yields an $O(\log n)$ algorithm for the height.
-2. Suppose Jane is *reluctant*: she always moves down, unless the bead below
-   has already been told, in which case she moves up. Does she still tell every
-   bead? Theorem 2 shows that she never gets stuck, and **Theorem 3 shows that
-   she tells every bead exactly once** (this was Conjecture 3 in the previous
-   version of this note, and is the conjecture recorded in A359005 and A359008).
-   Theorems 5 and 6 quantify how she does it: in the long run she moves up with
-   frequency exactly $\log_3 2 \approx 0.6309$, and bead $m$ is told after at
-   most polynomially many moves.
+**What if Jane is reluctant?** Suppose she always moves down, unless the bead
+below has already been told, in which case, and only then, she moves up. She
+looks no further than one bead ahead. Her recitation starts
 
-Theorem 4 studies the tree structure that shortest recitations induce on the
-black beads.
+$$0,\ 1,\ 2,\ 4,\ 7,\ 3,\ 5,\ 8,\ 13,\ 6,\ 10,\ 16,\ 25,\ 12,\ \ldots$$
+
+and nothing in her rule seems to prevent her from painting herself into a
+corner, with told beads both below and above, or from leaving some bead behind
+forever. Neither happens:
+
+- *Theorem 2*: she never gets stuck;
+- **Theorem 3: she tells every bead, exactly once**;
+- *Theorem 5*: in the long run she moves up with frequency exactly
+  $\log_3 2 \approx 0.6309$, a little less than two moves out of three;
+- *Theorem 6*: bead $m$ gets its turn after at most polynomially many moves.
+
+Theorem 3 was a conjecture in the first version of this note (see the history
+above), and it is the conjecture recorded in the OEIS entries below.
+
+**Why it works, in one breath.** Shift the positions by one and write
+$x = n + 1$. Then a down move halves $x$ (rounding down), and an up move
+multiplies it by $3/2$ (rounding up). So Jane's rule plays the powers of $2$
+against the powers of $3$, and because no power of $2$ is a power of $3$, that
+is, because $\log_2 3$ is irrational, she cannot fall into a routine: on a
+logarithmic scale each up move turns her around a circle by very nearly the
+same irrational angle, down moves do not turn her at all, and such a rotation
+sooner or later visits every arc of the circle. Section 8 makes this precise.
+
+Along the way the black beads turn out to carry a tree of their own, the
+*onyx rosary*, in which every bead has infinitely many children (*Theorem 4*).
+
+**Where this comes from.** The rosary is [Jane Street](https://www.janestreet.com/)'s
+puzzle [Traversing the Infinite Sidewalk](https://www.janestreet.com/numberphile/)
+in disguise, and three entries of the
+[On-Line Encyclopedia of Integer Sequences](https://oeis.org/) record it:
+
+| Here | On the sidewalk | OEIS |
+|---|---|---|
+| bead $n$, moves up and down | slab $n$, jumps forward and backward | |
+| height $h(n)$ | minimum number of jumps from slab $0$ to slab $n$ | [A358838](https://oeis.org/A358838) |
+| reluctant recitation $\rho$ | the greedy walk | [A359005](https://oeis.org/A359005) |
+| the move at which bead $m$ is told, $\rho^{-1}(m)$ | the inverse mapping of the greedy walk | [A359008](https://oeis.org/A359008) |
+
+**And what is still open.** Plenty; Section 12 has seven questions. A
+favorite: look at each of Jane's down moves and count the up moves that
+came just before it. After $2^{27}$ moves, the count is exactly one in
+$49.993\%$ of the cases. Is the true proportion one half?
 
 ## 1. Prelude: names
 
