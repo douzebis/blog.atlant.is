@@ -630,6 +630,10 @@ def height(n: int) -> int:
 
 ## Part II. The reluctant recitation
 
+> I would prefer not to.
+>
+> Herman Melville, *Bartleby, the Scrivener* (1853)
+
 *Sections 6 to 8.* Jane's reluctant rule, the proof that it never leaves her
 stuck (Theorem 2) and the proof that it leads her to every bead (Theorem 3).
 From Part I this part uses the names and Lemma 1, nothing more.
@@ -1059,7 +1063,7 @@ def Phi(n: int) -> int:
 > **Scavenger**: Five thousand floors. That can't be right! It doesn't even go
 > down that far.
 >
-> Tsutomu Nihei, *Blame!*
+> Tsutomu Nihei, *Blame!* (freely translated)
 
 *Section 11.* Theorem 3 says that every bead gets its turn; this part says
 how Jane spends her time (Theorem 5) and how long a bead may have to wait
@@ -1251,6 +1255,10 @@ are in the [table of the appendix](#appendix-numerical-data).
 > (Conjecture B).
 
 ## Coda
+
+> **Killy**: Anyone here have terminal genes?
+>
+> Tsutomu Nihei, *Blame!* (freely translated)
 
 ### Relatives of the rosary
 
