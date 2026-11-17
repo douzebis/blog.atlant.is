@@ -1,14 +1,21 @@
 {{- /* Images of the post's own directory get their size (no layout shift
-       while they load); all but the first are loaded when approached. */ -}}
+       while they load); all but the first are loaded when approached.
+
+       An image `name.png` with a sibling `name-dark.png` is shown in the
+       variant that suits the reader's theme.  A drawing on a white
+       background without such a variant (an image the post lists under
+       `diagrams`) is dimmed in dark mode by the style sheet. */ -}}
 {{- $source := .Destination -}}
 {{- $resource := .Page.Resources.Get .Destination -}}
 {{- with $resource }}{{ $source = .RelPermalink }}{{ end -}}
-{{- /* Drawings on a white background (the figures, and any image the post
-       lists under `diagrams`) are dimmed in dark mode by the style sheet. */ -}}
-{{- $diagram := or (strings.HasPrefix (path.Base .Destination) "figure-") (in (.Page.Params.diagrams | default slice) .Destination) -}}
+{{- $extension := path.Ext .Destination -}}
+{{- $dark := .Page.Resources.Get (printf "%s-dark%s" (strings.TrimSuffix $extension .Destination) $extension) -}}
+{{- $dim := and (not $dark) (in (.Page.Params.diagrams | default slice) .Destination) -}}
+{{- with $dark }}<picture><source srcset="{{ .RelPermalink }}" media="(prefers-color-scheme: dark)">{{ end -}}
 <img src="{{ $source | safeURL }}" alt="{{ .PlainText }}"
-  {{- if $diagram }} class="diagram"{{ end }}
+  {{- if $dim }} class="diagram"{{ end }}
   {{- with .Title }} title="{{ . }}"{{ end }}
   {{- with $resource }} width="{{ .Width }}" height="{{ .Height }}"{{ end }}
   {{- if gt .Ordinal 0 }} loading="lazy"{{ end }}>
+{{- with $dark }}</picture>{{ end -}}
 {{- /* no trailing newline */ -}}

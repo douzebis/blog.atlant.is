@@ -4,11 +4,11 @@
     <title>Network</title>
     <script
         type="text/javascript"
-        src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js">
+        src="../lib/jquery.min.js">
     </script>
     <script
         type="text/javascript"
-        src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+        src="../lib/vis-network.min.js"
     ></script>
     <script
         type="text/javascript"
@@ -124,7 +124,7 @@
                     case 'position': {
                         let value = 2 + this.positions[this.lambexes*x+y]
                         if (this.n != 0 && value >= this.n) {
-                            return y == 0 ? BLACK : WHITE
+                            return y == 0 ? THEME.black_bead : WHITE
                         }
                         let hue = 360*Math.log2(value)/Math.log2(this.positions_max)
                         return hsl_to_col(hue, 80, 75)
@@ -132,7 +132,7 @@
                     case 'height': {
                         let value = this.heights[this.lambexes*x+y]
                         if (this.n != 0 && value >= this.n) {
-                            return y == 0 ? BLACK : WHITE
+                            return y == 0 ? THEME.black_bead : WHITE
                         }
                         let hue = 360*value/this.heights_max
                         return hsl_to_col(hue, 80, 75)
@@ -140,7 +140,7 @@
                     case 'reluctant_inv': {
                         let value = this.reluctant_invs[this.lambexes*x+y]
                         if (this.n != 0 && value >= this.n) {
-                            return y == 0 ? BLACK : WHITE
+                            return y == 0 ? THEME.black_bead : WHITE
                         }
                         //let hue = 360*value/this.reluctant_invs_max
                         let hue = this.reluctant_invs.reduce((c, e) => {
@@ -150,7 +150,7 @@
                     }
                     case 'none':
                     default: {
-                        return y == 0 ? BLACK : WHITE
+                        return y == 0 ? THEME.black_bead : WHITE
                     }
                 }
             }
@@ -373,6 +373,7 @@
             zoomView: P.interactive == 'yes' ? true: false,
         },
         physics: false,
+        edges: THEME.edges,
       }
       var network = new vis.Network(container, data, options);
     </script>

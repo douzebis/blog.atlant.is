@@ -4,11 +4,11 @@
     <title>irrational-log2-3</title>
     <script
         type="text/javascript"
-        src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js">
+        src="../lib/jquery.min.js">
     </script>
     <script
         type="text/javascript"
-        src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+        src="../lib/vis-network.min.js"
     ></script>
     <script
         type="text/javascript"
@@ -69,7 +69,7 @@
                     from: "c" + n,
                     to: "c" + nxtn,
                     endPointOffset: {from: -20, to: -20},
-                    color: hsl_to_col(0, 0, 40),
+                    color: THEME.line,
                     smooth: false,
                     width: 1,
                 },
@@ -92,7 +92,7 @@
                     shape: 'dot',
                     size: 2,
                     label: label,
-                    font: {size: BASE/50},
+                    font: {size: BASE/50, color: THEME.text},
                     color: hsl_to_col(0, 80., 70.),
                     x: BASE/2*Math.cos(2*Math.PI*n*log3),
                     y: -BASE/2*Math.sin(2*Math.PI*n*log3),
@@ -116,6 +116,7 @@
                 zoomView: P.interactive == 'yes' ? true: false,
             },
             physics: false,
+            edges: THEME.edges,
         }
         var network = new vis.Network(container, data, options);
         network.fit()

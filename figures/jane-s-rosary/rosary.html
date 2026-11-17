@@ -4,11 +4,11 @@
     <title>Network</title>
     <script
         type="text/javascript"
-        src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js">
+        src="../lib/jquery.min.js">
     </script>
     <script
         type="text/javascript"
-        src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+        src="../lib/vis-network.min.js"
     ></script>
     <script
         type="text/javascript"
@@ -140,6 +140,7 @@
             zoomView: P.interactive == 'yes' ? true: false,
         },
         physics: false,
+        edges: THEME.edges,
       }
       var network = new vis.Network(container, data, options);
       //network.fit()

@@ -61,8 +61,8 @@ exists only as a Markdown file that no site publishes.
   sources convertible.
 - Comments, search, newsletter.
 - A tracking script in the pages. View statistics: see "Open questions".
-- Changing the interactive figures. Their code stays in its repository;
-  the build copies it into the site at a fixed commit (see "Figures").
+- Changing what the interactive figures show. Their code is kept in this
+  repository and gets a light and a dark theme (see "Figures").
 - Decommissioning WordPress, setting up the self-hosted server and
   switching the domain.
 - PDF output of the papers.
@@ -80,7 +80,8 @@ site.nix               # derivation that builds the site
 nix/nixpkgs.nix        # the pinned package set
 hugo.toml
 data/mathjax.json      # MathJax's TeX settings (pages and formula check)
-tools/                 # build checks and their tests
+tools/                 # build checks and their tests, figure capture
+figures/               # code of the interactive figures
 content/
   posts/
     2022-12-02-jane-s-infinite-rosary/
@@ -198,27 +199,35 @@ with LaTeX:
 - A figure is a picture in the post's directory, written in plain
   Markdown as an image that links to the live version, followed by its
   caption:
-  `[![Figure 1](images/figure-01.png)](https://.../rosary.html?...)`.
+  `[![Figure 1](images/figure-01.png)](https://blog.atlant.is/figures/...)`.
   The source therefore works on GitHub and converts to LaTeX as a picture.
-- Pictures of interactive figures are taken once with
-  `tools/capture-figures/capture.sh` (headless browser, twice the screen
-  resolution, fonts provided by its `shell.nix`) and committed. The list
-  of figures of a post is kept next to the tool
+- The code of the interactive figures lives in this repository, under
+  `figures/<name>/` (HTML and JavaScript; `figures/jane-s-rosary/` was
+  imported from `douzebis/jane-s-rosary`, which is left as it was). The
+  build copies `figures/` into the site, so the live versions are served
+  at `/figures/<name>/`.
+- The libraries the figures use are not in the repository. The build
+  fetches them at fixed versions, each with a hash (`site.nix`), and puts
+  them in `/figures/lib/`, where the figure pages load them: vis-network
+  10.1.5 (654 kB), jQuery 3.6.1 (90 kB), uPlot 1.6.7 (38 kB).
+- The posts name a figure by its address on the final site
+  (`https://blog.atlant.is/figures/...`); the link template rewrites it to
+  the copy in the site being built (`hugo.toml`, `params.localCopies`).
+  Until the final site exists, these links only work in a build.
+- Themes. The figure pages have a light and a dark variant, chosen by
+  `theme=light` or `theme=dark` in the address, else by the reader's
+  system setting; their backgrounds are those of the site's pages. Each
+  picture exists in both variants (`figure-01.png`,
+  `figure-01-dark.png`) and the image template shows the one that suits
+  the reader's theme (any image `name.ext` with a sibling
+  `name-dark.ext`). An image on a white background without a dark
+  variant can be listed in the post's `diagrams` front matter; it is then
+  dimmed in dark mode.
+- Pictures are taken once from a local build with
+  `tools/capture-figures/capture.sh` (headless browser, both themes, twice
+  the screen resolution, fonts provided by its `shell.nix`) and committed.
+  The list of figures of a post is kept next to the tool
   (`tools/capture-figures/jane-s-rosary.tsv`).
-- The live versions are served by the site itself. The build fetches the
-  figures' repository at a fixed commit and the three libraries they use
-  at fixed versions, each with a hash (`site.nix`): vis-network 10.1.5
-  (654 kB), jQuery 3.6.1 (90 kB), uPlot 1.6.7 (38 kB). It copies them
-  under `figures/` and rewrites the CDN addresses in the figure pages to
-  these copies. Nothing of this is committed to the site's repository.
-- The posts keep the public address of a figure
-  (`https://douzebis.github.io/jane-s-rosary/...`); the link template
-  rewrites it to the site's copy (`hugo.toml`, `params.localCopies`).
-- In dark mode the pictures keep their colors and white background and
-  are only dimmed: inverting them would swap black and white beads. The
-  template marks as drawings the images named `figure-*` and those listed
-  in the post's `diagrams` front matter. Pictures drawn for a dark
-  background would need a dark theme in the figures' own code.
 - Not done, possible later: showing a live figure in the page itself when
   the reader clicks its picture, for the figures where zooming matters
   (the plot of heights, the onyx ordering).
@@ -320,8 +329,9 @@ build input.
 - Hugo, with client-side MathJax served from the site.
 - Theorems, proofs and references stay plain Markdown conventions, as in
   the rosary paper.
-- Figures are pictures linking to live versions served by the site, with
-  the figure code and its libraries pinned (2026-11-17).
+- Figures are pictures linking to live versions served by the site; the
+  figure code is kept in this repository, with light and dark themes, and
+  its libraries are pinned in the build (2026-11-17).
 - One site with a language per post, no separate language trees.
 - Old WordPress links (`?p=1183`) are a matter for the final server, which
   can redirect them; the front matter keeps the WordPress identifier.

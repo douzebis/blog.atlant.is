@@ -1,3 +1,47 @@
+// -- Theme --------------------------------------------------------------------
+
+// The figures come in a light and a dark variant.  "theme=light" or
+// "theme=dark" in the address chooses one; without it, the reader's system
+// setting decides.  The backgrounds are those of the blog's pages, so that a
+// figure shown in a page, live or as a picture, blends with it.
+const THEME = (() => {
+    const asked = new URLSearchParams(window.location.search).get('theme')
+    const dark = asked == 'dark' || (asked != 'light'
+        && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    const colors = dark ? {
+        dark: true,
+        background: '#191918',
+        text: '#d6d6d0',        // text drawn on the background
+        line: '#9a9a94',        // plain lines drawn on the background
+        grid: '#3a3a37',        // grid of a plot
+        black_bead: '#737373',  // a black bead must stand out from the background
+        plot: '#8fb4ff',
+        plot_fill: 'rgba(143, 180, 255, 0.15)',
+    } : {
+        dark: false,
+        background: '#fdfdfb',
+        text: '#343434',
+        line: '#666666',
+        grid: 'rgba(0, 0, 0, 0.07)',
+        black_bead: '#4d4d4d',
+        plot: 'blue',
+        plot_fill: 'rgba(0, 0, 255, 0.1)',
+    }
+    // Options for vis-network: labels of edges are drawn on the background.
+    colors.edges = {
+        font: {color: colors.text, strokeWidth: 2, strokeColor: colors.background},
+    }
+    // Options for an axis of uPlot.
+    colors.axis = {
+        stroke: colors.text,
+        grid: {stroke: colors.grid},
+        ticks: {stroke: colors.grid},
+    }
+    document.documentElement.style.background = colors.background
+    document.documentElement.style.colorScheme = dark ? 'dark' : 'light'
+    return colors
+})()
+
 // -- Pretty printing ----------------------------------------------------------
 
 // Colors

@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <title>Network</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uplot@1.6.7/dist/uPlot.min.css">
+    <link rel="stylesheet" href="../lib/uPlot.min.css">
     <script
         type="text/javascript"
-        src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        src="../lib/jquery.min.js"
     ></script>
     <script
         type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/uplot@1.6.7/dist/uPlot.iife.min.js"
+        src="../lib/uPlot.iife.min.js"
     ></script>
     <script
         type="text/javascript"
@@ -61,8 +61,8 @@
                 }, 
                 { 
                     label: "h(n)",
-                    stroke: "blue", 
-                    fill: "rgba(0,0,255,0.1)", 
+                    stroke: THEME.plot,
+                    fill: THEME.plot_fill,
                     paths: u => null, 
                     points: {
                         space: 0, 
@@ -73,11 +73,11 @@
             axes: [
                 {
                     label: "n",
-                    //labelSize: 20,
+                    ...THEME.axis,
                 },
                 {
                     label: "h(n)",
-                    //labelSize: 20,
+                    ...THEME.axis,
                 },
             ],
             legend: {

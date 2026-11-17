@@ -27,17 +27,12 @@ let
     hash = "sha256-h9e4acaiphadmlOsxOq2yEapy+EXUnOCJkYbtQcMi4g=";
   };
 
-  # The interactive figures of the rosary paper (the author's repository, at
-  # a fixed commit) and the three libraries they use.  The figure pages name
-  # public CDNs; the build points them at the copies below instead, so that
-  # the site serves everything itself.  The figure pages asked for "the
-  # latest" vis-network: 10.1.5 is the version the pictures in the post were
-  # taken with (2026-11-17).  Only the one file needed is fetched (the full
-  # package is 85 MB).
-  rosaryFigures = pkgs.fetchzip {
-    url = "https://github.com/douzebis/jane-s-rosary/archive/947bd74582e5ae7309160c69ef2521e4180de533.tar.gz";
-    hash = "sha256-xj2icEVp4DsB7QwFHZMW9MvkN46UQgRVyhLZh5HOy1E=";
-  };
+  # The libraries used by the interactive figures (./figures).  The figure
+  # pages load them from ../lib/, where the build puts the versions below,
+  # so that the site serves everything itself.  The figures were written
+  # against "the latest" vis-network; 10.1.5 is the version their pictures
+  # in the posts were taken with (2026-11-17).  Only the one file needed is
+  # fetched (the full package is 85 MB).
   visNetworkVersion = "10.1.5";
   visNetwork = pkgs.fetchurl {
     url = "https://unpkg.com/vis-network@${visNetworkVersion}/standalone/umd/vis-network.min.js";
@@ -66,6 +61,7 @@ pkgs.stdenvNoCC.mkDerivation {
       ./assets
       ./data
       ./tools
+      ./figures
     ];
   };
 
@@ -101,23 +97,19 @@ pkgs.stdenvNoCC.mkDerivation {
       cp -r chtml.js chtml "$OLDPWD/public/mathjax-fonts/mathjax-newcm-font/" )
 
     # The interactive figures and their libraries (see the comment above).
-    mkdir -p public/figures/jane-s-rosary public/figures/lib vendor/jquery vendor/uplot
-    cp ${rosaryFigures}/*.html ${rosaryFigures}/*.js public/figures/jane-s-rosary/
-    chmod -R u+w public/figures
+    mkdir -p public/figures/lib vendor/jquery vendor/uplot
+    cp -r figures/. public/figures/
     tar -xzf ${jquery} -C vendor/jquery --strip-components=1
     tar -xzf ${uplot} -C vendor/uplot --strip-components=1
-    cp ${visNetwork} public/figures/lib/vis-network-${visNetworkVersion}.min.js
-    cp vendor/jquery/dist/jquery.min.js public/figures/lib/jquery-${jqueryVersion}.min.js
+    cp ${visNetwork} public/figures/lib/vis-network.min.js
+    cp vendor/jquery/dist/jquery.min.js public/figures/lib/jquery.min.js
     cp vendor/jquery/LICENSE.txt public/figures/lib/jquery-LICENSE.txt
-    cp vendor/uplot/dist/uPlot.iife.min.js public/figures/lib/uPlot-${uplotVersion}.iife.min.js
-    cp vendor/uplot/dist/uPlot.min.css public/figures/lib/uPlot-${uplotVersion}.min.css
+    cp vendor/uplot/dist/uPlot.iife.min.js public/figures/lib/uPlot.iife.min.js
+    cp vendor/uplot/dist/uPlot.min.css public/figures/lib/uPlot.min.css
     cp vendor/uplot/LICENSE public/figures/lib/uPlot-LICENSE.txt
-    sed -i \
-      -e 's#https://unpkg.com/vis-network/standalone/umd/vis-network.min.js#../lib/vis-network-${visNetworkVersion}.min.js#' \
-      -e 's#https://ajax.googleapis.com/ajax/libs/jquery/${jqueryVersion}/jquery.min.js#../lib/jquery-${jqueryVersion}.min.js#' \
-      -e 's#https://cdn.jsdelivr.net/npm/uplot@${uplotVersion}/dist/uPlot.iife.min.js#../lib/uPlot-${uplotVersion}.iife.min.js#' \
-      -e 's#https://cdn.jsdelivr.net/npm/uplot@${uplotVersion}/dist/uPlot.min.css#../lib/uPlot-${uplotVersion}.min.css#' \
-      public/figures/jane-s-rosary/*.html
+    printf '%s\n' \
+      'vis-network ${visNetworkVersion}' 'jQuery ${jqueryVersion}' 'uPlot ${uplotVersion}' \
+      > public/figures/lib/VERSIONS.txt
 
     python3 tools/check_site.py --base-url ${lib.escapeShellArg baseURL} public
     node tools/check_math.cjs vendor/node_modules data/mathjax.json public

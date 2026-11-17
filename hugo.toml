@@ -28,9 +28,10 @@ disableKinds = ["taxonomy", "term"]
   # Colors come from assets/css/syntax.css, which has a light and a dark set.
   noClasses = false
 
-# Addresses that the site serves from its own copy.  The posts keep the
-# public address (so that their source works anywhere); links to it are
-# rewritten to the copy that the build puts in the site (site.nix).
+# The posts name the interactive figures by their address on the final site
+# (so that their source works anywhere: GitHub's view, a LaTeX version).
+# Links to them are rewritten to the copy in the site being built, whatever
+# its address (a preview, a local build).
 [[params.localCopies]]
-  from = "https://douzebis.github.io/jane-s-rosary/"
-  to = "figures/jane-s-rosary/"
+  from = "https://blog.atlant.is/figures/"
+  to = "figures/"

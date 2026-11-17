@@ -145,6 +145,7 @@ iframe {
 
 /* A picture alone in its paragraph (a figure) is centered. */
 p > a:only-child > img,
+p > a:only-child > picture > img,
 p > img:only-child {
   display: block;
   margin: 0 auto;
