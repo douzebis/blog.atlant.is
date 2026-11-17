@@ -215,7 +215,8 @@ the frozen version, and the author's go-ahead for the next one.
      the heaviest and that nothing later depends on its details.
    - Each proof is followed by a one-line "what was used".
 
-6. **Context.** A short section: the puzzle's origin (Jane Street,
+6. **Context.** (Done 2026-11-17, placed in the coda; the sources read
+   and what was not verified are listed in the history.) A short section: the puzzle's origin (Jane Street,
    Numberphile); the OEIS sequences; the $3/2$ maps (Odlyzko-Wilf, the
    Josephus-type sequence A061419, Collatz-type problems) and what is
    and is not analogous; what is new here, stated carefully and only

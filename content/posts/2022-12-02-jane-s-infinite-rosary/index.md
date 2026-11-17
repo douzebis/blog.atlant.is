@@ -90,7 +90,8 @@ Along the way the black beads turn out to carry a tree of their own, the
 **Where this comes from.** The rosary is [Jane Street](https://www.janestreet.com/)'s
 puzzle [Traversing the Infinite Sidewalk](https://www.janestreet.com/numberphile/)
 in disguise, and three entries of the
-[On-Line Encyclopedia of Integer Sequences](https://oeis.org/) record it:
+[On-Line Encyclopedia of Integer Sequences](https://oeis.org/) record it
+(more on the rosary's [relatives](#relatives-of-the-rosary) at the end):
 
 | Here | On the sidewalk | OEIS |
 |---|---|---|
@@ -129,7 +130,8 @@ $$
   Theorem 3.
 - **Part IV, the pace of the recitation** (Section 11): Theorems 5 and 6. It
   continues Part II and uses neither Theorem 1 nor Part III.
-- **Coda** (Section 12): what is still open.
+- **Coda**: the rosary's relatives (the sidewalk, the powers of $3/2$, the
+  $3x+1$ problem), and what is still open (Section 12).
 
 Theorems, lemmas and conjectures keep the numbers they had in the previous
 version of this paper. Every name used in the paper is listed in a
@@ -1219,6 +1221,63 @@ below $10\,801\,813$ within its first $2^{27}$ moves.
 
 ## Coda
 
+### Relatives of the rosary
+
+Now that the names are in place, here is where the rosary sits among better
+known things.
+
+**The sidewalk.** Jane Street published *Traversing the Infinite Sidewalk*
+[JS22] in 2022, as the puzzle page that goes with a Numberphile video they
+sponsored (Neil Sloane on the inventory sequence, November 2022). The page
+asks for the minimal number of jumps to each square, lists 500 values, points
+at their long runs of repeated values, and ends with questions: explain these
+behaviors, bound the sequence above and below, find another proof that every
+square can be reached, try variants. Part I answers some of them:
+Proposition 1 for the bounds and for reachability, Lemma 2 and Theorem 1 for
+what shortest paths look like. It does not explain the runs. The reluctant
+recitation is one of the variants; it was suggested by Neal Gersh Tolunsky.
+
+**The sequences.** The heights are [A358838](https://oeis.org/A358838) in
+the OEIS, the reluctant recitation is [A359005](https://oeis.org/A359005) and
+its inverse is [A359008](https://oeis.org/A359008); the author entered them
+in December 2022. The last two record as a conjecture what is Theorem 3
+here. Other sidewalks, with other labels, have since entered the OEIS
+(A360593 to A360595 by S. Brunner and A360744 to A360746 by N. G. Tolunsky,
+2023).
+
+**Powers of $3/2$.** In heap coordinates an up move is
+$x \mapsto \lceil 3x/2 \rceil$. This is the map that Mahler introduced to
+study his $Z$-numbers [Ma68], and the one that Odlyzko and Wilf iterate in
+connection with the Josephus problem [OW91]; the up-chain of bead $0$, shifted
+by one, is the sequence [A061419](https://oeis.org/A061419), which the OEIS
+files with both. Those works
+follow one orbit of the map, forever upward. The rosary adds the possibility
+of stepping down the binary tree between two applications.
+
+**The $3x+1$ problem.** There is a closer relative. The $3x+1$ map sends an
+odd $x$ to $(3x+1)/2$ and an even $x$ to $x/2$: in heap coordinates, that is
+an up move and a down move. So the $3x+1$ map is a way of telling the rosary,
+*up from the even beads and down from the odd ones*, and the famous
+conjecture says that a Jane who follows this rule ends up, wherever she
+starts, going back and forth between beads $0$ and $1$. Reluctant Jane follows
+another rule, about which everything can be proved. The two meet in one
+number: the frequency $\log_3 2$ of Theorem 5 is also the proportion of up
+moves that a cycle of the $3x+1$ map through large numbers would have to
+approach, for the same reason, $3^u \approx 2^t$. The resemblance stops
+there, and nothing in this paper
+bears on the $3x+1$ problem.
+
+**Music.** The same number rules the tuning of scales, where twelve fifths
+miss seven octaves by a comma because $3^{12}$ is close to $2^{19}$ but not
+equal to it [Ca12]. The denominators $12$ and $53$ of the good approximations
+of $\log_2 3$, familiar to musicians, are among those that measure, in
+Lemma 9, how fast Jane's phase covers the circle.
+
+**What is new.** A search of the literature in November 2026 found nothing
+on the sidewalk beyond the puzzle page and the OEIS entries. As far as we
+know, Theorems 1 to 6 are new, and Theorem 3 settles the conjecture recorded
+in A359005 and A359008.
+
 ### 12. Conjectures and open questions
 
 **Conjecture A (the frontier).** $F(t) = \Theta(t/\log t)$; equivalently the
@@ -1313,6 +1372,8 @@ $\mathbb{N}$?
 - [Ca12] X. Caruso, *Application des fractions continues à la construction des
   gammes musicales*, Revue des Mathématiques de l'Enseignement Supérieur 123
   (2012).
+- [JS22] Jane Street, *Traversing the Infinite Sidewalk* (2022),
+  <https://www.janestreet.com/numberphile2022>.
 - [Ma68] K. Mahler, *An unsolved problem on the powers of 3/2*, J. Austral.
   Math. Soc. 8 (1968), 313–321.
 - [OW91] A. M. Odlyzko and H. S. Wilf, *Functional iteration and the Josephus
@@ -1323,7 +1384,7 @@ $\mathbb{N}$?
 - [Sós58] V. T. Sós, *On the distribution mod 1 of the sequence $n\alpha$*,
   Ann. Univ. Sci. Budapest. Eötvös Sect. Math. 1 (1958), 127–134.
 - OEIS Foundation, *The On-Line Encyclopedia of Integer Sequences*, sequences
-  A061419, A358838, A359005, A359008.
+  A061419, A358838, A359005, A359008, A360593 to A360595, A360744 to A360746.
 
 ## Appendix: changes with respect to the January 2023 version
 

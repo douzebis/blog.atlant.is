@@ -147,6 +147,30 @@ In progress. Steps done:
   Theorem 6 is short, and the heavy one, Theorem 5 (2), is better kept
   with its statement and marked as skippable. The arguments are
   unchanged.
+- Step 6 (2026-11-17): context, as a section "Relatives of the rosary" at
+  the head of the coda (after the names are known), with a pointer from
+  the opening. Six paragraphs: the sidewalk (what Jane Street's page asks
+  and which of its questions Part I answers; it does not explain the runs
+  of repeated values); the OEIS entries and the sidewalks that followed;
+  powers of 3/2 (Mahler's map, Odlyzko and Wilf); the 3x+1 problem; music
+  (the citation of Caruso, which the 2023 text had and the revision had
+  lost); what is new.
+  - Sources checked on 2026-11-17: the puzzle page
+    (janestreet.com/numberphile2022, read in full); the Numberphile page
+    of the video that links to it, and N. Sloane's list of videos for its
+    date (November 2022); the OEIS entries A358838, A359005, A359008 (all
+    by the author, December 2022; the conjecture is still stated as such),
+    A061419 (links to Mahler and to Odlyzko-Wilf), A360593-A360595,
+    A360744-A360746; two web searches for other work on the sidewalk or
+    on its greedy walk, which found none.
+  - Checked by computation: up is x -> ceil(3x/2) in heap coordinates; the
+    3x+1 map (x -> (3x+1)/2 for odd x, x/2 for even x) is "up from an even
+    bead, down from an odd bead" (all beads below 10^6); 3^12/2^19 = 1.0136.
+  - Not verified against the sources themselves: the content of [Ma68]
+    and [OW91] beyond what the paper already said and what OEIS A061419
+    states; the claim about cycles of the 3x+1 map is the standard
+    counting argument, not taken from a reference.
+  - New reference [JS22].
 
 Statements compared with the 2026-11-17 version
 (`python tools/compare_statements.py content/versions/jane-s-infinite-rosary/2026-11-17/index.md content/posts/2022-12-02-jane-s-infinite-rosary/index.md`):
