@@ -16,7 +16,7 @@ import pathlib
 import re
 import sys
 
-from rosary import height, reluctant_recitation, seed_and_lambex
+from rosary import foraging_sequence, height, reluctant_recitation
 
 PAPER = (
     pathlib.Path(__file__).resolve().parents[2]
@@ -50,19 +50,15 @@ def main() -> int:
     assert callable(explore) and callable(fast) and callable(rho) and callable(phi)
 
     beads = reluctant_recitation(400)
-    foraging = [0]
-    for bead in beads:
-        onyx = seed_and_lambex(bead)[0] // 3
-        if onyx != foraging[-1]:
-            foraging.append(onyx)
+    foraging = foraging_sequence(400)
     results = [
         report(
-            "height by exploration, n < 3000",
-            all(explore(n) == height(n) for n in range(3000)),
+            "height by exploration, 1 <= n < 3000",
+            all(explore(n) == height(n) for n in range(1, 3000)),
         ),
         report(
-            "height in logarithmic time, n < 100000",
-            all(fast(n) == height(n) for n in range(100000)),
+            "height in logarithmic time, 1 <= n < 100000",
+            all(fast(n) == height(n) for n in range(1, 100000)),
         ),
         report("rho(i), i < 300", all(rho(i) == beads[i] for i in range(300))),
         report("Phi(i), i < 60", all(phi(i) == foraging[i] for i in range(60))),

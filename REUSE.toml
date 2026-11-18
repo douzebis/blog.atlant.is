@@ -45,9 +45,3 @@ SPDX-License-Identifier = "CC-BY-4.0"
 path = "research/**/results/**"
 SPDX-FileCopyrightText = "Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)"
 SPDX-License-Identifier = "MIT"
-
-# Trials and drafts of texts.
-[[annotations]]
-path = "content/drafts/**"
-SPDX-FileCopyrightText = "Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)"
-SPDX-License-Identifier = "CC-BY-4.0"

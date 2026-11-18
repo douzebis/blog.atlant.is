@@ -325,3 +325,70 @@ numbers its beads from 1, so that a down move halves the position and the
   `content/versions/jane-s-infinite-rosary/2026-11-18/`. Four versions are
   now kept. The comparison page names its versions by their directory
   (`?left=2026-11-18&right=current`).
+- 2026-11-18, step 2: the research code counts from 1.
+  `check_renumbering.py` keeps the earlier definitions and checks that
+  each function is the earlier one shifted by one (moves, seeds, lambexes,
+  heights, reluctant recitation, onyx predecessor, foraging sequence).
+  `walk.c` was run again: the frontier column of its result is one more,
+  nothing else changed.
+- 2026-11-18, step 3: the live figures take `first=1` to show positions
+  and onyx numbers from 1. Without it they are unchanged, for the earlier
+  versions: captures of all figures with the default are byte for byte
+  the pictures of the 2026-11-18 version.
+- 2026-11-18, step 4: the text, in four commits (opening and Part I,
+  Part II, Part III, then Part IV, the coda, the tables and the
+  appendix). What changed for the reader:
+  - Every position is one more: Jane starts at bead 1, the running
+    example is bead 8 (it was 7), the black beads are 1, 4, 7, ...
+  - Down is floor(n/2), up is ceil(3n/2), mu and nu are 2n and 2n + 1, the
+    label is ceil(n/2), the phase is log2 n mod 1. The "heap coordinates"
+    x = n + 1 are gone; one paragraph says that the rosary is the binary
+    tree in heap order.
+  - New notation: the black bead number n (bold) is written with a
+    bullet, n-bullet = 3n - 2; bold numbers and letters count black beads.
+    In Part III the beads of the onyx rosary are called onyxes ("onyx 4
+    is bead 10"), the canonical recitation is plain C(n), and the
+    canonical onyx mapping becomes the address tau(n). Ranks of covers
+    start at 1.
+  - Theorem 1 is stated with b_i = 2^i 3^(e+1-i) q and a_i = b_i - 1,
+    where 2n - 1 = 3^e q; "mu wins" exactly when b_(e+1) is black.
+  - The onyx predecessor is defined with an example first (the canonical
+    recitation to bead 10, which leaves the reluctant recitation at bead
+    14), and a black bead is said to have two numbers.
+  - The frontier F(t) is still the smallest bead not told, hence one more
+    than before; the table of the appendix is rebuilt from the new run.
+  - The 3x+1 remark of the coda now reads "up from the odd beads and down
+    from the even ones", between beads 1 and 2.
+  - The table "Where this comes from" says how to pass to the OEIS
+    entries, which count from 0 (their slab n - 1 is bead n).
+  - Numbers quoted with Conjecture D: the means 4.720 and 4.849 become
+    4.716 and 4.850 (the same random integers now name the next bead).
+  - Time (the index of a recitation), heights, lambexes and all results
+    are unchanged.
+- 2026-11-18, step 5: the trial page is removed; spec 0003 is
+  `implemented`.
+
+Statements compared with the 2026-11-18 version
+(`python tools/compare_statements.py content/versions/jane-s-infinite-rosary/2026-11-18/index.md content/posts/2022-12-02-jane-s-infinite-rosary/index.md`):
+28 before, 28 after, 18 differences, explained by group:
+
+- The same statement with every position increased by one, and nothing
+  else: Fact 1, Corollary 1 (b > 1 for b > 0), Lemma 3 (n > 1), Theorem 3
+  (a permutation of the positive integers), Lemma 4, Lemma 5, Lemma 6
+  ("nUD is black" for "3 divides nUD"), Lemma 7 (2^r divides n, or
+  n + 1), Lemma 8 (1 + v2(a + 1)), Theorem 5 (log2 rho(t)), Theorem 6
+  (kappa m^(2 mu0 - 1); the bound on F loses its "- 1" because F is one
+  more), Question G (labels ceil(n/k)).
+- The same, written with the new notation (bullet, bold, onyx, tau):
+  Theorem 1, Proposition 2 (pi(n) <= (8n + 1)/9, which is the shift of
+  pi(n) <= 8n/9), Theorem 4, Corollary 2, Conjecture F.
+- Proposition 1: the lower bound and the bound (4n - 1)/3 are the exact
+  shifts. The logarithmic bound is stated as 12 + 3 ln n / ln(9/8), where
+  the exact shift has ln(n - 1): it is implied by the earlier statement
+  and very slightly weaker. This is the only statement whose content
+  changed.
+
+Unchanged: Lemma 1, Lemma 2, Theorem 2, Corollary 3, Lemma 9, Conjectures
+A, B and D, Questions C and E. (The proofs of Lemma 1 and of Theorems 1
+and 6 were rewritten in the new numbering; `check_shortest.py` now checks
+the six diagrams of Lemma 1 and the chains of Theorem 1.)

@@ -18,6 +18,8 @@ Checked:
 - Lemma 5 (phases), both parts, for all beads below 20000;
 - Theorem 5 (1) on the first T moves:
   |u(t) log2 3 - t - log2 rho(t)| <= (3/2)(1 + ln t);
+- the trivial bound F(t) <= t + 2 on the frontier, and the remark of the
+  coda on the 3x+1 map;
 - the fact behind Lemma 9: for a denominator q of a convergent of
   alpha = log2(3/2), any q consecutive multiples of alpha leave no gap of
   length 2/q on the circle (checked for the first 8 denominators).
@@ -86,6 +88,24 @@ def main() -> int:
             deviation = abs(ups * log2_3 - t - math.log2(bead))
             worst = max(worst, deviation / (1.5 * (1 + math.log(t))))
     results.append(report("Theorem 2: no gap in an up-chain", no_gap))
+
+    frontier, seen, trivial = 1, set(), True
+    for t, bead in enumerate(beads[:20000]):
+        seen.add(bead)
+        while frontier in seen:
+            frontier += 1
+        if frontier > t + 2:
+            trivial = False
+    results.append(report("Section 11: F(t) <= t + 2 on 20000 moves", trivial))
+    results.append(
+        report(
+            "coda: the 3x+1 map is up from odd beads and down from even beads",
+            all(
+                up(n) == (3 * n + 1) // 2 if n % 2 else down(n) == n // 2
+                for n in range(1, 10**5)
+            ),
+        )
+    )
     results.append(
         report(
             "Theorem 5 (1): largest deviation / bound = "

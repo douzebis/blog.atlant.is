@@ -21,17 +21,13 @@ history:
     text: "Presentation overhaul: an opening that says what is proved, four parts, names introduced where they are needed, a sketch before each long proof, context and relatives, new figures. No statement changed."
     version: "versions/jane-s-infinite-rosary/2026-11-18"
   - date: "2026-11-18"
-    text: "The beads are counted from 1 instead of 0 (in progress)."
+    text: "The beads are counted from 1 instead of 0, so that a down move halves the position and an up move multiplies it by 3/2. Black beads get a count of their own, written in bold, and the beads of the onyx rosary are called onyxes. No result changed."
 diagrams:
   - "images/reluctant-jane-1024x422.png"
 categories:
   - "friandises"
   - "math"
 ---
-
-> **Work in progress.** The beads of this paper are being renumbered from
-> $1$ instead of $0$. Until this notice disappears, the parts not yet
-> converted (see the headings below) still count from $0$.
 
 ![](images/reluctant-jane-1024x422.png)
 
@@ -1132,26 +1128,26 @@ how Jane spends her time (Theorem 5) and how long a bead may have to wait
 This section makes Theorem 3 quantitative. Let $u(t)$ be the number of up
 moves among Jane's first $t$ moves, and let
 
-$$F(t) = \min\big(\mathbb{N}\setminus V_t\big)$$
+$$F(t) = \min\big(\mathbb{N}^*\setminus V_t\big)$$
 
 be the smallest bead that has not been told after $t$ moves (the *frontier*).
-Trivially $F(t) \leq t + 1$.
+Trivially $F(t) \leq t + 2$.
 
 #### Theorem 5: Jane moves up with frequency $\log_3 2$
 
 **Theorem 5.**
 
 1. For all $t \ge 1$:
-   $\ \big|\,u(t)\log_2 3 - t - \log_2(\rho(t)+1)\,\big| \leq \frac{3}{2}(1 + \ln t)$.
-2. $\log_2(\rho(t)+1) \leq 2\sqrt{t} + O(\log t)$.
+   $\ \big|\,u(t)\log_2 3 - t - \log_2 \rho(t)\,\big| \leq \frac{3}{2}(1 + \ln t)$.
+2. $\log_2 \rho(t) \leq 2\sqrt{t} + O(\log t)$.
 3. Consequently
    $$\frac{u(t)}{t} = \log_3 2 + O\big(t^{-1/2}\big) \approx 0.63093 .$$
 
-*Why $\log_3 2$.* In heap coordinates an up move multiplies $x$ by $3/2$ and
+*Why $\log_3 2$.* An up move multiplies the position by $3/2$ and
 a down move divides it by $2$, give or take the rounding. After $t$ moves,
-$u$ of them up, Jane is therefore near
+$u$ of them up, Jane, who started at bead $1$, is therefore near
 
-$$x \approx \frac{(3/2)^u}{2^{\,t-u}} = \frac{3^u}{2^t} .$$
+$$\rho(t) \approx \frac{(3/2)^u}{2^{\,t-u}} = \frac{3^u}{2^t} .$$
 
 If she is neither astronomically far nor, which is impossible, below $1$,
 then $3^u$ and $2^t$ must be of the same order: $u/t \approx \log_3 2$.
@@ -1168,18 +1164,18 @@ The proof of (2) is the most technical passage of the paper. It can be
 skipped: nothing later depends on its details.
 
 *Proof.* (1) Sum the identities of Lemma 5 over the first $t$ moves (each down
-move being a run of length $1$): with $x_t = \rho(t) + 1$,
+move being a run of length $1$):
 
-$$\log_2 x_t = u(t)\,\alpha - (t - u(t)) + E_t, \qquad
+$$\log_2 \rho(t) = u(t)\,\alpha - (t - u(t)) + E_t, \qquad
   E_t = \sum_{\text{up}} \varepsilon - \sum_{\text{down}} \varepsilon' .$$
 
-Each up move contributes less than $\frac{1}{2x}$ where $x - 1$ is the bead it
-leaves, and each down move less than $\frac{3}{2y}$ where $y - 1$ is the bead
+Each up move contributes less than $\frac{1}{2n}$ where $n$ is the bead it
+leaves, and each down move less than $\frac{3}{2m}$ where $m$ is the bead
 it reaches. Since $\rho$ is injective, both sums are bounded by
-$\frac{3}{2}\sum_{x=1}^{t}\frac{1}{x}$, and they have opposite signs. Finally
+$\frac{3}{2}\sum_{n=1}^{t}\frac{1}{n}$, and they have opposite signs. Finally
 $1 + \alpha = \log_2 3$.
 
-(2) Call *depth* of a bead $n$ the integer $\lfloor \log_2(n+1) \rfloor$: a
+(2) Call *depth* of a bead $n$ the integer $\lfloor \log_2 n \rfloor$: a
 down move decreases the depth by exactly $1$ and an up move increases it by
 $0$ or $1$. Let $t$ be a time at which Jane is about to move up, and let $E$
 be the depth of $\rho(t)$. By Lemma 3, $V_t$ is then closed under $D$: it is a
@@ -1192,7 +1188,7 @@ $e_K = \lceil \log_2(2K/\eta_K) \rceil$ and
 $d_K = \lceil \log_2(3/\eta_K) \rceil \le e_K$, and assume $E \geq K + e_K$. Put
 $e = E - K$ and consider the last time $s < t$ at which Jane was at depth at
 most $e$. After time $s$ she stays at depth at least $e + 1$, i.e. on beads
-with $x \geq 2^{e+1}$, and she makes at least $K - 1$ further up moves before
+$n \geq 2^{e+1}$, and she makes at least $K - 1$ further up moves before
 time $t$. Let $n_0 = \rho(s+1)$ and let $n_1, \ldots, n_{K-1}$ be her
 positions right after the next $K - 1$ up moves. As in the proof of Theorem 3,
 for $0 \le i < j < K$,
@@ -1203,7 +1199,7 @@ $$\theta(n_j) - \theta(n_i) = (j - i)\alpha + \delta, \qquad
 so the phases of $n_0, \ldots, n_{K-1}$ are pairwise at distance at least
 $\eta_K/2$ on the circle. Two beads at depth larger than $d$ whose phases
 differ by at least $2^{-d}/\ln 2$ have distinct ancestors at depth $d$ (their
-"mantissas" $x/2^{\lfloor\log_2 x\rfloor} \in [1,2)$ differ by at least
+"mantissas" $n/2^{\lfloor\log_2 n\rfloor} \in [1,2)$ differ by at least
 $2^{-d}$). Hence for every $d$ with $d_K \leq d \leq e$, the beads
 $n_0, \ldots, n_{K-1}$ have $K$ distinct ancestors at depth $d$, all of which
 belong to $V_t$. Counting, $t + 1 \geq K(E - K - d_K + 1)$, that is,
@@ -1217,7 +1213,7 @@ see Theorem 6 below): $\eta_K \geq cK^{-\nu}$ for some constants $c, \nu > 0$,
 so $d_K, e_K = O(\log K)$, and $(\ast\ast)$ with $K = \lceil\sqrt{t}\,\rceil$
 gives $E \leq 2\sqrt{t} + O(\log t)$. Finally, at a time when Jane is not about
 to move up she is inside a run of down moves, which started just after an up
-move; and an up move increases $\log_2(n+1)$ by at most $1$.
+move; and an up move increases $\log_2 n$ by at most $1$.
 
 (3) follows from (1) and (2). $\quad\Box$
 
@@ -1249,9 +1245,9 @@ $\quad\Box$
 
 **Theorem 6.** There is a constant $\kappa$ such that for every bead $m$,
 
-$$\rho^{-1}(m) \leq \kappa\,(m+1)^{2\mu_0 - 1},
+$$\rho^{-1}(m) \leq \kappa\,m^{2\mu_0 - 1},
   \qquad\text{hence}\qquad
-  F(t) \geq (t/\kappa)^{1/(2\mu_0 - 1)} - 1 .$$
+  F(t) \geq (t/\kappa)^{1/(2\mu_0 - 1)} .$$
 
 In words: every bead is told after a number of moves bounded by a fixed power
 of its position; and after $t$ moves, all the beads up to a fixed (small)
@@ -1259,32 +1255,32 @@ power of $t$ have been told.
 
 *The idea.* The proof of Theorem 3 has one step that gives no bound: "wait
 until Jane has left the beads below $N$ for good". Counting replaces waiting.
-There are only $N + 1$ beads up to $N$, so Jane makes at most $N + 2$
+There are only $N$ beads up to $N$, so Jane makes at most $N + 1$
 excursions above $N$; and an excursion that lasts long enough enters the cone
 of $m$. "Long enough" is Lemma 9, and this is where the arithmetic of
 $\log_2 3$ comes in: the rotation by $\alpha$ reaches every arc of length $w$
 within a number of steps that is a power of $1/w$, because $\log_2 3$ is not
 too well approximated by fractions.
 
-*Proof.* We rerun the proof of Theorem 3 with a clock. Let $z = m + 1$, so
-that $w_m \geq 1/z$. Let $J$ be given by Lemma 9 for arcs of length $w_m/3$,
-so $J \leq (6z)^{\nu}/c$, and let $N = 6Jz$, so that $2J/N \leq w_m/3$ and
+*Proof.* We rerun the proof of Theorem 3 with a clock. Recall that
+$w_m \geq 1/m$. Let $J$ be given by Lemma 9 for arcs of length $w_m/3$,
+so $J \leq (6m)^{\nu}/c$, and let $N = 6Jm$, so that $2J/N \leq w_m/3$ and
 $N \ge m$.
 
-Consider the moves made before Jane enters the cone of $m$. At most $N + 1$
+Consider the moves made before Jane enters the cone of $m$. At most $N$
 of the beads told are $\leq N$ (they are distinct), so the remaining times
-form at most $N + 2$ maximal blocks during which Jane stays above $N$. By
+form at most $N + 1$ maximal blocks during which Jane stays above $N$. By
 Step 4 of the proof of Theorem 3, a block contains fewer than $J$ up moves
 after its first bead. Counting the up move that enters each block and the up
 moves that reach a bead $\leq N$, Jane makes at most
-$(N+2)J + N + 1$ up moves before entering the cone of $m$.
+$(N+1)J + N$ up moves before entering the cone of $m$.
 
 Once she is in the cone of $m$, she moves straight down to $m$ (Step 1).
-Finally, an up move at most doubles $n + 1$ and a down move at least halves
+Finally, an up move at most doubles $n$ and a down move at least halves
 it, so at any time the number of down moves is at most the number of up
 moves. Altogether
-$\rho^{-1}(m) \leq 2\big((N+2)J + N + 1\big) \leq 30\,J^2 z
-\leq \kappa\, z^{2\nu + 1}$. The bound on $F$ follows since the right-hand
+$\rho^{-1}(m) \leq 2\big((N+1)J + N\big) \leq 30\,J^2 m
+\leq \kappa\, m^{2\nu + 1}$. The bound on $F$ follows since the right-hand
 side is increasing in $m$. $\quad\Box$
 
 *Used:* the proof of Theorem 3, Lemma 9, and the irrationality exponent of
@@ -1297,7 +1293,7 @@ rather than a sharp estimate: the truth seems to be $\rho^{-1}(m) \approx m\log 
 #### Numerical data
 
 The first $2^{27}$ moves of the reluctant recitation were run by computer.
-Within these moves Jane tells every bead below $10\,801\,813$, and the
+Within these moves Jane tells every bead up to $10\,801\,813$, and the
 proportion of her up moves agrees with $\log_3 2 = 0.6309297\ldots$ to six
 decimal places. Figure 13 shows two of the quantities measured; all of them
 are in the [table of the appendix](#appendix-numerical-data).
@@ -1342,21 +1338,21 @@ here. Other sidewalks, with other labels, have since entered the OEIS
 (A360593 to A360595 by S. Brunner and A360744 to A360746 by N. G. Tolunsky,
 2023).
 
-**Powers of $3/2$.** In heap coordinates an up move is
-$x \mapsto \lceil 3x/2 \rceil$. This is the map that Mahler introduced to
+**Powers of $3/2$.** An up move is
+$n \mapsto \lceil 3n/2 \rceil$. This is the map that Mahler introduced to
 study his $Z$-numbers [Ma68], and the one that Odlyzko and Wilf iterate in
-connection with the Josephus problem [OW91]; the up-chain of bead $0$, shifted
-by one, is the sequence [A061419](https://oeis.org/A061419), which the OEIS
+connection with the Josephus problem [OW91]; the up-chain of bead $1$
+is the sequence [A061419](https://oeis.org/A061419), which the OEIS
 files with both. Those works
 follow one orbit of the map, forever upward. The rosary adds the possibility
 of stepping down the binary tree between two applications.
 
 **The $3x+1$ problem.** There is a closer relative. The $3x+1$ map sends an
-odd $x$ to $(3x+1)/2$ and an even $x$ to $x/2$: in heap coordinates, that is
+odd $x$ to $(3x+1)/2$ and an even $x$ to $x/2$: on the rosary, that is
 an up move and a down move. So the $3x+1$ map is a way of telling the rosary,
-*up from the even beads and down from the odd ones*, and the famous
+*up from the odd beads and down from the even ones*, and the famous
 conjecture says that a Jane who follows this rule ends up, wherever she
-starts, going back and forth between beads $0$ and $1$. Reluctant Jane follows
+starts, going back and forth between beads $1$ and $2$. Reluctant Jane follows
 another rule, about which everything can be proved. The two meet in one
 number: the frequency $\log_3 2$ of Theorem 5 is also the proportion of up
 moves that a cycle of the $3x+1$ map through large numbers would have to
@@ -1421,13 +1417,13 @@ $$\frac{h(n)}{\ln n} \longrightarrow \frac{11}{\ln(3^9/2^{11})} = \frac{11}{9\ln
 with Gaussian fluctuations of order $\sqrt{\ln n}$. Heuristic: follow the
 canonical recitation backwards and assume that residues modulo $3$ are
 equidistributed. A white bead (probability $2/3$) costs one move and multiplies
-the position by $2/3$. A black bead $3n$ (probability $1/3$) costs
-$e + 2$ moves, where $e = v_3(2n+1)$ has mean $1/2$, multiplies the position
+the position by $2/3$. A black bead $\boldsymbol{n}^\bullet$ (probability $1/3$) costs
+$e + 2$ moves, where $e = v_3(2\boldsymbol{n}-1)$ has mean $1/2$, multiplies the position
 by $2\cdot(2/3)^{e+1}$, and is always followed by a white bead. Per cycle this
 makes $11/6$ moves for a logarithmic decrease of
 $\frac{3}{2}\ln\frac{3}{2} - \frac{1}{3}\ln 2 = \frac{1}{6}\ln\frac{3^9}{2^{11}}$.
 Numerically the mean of $h(n)/\ln n$ over random $n$ of $64$, $256$ and $1024$
-bits is $4.720$, $4.824$ and $4.849$, and the standard deviation of $h(n)$ is
+bits is $4.716$, $4.824$ and $4.850$, and the standard deviation of $h(n)$ is
 about $2.4\sqrt{\ln n}$.
 
 **Question E (extreme heights).** We have
@@ -1435,20 +1431,20 @@ $\liminf h(n)/\ln n = 1/\ln(3/2) \approx 2.466$ (Proposition 1). What is
 $\limsup h(n)/\ln n$? Proposition 1 gives at most $3/\ln(9/8) \approx 25.5$;
 the largest value observed for $10^3 \leq n < 10^6$ is about $7.7$.
 
-**Conjecture F (growth of the onyx tree).** The $k$-th cover of any onyx bead
-$m$ satisfies $\boldsymbol{s}_m(k)^{1/k} \to 9/4$; equivalently $m$ has
+**Conjecture F (growth of the onyx tree).** The $k$-th cover of any onyx
+$\boldsymbol{m}$ satisfies $\boldsymbol{s}_{\boldsymbol{m}}(k)^{1/k} \to 9/4$; equivalently $\boldsymbol{m}$ has
 $\sim \frac{1}{2}\log_{3/2} N$ covers below $N$. By the proof of Theorem 4
 this is equivalent to saying that the parity changes with asymptotic frequency
-$1/2$ along the up-chain $\uparrow\!(3m)$. This is a statement of the same
+$1/2$ along the up-chain $\uparrow\!(\boldsymbol{m}^\bullet)$. This is a statement of the same
 nature as Mahler's $3/2$ problem [Ma68] on the distribution of
 $(3/2)^k \bmod 1$, and is presumably very hard. A more accessible question:
-describe the distribution of the onyx height $\boldsymbol{h}(n)$.
+describe the distribution of the onyx height $\boldsymbol{h}(\boldsymbol{n})$.
 
 **Question G (other walks).** By Remark 1 after Theorem 3, the proof of
 surjectivity only uses down-closure, injectivity and the irrationality of
 $\log_2 3$. Which other natural rules ("up unless...", random tie-breaking,
-sidewalks with labels $1 + \lfloor n/k \rfloor$, ...) produce permutations of
-$\mathbb{N}$?
+sidewalks with labels $\lceil n/k \rceil$, ...) produce permutations of
+$\mathbb{N}^*$?
 
 ## Checked by computer
 
@@ -1460,14 +1456,16 @@ one command runs all but the long one.
 | What | Tested on | Program |
 |---|---|---|
 | The two ways of computing the height agree | beads below $60\,000$ | `check_shortest.py` |
-| Proposition 1 | beads below $10^6$ | `check_shortest.py` |
-| Lemma 2, Corollary 1, Theorem 1 (parts 2 to 5) | beads below $60\,000$ | `check_shortest.py` |
+| Proposition 1 | beads up to $10^6$ | `check_shortest.py` |
+| Fact 1, Lemma 1 (its six diagrams), Lemma 2, Corollary 1, Theorem 1 (parts 1 to 5) | beads below $60\,000$ | `check_shortest.py` |
 | Theorem 2: never stuck, no bead told twice, no gap | $300\,000$ moves | `check_reluctant.py` |
-| Theorem 2: never stuck. Theorem 3: all beads below $10\,801\,813$ told | $2^{27}$ moves | `walk.c` |
+| Theorem 2: never stuck. Theorem 3: all beads up to $10\,801\,813$ told | $2^{27}$ moves | `walk.c` |
 | Lemmas 4 and 5 | beads below $5\,000$ and $20\,000$ | `check_reluctant.py` |
 | Theorem 5, part 1 | $300\,000$ moves | `check_reluctant.py` |
-| Proposition 2, Lemmas 6 and 7, the computation behind Lemma 8, the table of $C(n)$ | onyx beads below $20\,000$ | `check_onyx.py` |
+| Proposition 2, Lemmas 6 and 7, the computation behind Lemma 8, the table of $\boldsymbol{\tau}(\boldsymbol{n})$ | onyxes below $20\,000$ | `check_onyx.py` |
 | The four programs printed in this paper | against the programs above | `check_paper_code.py` |
+| The examples and the numbers quoted in the text | each one | the programs above |
+| Counting the beads from $1$ changed nothing but the numbers (see the history) | $200\,000$ beads, $300\,000$ moves | `check_renumbering.py` |
 | The numbers quoted with the open questions | see Section 12 | `walk.c`, `height_statistics.py` |
 
 Theorems 4 and 6 and the corollaries of Theorem 4 are statements about
@@ -1481,26 +1479,26 @@ evidence, and the proof is Lemma 2 and Theorem 1.
 
 | Name | Notation | In short | Defined in |
 |---|---|---|---|
-| bead; black, white | $n$ | a natural number; black if divisible by $3$ | [Section 1](#1-prelude-names) |
-| label | $L(n)$ | $1 + \lfloor n/2 \rfloor$, the length of Jane's step at $n$ | [Section 1](#1-prelude-names) |
-| up, down | $nU$, $nD$ | $n + L(n)$ and $n - L(n)$ | [Section 1](#1-prelude-names) |
+| bead; black, white | $n$ | a positive integer; black if $n \equiv 1 \pmod 3$ | [Section 1](#1-prelude-names) |
+| black bead number $\boldsymbol{n}$ | $\boldsymbol{n}^\bullet$ | the bead $3\boldsymbol{n} - 2$; bold numbers and letters count black beads | [Section 1](#1-prelude-names) |
+| label | $L(n)$ | $\lceil n/2 \rceil$, the length of Jane's step at $n$ | [Section 1](#1-prelude-names) |
+| up, down | $nU$, $nD$ | $n + L(n) = \lceil 3n/2 \rceil$ and $n - L(n) = \lfloor n/2 \rfloor$ | [Section 1](#1-prelude-names) |
 | lambda | $n\lambda$ | the bead from which up leads to the white bead $n$ | [Section 1](#1-prelude-names) |
-| mu, nu | $n\mu$, $n\nu$ | the two beads from which down leads to $n$ | [Section 1](#1-prelude-names) |
+| mu, nu | $n\mu$, $n\nu$ | $2n$ and $2n + 1$, the two beads from which down leads to $n$ | [Section 1](#1-prelude-names) |
 | recitation, minimal recitation | | a sequence of moves; one of least length | [Section 1](#1-prelude-names) |
-| height | $h(n)$ | the least number of moves from bead $0$ to $n$ | [Section 1](#1-prelude-names) |
-| heap coordinate | $x = n + 1$ | the position shifted by one: down halves it | [Section 1](#1-prelude-names) |
+| height | $h(n)$ | the least number of moves from bead $1$ to $n$ | [Section 1](#1-prelude-names) |
 | up-chain, down-chain | $\uparrow\!(n)$, $\downarrow\!(n)$ | the beads reached from $n$ by up moves only, by down moves only | [Section 4](#4-interlude-more-names) |
 | seed, lambex | $\sigma(n)$, $\Lambda(n)$ | the black bead at the start of the up-chain through $n$; the number of up moves from it to $n$ (the "$\lambda$-exponent") | [Section 4](#4-interlude-more-names) |
-| winner | "$\mu$ wins", "$\nu$ wins" | of $3n\mu$ and $3n\nu$, the one with the larger lambex | [Section 5](#5-theorem-1-minimal-recitations-ending-in-a-black-bead) |
+| winner | "$\mu$ wins", "$\nu$ wins" | of $\boldsymbol{n}^\bullet\mu$ and $\boldsymbol{n}^\bullet\nu$, the one with the larger lambex | [Section 5](#5-theorem-1-minimal-recitations-ending-in-a-black-bead) |
 | reluctant recitation | $\rho(i)$, $V_i$ | Jane's $i$-th bead when she moves down whenever she can; the beads told so far | [Section 6](#6-janes-reluctant-recitation) |
 | cone | | the beads above $m$ in the binary tree | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |
-| phase | $\theta(n)$ | $\log_2(n+1)$ modulo $1$ | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |
+| phase | $\theta(n)$ | $\log_2 n$ modulo $1$ | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |
 | the angle | $\alpha$ | $\log_2(3/2)$, by which an up move turns the phase | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |
-| canonical recitation | $\boldsymbol{C}(n)$ | the minimal recitation that always takes the winner | [Section 9](#9-interlude-for-a-few-names-more) |
-| onyx bead | $n$ | the black bead $3n$ | [Section 9](#9-interlude-for-a-few-names-more) |
-| onyx predecessor, ordering, height | $\boldsymbol{\pi}(n)$, $\boldsymbol{\preceq}$, $\boldsymbol{h}(n)$ | the previous black bead on the canonical recitation; the order and the depth it defines | [Section 9](#9-interlude-for-a-few-names-more) |
-| cover, canonical onyx mapping | $\boldsymbol{\iota}(n)$, $C(n)$ | $n$ covers $\boldsymbol{\pi}(n)$; its rank among the covers; the address of $n$ in the onyx tree | [Section 10](#10-janes-onyx-rosary) |
-| foraging sequence | $\boldsymbol{\Phi}(i)$ | the onyx beads whose up-chains Jane visits, in order | [Section 10](#10-janes-onyx-rosary) |
+| canonical recitation | $C(n)$ | the minimal recitation that always takes the winner | [Section 9](#9-interlude-for-a-few-names-more) |
+| onyx | $\boldsymbol{n}$ | the black bead number $\boldsymbol{n}$, as a bead of the onyx rosary | [Section 9](#9-interlude-for-a-few-names-more) |
+| onyx predecessor, ordering, height | $\boldsymbol{\pi}(\boldsymbol{n})$, $\boldsymbol{\preceq}$, $\boldsymbol{h}(\boldsymbol{n})$ | the previous onyx on the canonical recitation; the order and the depth it defines | [Section 9](#9-interlude-for-a-few-names-more) |
+| cover, rank, address | $\boldsymbol{\iota}(\boldsymbol{n})$, $\boldsymbol{\tau}(\boldsymbol{n})$ | $\boldsymbol{n}$ covers $\boldsymbol{\pi}(\boldsymbol{n})$; its rank among the covers; its address in the onyx tree | [Section 10](#10-janes-onyx-rosary) |
+| foraging sequence | $\boldsymbol{\Phi}(i)$ | the onyxes whose up-chains Jane visits, in order | [Section 10](#10-janes-onyx-rosary) |
 | up moves, frontier | $u(t)$, $F(t)$ | the number of up moves among the first $t$; the smallest bead not yet told | [Section 11](#11-how-reluctant-is-jane) |
 | irrationality exponent | $\mu_0$ | how badly $\log_2 3$ is approximated by fractions | [Section 11](#11-how-reluctant-is-jane) |
 
@@ -1512,16 +1510,16 @@ number of up moves among them; $\log_3 2 = 0.6309297\ldots$
 
 | $t$ | $F(t)$ | $t/F(t)$ | $F(t)\log_2 t\,/\,t$ | $u(t)/t$ | $u(t) - t\log_3 2$ | $\log_2 \max_{i\le t}\rho(i)$ |
 |---|---|---|---|---|---|---|
-| $2^{10}$ | 269 | 3.81 | 2.63 | 0.635742 | 4.9 | 14.3 |
-| $2^{12}$ | 902 | 4.54 | 2.64 | 0.632568 | 6.7 | 16.6 |
-| $2^{14}$ | 3 548 | 4.62 | 3.03 | 0.631409 | 7.8 | 20.6 |
-| $2^{16}$ | 9 709 | 6.75 | 2.37 | 0.631088 | 10.4 | 23.8 |
-| $2^{18}$ | 30 424 | 8.62 | 2.09 | 0.630970 | 10.6 | 25.4 |
-| $2^{20}$ | 125 595 | 8.35 | 2.40 | 0.630941 | 12.2 | 26.9 |
-| $2^{22}$ | 438 795 | 9.56 | 2.30 | 0.630933 | 13.8 | 30.1 |
-| $2^{24}$ | 1 614 095 | 10.39 | 2.31 | 0.630931 | 14.2 | 33.3 |
-| $2^{26}$ | 5 088 361 | 13.19 | 1.97 | 0.630930 | 16.0 | 35.1 |
-| $2^{27}$ | 10 801 813 | 12.43 | 2.17 | 0.630930 | 15.9 | 37.3 |
+| $2^{10}$ | 270 | 3.79 | 2.64 | 0.635742 | 4.9 | 14.3 |
+| $2^{12}$ | 903 | 4.54 | 2.65 | 0.632568 | 6.7 | 16.6 |
+| $2^{14}$ | 3 549 | 4.62 | 3.03 | 0.631409 | 7.8 | 20.6 |
+| $2^{16}$ | 9 710 | 6.75 | 2.37 | 0.631088 | 10.4 | 23.8 |
+| $2^{18}$ | 30 425 | 8.62 | 2.09 | 0.630970 | 10.6 | 25.4 |
+| $2^{20}$ | 125 596 | 8.35 | 2.40 | 0.630941 | 12.2 | 26.9 |
+| $2^{22}$ | 438 796 | 9.56 | 2.30 | 0.630933 | 13.8 | 30.1 |
+| $2^{24}$ | 1 614 096 | 10.39 | 2.31 | 0.630931 | 14.2 | 33.3 |
+| $2^{26}$ | 5 088 362 | 13.19 | 1.97 | 0.630930 | 16.0 | 35.1 |
+| $2^{27}$ | 10 801 814 | 12.43 | 2.17 | 0.630930 | 15.9 | 37.3 |
 
 ## References
 

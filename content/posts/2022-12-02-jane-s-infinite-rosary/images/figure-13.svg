@@ -18,11 +18,11 @@
 <text x="295.1" y="248" text-anchor="middle" font-size="12" font-family="Charter, Georgia, serif" fill="#666660">25</text>
 <text x="188.0" y="268" text-anchor="middle" font-size="13" font-family="Charter, Georgia, serif" font-style="italic" fill="#666660">log₂ t</text>
 <text x="48" y="28" font-size="14" font-family="Charter, Georgia, serif" fill="#1c1c1a">F(t) log₂ t / t</text>
-<path d="M48.0,105.2 L64.5,102.9 L80.9,104.5 L97.4,120.8 L113.9,86.0 L130.4,134.7 L146.8,117.4 L163.3,98.4 L179.8,130.8 L196.2,115.8 L212.7,116.2 L229.2,117.1 L245.6,120.7 L262.1,125.4 L278.6,120.3 L295.1,122.5 L311.5,136.4 L328.0,126.8" fill="none" stroke="#1a5a96" stroke-width="1.2"/>
-<circle cx="48.0" cy="105.2" r="3" fill="#1a5a96"/>
-<circle cx="64.5" cy="102.9" r="3" fill="#1a5a96"/>
-<circle cx="80.9" cy="104.5" r="3" fill="#1a5a96"/>
-<circle cx="97.4" cy="120.8" r="3" fill="#1a5a96"/>
+<path d="M48.0,104.7 L64.5,102.7 L80.9,104.3 L97.4,120.7 L113.9,86.0 L130.4,134.7 L146.8,117.4 L163.3,98.4 L179.8,130.8 L196.2,115.8 L212.7,116.2 L229.2,117.1 L245.6,120.7 L262.1,125.4 L278.6,120.3 L295.1,122.5 L311.5,136.4 L328.0,126.8" fill="none" stroke="#1a5a96" stroke-width="1.2"/>
+<circle cx="48.0" cy="104.7" r="3" fill="#1a5a96"/>
+<circle cx="64.5" cy="102.7" r="3" fill="#1a5a96"/>
+<circle cx="80.9" cy="104.3" r="3" fill="#1a5a96"/>
+<circle cx="97.4" cy="120.7" r="3" fill="#1a5a96"/>
 <circle cx="113.9" cy="86.0" r="3" fill="#1a5a96"/>
 <circle cx="130.4" cy="134.7" r="3" fill="#1a5a96"/>
 <circle cx="146.8" cy="117.4" r="3" fill="#1a5a96"/>

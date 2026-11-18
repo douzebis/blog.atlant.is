@@ -6,9 +6,9 @@ SPDX-License-Identifier: MIT
 
 # 0003 — Jane's infinite rosary: beads counted from 1
 
-**Status:** ready
+**Status:** implemented
 **App:** jane-s-rosary
-**Implemented in:** <!-- YYYY-MM-DD, fill after implementation -->
+**Implemented in:** 2026-11-18
 
 ## Problem
 
@@ -153,6 +153,22 @@ Each step ends with a build that passes, a commit and a push.
   $\log_2$, `heap coordinates`, `3n`, bead $0$, `x =`. Each remaining hit
   is read.
 - The build's own checks (links, formulas, LaTeX, frozen versions).
+
+### As implemented (2026-11-18)
+
+Deviations from the plan above, all recorded in
+`docs/papers/jane-s-rosary/history.md`:
+
+- `walk.c` was run again (20 seconds) so that its kept result gives the
+  frontier in the new numbering; only that column changed.
+- The pictures were put in the paper with the text of each part (steps 4a
+  to 4c), not in step 3, so that text and pictures always agreed.
+- Proposition 1 states its logarithmic bound with $\ln n$, where the exact
+  shift would be $\ln(n - 1)$: a slightly weaker and simpler statement.
+- The bullet and the bold count of black beads are introduced in Section 1,
+  since Theorem 1 needs them; the word "onyx" waits for Part III.
+- `content/drafts/` is removed with the trial page; the base layout keeps
+  its support for a `noindex` parameter.
 
 ## Invariants
 
