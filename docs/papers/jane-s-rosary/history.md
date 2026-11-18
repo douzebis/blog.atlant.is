@@ -304,7 +304,7 @@ Statements compared with the 2026-11-17 version
   become "in agreement with Figure 13", because the table moved to the
   appendix (step 8). The conjecture itself is unchanged.
 
-## 2026-11-18: the overhaul is closed
+## 2026-11-18 — the overhaul is closed
 
 Spec 0002 is set to `implemented`. The page gives 2026-11-18 as the date
 of revision and describes the overhaul in one line of its history. The
