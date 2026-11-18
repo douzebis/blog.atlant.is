@@ -16,7 +16,7 @@ Checked:
 - Lemma 4 (binary prefixes) for all beads below 5000;
 - Lemma 5 (phases), both parts, for all beads below 20000;
 - Theorem 5 (1) on the first T moves:
-  |u(t) log2 3 - t - log2(rho(t) + 1)| <= (3/2)(1 + ln t);
+  |u(t) log2 3 - t - log2 rho(t)| <= (3/2)(1 + ln t);
 - the fact behind Lemma 9: for a denominator q of a convergent of
   alpha = log2(3/2), any q consecutive multiples of alpha leave no gap of
   length 2/q on the circle (checked for the first 8 denominators).
@@ -38,7 +38,7 @@ def report(name: str, passed: bool) -> bool:
 
 def down_chain(n: int) -> set[int]:
     chain = {n}
-    while n:
+    while n > 1:
         n = down(n)
         chain.add(n)
     return chain
@@ -54,8 +54,8 @@ def main() -> int:
     beads = reluctant_recitation(moves)
     results.append(
         report(
-            "rho(0..13) = 0, 1, 2, 4, 7, 3, 5, 8, 13, 6, 10, 16, 25, 12",
-            beads[:14] == [0, 1, 2, 4, 7, 3, 5, 8, 13, 6, 10, 16, 25, 12],
+            "rho(0..13) = 1, 2, 3, 5, 8, 4, 6, 9, 14, 7, 11, 17, 26, 13",
+            beads[:14] == [1, 2, 3, 5, 8, 4, 6, 9, 14, 7, 11, 17, 26, 13],
         )
     )
     results.append(report(f"Theorem 2: defined and injective on {moves} moves", True))
@@ -72,7 +72,7 @@ def main() -> int:
         if not is_black(bead) and lam(bead) not in told:
             no_gap = False
         if t:
-            deviation = abs(ups * log2_3 - t - math.log2(bead + 1))
+            deviation = abs(ups * log2_3 - t - math.log2(bead))
             worst = max(worst, deviation / (1.5 * (1 + math.log(t))))
     results.append(report("Theorem 2: no gap in an up-chain", no_gap))
     results.append(
@@ -84,12 +84,9 @@ def main() -> int:
     )
 
     prefixes = True
-    for n in range(5000):
-        expected = set()
-        x = n + 1
-        while x >= 1:
-            expected.add(x - 1)
-            x //= 2
+    for n in range(1, 5000):
+        # The beads whose binary expansion is a prefix of that of n.
+        expected = {n >> k for k in range(n.bit_length())}
         if down_chain(n) != expected:
             prefixes = False
     results.append(
@@ -98,17 +95,15 @@ def main() -> int:
 
     alpha = math.log2(3 / 2)
     phases = True
-    for n in range(20000):
-        x = n + 1
-        epsilon = math.log2(up(n) + 1) - math.log2(x) - alpha
-        if not -1e-12 <= epsilon < 1 / (2 * x):
+    for n in range(1, 20000):
+        epsilon = math.log2(up(n)) - math.log2(n) - alpha
+        if not -1e-12 <= epsilon < 1 / (2 * n):
             phases = False
         m, k = n, 0
-        while m:
+        while m > 1:
             m, k = down(m), k + 1
-            y = m + 1
-            epsilon = math.log2(x) - k - math.log2(y)
-            if not -1e-12 <= epsilon < 3 / (2 * y):
+            epsilon = math.log2(n) - k - math.log2(m)
+            if not -1e-12 <= epsilon < 3 / (2 * m):
                 phases = False
     results.append(report("Lemma 5: phases, both parts, n < 20000", phases))
 

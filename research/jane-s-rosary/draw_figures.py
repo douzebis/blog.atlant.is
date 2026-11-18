@@ -9,7 +9,7 @@ usage: python draw_figures.py OUTDIR
 Writes, each in a light and a dark variant (NAME.svg and NAME-dark.svg):
 
 - figure-10: the binary tree of the rosary drawn with the phase as
-  abscissa, the cone of bead 3, and what up moves do to the phase
+  abscissa, the cone of bead 4, and what up moves do to the phase
   (Section 8);
 - figure-13: the numerical data of Section 11, read from
   results/walk-27.log: F(t) log2(t) / t and u(t) - t log_3 2 against
@@ -21,6 +21,8 @@ The drawings are plain SVG, written by hand below: no plotting library.
 import math
 import pathlib
 import sys
+
+from rosary import down, is_black, up
 
 THEMES = {
     "": {
@@ -51,10 +53,6 @@ THEMES = {
 FONT = 'font-family="Charter, Georgia, serif"'
 
 
-def up(n: int) -> int:
-    return (3 * n) // 2 + 1
-
-
 def svg(width: int, height: int, body: list[str], colors: dict[str, str]) -> str:
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" '
@@ -71,17 +69,16 @@ def tree_figure(colors: dict[str, str]) -> str:
     width, height = 720, 400
     left, right, bottom, row = 50, 30, 330, 52
     span = width - left - right
-    depth_of_cone, cone_bead = 2, 3
+    depth_of_cone, cone_bead = 2, 4
 
     def place(bead: int) -> tuple[float, float]:
-        x = bead + 1
-        depth = x.bit_length() - 1
-        return left + (math.log2(x) - depth) * span, bottom - depth * row
+        depth = bead.bit_length() - 1
+        return left + (math.log2(bead) - depth) * span, bottom - depth * row
 
     body = []
-    # The cone of bead 3: a strip of phases, from its depth upward.
-    cone_left = left + (math.log2(cone_bead + 1) - depth_of_cone) * span
-    cone_right = left + (math.log2(cone_bead + 2) - depth_of_cone) * span
+    # The cone of bead 4: a strip of phases, from its depth upward.
+    cone_left = left + (math.log2(cone_bead) - depth_of_cone) * span
+    cone_right = left + (math.log2(cone_bead + 1) - depth_of_cone) * span
     top = bottom - 5 * row - 16
     strip_bottom = bottom - depth_of_cone * row + 18
     body.append(
@@ -89,9 +86,9 @@ def tree_figure(colors: dict[str, str]) -> str:
         f'height="{strip_bottom - top}" rx="8" fill="{colors["cone"]}"/>'
     )
     # Down moves: each bead joined to its parent.
-    for bead in range(1, 63):
+    for bead in range(2, 64):
         x1, y1 = place(bead)
-        x2, y2 = place((bead + 1) // 2 - 1)
+        x2, y2 = place(down(bead))
         body.append(
             f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" '
             f'stroke="{colors["rule"]}" stroke-width="1"/>'
@@ -102,7 +99,7 @@ def tree_figure(colors: dict[str, str]) -> str:
         f'markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="{colors["accent"]}"/>'
         f"</marker></defs>"
     )
-    for bead in (7, 8, 15, 16, 17, 18):
+    for bead in (8, 9, 16, 17, 18, 19):
         x1, y1 = place(bead)
         x2, y2 = place(up(bead))
         bend = 26 if y1 == y2 else 0
@@ -112,10 +109,10 @@ def tree_figure(colors: dict[str, str]) -> str:
             f'stroke-width="1.4" marker-end="url(#tip)"/>'
         )
     # The beads.
-    for bead in range(63):
+    for bead in range(1, 64):
         x, y = place(bead)
-        depth = (bead + 1).bit_length() - 1
-        black = bead % 3 == 0
+        depth = bead.bit_length() - 1
+        black = is_black(bead)
         fill = colors["black_bead"] if black else colors["white_bead"]
         radius = 11 if depth <= 4 else 4
         body.append(
@@ -150,7 +147,7 @@ def tree_figure(colors: dict[str, str]) -> str:
     )
     body.append(
         f'<text x="{(cone_left + cone_right) / 2 - 7:.1f}" y="{top - 8}" text-anchor="middle" '
-        f'font-size="13" {FONT} font-style="italic" fill="{colors["text"]}">cone of bead 3</text>'
+        f'font-size="13" {FONT} font-style="italic" fill="{colors["text"]}">cone of bead 4</text>'
     )
     return svg(width, height + 8, body, colors)
 

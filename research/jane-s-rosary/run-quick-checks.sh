@@ -8,7 +8,7 @@
 # usage: nix-shell --run research/jane-s-rosary/run-quick-checks.sh
 set -euo pipefail
 cd "$(dirname "$0")"
-for program in check_shortest.py check_reluctant.py check_onyx.py check_paper_code.py; do
+for program in check_renumbering.py check_shortest.py check_reluctant.py check_onyx.py check_paper_code.py; do
   echo "== $program"
   python "$program"
 done
