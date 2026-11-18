@@ -1,3 +1,13 @@
+// -- Numbering ---------------------------------------------------------------
+
+// The number shown for the first bead of the rosary, and for the first bead
+// of the onyx rosary.  The paper numbered its beads from 0 until November
+// 2026 and numbers them from 1 since: "first=1" in the address shifts every
+// position that a figure displays.  Without it nothing changes, so that the
+// earlier versions of the paper keep the figures they describe.  Only what
+// is displayed is shifted: the computations below still number from 0.
+const FIRST = new URLSearchParams(window.location.search).get('first') == '1' ? 1 : 0
+
 // -- Theme --------------------------------------------------------------------
 
 // The figures come in a light and a dark variant.  "theme=light" or
@@ -113,6 +123,7 @@ function superscript(n) {
 
 // Formats for nodes
 function f_label_position(n) {
+    n += FIRST
     res = '' + n
     switch (n) {
     case 1:

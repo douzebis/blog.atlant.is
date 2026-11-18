@@ -35,8 +35,16 @@
         let n = parseInt(P.n)
         let xs = range(n)
         let ys = heights(n)
-        xs[0] = 1
-        ys[0] = 1
+        if (FIRST) {
+            // Beads numbered from 1: every bead has its place on the
+            // logarithmic scale.
+            xs = xs.map(x => x + FIRST)
+        } else {
+            // Beads numbered from 0: bead 0 has no place on a logarithmic
+            // scale; its point is drawn on that of bead 1.
+            xs[0] = 1
+            ys[0] = 1
+        }
         let data = [
             xs,  // x-values (timestamps)
             ys,  // y-values

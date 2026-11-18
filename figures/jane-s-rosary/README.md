@@ -29,6 +29,15 @@ Older pages, used by the first version of the post, with `rosary-lib.js`:
 `reluctant-recitation.html`, and `unit-tests.html`, which shows several of
 them.
 
+## Numbering
+
+The pages of the first group number the beads from 0 by default, as the
+paper did until November 2026. `first=1` in the address shifts every
+position displayed (and the numbers of the onyx tree) by one, as the
+paper does since. The default must stay 0: the earlier versions of the
+paper, which are never modified, link to these pages without the parameter
+(a test in `tools/test_checks.py` checks the default).
+
 ## Themes
 
 The pages of the first group have a light and a dark variant. `theme=light`

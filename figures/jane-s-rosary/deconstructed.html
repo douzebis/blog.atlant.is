@@ -221,7 +221,7 @@
                                     let smooth = node == up(nxt_node) ?
                                         false : {enabled: true, type: 'curvedCW'}
                                     let label = this.arrows == 'yes' ?
-                                        '' : '' + nxt_node
+                                        '' : '' + (nxt_node + FIRST)
                                     a.push({
                                         id: node_id*this.side**2 + nxt_node_id,
                                         from: node_id,
@@ -250,7 +250,7 @@
                         let smooth = node == up(nxt_node) ?
                             false : {enabled: true, type: 'curvedCCW'}
                         let label = this.arrows == 'yes' ?
-                            '' : '' + nxt_node
+                            '' : '' + (nxt_node + FIRST)
                         return [{
                             id: nxt_node_id*this.side**2 + node_id,
                             from: nxt_node_id,

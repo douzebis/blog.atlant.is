@@ -292,6 +292,24 @@ paragraph.
 """
 
 
+class FigureNumbering(unittest.TestCase):
+    """The live figures number the beads from 0 unless asked otherwise: the
+    earlier versions of the rosary paper link to them without a parameter
+    (docs/specs/0003-rosary-beads-counted-from-1.md)."""
+
+    def test_default_is_zero(self) -> None:
+        source = (REPO / "figures" / "jane-s-rosary" / "janestreet.js").read_text()
+        self.assertIn(
+            "const FIRST = new URLSearchParams(window.location.search)"
+            ".get('first') == '1' ? 1 : 0",
+            source,
+        )
+
+    def test_earlier_versions_do_not_ask_for_it(self) -> None:
+        for version in (REPO / "content" / "versions").glob("*/*/index.md"):
+            self.assertNotIn("first=1", version.read_text(), version)
+
+
 class CompareStatements(unittest.TestCase):
     def compare(self, old: str, new: str) -> subprocess.CompletedProcess[str]:
         with tempfile.TemporaryDirectory() as name:
