@@ -81,16 +81,18 @@ The example is the black bead $4$, reached through our bead $8$.
   $3$, $4$ are the black beads $1$, $4$, $7$, $10$.
 - **Onyx predecessor**: $\boldsymbol{\pi}(n)$ is the onyx bead met just before
   onyx bead $n$ on the canonical recitation. For instance the canonical
-  recitation to the black bead $7 = 3^\bullet$ is
-  $$\boldsymbol{C}(7) = \mathbf{1}, 2, 3, 5, 8, \mathbf{4}, 6, 9, 14, \mathbf{7},$$
+  recitation to the black bead $10 = 4^\bullet$ is
+  $$\boldsymbol{C}(10) = \mathbf{1}, 2, 3, 5, 8, \mathbf{4}, 6, 9, 14, 21, \mathbf{10},$$
   and the black beads on it are $1 = 1^\bullet$, $4 = 2^\bullet$ and
-  $7 = 3^\bullet$: so $\boldsymbol{\pi}(3) = 2$ and $\boldsymbol{\pi}(2) = 1$.
+  $10 = 4^\bullet$: so $\boldsymbol{\pi}(4) = 2$ and $\boldsymbol{\pi}(2) = 1$.
+  (This is a shortest way to bead $10$, not Jane's reluctant recitation: at
+  bead $14$ reluctant Jane would move down to $7$.)
   In general, for $n \geq 2$, the last black bead before $n^\bullet$ is the
   seed of the winner $w$ among $n^\bullet\mu$, $n^\bullet\nu$, so
   $\boldsymbol{\pi}(n)$ is defined by
-  $\boldsymbol{\pi}(n)^\bullet = \sigma(w)$. Above $7$ the candidates are
-  $14$, with seed $4$, and $15$, with seed $10$; bead $14$ wins and
-  $\boldsymbol{\pi}(3)^\bullet = 4$. The black beads met by the canonical
+  $\boldsymbol{\pi}(n)^\bullet = \sigma(w)$. Above $10$ the candidates are
+  $20$, with seed $13$, and $21$, with seed $4$; bead $21$ wins and
+  $\boldsymbol{\pi}(4)^\bullet = 4$. The black beads met by the canonical
   recitation to $n^\bullet$ are exactly
   $n^\bullet, \boldsymbol{\pi}(n)^\bullet, \boldsymbol{\pi}^2(n)^\bullet, \ldots, 1$.
 - **Onyx ordering**: $m \boldsymbol{\preceq} n$ if and only if $m^\bullet$
