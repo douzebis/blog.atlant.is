@@ -303,3 +303,13 @@ Statements compared with the 2026-11-17 version
 - Conjecture B: its last words, "in agreement with the table above",
   become "in agreement with Figure 13", because the table moved to the
   appendix (step 8). The conjecture itself is unchanged.
+
+## 2026-11-18: the overhaul is closed
+
+Spec 0002 is set to `implemented`. The page gives 2026-11-18 as the date
+of revision and describes the overhaul in one line of its history. The
+author reads the text as it stands; the reading was not made a condition
+for closing.
+
+Next: spec 0003 (`docs/specs/0003-rosary-beads-counted-from-1.md`), the
+same paper with the beads counted from 1.

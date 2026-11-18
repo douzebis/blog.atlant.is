@@ -6,9 +6,9 @@ SPDX-License-Identifier: MIT
 
 # 0002 — Jane's infinite rosary: presentation overhaul
 
-**Status:** in-progress
+**Status:** implemented
 **App:** jane-s-rosary
-**Implemented in:** <!-- YYYY-MM-DD, fill after implementation -->
+**Implemented in:** 2026-11-18
 
 ## Problem
 
@@ -247,7 +247,11 @@ the frozen version, and the author's go-ahead for the next one.
      the page description and, later, as the abstract.
    - The "changes" appendix leaves for `history.md`.
 
-10. **Closing.** `compare_statements.py` against the frozen version, with
+10. **Closing.** (Done 2026-11-18. The statements are compared in the
+    history. The author reads the text as it stands at closing; the
+    reading is not a condition for closing, by the author's decision,
+    and what it brings is handled as it comes. The next campaign is
+    spec 0003.) `compare_statements.py` against the frozen version, with
     every difference explained; full reading by the author; status
     `implemented`; a new frozen version only when the next campaign
     starts.

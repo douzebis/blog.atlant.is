@@ -6,7 +6,7 @@ SPDX-License-Identifier: MIT
 
 # 0003 — Jane's infinite rosary: beads counted from 1
 
-**Status:** draft
+**Status:** ready
 **App:** jane-s-rosary
 **Implemented in:** <!-- YYYY-MM-DD, fill after implementation -->
 
@@ -123,8 +123,8 @@ Statements whose form changes beyond the shift (content unchanged):
 
 Each step ends with a build that passes, a commit and a push.
 
-1. **Freeze.** The current text becomes a kept version (see open
-   question 1). History entry.
+1. **Freeze.** The current text becomes a kept version, the fourth.
+   History entry.
 2. **Research code.** Convert, add `check_renumbering.py`, run all quick
    checks.
 3. **Figures.** Parameter `first`, new pictures. The paper still shows the
@@ -170,19 +170,14 @@ Each step ends with a build that passes, a commit and a push.
 - $C$ for the canonical recitation, $\boldsymbol{\tau}$ for the address of
   an onyx.
 - The trial page is removed once the paper has absorbed it.
-
-## Open questions
-
-1. **How many versions are kept.** The rule so far is three: January 2023,
-   17 November 2026 (complete proofs, before the overhaul), and the
-   current one. Freezing today's text makes four. Either the 17 November
-   version is replaced by today's (the overhauled paper counted from $0$),
-   or four are kept. Recommended: keep four; the 17 November version is
-   the only record of the text before the overhaul, and today's is the
-   reference for the check of step 5.
-2. **Spec 0002.** Its last step waits for the author's reading of the
-   whole paper. Recommended: close it with the freeze of step 1, and do
-   the reading once, on the renumbered paper, as the last step here.
+- Four versions are kept: January 2023, 17 November 2026 (complete proofs,
+  before the overhaul), the overhauled paper counted from $0$ (frozen in
+  step 1), and the current one. This replaces the "three versions" of
+  spec 0002: the 17 November version is the only record of the text before
+  the overhaul, and the version of step 1 is the reference for the check
+  of step 5.
+- Spec 0002 is closed (2026-11-18). The author reads the overhauled paper
+  as it stands; what the reading brings is applied to the current text.
 
 ## References
 

@@ -5,7 +5,7 @@
 
 title: "Jane's infinite rosary"
 date: "2022-12-02"
-revised: "2026-11-14"
+revised: "2026-11-18"
 language: "en"
 math: true
 description: "Jane tells the beads of an infinite rosary by moving up or down by the label of the bead she is on. We describe the shortest ways to each bead and compute their length in logarithmic time. We then prove that reluctant Jane, who moves down whenever she can, tells every bead exactly once, and that she moves up with frequency log 2 / log 3."
@@ -17,8 +17,8 @@ history:
   - date: "2026-11-17"
     text: "Complete proofs: Theorems 1 to 6, the onyx ordering, numerical data and new open questions."
     version: "versions/jane-s-infinite-rosary/2026-11-17"
-  - date: "2026-11-17"
-    text: "Presentation overhaul, in progress."
+  - date: "2026-11-18"
+    text: "Presentation overhaul: an opening that says what is proved, four parts, names introduced where they are needed, a sketch before each long proof, context and relatives, new figures. No statement changed."
 diagrams:
   - "images/reluctant-jane-1024x422.png"
 categories:
