@@ -87,9 +87,9 @@ The example is the black bead $4$, reached through our bead $8$.
   $\mathbf{3}$, $\mathbf{4}$ are the beads $1$, $4$, $7$, $10$.
 - **Onyx predecessor**: $\boldsymbol{\pi}(\boldsymbol{n})$ is the onyx met just
   before onyx $\boldsymbol{n}$ on the canonical recitation. For instance the
-  canonical recitation to the black bead $10 = \mathbf{4}^\bullet$ is
-  $$\boldsymbol{C}(10) = \underline{1}, 2, 3, 5, 8, \underline{4}, 6, 9, 14, 21, \underline{10},$$
-  and the black beads on it, underlined, are $1 = \mathbf{1}^\bullet$,
+  canonical recitation to bead $10 = \mathbf{4}^\bullet$ is
+  $$\boldsymbol{C}(10) = 1, 2, 3, 5, 8, 4, 6, 9, 14, 21, 10,$$
+  where the black beads are $1 = \mathbf{1}^\bullet$,
   $4 = \mathbf{2}^\bullet$ and $10 = \mathbf{4}^\bullet$: so
   $\boldsymbol{\pi}(\mathbf{4}) = \mathbf{2}$ and $\boldsymbol{\pi}(\mathbf{2}) = \mathbf{1}$.
   (This is a shortest way to bead $10$, not Jane's reluctant recitation: at
