@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ .RelPermalink }}">
     {{- end }}
     <link rel="icon" href="data:,">
-    {{- if .Params.version_of }}
+    {{- if or .Params.version_of .Params.noindex }}
     <meta name="robots" content="noindex">
     {{- end }}
     {{- with site.Home.OutputFormats.Get "rss" }}
