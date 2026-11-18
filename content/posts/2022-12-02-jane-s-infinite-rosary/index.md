@@ -664,27 +664,28 @@ From Part I this part uses the names and Lemma 1, nothing more.
 
 The reluctant recitation was suggested by
 [Neal Gersh Tolunsky](https://oeis.org/wiki/User:Neal_Gersh_Tolunsky). Jane
-starts at bead $0$ and always prefers to move *down*; only when the bead below
-has already been told (or when she is at bead $0$) does she reluctantly move
+starts at bead $1$ and always prefers to move *down*; only when the bead below
+has already been told (or when she is at bead $1$) does she reluctantly move
 *up*.
 
 We write $\rho(i)$ for the bead reached after $i$ moves and
 $V_i = \{\rho(0), \ldots, \rho(i)\}$ for the set of beads told so far. For
-instance $\rho(0), \rho(1), \ldots = 0, 1, 2, 4, 7, 3, 5, 8, 13, 6, 10, 16, 25,
-12, \ldots$, so $\rho(5) = 3$ and $\rho(13) = 12$.
+instance $\rho(0), \rho(1), \ldots = 1, 2, 3, 5, 8, 4, 6, 9, 14, 7, 11, 17, 26,
+13, \ldots$, so $\rho(5) = 4$ and $\rho(12) = 26$. Time is counted from $0$:
+$\rho(i)$ comes after $i$ moves.
 
-[![Figure 8](images/figure-08.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes)
+[![Figure 8](images/figure-08.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes&first=1)
 
-> Figure 8: Jane's reluctant recitation on the deconstructed rosary. Each arrow carries the number of the move, and the beads are colored in the order in which they are told, from red to violet. An up move is a step to the right; a down move jumps to another row ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes)).
+> Figure 8: Jane's reluctant recitation on the deconstructed rosary. Each arrow carries the number of the move, and the beads are colored in the order in which they are told, from red to violet. An up move is a step to the right; a down move jumps to another row ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes&first=1)).
 
 ```python
 def rho(i: int) -> int:
     if i < 0: raise ValueError("argument must be nonnegative")
-    visited = {0}
-    bead = 0
+    visited = {1}
+    bead = 1
     for _ in range(i):
-        label = 1 + bead//2
-        if bead > 0 and bead - label not in visited:
+        label = (bead + 1)//2
+        if bead > 1 and bead - label not in visited:
             bead -= label         # moving down
         else:
             bead += label         # moving up
@@ -697,13 +698,13 @@ below and the bead above have already been told. Theorem 2 says that this
 never happens.
 
 **Lemma 3 (down-closure).** As long as the recitation is defined: if
-$n \in V_i$, $n > 0$ and $n \neq \rho(i)$, then $nD \in V_i$.
+$n \in V_i$, $n > 1$ and $n \neq \rho(i)$, then $nD \in V_i$.
 
 *Proof.* Say $n = \rho(j)$ with $j < i$. At that moment either $nD$ had been
 told already, or Jane moved to it: $\rho(j+1) = nD$. $\quad\Box$
 
-So *Jane never leaves a bead before the bead below it has been told.* In heap
-coordinates: the set of told beads is always a subtree containing the root,
+So *Jane never leaves a bead before the bead below it has been told.* In the
+binary tree: the set of told beads is always a subtree containing the root,
 except possibly for the path Jane is currently descending.
 
 ### 7. Theorem 2: Jane's reluctant recitation never halts
@@ -712,9 +713,9 @@ except possibly for the path Jane is currently descending.
 is injective, and it never creates a gap in an up-chain: for every $i$ and
 every white bead $w \in V_i$, we have $w\lambda \in V_i$.
 
-[![Figure 9](images/figure-09.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=31&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes)
+[![Figure 9](images/figure-09.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=31&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes&first=1)
 
-> Figure 9: the same after $31$ moves. The beads told so far, in color, fill every row from the left without leaving a hole: this is the no-gap property of Theorem 2 ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=31&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes)).
+> Figure 9: the same after $31$ moves. The beads told so far, in color, fill every row from the left without leaving a hole: this is the no-gap property of Theorem 2 ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=31&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes&first=1)).
 
 *The idea.* Jane is stuck if the bead below her and the bead above her have
 both been told. Suppose she stands on $n$, wants to go up, and finds $nU$
@@ -729,7 +730,7 @@ and Lemma 3 says that she has then told $w\lambda$ too.
 defined and distinct; (b) the no-gap property holds at all times $j \leq i$.
 Both are clear for $i = 0$.
 
-*Jane can move at time $i$.* Let $n = \rho(i)$. If $n > 0$ and
+*Jane can move at time $i$.* Let $n = \rho(i)$. If $n > 1$ and
 $nD \notin V_i$, she moves down to a new bead. Otherwise she wants to move up
 to $nU$, and we must show $nU \notin V_i$. If $nU = \rho(j)$ for some
 $j \le i$, then $j < i$ and, $nU$ being white, (b) at time $j$ gives
@@ -756,11 +757,11 @@ Both cases contradict $g \notin V_{i+1}$. $\quad\Box$
 
 ### 8. Theorem 3: Jane's reluctant recitation tells all beads
 
-**Theorem 3.** $\rho$ is a permutation of $\mathbb{N}$: the reluctant
+**Theorem 3.** $\rho$ is a permutation of $\mathbb{N}^*$: the reluctant
 recitation tells every bead exactly once.
 
 (The January 2023 version of this note stated this as a conjecture, checked
-by computer for all beads below $7\,884\,654$.)
+by computer for the first $7\,884\,654$ beads.)
 
 That Jane tells no bead twice is Theorem 2. What remains is that she leaves
 no bead out.
@@ -770,47 +771,47 @@ no bead out.
 1. Then Jane stays out of the whole *cone* of $m$, that is, of everything
    above $m$ in the binary tree: had she told a bead up there, she would have
    come down to $m$ (Lemma 3).
-2. The cone of $m$ is easy to recognize in heap coordinates: its beads are
-   those for which $x = n + 1$, written in binary, starts with the digits of
-   $m + 1$. On a logarithmic scale this is a condition on the fractional part
-   of $\log_2 x$ alone, the *phase* of the bead: it must fall in a fixed arc
+2. The cone of $m$ is easy to recognize: its beads are those whose position
+   $n$, written in binary, starts with the digits of $m$. On a logarithmic
+   scale this is a condition on the fractional part
+   of $\log_2 n$ alone, the *phase* of the bead: it must fall in a fixed arc
    of the circle (Lemma 4).
-3. A down move erases the last binary digit of $x$ and leaves the leading
-   ones alone: the phase hardly moves. An up move multiplies $x$ by $3/2$, or
+3. A down move erases the last binary digit of $n$ and leaves the leading
+   ones alone: the phase hardly moves. An up move multiplies $n$ by $3/2$, or
    very nearly: the phase turns by $\alpha = \log_2(3/2)$ (Lemma 5).
 4. So Jane's phase goes round the circle in steps of $\alpha$, and $\alpha$ is
    irrational: the steps never close up, and they visit every arc (Figure
    11). Sooner or later the phase falls in the arc of $m$: Jane is in the
    cone, which she was supposed to avoid.
 
-The "hardly" and "very nearly" hide errors of size about $1/x$. They do no
+The "hardly" and "very nearly" hide errors of size about $1/n$. They do no
 harm once Jane is far up, and she does go far up, for want of fresh beads
 lower down.
 
-**Lemma 4 (binary prefixes).** $\downarrow\!(n)$ consists of the beads $m$ such
-that the binary expansion of $m+1$ is a prefix of that of $n+1$:
+**Lemma 4 (binary prefixes).** $\downarrow\!(n)$ consists of the beads $m$ whose
+binary expansion is a prefix of that of $n$:
 
-$$m \in\ \downarrow\!(n) \iff \exists k \geq 0,\ \ m + 1 = \Big\lfloor \frac{n+1}{2^k} \Big\rfloor \geq 1 .$$
+$$m \in\ \downarrow\!(n) \iff \exists k \geq 0,\ \ m = \Big\lfloor \frac{n}{2^k} \Big\rfloor \geq 1 .$$
 
-*Proof.* $nD + 1 = \lceil n/2 \rceil = \lfloor (n+1)/2 \rfloor$, and
-$\lfloor \lfloor x/2^j \rfloor / 2 \rfloor = \lfloor x/2^{j+1} \rfloor$. $\quad\Box$
+*Proof.* $nD = \lfloor n/2 \rfloor$, and
+$\lfloor \lfloor n/2^j \rfloor / 2 \rfloor = \lfloor n/2^{j+1} \rfloor$. $\quad\Box$
 
 Define the **cone** of a bead $m$ as the set of beads $n$ with
 $m \in\ \downarrow\!(n)$, and the **phase** of a bead $n$ as
 
-$$\theta(n) = \log_2(n+1) \bmod 1 \ \in \mathbb{R}/\mathbb{Z}.$$
+$$\theta(n) = \log_2 n \bmod 1 \ \in \mathbb{R}/\mathbb{Z}.$$
 
 The cone of $m$ is everything above $m$ in the binary tree: the cone of bead
-$3$ is $\{3,\ 7, 8,\ 15, 16, 17, 18,\ \ldots\}$. If Jane tells one of these
-beads, she tells bead $3$ as well: by Lemma 3 she cannot leave a bead for good
+$4$ is $\{4,\ 8, 9,\ 16, 17, 18, 19,\ \ldots\}$. If Jane tells one of these
+beads, she tells bead $4$ as well: by Lemma 3 she cannot leave a bead for good
 before the bead below it is told. The
 phase forgets how high a bead is in the tree and remembers only where it
-stands within its level: bead $7$, the first of its level, has phase $0$.
+stands within its level: bead $8$, the first of its level, has phase $0$.
 
 ![Figure 10](images/figure-10.svg)
 
 > Figure 10: the binary tree of the rosary, each bead placed above its phase;
-> the root, bead $0$, is at the bottom. The cone of bead $3$ is the shaded
+> the root, bead $1$, is at the bottom. The cone of bead $4$ is the shaded
 > strip. A down move follows a gray line to the parent, which is straight
 > below, or nearly so as soon as the beads are large. An up move (the arrows,
 > drawn from the beads of the cone) carries a bead to the right by about
@@ -819,22 +820,22 @@ stands within its level: bead $7$, the first of its level, has phase $0$.
 
 By Lemma 4, $n$ is in the cone of $m$ if and only if $n \geq m$ and
 $\theta(n)$ lies in the arc
-$A_m = \big[\log_2(m+1),\ \log_2(m+2)\big) \bmod 1$, whose length is
-$w_m = \log_2\big(1 + \frac{1}{m+1}\big) \ge \frac{1}{m+1}$. Let
+$A_m = \big[\log_2 m,\ \log_2(m+1)\big) \bmod 1$, whose length is
+$w_m = \log_2\big(1 + \frac{1}{m}\big) \ge \frac{1}{m}$. Let
 
 $$\alpha = \log_2\frac{3}{2} = \log_2 3 - 1 .$$
 
-**Lemma 5 (phases).** Let $n \geq 0$ and $x = n+1$.
+**Lemma 5 (phases).** Let $n \geq 1$.
 
-1. $\log_2(nU + 1) = \log_2 x + \alpha + \varepsilon$ with
-   $0 \leq \varepsilon < \dfrac{1}{2x}$.
-2. If $m = nD^k$ and $y = m + 1$, then
-   $\log_2 y = \log_2 x - k - \varepsilon'$ with
-   $0 \leq \varepsilon' < \dfrac{3}{2y}$.
+1. $\log_2(nU) = \log_2 n + \alpha + \varepsilon$ with
+   $0 \leq \varepsilon < \dfrac{1}{2n}$.
+2. If $m = nD^k$, then
+   $\log_2 m = \log_2 n - k - \varepsilon'$ with
+   $0 \leq \varepsilon' < \dfrac{3}{2m}$.
 
-*Proof.* (1) $nU + 1 = \lceil 3x/2 \rceil \in \{3x/2,\ (3x+1)/2\}$ and
-$\log_2(1 + \frac{1}{3x}) < \frac{1}{2x}$. (2) By Lemma 4,
-$y \leq x/2^k < y+1$ and $\log_2(1 + \frac{1}{y}) < \frac{3}{2y}$. $\quad\Box$
+*Proof.* (1) $nU = \lceil 3n/2 \rceil \in \{3n/2,\ (3n+1)/2\}$ and
+$\log_2(1 + \frac{1}{3n}) < \frac{1}{2n}$. (2) By Lemma 4,
+$m \leq n/2^k < m+1$ and $\log_2(1 + \frac{1}{m}) < \frac{3}{2m}$. $\quad\Box$
 
 [![Figure 11](images/figure-11.png)](https://blog.atlant.is/figures/jane-s-rosary/irrational-log2-3.html?n=40&interactive=yes)
 
@@ -843,7 +844,7 @@ $y \leq x/2^k < y+1$ and $\log_2(1 + \frac{1}{y}) < \frac{3}{2y}$. $\quad\Box$
 *Proof of Theorem 3.* Fix a bead $m$ and suppose that $m$ is never told.
 
 *Step 1: Jane never enters the cone of $m$.* By Lemma 3, whenever Jane leaves a
-bead $n > 0$, the bead $nD$ has been told. So every bead of
+bead $n > 1$, the bead $nD$ has been told. So every bead of
 $\downarrow\!(n)$ is eventually told, for every told bead $n$. Hence no bead of
 the cone of $m$ is ever told.
 

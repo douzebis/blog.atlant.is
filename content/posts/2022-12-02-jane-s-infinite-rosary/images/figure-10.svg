@@ -71,67 +71,67 @@
 <path d="M158.8,113.0 Q345.9,87.0 529.1,113.0" fill="none" stroke="#c0392b" stroke-width="1.4" marker-end="url(#tip)"/>
 <path d="M208.7,113.0 Q403.9,87.0 595.1,113.0" fill="none" stroke="#c0392b" stroke-width="1.4" marker-end="url(#tip)"/>
 <circle cx="50.0" cy="330.0" r="11" fill="#4d4d4d" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="50.0" y="333.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">0</text>
+<text x="50.0" y="333.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">1</text>
 <circle cx="50.0" cy="278.0" r="11" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="50.0" y="281.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">1</text>
+<text x="50.0" y="281.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">2</text>
 <circle cx="424.4" cy="278.0" r="11" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="424.4" y="281.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">2</text>
+<text x="424.4" y="281.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">3</text>
 <circle cx="50.0" cy="226.0" r="11" fill="#4d4d4d" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="50.0" y="229.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">3</text>
+<text x="50.0" y="229.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">4</text>
 <circle cx="256.0" cy="226.0" r="11" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="256.0" y="229.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">4</text>
+<text x="256.0" y="229.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">5</text>
 <circle cx="424.4" cy="226.0" r="11" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="424.4" y="229.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">5</text>
+<text x="424.4" y="229.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">6</text>
 <circle cx="566.7" cy="226.0" r="11" fill="#4d4d4d" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="566.7" y="229.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">6</text>
+<text x="566.7" y="229.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">7</text>
 <circle cx="50.0" cy="174.0" r="11" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="50.0" y="177.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">7</text>
+<text x="50.0" y="177.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">8</text>
 <circle cx="158.8" cy="174.0" r="11" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="158.8" y="177.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">8</text>
+<text x="158.8" y="177.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">9</text>
 <circle cx="256.0" cy="174.0" r="11" fill="#4d4d4d" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="256.0" y="177.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">9</text>
+<text x="256.0" y="177.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">10</text>
 <circle cx="344.0" cy="174.0" r="11" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="344.0" y="177.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">10</text>
+<text x="344.0" y="177.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">11</text>
 <circle cx="424.4" cy="174.0" r="11" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="424.4" y="177.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">11</text>
+<text x="424.4" y="177.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">12</text>
 <circle cx="498.3" cy="174.0" r="11" fill="#4d4d4d" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="498.3" y="177.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">12</text>
+<text x="498.3" y="177.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">13</text>
 <circle cx="566.7" cy="174.0" r="11" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="566.7" y="177.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">13</text>
+<text x="566.7" y="177.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">14</text>
 <circle cx="630.4" cy="174.0" r="11" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="630.4" y="177.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">14</text>
+<text x="630.4" y="177.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">15</text>
 <circle cx="50.0" cy="122.0" r="11" fill="#4d4d4d" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="50.0" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">15</text>
+<text x="50.0" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">16</text>
 <circle cx="106.0" cy="122.0" r="11" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="106.0" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">16</text>
+<text x="106.0" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">17</text>
 <circle cx="158.8" cy="122.0" r="11" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="158.8" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">17</text>
+<text x="158.8" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">18</text>
 <circle cx="208.7" cy="122.0" r="11" fill="#4d4d4d" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="208.7" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">18</text>
+<text x="208.7" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">19</text>
 <circle cx="256.0" cy="122.0" r="11" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="256.0" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">19</text>
+<text x="256.0" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">20</text>
 <circle cx="301.1" cy="122.0" r="11" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="301.1" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">20</text>
+<text x="301.1" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">21</text>
 <circle cx="344.0" cy="122.0" r="11" fill="#4d4d4d" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="344.0" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">21</text>
+<text x="344.0" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">22</text>
 <circle cx="385.1" cy="122.0" r="11" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="385.1" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">22</text>
+<text x="385.1" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">23</text>
 <circle cx="424.4" cy="122.0" r="11" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="424.4" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">23</text>
+<text x="424.4" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">24</text>
 <circle cx="462.1" cy="122.0" r="11" fill="#4d4d4d" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="462.1" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">24</text>
+<text x="462.1" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">25</text>
 <circle cx="498.3" cy="122.0" r="11" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="498.3" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">25</text>
+<text x="498.3" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">26</text>
 <circle cx="533.1" cy="122.0" r="11" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="533.1" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">26</text>
+<text x="533.1" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">27</text>
 <circle cx="566.7" cy="122.0" r="11" fill="#4d4d4d" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="566.7" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">27</text>
+<text x="566.7" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">28</text>
 <circle cx="599.1" cy="122.0" r="11" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="599.1" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">28</text>
+<text x="599.1" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">29</text>
 <circle cx="630.4" cy="122.0" r="11" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="630.4" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">29</text>
+<text x="630.4" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#3a3a3a">30</text>
 <circle cx="660.7" cy="122.0" r="11" fill="#4d4d4d" stroke="#9a9a94" stroke-width="0.8"/>
-<text x="660.7" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">30</text>
+<text x="660.7" y="125.6" text-anchor="middle" font-size="10.5" font-family="Helvetica, Arial, sans-serif" fill="#f0f0f0">31</text>
 <circle cx="50.0" cy="70.0" r="4" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
 <circle cx="78.4" cy="70.0" r="4" fill="#e6e6e6" stroke="#9a9a94" stroke-width="0.8"/>
 <circle cx="106.0" cy="70.0" r="4" fill="#4d4d4d" stroke="#9a9a94" stroke-width="0.8"/>
@@ -176,5 +176,5 @@
 <line x1="690.0" y1="360" x2="690.0" y2="368" stroke="#666660" stroke-width="1"/>
 <text x="690.0" y="384" text-anchor="middle" font-size="13" font-family="Charter, Georgia, serif" fill="#666660">1</text>
 <text x="370.0" y="402" text-anchor="middle" font-size="13" font-family="Charter, Georgia, serif" font-style="italic" fill="#666660">phase</text>
-<text x="146.0" y="46" text-anchor="middle" font-size="13" font-family="Charter, Georgia, serif" font-style="italic" fill="#1c1c1a">cone of bead 3</text>
+<text x="146.0" y="46" text-anchor="middle" font-size="13" font-family="Charter, Georgia, serif" font-style="italic" fill="#1c1c1a">cone of bead 4</text>
 </svg>

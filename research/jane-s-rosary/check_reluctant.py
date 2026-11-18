@@ -9,7 +9,8 @@ usage: python check_reluctant.py [--moves T]     (default 300000; about 5 s)
 Every line printed must end with "ok".
 
 Checked:
-- the first beads of the recitation, as quoted in the paper;
+- the first beads of the recitation and the examples of Part II, as quoted
+  in the paper;
 - Theorem 2 on the first T moves: Jane is never stuck, never tells a bead
   twice, and never leaves a gap in an up-chain (when a white bead w is
   told, w lambda has been told);
@@ -59,6 +60,16 @@ def main() -> int:
         )
     )
     results.append(report(f"Theorem 2: defined and injective on {moves} moves", True))
+    cone_of_4 = [n for n in range(1, 20) if 4 in down_chain(n)]
+    results.append(
+        report(
+            "examples: rho(5) = 4, rho(12) = 26, the cone of bead 4, the phase of 8",
+            beads[5] == 4
+            and beads[12] == 26
+            and cone_of_4 == [4, 8, 9, 16, 17, 18, 19]
+            and math.log2(8) % 1 == 0,
+        )
+    )
 
     told: set[int] = set()
     no_gap = True
