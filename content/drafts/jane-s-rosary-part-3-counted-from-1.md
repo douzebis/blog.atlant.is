@@ -67,8 +67,8 @@ part rests on Theorem 1.
 > Sergio Leone, *Per qualche dollaro in più* (1965)
 
 Bold is for the onyx rosary, which lives on the black beads only. A bold
-number or letter is the number of an onyx bead, and the bullet gives its
-place in the rosary: onyx bead $\mathbf{4}$ is the black bead $\mathbf{4}^\bullet = 10$.
+number or letter is the number of an onyx, and the bullet gives its
+place in the rosary: onyx $\mathbf{4}$ is the black bead $\mathbf{4}^\bullet = 10$.
 The example is the black bead $4$, reached through our bead $8$.
 
 - **Canonical recitation** $\boldsymbol{C}(n)$ to a bead $n$: the recitation
@@ -79,11 +79,14 @@ The example is the black bead $4$, reached through our bead $8$.
   bead $4$ the candidates are $4\mu = 8$, with lambex $4$, and $4\nu = 9$,
   with lambex $2$: bead $8$ wins, and
   $\boldsymbol{C}(4) = 1, 2, 3, 5, 8, 4$.
-- **Onyx rosary**: the rosary obtained by removing all white beads. **Onyx
-  bead** $\boldsymbol{n}$ is the black bead number $\boldsymbol{n}$, that is $\boldsymbol{n}^\bullet$: the onyx
-  beads $\mathbf{1}$, $\mathbf{2}$, $\mathbf{3}$, $\mathbf{4}$ are the black beads $1$, $4$, $7$, $10$.
-- **Onyx predecessor**: $\boldsymbol{\pi}(\boldsymbol{n})$ is the onyx bead met just
-  before onyx bead $\boldsymbol{n}$ on the canonical recitation. For instance the
+- **Onyx rosary**: the rosary obtained by removing all white beads. Its
+  beads are called **onyxes**: onyx $\boldsymbol{n}$ is the black bead number
+  $\boldsymbol{n}$, that is bead $\boldsymbol{n}^\bullet$. So a black bead has
+  two numbers: its place in the rosary, written plain, and its rank among
+  the black beads, written bold. The onyxes $\mathbf{1}$, $\mathbf{2}$,
+  $\mathbf{3}$, $\mathbf{4}$ are the beads $1$, $4$, $7$, $10$.
+- **Onyx predecessor**: $\boldsymbol{\pi}(\boldsymbol{n})$ is the onyx met just
+  before onyx $\boldsymbol{n}$ on the canonical recitation. For instance the
   canonical recitation to the black bead $10 = \mathbf{4}^\bullet$ is
   $$\boldsymbol{C}(10) = \underline{1}, 2, 3, 5, 8, \underline{4}, 6, 9, 14, 21, \underline{10},$$
   and the black beads on it, underlined, are $1 = \mathbf{1}^\bullet$,
@@ -106,7 +109,7 @@ The example is the black bead $4$, reached through our bead $8$.
   $\boldsymbol{C}(\boldsymbol{n}^\bullet)$, minus one; i.e.
   $\boldsymbol{\pi}^{\boldsymbol{h}(\boldsymbol{n})}(\boldsymbol{n}) = \mathbf{1}$.
 - **Onyx mu, nu**: $\boldsymbol{\mu}(\boldsymbol{n})$ and $\boldsymbol{\nu}(\boldsymbol{n})$ are the
-  onyx beads such that
+  onyxes such that
   $\boldsymbol{\mu}(\boldsymbol{n})^\bullet = \sigma(\boldsymbol{n}^\bullet\mu)$ and
   $\boldsymbol{\nu}(\boldsymbol{n})^\bullet = \sigma(\boldsymbol{n}^\bullet\nu)$, so that
   $\boldsymbol{\pi}(\boldsymbol{n}) = \min(\boldsymbol{\mu}(\boldsymbol{n}), \boldsymbol{\nu}(\boldsymbol{n}))$
@@ -116,7 +119,7 @@ The example is the black bead $4$, reached through our bead $8$.
 
 #### Onyx ordering
 
-**Proposition 2.** For every onyx bead $\boldsymbol{n} \geq \mathbf{2}$,
+**Proposition 2.** For every onyx $\boldsymbol{n} \geq \mathbf{2}$,
 $\boldsymbol{\pi}(\boldsymbol{n}) \leq (8\boldsymbol{n}+1)/9 < \boldsymbol{n}$. Consequently the onyx ordering
 is a well-founded partial order with least element $\mathbf{1}$, it agrees with the
 usual order of the numbers, i.e.
@@ -136,9 +139,9 @@ We say that $\boldsymbol{n}$ **covers** $\boldsymbol{m}$ when $\boldsymbol{\pi}(
 of the paper shows this tree; its labels are the current ones, one less than
 here.
 
-#### Theorem 4: every onyx bead has infinitely many covers
+#### Theorem 4: every onyx has infinitely many covers
 
-*The idea.* The covers of the onyx bead $\boldsymbol{m}$ are found along the up-chain of
+*The idea.* The covers of the onyx $\boldsymbol{m}$ are found along the up-chain of
 the black bead $\boldsymbol{m}^\bullet$. Whenever a bead $k$ of that chain sits just
 above a black bead, $kD = \boldsymbol{n}^\bullet$, it is one of the two candidates for
 the last step down to $\boldsymbol{n}^\bullet$; and if it wins, $\boldsymbol{n}$ covers $\boldsymbol{m}$. Two
@@ -150,7 +153,7 @@ a smaller seed: our chain would then run side by side with one of the
 finitely many chains that start lower. And two up-chains run side by side
 only finitely many times (Lemma 8).
 
-The three lemmas are about beads, not onyx beads: nothing in them is bold.
+The three lemmas are about beads, not onyxes: nothing in them is bold.
 
 **Lemma 6 (parity).** For every bead $n$: $\ nUD$ is black if and only if $n$
 and $nU$ have *different* parities.
@@ -185,9 +188,9 @@ By Lemma 7 this happens exactly for $r \leq v_2(a+1)$. $\quad\Box$
 $\uparrow\!(256) \cap (\uparrow\!(22) + 1)$ has 9 elements,
 $2^8,\ 2^7 3,\ 2^6 3^2,\ \ldots,\ 3^8$. Only finiteness matters below.)
 
-**Theorem 4.** Every onyx bead has infinitely many covers.
+**Theorem 4.** Every onyx has infinitely many covers.
 
-*Proof.* Fix an onyx bead $\boldsymbol{m}$ and let
+*Proof.* Fix an onyx $\boldsymbol{m}$ and let
 
 $$S = \{k \in\ \uparrow\!(\boldsymbol{m}^\bullet) \mid kD \text{ is black and } kD > 1\}.$$
 
@@ -197,7 +200,7 @@ $\{k, k'\} = \{\boldsymbol{n}^\bullet\mu, \boldsymbol{n}^\bullet\nu\}$ where the
 *sibling* $k' = k \pm 1$ is white. By Theorem 1, $k$ is the winner (so that
 $\boldsymbol{\pi}(\boldsymbol{n}) = \boldsymbol{m}$) if and only if
 $\sigma(k') > \sigma(k) = \boldsymbol{m}^\bullet$.
-Suppose not: then $k' \in\ \uparrow\!(\boldsymbol{j}^\bullet)$ for some onyx bead
+Suppose not: then $k' \in\ \uparrow\!(\boldsymbol{j}^\bullet)$ for some onyx
 $\boldsymbol{j} < \boldsymbol{m}$, and therefore
 
 $$k \in\ \uparrow\!(\boldsymbol{m}^\bullet) \cap \big((\uparrow\!(\boldsymbol{j}^\bullet) + 1) \cup (\uparrow\!(\boldsymbol{j}^\bullet) - 1)\big).$$
@@ -205,17 +208,17 @@ $$k \in\ \uparrow\!(\boldsymbol{m}^\bullet) \cap \big((\uparrow\!(\boldsymbol{j}
 By Lemma 8 (applied twice, exchanging the roles of the two chains for the
 "$-1$" part), this set is finite for each of the finitely many
 $\boldsymbol{j} < \boldsymbol{m}$. So all but finitely many $k \in S$ are winners, and distinct
-$k$ give distinct black beads $kD = \boldsymbol{n}^\bullet$, hence distinct onyx beads
+$k$ give distinct black beads $kD = \boldsymbol{n}^\bullet$, hence distinct onyxes
 $\boldsymbol{n}$ covering $\boldsymbol{m}$. $\quad\Box$
 
 *Used:* Theorem 1 and Lemmas 6, 7 and 8.
 
 #### Corollary: the canonical onyx mapping
 
-Order the covers of each onyx bead increasingly and number them from $1$: let
+Order the covers of each onyx increasingly and number them from $1$: let
 $\boldsymbol{s}_{\boldsymbol{n}}(k)$ be the $k$-th cover of $\boldsymbol{n}$, and for
 $\boldsymbol{n} \geq \mathbf{2}$ let $\boldsymbol{\iota}(\boldsymbol{n})$ be the rank of $\boldsymbol{n}$ among the
-covers of $\boldsymbol{\pi}(\boldsymbol{n})$. Ranks are plain numbers, not onyx beads.
+covers of $\boldsymbol{\pi}(\boldsymbol{n})$. Ranks are plain numbers, not onyxes.
 For instance $\boldsymbol{s}_{\mathbf{1}}(3) = \mathbf{11}$,
 $\boldsymbol{s}_{\mathbf{2}}(3) = \mathbf{6}$ and $\boldsymbol{\iota}(\mathbf{39}) = 4$ (the covers
 of $\mathbf{1}$ are $\mathbf{2}, \mathbf{5}, \mathbf{11}, \mathbf{16}, \mathbf{24}, \mathbf{53}, \ldots$, those of $\mathbf{2}$ are
@@ -227,7 +230,7 @@ from the root:
 
 $$C(\boldsymbol{n}) = \Big(\boldsymbol{\iota}\big(\boldsymbol{\pi}^{\boldsymbol{h}(\boldsymbol{n})-1}(\boldsymbol{n})\big),\ \ldots,\ \boldsymbol{\iota}\big(\boldsymbol{\pi}(\boldsymbol{n})\big),\ \boldsymbol{\iota}(\boldsymbol{n})\Big) \in (\mathbb{N}^*)^{<\omega}.$$
 
-**Corollary 2.** $C$ is a bijection from the onyx beads onto the set
+**Corollary 2.** $C$ is a bijection from the onyxes onto the set
 $(\mathbb{N}^*)^{<\omega}$ of finite sequences of positive integers, and
 $\boldsymbol{m} \boldsymbol{\preceq} \boldsymbol{n}$ if and only if $C(\boldsymbol{m})$ is a prefix of
 $C(\boldsymbol{n})$. In other words, the onyx ordering is isomorphic to the full
@@ -243,8 +246,8 @@ surjectivity is Theorem 4. $\quad\Box$
 #### Jane's foraging sequence
 
 Jane's foraging sequence $(\boldsymbol{\Phi}(i))_{i \ge 0}$ is the sequence of
-onyx beads obtained from the reluctant recitation by replacing each $\rho(i)$
-with the onyx bead of its seed (the $\boldsymbol{n}$ such that
+onyxes obtained from the reluctant recitation by replacing each $\rho(i)$
+with the onyx of its seed (the $\boldsymbol{n}$ such that
 $\sigma(\rho(i)) = \boldsymbol{n}^\bullet$) and then removing direct repetitions:
 
 $$\mathbf{1}, \mathbf{2}, \mathbf{3}, \mathbf{5}, \mathbf{4}, \mathbf{14}, \mathbf{5}, \mathbf{8}, \mathbf{6}, \mathbf{1}, \mathbf{11}, \mathbf{41}, \mathbf{31}, \mathbf{5}, \mathbf{12}, \mathbf{9}, \mathbf{7}, \mathbf{17}, \mathbf{13}, \mathbf{10}, \mathbf{2}, \mathbf{6}, \mathbf{21}, \mathbf{16}, \ldots$$
@@ -254,7 +257,7 @@ infinitely often.
 
 *Proof.* By Theorem 3 Jane tells every bead of every up-chain, so she is in
 $\uparrow\!(\boldsymbol{m}^\bullet)$ at infinitely many times, and she is outside of it
-at infinitely many times. Hence the onyx bead of $\sigma(\rho(i))$ takes the
+at infinitely many times. Hence the onyx of $\sigma(\rho(i))$ takes the
 value $\boldsymbol{m}$ on infinitely many maximal runs. $\quad\Box$
 
 ```python
@@ -296,10 +299,10 @@ def Phi(n: int) -> int:
 | Root, first cover | $0$, cover number $0$ | $\mathbf{1}$, cover number $1$ |
 | Seed in the code | `nxt //= 3` | `nxt = (nxt + 2)//3` |
 
-Bold numbers and letters (onyx beads) are also new on this page; the paper
+Bold numbers and letters (onyxes) are also new on this page; the paper
 today uses bold for the names of the onyx maps only.
 
 Every statement and every number on this page was checked by computation
-(Theorem 1, Proposition 2 and Lemmas 6 to 8 for the onyx beads and beads
+(Theorem 1, Proposition 2 and Lemmas 6 to 8 for the onyxes and beads
 below $20\,000$, the table of $C$, the covers quoted and the 24 values of the
 foraging sequence).
