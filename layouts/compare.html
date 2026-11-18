@@ -27,7 +27,7 @@
               {{- range $paper.Params.history }}
               {{- $address := $paper.RelPermalink }}
               {{- with .version }}{{ with site.GetPage . }}{{ $address = .RelPermalink }}{{ end }}{{ end }}
-              <option value="{{ $address }}" data-key="{{ .date }}">{{ .date }}{{ if not .version }} (current){{ end }}</option>
+              <option value="{{ $address }}" data-key="{{ if .version }}{{ path.Base .version }}{{ else }}current{{ end }}">{{ .date }}{{ if not .version }} (current){{ end }}</option>
               {{- end }}
             </select>
           </label>
@@ -40,7 +40,8 @@
       {{- end }}
     </main>
     <script>
-      // Each pane shows one version; "?left=DATE&right=DATE" in the address
+      // Each pane shows one version; "?left=NAME&right=NAME" in the address, where
+      // NAME is the name of a kept version (2026-11-17) or "current",
       // chooses them (by default the previous version and the current one).
       const params = new URLSearchParams(window.location.search);
       document.querySelectorAll(".pane").forEach((pane) => {

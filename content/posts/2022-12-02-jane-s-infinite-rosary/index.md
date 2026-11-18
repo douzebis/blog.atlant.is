@@ -19,6 +19,9 @@ history:
     version: "versions/jane-s-infinite-rosary/2026-11-17"
   - date: "2026-11-18"
     text: "Presentation overhaul: an opening that says what is proved, four parts, names introduced where they are needed, a sketch before each long proof, context and relatives, new figures. No statement changed."
+    version: "versions/jane-s-infinite-rosary/2026-11-18"
+  - date: "2026-11-18"
+    text: "The beads are counted from 1 instead of 0 (in progress)."
 diagrams:
   - "images/reluctant-jane-1024x422.png"
 categories:

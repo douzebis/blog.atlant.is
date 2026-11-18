@@ -313,3 +313,15 @@ for closing.
 
 Next: spec 0003 (`docs/specs/0003-rosary-beads-counted-from-1.md`), the
 same paper with the beads counted from 1.
+
+## Current — beads counted from 1 (spec 0003)
+
+Decided on 2026-11-18, after a trial on Part III
+(`content/drafts/jane-s-rosary-part-3-counted-from-1.md`): the paper
+numbers its beads from 1, so that a down move halves the position and the
+"heap coordinates" of the earlier versions are the only coordinates.
+
+- 2026-11-18, step 1: the overhauled paper, counted from 0, is kept as
+  `content/versions/jane-s-infinite-rosary/2026-11-18/`. Four versions are
+  now kept. The comparison page names its versions by their directory
+  (`?left=2026-11-18&right=current`).
