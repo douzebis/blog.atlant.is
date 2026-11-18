@@ -29,33 +29,37 @@ categories:
   - "math"
 ---
 
+> **Work in progress.** The beads of this paper are being renumbered from
+> $1$ instead of $0$. Until this notice disappears, the parts not yet
+> converted (see the headings below) still count from $0$.
+
 ![](images/reluctant-jane-1024x422.png)
 
 > Reluctant Jane at work (a detail of Figure 8).
 
 Jane owns a special rosary. It has a single end and is made of infinitely many
 black and white beads. Starting from the end, the beads are numbered
-$n = 0, 1, 2, \ldots$ and each carries a label $L(n) = 1, 1, 2, 2, 3, 3, \ldots$
-Every third bead, including bead $0$, is black; the other beads are white.
+$n = 1, 2, 3, \ldots$ and each carries a label $L(n) = 1, 1, 2, 2, 3, 3, \ldots$
+Every third bead, starting with bead $1$, is black; the other beads are white.
 
-[![Figure 1](images/figure-01.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=position&arrows=none&interactive=yes)
+[![Figure 1](images/figure-01.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=position&arrows=none&interactive=yes&first=1)
 
-> Figure 1: the rosary. Each bead shows its position; every third bead is black. Up is to the right, down to the left ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=position&arrows=none&interactive=yes)).
+> Figure 1: the rosary. Each bead shows its position; every third bead is black. Up is to the right, down to the left ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=position&arrows=none&interactive=yes&first=1)).
 
 Jane tells the beads of her rosary in a special way. She always starts at bead
-$0$. Each time she is done with a bead $n$, she moves on, either *up* to bead
+$1$. Each time she is done with a bead $n$, she moves on, either *up* to bead
 $n + L(n)$ or *down* to bead $n - L(n)$.
 
-[![Figure 2](images/figure-02.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=both&interactive=yes)
+[![Figure 2](images/figure-02.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=both&interactive=yes&first=1)
 
-> Figure 2: telling the beads. Each bead shows its label, and its two arrows, one up (to the right) and one down (to the left), reach as many places away as the label says ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=both&interactive=yes)).
+> Figure 2: telling the beads. Each bead shows its label, and its two arrows, one up (to the right) and one down (to the left), reach as many places away as the label says ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=both&interactive=yes&first=1)).
 
 **Can Jane tell every bead of her rosary?** Yes, and easily: every bead can be
-reached from bead $0$. The fun starts with two finer questions.
+reached from bead $1$. The fun starts with two finer questions.
 
 **How fast?** The least number of moves needed to reach bead $n$ is its
-*height*. Bead $3$, only three beads away from bead $0$, has height $5$: Jane
-must go up four times, to bead $7$, before one move down brings her to it.
+*height*. Bead $4$, only three beads away from bead $1$, has height $5$: Jane
+must go up four times, to bead $8$, before one move down brings her to it.
 *Theorem 1* says what shortest recitations look like, bead by bead, and turns
 into a program that computes the height of bead $n$ in about $\log n$ steps,
 without searching.
@@ -64,7 +68,7 @@ without searching.
 below has already been told, in which case, and only then, she moves up. She
 looks no further than one bead ahead. Her recitation starts
 
-$$0,\ 1,\ 2,\ 4,\ 7,\ 3,\ 5,\ 8,\ 13,\ 6,\ 10,\ 16,\ 25,\ 12,\ \ldots$$
+$$1,\ 2,\ 3,\ 5,\ 8,\ 4,\ 6,\ 9,\ 14,\ 7,\ 11,\ 17,\ 26,\ 13,\ \ldots$$
 
 and nothing in her rule seems to prevent her from painting herself into a
 corner, with told beads both below and above, or from leaving some bead behind
@@ -79,9 +83,9 @@ forever. Neither happens:
 Theorem 3 was a conjecture in the first version of this note (see the history
 above), and it is the conjecture recorded in the OEIS entries below.
 
-**Why it works, in one breath.** Shift the positions by one and write
-$x = n + 1$. Then a down move halves $x$ (rounding down), and an up move
-multiplies it by $3/2$ (rounding up). So Jane's rule plays the powers of $2$
+**Why it works, in one breath.** A down move halves the position of the bead
+(rounding down), and an up move multiplies it by $3/2$ (rounding up). So
+Jane's rule plays the powers of $2$
 against the powers of $3$, and because no power of $2$ is a power of $3$, that
 is, because $\log_2 3$ is irrational, she cannot fall into a routine: on a
 logarithmic scale each up move turns her around a circle by very nearly the
@@ -99,10 +103,14 @@ in disguise, and three entries of the
 
 | Here | On the sidewalk | OEIS |
 |---|---|---|
-| bead $n$, moves up and down | square $n + 1$ (the page counts from $1$; the OEIS says slab $n$), jumps forward and backward | |
-| height $h(n)$ | minimum number of jumps from slab $0$ to slab $n$ | [A358838](https://oeis.org/A358838) |
-| reluctant recitation $\rho$ | the greedy walk | [A359005](https://oeis.org/A359005) |
-| the move at which bead $m$ is told, $\rho^{-1}(m)$ | the inverse mapping of the greedy walk | [A359008](https://oeis.org/A359008) |
+| bead $n$, moves up and down | square $n$, jumps forward and backward | counted from $0$: slab $n - 1$ |
+| height $h(n)$ | minimum number of jumps from the first square to square $n$ | [A358838](https://oeis.org/A358838), at $n - 1$ |
+| reluctant recitation $\rho$ | the greedy walk | [A359005](https://oeis.org/A359005), plus one |
+| the move at which bead $m$ is told, $\rho^{-1}(m)$ | the inverse mapping of the greedy walk | [A359008](https://oeis.org/A359008), at $m - 1$ |
+
+Like Jane Street's page, this paper counts from $1$. The OEIS entries count
+the slabs from $0$, as the earlier versions of this paper counted the beads
+(see the history above): their slab $n - 1$ is our bead $n$.
 
 **And what is still open.** Plenty; Section 12 has seven questions. A
 favorite: look at each of Jane's down moves and count the up moves that
@@ -155,32 +163,42 @@ height.
 >
 > Ursula K. Le Guin, *A Wizard of Earthsea*
 
-Throughout, $\mathbb{N} = \{0, 1, 2, \ldots\}$. Moves are written *after* the
+Throughout, $\mathbb{N} = \{0, 1, 2, \ldots\}$ and
+$\mathbb{N}^* = \{1, 2, 3, \ldots\}$. Moves are written *after* the
 bead they apply to, and read from left to right: $nUD$ means "go up from $n$,
 then down". This way a recitation reads in the order in which Jane tells it:
-$0\,UUUUD$ is bead $0$, four moves up, one move down, and that is bead $3$.
+$1\,UUUUD$ is bead $1$, four moves up, one move down, and that is bead $4$.
 
-Only seven names are needed to begin with. Bead $7$ will serve as an example
+Only seven names are needed to begin with. Bead $8$ will serve as an example
 throughout.
 
-- **Bead**: a natural number $n$ (the position of the bead in the rosary).
-- **Black bead**: a bead divisible by $3$. **White bead**: any other bead.
-  Bead $7$ is white.
-- **Label**: $L(n) = 1 + \lfloor n/2 \rfloor$. The label of bead $7$ is $4$.
-- **Up**: $U : \mathbb{N} \to \mathbb{N}$, $\; nU = n + L(n) = \lfloor 3n/2 \rfloor + 1$.
-  From bead $7$, up leads to $7U = 11$.
-- **Down**: $D : \mathbb{N}\setminus\{0\} \to \mathbb{N}$, $\; nD = n - L(n) = \lceil n/2 \rceil - 1$.
-  From bead $7$, down leads to $7D = 3$.
+- **Bead**: a positive integer $n$ (the position of the bead in the rosary,
+  counted from its end).
+- **Black bead**: a bead $n \equiv 1 \pmod 3$, that is $1, 4, 7, 10, \ldots$
+  **White bead**: any other bead. Bead $8$ is white.
+- **Label**: $L(n) = \lceil n/2 \rceil$. The label of bead $8$ is $4$.
+- **Up**: $U : \mathbb{N}^* \to \mathbb{N}^*$, $\; nU = n + L(n) = \lceil 3n/2 \rceil$.
+  From bead $8$, up leads to $8U = 12$.
+- **Down**: $D : \mathbb{N}^*\setminus\{1\} \to \mathbb{N}^*$, $\; nD = n - L(n) = \lfloor n/2 \rfloor$.
+  From bead $8$, down leads to $8D = 4$.
 
 The next three run the moves backwards: they say where Jane may have come
 from.
 
-- **Lambda**: $\lambda : \mathbb{N}\setminus 3\mathbb{N} \to \mathbb{N}$, $\; n\lambda = \lfloor 2n/3 \rfloor$,
-  the bead from which an up move leads to the white bead $n$. Jane comes up
-  to bead $7$ from $7\lambda = 4$.
-- **Mu** and **nu**: $n\mu = 2n+1$ and $n\nu = 2n+2$, the two beads from which
-  a down move leads to $n$. Jane comes down to bead $7$ from $7\mu = 15$ or
-  from $7\nu = 16$.
+- **Lambda**: $n\lambda = \lfloor 2n/3 \rfloor$ for a white bead $n$,
+  the bead from which an up move leads to $n$. Jane comes up
+  to bead $8$ from $8\lambda = 5$.
+- **Mu** and **nu**: $n\mu = 2n$ and $n\nu = 2n+1$, the two beads from which
+  a down move leads to $n$. Jane comes down to bead $8$ from $8\mu = 16$ or
+  from $8\nu = 17$.
+
+Black beads are also counted among themselves, and this count is written in
+bold: the black bead number $\boldsymbol{n}$ is the bead
+
+$$\boldsymbol{n}^\bullet = 3\boldsymbol{n} - 2, \qquad\text{so that}\quad \mathbf{1}^\bullet = 1,\quad \mathbf{2}^\bullet = 4,\quad \mathbf{3}^\bullet = 7 .$$
+
+The bullet is one more map written after its argument. A bold number or
+letter always counts black beads; a plain one is a position in the rosary.
 
 $U$, $\lambda$, $\mu$, $\nu$ are strictly increasing and $D$ is non-decreasing.
 That $\lambda$, $\mu$, $\nu$ are the inverse branches of $U$ and $D$ is the
@@ -189,15 +207,15 @@ content of:
 **Fact 1.**
 
 1. $U$ is injective and its image is exactly the set of white beads:
-   $(2j)U = 3j+1$ and $(2j+1)U = 3j+2$. Hence $n\lambda U = n$ for every white
+   $(2j-1)U = 3j-1$ and $(2j)U = 3j$. Hence $n\lambda U = n$ for every white
    $n$, and $nU\lambda = n$ for every $n$. *A black bead can never be reached by
    an up move.*
-2. For every $n$, the beads that go down to $n$ are exactly the odd bead $n\mu$
-   and the even bead $n\nu$: $n\mu D = n\nu D = n$.
+2. For every $n$, the beads that go down to $n$ are exactly the even bead $n\mu$
+   and the odd bead $n\nu$: $n\mu D = n\nu D = n$.
 
-So a white bead such as $7$ can be reached in three ways (up from $4$, down
-from $15$ or from $16$), and a black bead such as $3$ in two ways only, both
-from above (down from $7$ or from $8$). Much of Part I is about which way is
+So a white bead such as $8$ can be reached in three ways (up from $5$, down
+from $16$ or from $17$), and a black bead such as $4$ in two ways only, both
+from above (down from $8$ or from $9$). Much of Part I is about which way is
 shortest.
 
 Three more names, for sequences of moves:
@@ -205,61 +223,53 @@ Three more names, for sequences of moves:
 - **Recitation**: a finite or infinite sequence $(a_i)$ of beads with
   $a_{i+1} \in \{a_iU, a_iD\}$. Its **length** is its number of moves.
 - **Minimal recitation** from $n$ to $m$: a recitation of minimal length.
-  Unless stated otherwise, a minimal recitation *to* $m$ starts at bead $0$.
+  Unless stated otherwise, a minimal recitation *to* $m$ starts at bead $1$.
 - **Height**: $h(n)$ is the length of a minimal recitation to $n$. The
-  recitation $0, 1, 2, 4, 7$ shows that $h(7) \leq 4$ (in fact $h(7) = 4$,
+  recitation $1, 2, 3, 5, 8$ shows that $h(8) \leq 4$ (in fact $h(8) = 4$,
   by Lemma 2 below).
 
-**Heap coordinates.** It is often convenient to shift positions by one and
-write $x = n + 1 \geq 1$. In these coordinates,
-
-$$\text{down}: x \mapsto \lfloor x/2 \rfloor, \qquad
-  \mu, \nu: x \mapsto 2x,\ 2x+1, \qquad
-  \text{up}: x \mapsto \lceil 3x/2 \rceil .$$
-
-In other words, *the rosary is the infinite binary tree in heap order*: moving
-down means moving to the parent, i.e. erasing the last binary digit of $n+1$,
-and $n\mu$, $n\nu$ are the two children of $n$. Bead $7$ is $x = 8$, or
-$1000$ in binary: its parent is $x = 4$ (bead $3$) and its children are
-$x = 16$ and $x = 17$ (beads $15$ and $16$). Moving up is the map
-$x \mapsto \lceil 3x/2 \rceil$ studied by Odlyzko and Wilf in connection with
-the Josephus problem [OW91]; black beads are those with $x \equiv 1 \pmod 3$.
-Most of what follows is an interplay between this binary structure (down) and
-the multiplication by $3/2$ (up).
+**The binary tree.** Down halves, and $\mu$, $\nu$ double: *the rosary is
+the infinite binary tree in heap order*. Moving down means moving to the
+parent, i.e. erasing the last binary digit of $n$, and $n\mu$, $n\nu$ are
+the two children of $n$. Bead $8$ is $1000$ in binary: its parent is bead
+$4$ and its children are beads $16$ and $17$. Moving up is the map
+$n \mapsto \lceil 3n/2 \rceil$ studied by Odlyzko and Wilf in connection with
+the Josephus problem [OW91]. Most of what follows is an interplay between
+this binary structure (down) and the multiplication by $3/2$ (up).
 
 ### 2. The height of a bead
 
-By definition $h(0) = 0$.
+By definition $h(1) = 0$.
 
-[![Figure 3](images/figure-03.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=to3&interactive=yes)
+[![Figure 3](images/figure-03.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=to3&interactive=yes&first=1)
 
-> Figure 3: the height of bead $3$ is $5$. Beads show their labels and the arrows are numbered in the order of the moves: four up, then one down onto bead $3$, the fourth from the left ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=to3&interactive=yes)).
+> Figure 3: the height of bead $4$ is $5$. Beads show their labels and the arrows are numbered in the order of the moves: four up, then one down onto bead $4$, the fourth from the left ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=to3&interactive=yes&first=1)).
 
-**Proposition 1.** Every bead has a finite height. Moreover, for all $n \geq 1$,
+**Proposition 1.** Every bead has a finite height. Moreover, for all $n \geq 2$,
 
-$$\log_{3/2}\frac{n+2}{2} \;\leq\; h(n) \;\leq\; \min\Big(1 + \frac{4n}{3},\;\; 12 + 3\,\frac{\ln n}{\ln(9/8)}\Big).$$
+$$\log_{3/2}\frac{n+1}{2} \;\leq\; h(n) \;\leq\; \min\Big(\frac{4n-1}{3},\;\; 12 + 3\,\frac{\ln n}{\ln(9/8)}\Big).$$
 
-*Proof.* Let $n > 0$.
+*Proof.* Let $n > 1$.
 
-- If $3 \nmid n$, then $n = mU$ with $m = n\lambda = \lfloor 2n/3 \rfloor < n$.
-- If $3 \mid n$ and $9 \nmid n$, then $n = mU^2D$ with
+- If $n$ is white, then $n = mU$ with $m = n\lambda = \lfloor 2n/3 \rfloor < n$.
+- If $n$ is black and $n \not\equiv 1 \pmod 9$, then $n = mU^2D$ with
   $m = n\mu\lambda^2 = \lfloor 8n/9 \rfloor < n$.
-- If $9 \mid n$, then $n = mU^2D$ with
-  $m = n\nu\lambda^2 = \lfloor (8n+6)/9 \rfloor < n$.
+- If $n \equiv 1 \pmod 9$, then $n = mU^2D$ with
+  $m = n\nu\lambda^2 = \lceil 8n/9 \rceil < n$.
 
 By induction on $n$, every bead has a finite height, and $h(n) \leq 3 + h(m)$
-with $m - 6 \leq \frac{8}{9}(n-6)$ in all three cases. Both upper bounds follow
+with $m - 7 \leq \frac{8}{9}(n-7)$ in all three cases. Both upper bounds follow
 by induction, the finitely many small cases being checked directly
-($h(n) = 0, 1, 2, 5, 3, 6, 9, 4, 7, 10, 10, \ldots$; equality in
-$h(n) \le 1 + 4n/3$ holds for $n = 3$ and $n = 6$).
+($h(n) = 0, 1, 2, 5, 3, 6, 9, 4, 7, 10, 10, \ldots$ for $n = 1, 2, 3, \ldots$;
+equality in $h(n) \le (4n-1)/3$ holds for $n = 4$ and $n = 7$).
 
-For the lower bound, note that $nU + 2 \leq \frac{3}{2}(n+2)$ and $nD < n$, so a
-recitation of length $h$ starting at $0$ ends at a bead $n$ with
-$n + 2 \leq 2\,(3/2)^h$. $\quad\Box$
+For the lower bound, note that $nU + 1 \leq \frac{3}{2}(n+1)$ and $nD < n$, so a
+recitation of length $h$ starting at $1$ ends at a bead $n$ with
+$n + 1 \leq 2\,(3/2)^h$. $\quad\Box$
 
 The logarithmic upper bound was suggested by
 [Jianing Song](https://oeis.org/wiki/User:Jianing_Song). (Numerically,
-$h(n) \leq 1 + 3\ln n/\ln(9/8)$ for all $1 \le n < 10^6$.) The lower bound is
+$h(n) \leq 1 + 3\ln n/\ln(9/8)$ for all $2 \le n \le 10^6$.) The lower bound is
 asymptotically attained along the recitation that only moves up, so
 $\liminf h(n)/\ln n = 1/\ln(3/2) \approx 2.466$. See Section 12 for what
 $h(n)/\ln n$ does for a typical $n$.
@@ -270,15 +280,15 @@ $h(n)/\ln n$ does for a typical $n$.
 import itertools
 
 def height(n: int) -> int:
-    if n < 0: raise ValueError("n must be a nonnegative integer")
-    if n == 0: return 0
-    if n == 1: return 1
-    visited = {0, 1}     # the beads we have visited so far
-    rings = [{0}, {1}]   # the beads grouped by height
+    if n < 1: raise ValueError("n must be a positive integer")
+    if n == 1: return 0
+    if n == 2: return 1
+    visited = {1, 2}     # the beads we have visited so far
+    rings = [{1}, {2}]   # the beads grouped by height
     for h in itertools.count(2):
         new_ring = set()
         for bead in rings[h - 1]:
-            label = (bead >> 1) + 1
+            label = (bead + 1) >> 1
             for next_bead in {bead - label, bead + label}:
                 if next_bead not in visited:
                     if next_bead == n: return h
@@ -287,9 +297,9 @@ def height(n: int) -> int:
         rings.append(new_ring)
 ```
 
-[![Figure 4](images/figure-04.png)](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000 "live")
+[![Figure 4](images/figure-04.png)](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000&first=1 "live")
 
-> Figure 4: the heights of the first $10\,000$ beads, with positions on a logarithmic scale. Look at the horizontal dashes: long runs of neighboring beads share the same height. Click the picture to explore it ([live version](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000)).
+> Figure 4: the heights of the first $10\,000$ beads, with positions on a logarithmic scale. Look at the horizontal dashes: long runs of neighboring beads share the same height. Click the picture to explore it ([live version](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000&first=1)).
 
 ### 3. Minimal recitations
 
@@ -312,8 +322,8 @@ round in a loop, this means that the loop closes.
 Both statements of Lemma 1 say that a loop closes. Start from $w$, in the
 bottom right corner: go up the right-hand side, across the top, and down the
 left-hand side; you arrive at $w\lambda$, from which one up move leads back
-to $w$. With $w = 7$ in the first diagram: up to $\hat{w} = 16$, across to
-$16\lambda = 10$, down to $10D = 4$, and $4U = 7$. Here $x$ and $y$ stand for
+to $w$. With $w = 8$ in the first diagram: up to $\hat{w} = 17$, across to
+$17\lambda = 11$, down to $11D = 5$, and $5U = 8$. Here $x$ and $y$ stand for
 $\mu$ or $\nu$:
 
 $$
@@ -332,63 +342,63 @@ w\lambda @>U>> w
 \end{CD}
 $$
 
-*Proof.* Direct computation. If $w = 3k+1$, then $w\lambda = 2k$, the white
-bead is $\hat{w} = w\nu = 6k+4$ and the black bead is $b = w\mu = 6k+3$:
-
-$$
-\begin{CD}
-4k+2 @<\lambda<< 6k+4\\
-@VVDV @AA\nu A\\
-2k @>U>> 3k+1
-\end{CD}
-\qquad
-\begin{CD}
-8k+4 @<\lambda<< 12k+7\\
-@VVDV @AA\mu A\\
-4k+1 @. 6k+3\\
-@VVDV @AA\mu A\\
-2k @>U>> 3k+1
-\end{CD}
-\qquad
-\begin{CD}
-8k+5 @<\lambda<< 12k+8\\
-@VVDV @AA\nu A\\
-4k+2 @. 6k+3\\
-@VVDV @AA\mu A\\
-2k @>U>> 3k+1
-\end{CD}
-$$
-
-If $w = 3k+2$, then $w\lambda = 2k+1$, the white bead is $\hat{w} = w\mu = 6k+5$
-and the black bead is $b = w\nu = 6k+6$:
+*Proof.* Direct computation. If $w = 3k+2$, then $w\lambda = 2k+1$, the white
+bead is $\hat{w} = w\nu = 6k+5$ and the black bead is $b = w\mu = 6k+4$:
 
 $$
 \begin{CD}
 4k+3 @<\lambda<< 6k+5\\
-@VVDV @AA\mu A\\
-2k+1 @>U>> 3k+2
-\end{CD}
-\qquad
-\begin{CD}
-8k+8 @<\lambda<< 12k+13\\
-@VVDV @AA\mu A\\
-4k+3 @. 6k+6\\
 @VVDV @AA\nu A\\
 2k+1 @>U>> 3k+2
 \end{CD}
 \qquad
 \begin{CD}
-8k+9 @<\lambda<< 12k+14\\
+8k+5 @<\lambda<< 12k+8\\
+@VVDV @AA\mu A\\
+4k+2 @. 6k+4\\
+@VVDV @AA\mu A\\
+2k+1 @>U>> 3k+2
+\end{CD}
+\qquad
+\begin{CD}
+8k+6 @<\lambda<< 12k+9\\
 @VVDV @AA\nu A\\
-4k+4 @. 6k+6\\
-@VVDV @AA\nu A\\
+4k+3 @. 6k+4\\
+@VVDV @AA\mu A\\
 2k+1 @>U>> 3k+2
 \end{CD}
 $$
 
+If $w = 3k$, then $w\lambda = 2k$, the white bead is $\hat{w} = w\mu = 6k$
+and the black bead is $b = w\nu = 6k+1$:
+
+$$
+\begin{CD}
+4k @<\lambda<< 6k\\
+@VVDV @AA\mu A\\
+2k @>U>> 3k
+\end{CD}
+\qquad
+\begin{CD}
+8k+1 @<\lambda<< 12k+2\\
+@VVDV @AA\mu A\\
+4k @. 6k+1\\
+@VVDV @AA\nu A\\
+2k @>U>> 3k
+\end{CD}
+\qquad
+\begin{CD}
+8k+2 @<\lambda<< 12k+3\\
+@VVDV @AA\nu A\\
+4k+1 @. 6k+1\\
+@VVDV @AA\nu A\\
+2k @>U>> 3k
+\end{CD}
+$$
+
 Each arrow of these six diagrams is one line of arithmetic; in the first one,
-for instance, $(6k+4)\lambda = \lfloor (12k+8)/3 \rfloor = 4k+2$ and
-$(4k+2)D = 2k$. In all six the loop closes: the left-hand side comes down
+for instance, $(6k+5)\lambda = \lfloor (12k+10)/3 \rfloor = 4k+3$ and
+$(4k+3)D = 2k+1$. In all six the loop closes: the left-hand side comes down
 onto the very bead, $w\lambda$, from which the bottom arrow leads up to $w$.
 This is statement 1 for the small diagrams and statement 2 for the tall
 ones. $\quad\Box$
@@ -411,26 +421,26 @@ recitation to $w$ of length at most $h$ that ends with an up move.
   $h - 2$. By induction $h(p'\lambda) = h - 3$, and $p'\lambda DD = w\lambda$,
   so $h(w\lambda) \leq h - 1$. $\quad\Box$
 
-**Corollary 1 (black beads).** For every black bead $b > 0$,
+**Corollary 1 (black beads).** For every black bead $b > 1$,
 $h(b) = 1 + \min\big(h(b\mu), h(b\nu)\big)$, and there is a minimal recitation
 to $b$ that ends with *up*-*down*.
 
 *Proof.* A black bead can only be reached by a down move (Fact 1), from $b\mu$
 or $b\nu$, which are both white; apply Lemma 2. $\quad\Box$
 
-For $b = 3k$ the two candidates are:
+For $b = \boldsymbol{n}^\bullet$ the two candidates are:
 
 $$
 \begin{CD}
-4k @<\lambda<< 6k+1\\
+4\boldsymbol{n}-3 @<\lambda<< 6\boldsymbol{n}-4\\
 @. @AA\mu A\\
-{} @. 3k
+{} @. \boldsymbol{n}^\bullet
 \end{CD}
 \qquad\qquad
 \begin{CD}
-4k+1 @<\lambda<< 6k+2\\
+4\boldsymbol{n}-2 @<\lambda<< 6\boldsymbol{n}-3\\
 @. @AA\nu A\\
-{} @. 3k
+{} @. \boldsymbol{n}^\bullet
 \end{CD}
 $$
 
@@ -445,81 +455,86 @@ which one to choose.
 > Ridley Scott, *Blade Runner* (1982)
 
 Theorem 1 compares two beads by looking at where they come from when one
-only moves up. This takes four names; bead $7$ is the example again.
+only moves up. This takes four names; bead $8$ is the example again.
 
 - **Up-chain**: $\uparrow\!(n) = \{nU^i \mid i \in \mathbb{N}\}$, what Jane tells
   if she starts at $n$ and only moves up:
-  $\uparrow\!(7) = \{7, 11, 17, 26, \ldots\}$.
+  $\uparrow\!(8) = \{8, 12, 18, 27, \ldots\}$.
 - **Down-chain**: $\downarrow\!(n) = \{nD^i \mid i \geq 0,\ nD^i \text{ defined}\}$,
-  what she tells if she only moves down; it is finite and ends in $0$:
-  $\downarrow\!(7) = \{7, 3, 1, 0\}$.
+  what she tells if she only moves down; it is finite and ends in $1$:
+  $\downarrow\!(8) = \{8, 4, 2, 1\}$.
 - **Seed**: $\sigma(n)$ is the unique black bead from which $n$ is reached by up
   moves only. **Lambex** (for "$\lambda$-exponent"): $\Lambda(n)$ is the number
   of those up moves. In other words $n = \sigma(n)U^{\Lambda(n)}$ and
   $\sigma(n) = n\lambda^{\Lambda(n)}$, which is where the name comes from.
-  Going back from bead $7$ by $\lambda$ gives $4, 2, 1, 0$, and $0$ is black:
-  $\sigma(7) = 0$ and $\Lambda(7) = 4$. Its neighbor $8$ goes back to $5$ and
-  then to the black bead $3$: $\sigma(8) = 3$ and $\Lambda(8) = 2$.
+  Going back from bead $8$ by $\lambda$ gives $5, 3, 2, 1$, and $1$ is black:
+  $\sigma(8) = 1$ and $\Lambda(8) = 4$. Its neighbor $9$ goes back to $6$ and
+  then to the black bead $4$: $\sigma(9) = 4$ and $\Lambda(9) = 2$.
 
 By Fact 1, the up-chains of the black beads partition the rosary,
-$\mathbb{N} = \biguplus_{n} \uparrow\!(3n)$, and
+$\mathbb{N}^* = \biguplus_{\boldsymbol{n}} \uparrow\!(\boldsymbol{n}^\bullet)$. So a bead is known
+by the number of its seed and by its lambex:
 
-$$\gamma(n) = \Big(\frac{\sigma(n)}{3},\ \Lambda(n)\Big)$$
+$$\gamma(n) = \big(\boldsymbol{k},\ \Lambda(n)\big) \quad\text{where}\quad \sigma(n) = \boldsymbol{k}^\bullet$$
 
-is a bijection between $\mathbb{N}$ and $\mathbb{N}\times\mathbb{N}$.
+is a bijection between $\mathbb{N}^*$ and $\mathbb{N}^*\times\mathbb{N}$. For
+instance $\gamma(8) = (\mathbf{1}, 4)$ and $\gamma(9) = (\mathbf{2}, 2)$.
 
-[![Figure 5](images/figure-05.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=none&label=position&color=none&arrows=none&interactive=yes)
+[![Figure 5](images/figure-05.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=none&label=position&color=none&arrows=none&interactive=yes&first=1)
 
-> Figure 5: the rosary deconstructed. Each row is an up-chain and starts from a black bead, on the left: an up move is a step to the right, and $\lambda$ is a step to the left. Bead $7$ sits in the bottom row, four steps from its seed $0$ ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=none&label=position&color=none&arrows=none&interactive=yes)).
+> Figure 5: the rosary deconstructed. Each row is an up-chain and starts from a black bead, on the left: an up move is a step to the right, and $\lambda$ is a step to the left. Bead $8$ sits in the bottom row, four steps from its seed $1$ ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=none&label=position&color=none&arrows=none&interactive=yes&first=1)).
 
-[![Figure 6](images/figure-06.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic&label=height&color=height&arrows=yes&interactive=yes)
+[![Figure 6](images/figure-06.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic&label=height&color=height&arrows=yes&interactive=yes&first=1)
 
-> Figure 6: the same, with heights in place of positions. Each arrow leads to a bead from the one before it on a shortest recitation: white beads are reached from their left (Lemma 2), black beads from one of the two beads above them in the binary tree ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic&label=height&color=height&arrows=yes&interactive=yes)).
+> Figure 6: the same, with heights in place of positions. Each arrow leads to a bead from the one before it on a shortest recitation: white beads are reached from their left (Lemma 2), black beads from one of the two beads above them in the binary tree ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic&label=height&color=height&arrows=yes&interactive=yes&first=1)).
 
-In heap coordinates the up-chain of $0$ reads $1, 2, 3, 5, 8, 12, 18, 27, 41,
+The up-chain of bead $1$ reads $1, 2, 3, 5, 8, 12, 18, 27, 41,
 \ldots$ ([A061419](https://oeis.org/A061419)); by [OW91] every up-chain grows
 like $K\cdot(3/2)^i$ for a constant $K$ depending on the chain.
 
 **Remark (neighbors of black beads have lower seeds).** Since
-$\sigma(n) \leq n\lambda$ for white $n$, we get for all $n > 0$:
-$\sigma(3n-1) \leq 2n-1$ and $\sigma(3n+1) \leq 2n$. (This was "Conjecture 3"
-in the very first version of this note.)
+$\sigma(n) \leq n\lambda$ for white $n$, the two neighbors of a black bead
+$\boldsymbol{n}^\bullet > 1$ have small seeds:
+$\sigma(\boldsymbol{n}^\bullet - 1) \leq 2\boldsymbol{n}-2$ and $\sigma(\boldsymbol{n}^\bullet + 1) \leq 2\boldsymbol{n}-1$.
+(This was "Conjecture 3" in the very first version of this note.)
 
 ### 5. Theorem 1: minimal recitations ending in a black bead
 
-Let $3n > 0$ be a black bead. Write
+Let $\boldsymbol{n}^\bullet > 1$ be a black bead. Write
 
-$$2n + 1 = 3^e q \quad\text{with } 3 \nmid q, \qquad\text{and}\qquad
-  a_i = \Big(\frac{2}{3}\Big)^i (6n+3) - 2, \quad b_i = a_i + 1
+$$2\boldsymbol{n} - 1 = 3^e q \quad\text{with } 3 \nmid q, \qquad\text{and}\qquad
+  b_i = \Big(\frac{2}{3}\Big)^i (6\boldsymbol{n}-3) = 2^i\,3^{e+1-i}\,q, \quad a_i = b_i - 1
   \qquad (0 \leq i \leq e+1).$$
 
 **Theorem 1.** With these notations:
 
-1. $a_0 = 3n\mu$, $b_0 = 3n\nu$, and $a_i = 3n\mu\lambda^i$,
-   $b_i = 3n\nu\lambda^i$ for all $i \leq e+1$. For $i \leq e$ both $a_i$ and
+1. $a_0 = \boldsymbol{n}^\bullet\mu$, $b_0 = \boldsymbol{n}^\bullet\nu$, and $a_i = \boldsymbol{n}^\bullet\mu\lambda^i$,
+   $b_i = \boldsymbol{n}^\bullet\nu\lambda^i$ for all $i \leq e+1$. For $i \leq e$ both $a_i$ and
    $b_i$ are white; exactly one of $a_{e+1}$, $b_{e+1}$ is black.
-2. If $2^{e+1}q \equiv 1 \pmod 3$ then $b_{e+1}$ is black and
-   $\Lambda(3n\mu) > \Lambda(3n\nu) = e+1$; we say that *$\mu$ wins*.
+2. If $2^{e+1}q \equiv 1 \pmod 3$ then $b_{e+1} = 2^{e+1}q$ is black and
+   $\Lambda(\boldsymbol{n}^\bullet\mu) > \Lambda(\boldsymbol{n}^\bullet\nu) = e+1$; we say that *$\mu$ wins*.
    If $2^{e+1}q \equiv 2 \pmod 3$ then $a_{e+1}$ is black and
-   $\Lambda(3n\nu) > \Lambda(3n\mu) = e+1$; we say that *$\nu$ wins*.
-3. In particular $\Lambda(3n\mu) \neq \Lambda(3n\nu)$,
-   $\sigma(3n\mu) \neq \sigma(3n\nu)$, and
-   $$\Lambda(3n\mu) > \Lambda(3n\nu) \iff \sigma(3n\mu) < \sigma(3n\nu).$$
-4. $h(3n) \geq h(3n-1)$ and $h(3n) \geq h(3n+1)$.
-5. Let $w$ be the winner ($w = 3n\mu$ if $\mu$ wins, $w = 3n\nu$ if $\nu$ wins).
-   Then $h(3n) = h(\sigma(w)) + \Lambda(w) + 1$: there is a minimal recitation
-   to $3n$ ending in $\sigma(w)\,U^{\Lambda(w)}D$.
+   $\Lambda(\boldsymbol{n}^\bullet\nu) > \Lambda(\boldsymbol{n}^\bullet\mu) = e+1$; we say that *$\nu$ wins*.
+3. In particular $\Lambda(\boldsymbol{n}^\bullet\mu) \neq \Lambda(\boldsymbol{n}^\bullet\nu)$,
+   $\sigma(\boldsymbol{n}^\bullet\mu) \neq \sigma(\boldsymbol{n}^\bullet\nu)$, and
+   $$\Lambda(\boldsymbol{n}^\bullet\mu) > \Lambda(\boldsymbol{n}^\bullet\nu) \iff \sigma(\boldsymbol{n}^\bullet\mu) < \sigma(\boldsymbol{n}^\bullet\nu).$$
+4. $h(\boldsymbol{n}^\bullet) \geq h(\boldsymbol{n}^\bullet-1)$ and $h(\boldsymbol{n}^\bullet) \geq h(\boldsymbol{n}^\bullet+1)$.
+5. Let $w$ be the winner ($w = \boldsymbol{n}^\bullet\mu$ if $\mu$ wins, $w = \boldsymbol{n}^\bullet\nu$ if $\nu$ wins).
+   Then $h(\boldsymbol{n}^\bullet) = h(\sigma(w)) + \Lambda(w) + 1$: there is a minimal recitation
+   to $\boldsymbol{n}^\bullet$ ending in $\sigma(w)\,U^{\Lambda(w)}D$.
 
-In words: of the two beads $3n\mu$ and $3n\nu$ above a black bead, *the one
+In words: of the two beads $\boldsymbol{n}^\bullet\mu$ and $\boldsymbol{n}^\bullet\nu$ above a black bead, *the one
 with the larger lambex, equivalently the smaller seed, lies on a minimal
 recitation*; and which one it is can be read off the base-3 expansion of
-$2n+1$.
+$2\boldsymbol{n}-1$. Above the black bead $4 = \mathbf{2}^\bullet$, for instance, $2\boldsymbol{n} - 1 = 3$,
+so $e = 1$, $q = 1$ and $b_2 = 4$ is black: $\mu$ wins, and indeed
+$4\mu = 8$ has lambex $4$ while $4\nu = 9$ has lambex $2$.
 
-[![Figure 7](images/figure-07.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=back&label=position&color=position&arrows=yes&interactive=yes)
+[![Figure 7](images/figure-07.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=back&label=position&color=position&arrows=yes&interactive=yes&first=1)
 
-> Figure 7: when in doubt, choose the predecessor with the larger lambex. Each arrow points to where a shortest recitation comes from. White beads point one step to the left. A black bead, in the left column, has two candidates: the solid arrow points to the winner, the dashed one to the loser, and the winner is always the one further to the right in its row ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=back&label=position&color=position&arrows=yes&interactive=yes)).
+> Figure 7: when in doubt, choose the predecessor with the larger lambex. Each arrow points to where a shortest recitation comes from. White beads point one step to the left. A black bead, in the left column, has two candidates: the solid arrow points to the winner, the dashed one to the loser, and the winner is always the one further to the right in its row ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=back&label=position&color=position&arrows=yes&interactive=yes&first=1)).
 
-*The idea.* Follow the two candidates $a_0 = 3n\mu$ and $b_0 = 3n\nu$
+*The idea.* Follow the two candidates $a_0 = \boldsymbol{n}^\bullet\mu$ and $b_0 = \boldsymbol{n}^\bullet\nu$
 backwards along their up-chains. They are neighbors, and they stay neighbors,
 $b_i = a_i + 1$, for $e + 1$ steps back. All the beads met on the way are
 white, except one of the last two, $a = a_{e+1}$ and $b = b_{e+1}$: that one
@@ -528,55 +543,57 @@ and (3), and it is plain arithmetic modulo $3$.
 
 For the heights, look one row down. The beads $c_i = a_iD$ and $d_i = b_iD$
 below the two candidates' chains turn out to be the chains of the two
-neighbors of our black bead, $3n - 1$ and $3n + 1$:
+neighbors of our black bead, $\boldsymbol{n}^\bullet - 1$ and $\boldsymbol{n}^\bullet + 1$:
 
 $$
 \begin{CD}
-3n @<D<< a_0 @>\lambda>> a_1 @>\lambda>> \cdots @>\lambda>> a\\
+\boldsymbol{n}^\bullet @<D<< a_0 @>\lambda>> a_1 @>\lambda>> \cdots @>\lambda>> a\\
 @. @. @VVDV @. @VVDV\\
-{} @. 3n-1 @>\lambda>> c_1 @>\lambda>> \cdots @>\lambda>> c
+{} @. \boldsymbol{n}^\bullet-1 @>\lambda>> c_1 @>\lambda>> \cdots @>\lambda>> c
 \end{CD}
 $$
 
 $$
 \begin{CD}
-3n @<D<< b_0 @>\lambda>> b_1 @>\lambda>> \cdots @>\lambda>> b\\
+\boldsymbol{n}^\bullet @<D<< b_0 @>\lambda>> b_1 @>\lambda>> \cdots @>\lambda>> b\\
 @. @. @VVDV @. @VVDV\\
-{} @. 3n+1 @>\lambda>> d_1 @>\lambda>> \cdots @>\lambda>> d
+{} @. \boldsymbol{n}^\bullet+1 @>\lambda>> d_1 @>\lambda>> \cdots @>\lambda>> d
 \end{CD}
 $$
 
 By Lemma 2, walking along a row costs one move per arrow. So the heights of
-$3n$, $3n - 1$ and $3n + 1$ are read off the four beads at the right-hand
+$\boldsymbol{n}^\bullet$, $\boldsymbol{n}^\bullet - 1$ and $\boldsymbol{n}^\bullet + 1$ are read off the four beads at the right-hand
 ends, $a$, $b$, $c = c_{e+1}$ and $d = d_{e+1}$. Exactly two of these four are
 black, and comparing them comes down to statement (4) for a smaller black
 bead: this is the induction.
 
-*Proof.* **(1) and (2).** We have $a_0 = 6n+1$ and $b_0 = 6n+2$. For
-$i \leq e$, $a_i + 2 = 2^i 3^{e+1-i} q$ is divisible by $3$, so
-$a_i \equiv 1$ and $b_i \equiv 2 \pmod 3$: both are white, and one checks
-$a_i\lambda = \frac{2}{3}(a_i + 2) - 2 = a_{i+1}$ and
-$b_i\lambda = a_{i+1} + 1 = b_{i+1}$. Finally $a_{e+1} + 2 = 2^{e+1}q$ is not
-divisible by $3$: if it is $\equiv 2$ then $a_{e+1}$ is black and $b_{e+1}$ is
-white, and if it is $\equiv 1$ then $a_{e+1} \equiv 2$ is white and $b_{e+1}$
-is black. The lambex of the bead that turned black is $e+1$; the other one is
-larger.
+*Proof.* **(1) and (2).** We have $a_0 = 6\boldsymbol{n}-4$ and $b_0 = 6\boldsymbol{n}-3$. For
+$i \leq e$, $b_i = 2^i 3^{e+1-i} q$ is divisible by $3$, so
+$b_i \equiv 0$ and $a_i \equiv 2 \pmod 3$: both are white, and one checks
+$b_i\lambda = \frac{2}{3}b_i = b_{i+1}$ and
+$a_i\lambda = \lfloor \frac{2}{3}(b_i - 1) \rfloor = b_{i+1} - 1 = a_{i+1}$.
+Finally $b_{e+1} = 2^{e+1}q$ is not
+divisible by $3$: if it is $\equiv 1$ then $b_{e+1}$ is black and
+$a_{e+1} \equiv 0$ is white, and if it is $\equiv 2$ then $b_{e+1}$ is white
+and $a_{e+1} \equiv 1$ is black. The lambex of the bead that turned black is
+$e+1$; the other one is larger.
 
 **(3).** The loser's seed is the black bead $s \in \{a_{e+1}, b_{e+1}\}$, and
-$s \geq 3$ (indeed $a_{e+1} = 0$ would force $n = 0$). The winner's seed is at
+$s \geq 4$ (indeed $s = 1$ would mean $b_{e+1} = 2$, which forces $\boldsymbol{n} = \mathbf{1}$).
+The winner's seed is at
 most $(s \pm 1)\lambda \leq \frac{2}{3}(s+1) < s$.
 
-**(4) and (5).** For $1 \le i \le e+1$ put $c_i = a_iD = a_i/2 - 1$ and
-$d_i = b_iD = c_i + 1$. The same computation as above gives
-$c_i = (3n-1)\lambda^i$ and $d_i = (3n+1)\lambda^i$, with $c_i$ and $d_i$ white
+**(4) and (5).** For $1 \le i \le e+1$ put $d_i = b_iD = b_i/2$ and
+$c_i = a_iD = d_i - 1$. The same computation as above gives
+$c_i = (\boldsymbol{n}^\bullet-1)\lambda^i$ and $d_i = (\boldsymbol{n}^\bullet+1)\lambda^i$, with $c_i$ and $d_i$ white
 for $i \leq e$. Write $a, b, c, d$ for $a_{e+1}, b_{e+1}, c_{e+1}, d_{e+1}$.
 So the two ladders drawn above commute. Every bead from which a $\lambda$
 arrow starts is white, so by Lemma 2 it
 is one higher than the bead the arrow points to. Reading the rows from right
-to left, and using Corollary 1 for the step down to $3n$,
+to left, and using Corollary 1 for the step down to $\boldsymbol{n}^\bullet$,
 
-$$h(3n) = \min\big(h(a), h(b)\big) + e + 2, \qquad
-  h(3n-1) = h(c) + e + 1, \qquad h(3n+1) = h(d) + e + 1. \tag{$\ast$}$$
+$$h(\boldsymbol{n}^\bullet) = \min\big(h(a), h(b)\big) + e + 2, \qquad
+  h(\boldsymbol{n}^\bullet-1) = h(c) + e + 1, \qquad h(\boldsymbol{n}^\bullet+1) = h(d) + e + 1. \tag{$\ast$}$$
 
 Modulo $3$ there are only two configurations:
 
@@ -585,25 +602,25 @@ Modulo $3$ there are only two configurations:
 | $\mu$ wins | white | **black** | **black** | white |
 | $\nu$ wins | **black** | white | white | **black** |
 
-We prove (4) and (5) by strong induction on $h(3n)$. The bead $3n = 3$ is
-checked directly ($h(2) = 2$, $h(3) = 5$, $h(4) = 3$, and
-$0\,U^4 D = 3$ with $\sigma(3\mu) = \sigma(7) = 0$). It is the only case in
-which $c = 0$, so from now on $c > 0$.
+We prove (4) and (5) by strong induction on $h(\boldsymbol{n}^\bullet)$. The bead $\mathbf{2}^\bullet = 4$ is
+checked directly ($h(3) = 2$, $h(4) = 5$, $h(5) = 3$, and
+$1\,U^4 D = 4$ with $\sigma(4\mu) = \sigma(8) = 1$). It is the only case in
+which $c = 1$, so from now on $c > 1$.
 
 *Case "$\mu$ wins".* If we had $h(b) < h(a)$, then by $(\ast)$
-$h(b) < h(3n)$, and the induction hypothesis (4) applied to the black bead
+$h(b) < h(\boldsymbol{n}^\bullet)$, and the induction hypothesis (4) applied to the black bead
 $b$ would give $h(b) \geq h(b-1) = h(a)$, a contradiction. Hence
-$h(3n) = h(a) + e + 2$, and since $a = \sigma(3n\mu)U^{\Lambda(3n\mu)-e-1}$,
+$h(\boldsymbol{n}^\bullet) = h(a) + e + 2$, and since $a = \sigma(\boldsymbol{n}^\bullet\mu)U^{\Lambda(\boldsymbol{n}^\bullet\mu)-e-1}$,
 Lemma 2 gives (5). Next, $c = aD$ yields
-$h(3n-1) = h(c) + e + 1 \leq h(a) + e + 2 = h(3n)$. Finally $c$ is black with
-$h(c) \leq h(a) + 1 < h(3n)$, so by induction $h(d) = h(c+1) \leq h(c)$ and
-$h(3n+1) = h(d) + e + 1 \leq h(3n)$.
+$h(\boldsymbol{n}^\bullet-1) = h(c) + e + 1 \leq h(a) + e + 2 = h(\boldsymbol{n}^\bullet)$. Finally $c$ is black with
+$h(c) \leq h(a) + 1 < h(\boldsymbol{n}^\bullet)$, so by induction $h(d) = h(c+1) \leq h(c)$ and
+$h(\boldsymbol{n}^\bullet+1) = h(d) + e + 1 \leq h(\boldsymbol{n}^\bullet)$.
 
 *Case "$\nu$ wins".* Symmetric: if $h(a) < h(b)$, the induction hypothesis on
 the black bead $a$ gives $h(a) \geq h(a+1) = h(b)$, a contradiction; hence
-$h(3n) = h(b) + e + 2$, which gives (5). Then $d = bD$ yields
-$h(3n+1) \leq h(3n)$, and $d$ is black with $h(d) < h(3n)$, so
-$h(c) = h(d-1) \leq h(d)$ and $h(3n-1) \leq h(3n)$. $\quad\Box$
+$h(\boldsymbol{n}^\bullet) = h(b) + e + 2$, which gives (5). Then $d = bD$ yields
+$h(\boldsymbol{n}^\bullet+1) \leq h(\boldsymbol{n}^\bullet)$, and $d$ is black with $h(d) < h(\boldsymbol{n}^\bullet)$, so
+$h(c) = h(d-1) \leq h(d)$ and $h(\boldsymbol{n}^\bullet-1) \leq h(\boldsymbol{n}^\bullet)$. $\quad\Box$
 
 *Used:* Lemma 2 and Corollary 1.
 
@@ -614,20 +631,20 @@ arithmetic operations and constant space:
 
 ```python
 def height(n: int) -> int:
-    if n < 0: raise ValueError("n must be a nonnegative integer")
+    if n < 1: raise ValueError("n must be a positive integer")
     h = 0
-    while n:
-        if n % 3:                 # white bead: one up move from n.lambda
+    while n > 1:
+        if n % 3 != 1:            # white bead: one up move from n.lambda
             n = (2*n)//3
             h += 1
-        else:                     # black bead 3m: n becomes a_1 = 4m
+        else:                     # black bead: n becomes b_1 = (2/3)(2n + 1)
             n = (4*n + 2)//3
             h += 2                # one down move + one up move
-            while n % 3 == 1:     # a_i and b_i are both white
+            while n % 3 == 0:     # a_i = b_i - 1 and b_i are both white
                 n = (2*n)//3
                 h += 1
-            if n % 3 == 0:        # a_i is black: nu wins, continue from b_i
-                n += 1
+            if n % 3 == 1:        # b_i is black: mu wins, continue from a_i
+                n -= 1
     return h
 ```
 

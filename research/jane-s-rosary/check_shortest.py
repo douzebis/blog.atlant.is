@@ -120,6 +120,127 @@ def main() -> int:
         report("Remark: sigma(b - 1) <= 2k - 2 and sigma(b + 1) <= 2k - 1", remark),
     ]
 
+    # Fact 1, the six diagrams in the proof of Lemma 1, the two candidates
+    # drawn after Corollary 1, and the three cases of Proposition 1.
+    fact = all(
+        up(2 * j - 1) == 3 * j - 1
+        and up(2 * j) == 3 * j
+        and down(mu(j)) == j
+        and down(nu(j)) == j
+        and mu(j) % 2 == 0
+        for j in range(1, beads)
+    )
+    diagrams = True
+    for k in range(beads // 12):
+        w = 3 * k + 2
+        tall = [
+            (mu(mu(w)), 12 * k + 8, 8 * k + 5, 4 * k + 2),
+            (nu(mu(w)), 12 * k + 9, 8 * k + 6, 4 * k + 3),
+        ]
+        if not (
+            lam(w) == 2 * k + 1
+            and nu(w) == 6 * k + 5
+            and not is_black(nu(w))
+            and lam(nu(w)) == 4 * k + 3
+            and down(4 * k + 3) == lam(w)
+            and mu(w) == 6 * k + 4
+            and is_black(mu(w))
+            and all(
+                top == bead
+                and lam(top) == left
+                and down(left) == middle
+                and down(middle) == lam(w)
+                for top, bead, left, middle in tall
+            )
+        ):
+            diagrams = False
+        if k == 0:
+            continue
+        w = 3 * k
+        tall = [
+            (mu(nu(w)), 12 * k + 2, 8 * k + 1, 4 * k),
+            (nu(nu(w)), 12 * k + 3, 8 * k + 2, 4 * k + 1),
+        ]
+        if not (
+            lam(w) == 2 * k
+            and mu(w) == 6 * k
+            and not is_black(mu(w))
+            and lam(mu(w)) == 4 * k
+            and down(4 * k) == lam(w)
+            and nu(w) == 6 * k + 1
+            and is_black(nu(w))
+            and all(
+                top == bead
+                and lam(top) == left
+                and down(left) == middle
+                and down(middle) == lam(w)
+                for top, bead, left, middle in tall
+            )
+        ):
+            diagrams = False
+    candidates = all(
+        mu(black_bead(k)) == 6 * k - 4
+        and lam(6 * k - 4) == 4 * k - 3
+        and nu(black_bead(k)) == 6 * k - 3
+        and lam(6 * k - 3) == 4 * k - 2
+        for k in range(1, beads)
+    )
+    cases = True
+    for n in range(2, beads):
+        if not is_black(n):
+            m = lam(n)
+            reached = up(m)
+        elif n % 9 != 1:
+            m = (8 * n) // 9
+            reached = down(up(up(m)))
+            if m != lam(lam(mu(n))):
+                cases = False
+        else:
+            m = -((-8 * n) // 9)
+            reached = down(up(up(m)))
+            if m != lam(lam(nu(n))):
+                cases = False
+        if reached != n or m >= n or 9 * (m - 7) > 8 * (n - 7):
+            cases = False
+    results += [
+        report("Fact 1: the images of U, and mu, nu above a bead", fact),
+        report("Lemma 1: the six diagrams of the proof", diagrams),
+        report("after Corollary 1: the two candidates above a black bead", candidates),
+        report("Proposition 1: the three cases of the proof", cases),
+    ]
+
+    # The chains of Theorem 1 and of its proof.
+    chains = True
+    for k in range(2, 3000):
+        b = black_bead(k)
+        e, q = 0, 2 * k - 1
+        while q % 3 == 0:
+            q //= 3
+            e += 1
+        upper_a, upper_b = mu(b), nu(b)
+        lower_c, lower_d = b - 1, b + 1
+        for i in range(e + 2):
+            b_i = 2**i * 3 ** (e + 1 - i) * q
+            if (upper_a, upper_b) != (b_i - 1, b_i):
+                chains = False
+            if i >= 1 and (lower_c, lower_d) != (down(upper_a), down(upper_b)):
+                chains = False
+            if i <= e:
+                if is_black(upper_a) or is_black(upper_b):
+                    chains = False
+                if is_black(lower_c) or is_black(lower_d):
+                    chains = False
+                upper_a, upper_b = lam(upper_a), lam(upper_b)
+                lower_c, lower_d = lam(lower_c), lam(lower_d)
+        blacks = [is_black(x) for x in (upper_a, upper_b, lower_c, lower_d)]
+        if blacks not in ([False, True, True, False], [True, False, False, True]):
+            chains = False
+        if (lower_c == 1) != (k == 2):
+            chains = False
+    results.append(
+        report("Theorem 1: the chains a_i, b_i, c_i, d_i and their colors", chains)
+    )
+
     million = 10**6
     heights = [0] + [height(n) for n in range(1, million + 1)]
     beads_checked = range(2, million + 1)
