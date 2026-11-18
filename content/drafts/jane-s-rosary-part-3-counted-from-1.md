@@ -77,14 +77,22 @@ The example is the black bead $4$, reached through our bead $8$.
   with lambex $2$: bead $8$ wins, and
   $\boldsymbol{C}(4) = 1, 2, 3, 5, 8, 4$.
 - **Onyx rosary**: the rosary obtained by removing all white beads. **Onyx
-  bead** $n$ is the $n$-th black bead, $n^\bullet$.
-- **Onyx predecessor**: for an onyx bead $n \geq 2$, $\boldsymbol{\pi}(n)$ is
-  the onyx bead such that $\boldsymbol{\pi}(n)^\bullet = \sigma(w)$, where $w$
-  is the winner among $n^\bullet\mu$, $n^\bullet\nu$. The black beads met by
-  the canonical recitation to $n^\bullet$ are exactly
+  bead** $n$ is the $n$-th black bead, $n^\bullet$: the onyx beads $1$, $2$,
+  $3$, $4$ are the black beads $1$, $4$, $7$, $10$.
+- **Onyx predecessor**: $\boldsymbol{\pi}(n)$ is the onyx bead met just before
+  onyx bead $n$ on the canonical recitation. For instance the canonical
+  recitation to the black bead $7 = 3^\bullet$ is
+  $$\boldsymbol{C}(7) = \mathbf{1}, 2, 3, 5, 8, \mathbf{4}, 6, 9, 14, \mathbf{7},$$
+  and the black beads on it are $1 = 1^\bullet$, $4 = 2^\bullet$ and
+  $7 = 3^\bullet$: so $\boldsymbol{\pi}(3) = 2$ and $\boldsymbol{\pi}(2) = 1$.
+  In general, for $n \geq 2$, the last black bead before $n^\bullet$ is the
+  seed of the winner $w$ among $n^\bullet\mu$, $n^\bullet\nu$, so
+  $\boldsymbol{\pi}(n)$ is defined by
+  $\boldsymbol{\pi}(n)^\bullet = \sigma(w)$. Above $7$ the candidates are
+  $14$, with seed $4$, and $15$, with seed $10$; bead $14$ wins and
+  $\boldsymbol{\pi}(3)^\bullet = 4$. The black beads met by the canonical
+  recitation to $n^\bullet$ are exactly
   $n^\bullet, \boldsymbol{\pi}(n)^\bullet, \boldsymbol{\pi}^2(n)^\bullet, \ldots, 1$.
-  For onyx bead $2$ (the black bead $4$) the winner is $8$, whose seed is
-  $1 = 1^\bullet$: $\boldsymbol{\pi}(2) = 1$.
 - **Onyx ordering**: $m \boldsymbol{\preceq} n$ if and only if $m^\bullet$
   appears in the canonical recitation to $n^\bullet$, i.e.
   $m = \boldsymbol{\pi}^j(n)$ for some $j \geq 0$.
