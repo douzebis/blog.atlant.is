@@ -6,7 +6,7 @@ SPDX-License-Identifier: MIT
 
 # 0004 — Jane's infinite rosary: proofs checked by a proof assistant
 
-**Status:** in-progress (plan approved 2026-11-19; steps 0, 1 and 2 done)
+**Status:** in-progress (plan approved 2026-11-19; steps 0, 1 and 2 done; step 3 done except Corollaries 2 and 3)
 **App:** blog.atlant.is (paper *Jane's infinite rosary*)
 **Implemented in:** <!-- YYYY-MM-DD, fill after implementation -->
 
@@ -119,7 +119,7 @@ read it. The author's go-ahead is needed between steps.
 | 0 | Warm-up: definitions, Fact 1, Lemma 1, Lemmas 6 and 7; the guide; the check | Lean alone | done, 250 lines |
 | 1 | Part I: height, Lemma 2, Corollary 1, Theorem 1, Proposition 1 (first two bounds); the fast algorithm computes the height | Lean alone | done 2026-11-19, 900 lines |
 | 2 | Theorem 2: the reluctant recitation, Lemma 3, never stuck, injective, no gap | Lean alone | done 2026-11-19, 230 lines |
-| 3 | Part III: Proposition 2, Lemma 8, Theorem 4, Corollaries 2 and 3 (Corollary 3 after step 4) | Lean alone, or Mathlib for infinite sets | 500 to 1 000 lines |
+| 3 | Part III: Proposition 2, Lemma 8, Theorem 4, Corollaries 2 and 3 (Corollary 3 after step 4) | Lean alone, or Mathlib for infinite sets | Proposition 2, Lemma 8 and Theorem 4 done 2026-11-19, 300 lines, Lean alone; the corollaries remain |
 | 4 | Theorem 3: Lemmas 4 and 5, the rotation, every bead is told | Mathlib | 600 to 1 500 lines |
 | 5 | Theorem 5, part 1, and $E = o(t)$ (part 2 without the square root) | Mathlib | 500 to 1 000 lines |
 | 6 | Lemma 9, the square root of Theorem 5, Theorem 6, all under the hypothesis "$\mu_0$ is an irrationality exponent of $\log_2 3$" | Mathlib; the three-distance theorem or a cruder substitute | uncertain |
@@ -172,6 +172,14 @@ the first theorem is verified, not one per step.
 - **Step 2.** The proof of Theorem 2 is the paper's, with the same
   invariant (a new bead at each move; no gap at all earlier times). No
   error was found.
+- **Step 3.** Proposition 2 is proved without `e` and `q`, by following
+  the two neighbors back as in part 3 of Theorem 1. Lemma 8 is stated as
+  a bound on the steps at which the two chains are neighbors, and its
+  count (`1 + v2(a + 1)`) as `gap_one_iff`. Theorem 4 is the paper's
+  proof. Corollary 2 (the address is a bijection onto finite sequences)
+  is not done: it needs the ranks of the covers and lists, about as much
+  text as Theorem 4, for a statement the paper proves in one line.
+  Corollary 3 needs Theorem 3. No error was found.
 - The check and its tests are shared scripts, `formal/check.sh` and
   `formal/test-check.sh`, so that another paper can use them.
 

@@ -4,6 +4,7 @@
 
 import Rosary.Fast
 import Rosary.Reluctant
+import Rosary.Onyx
 
 /-!
 # The examples of the paper, as tests of the definitions
@@ -73,5 +74,25 @@ example : (List.range 14).map rho
     = [1, 2, 3, 5, 8, 4, 6, 9, 14, 7, 11, 17, 26, 13] := by decide
 
 example : rho 5 = 4 ∧ rho 12 = 26 := by decide
+
+/-! ## Sections 9 and 10: the onyx rosary -/
+
+/-- The onyxes 1, 2, 3, 4 are the beads 1, 4, 7, 10. -/
+example : [1, 2, 3, 4].map bullet = [1, 4, 7, 10] := by decide
+
+/-- `𝛑(𝟒) = 𝟐` and `𝛑(𝟐) = 𝟏`. -/
+example : pi 4 = 2 ∧ pi 2 = 1 := by decide
+
+/-- The bound of Proposition 2 is attained: `𝛑(𝟏𝟎) = 𝟗`. -/
+example : pi 10 = 9 := by decide
+
+/-- The first covers of onyx 1 are 2, 5, 11, 16, and those of onyx 2 are
+3, 4, 6. -/
+example : [2, 5, 11, 16].map pi = [1, 1, 1, 1] ∧ [3, 4, 6].map pi = [2, 2, 2] := by
+  decide
+
+/-- Lemma 8, the example: `↑(256) ∩ (↑(22) + 1)`.  The chain of 22 reaches
+255, and `255 + 1 = 2^8`. -/
+example : upPow 22 6 = 255 := by decide
 
 end Rosary

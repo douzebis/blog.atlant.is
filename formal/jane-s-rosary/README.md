@@ -35,12 +35,17 @@ This page is written for a reader who has never used a proof assistant.
 | The reluctant recitation | `told`, `rho`, `rho_succ`, `rho_move`, `mem_told` | [`Rosary/Reluctant.lean`](Rosary/Reluctant.lean) |
 | Lemma 3 (down-closure) | `lemma3` | [`Rosary/Reluctant.lean`](Rosary/Reluctant.lean) |
 | Theorem 2: never stuck, injective, no gap | `theorem2_fresh`, `theorem2_injective`, `theorem2_no_gap` | [`Rosary/Reluctant.lean`](Rosary/Reluctant.lean) |
+| Onyx, onyx predecessor | `bullet`, `onyxOf`, `winner`, `pi` | [`Rosary/Onyx.lean`](Rosary/Onyx.lean) |
+| Proposition 2: $\boldsymbol{\pi}(\boldsymbol{n}) \le (8\boldsymbol{n}+1)/9 < \boldsymbol{n}$ | `proposition2` | [`Rosary/Onyx.lean`](Rosary/Onyx.lean) |
+| Lemma 8 (neighboring up-chains) | `lemma8`, `gap_one_iff` | [`Rosary/Onyx.lean`](Rosary/Onyx.lean) |
+| Theorem 4: every onyx has infinitely many covers | `theorem4` | [`Rosary/Onyx.lean`](Rosary/Onyx.lean) |
 | Lemma 6 (parity) | `lemma6` | [`Rosary/Parity.lean`](Rosary/Parity.lean) |
 | Lemma 7 (parity changes) | `lemma7_even`, `lemma7_odd`, `lemma7` | [`Rosary/Parity.lean`](Rosary/Parity.lean) |
 | The examples of the paper | `example` lines | [`Rosary/Examples.lean`](Rosary/Examples.lean) |
 
-Not done in Part I: the logarithmic upper bound of Proposition 1, which
-needs real logarithms (planned with Theorem 3).
+Not done so far: the logarithmic upper bound of Proposition 1, which
+needs real logarithms (planned with Theorem 3); Corollaries 2 and 3;
+Theorems 3, 5 and 6 and their lemmas.
 
 ## How to run the check
 
@@ -192,6 +197,12 @@ computed from them in `Examples.lean`.
   without asking whether the bead above is fresh. That it always is fresh
   is `theorem2_fresh`; this is how "the recitation is well defined" is
   said in Lean.
+- **The onyx rosary** (`Onyx.lean`). An onyx is a plain number, at least
+  1 (Lean has no bold): `bullet n` is the bead $3\boldsymbol{n} - 2$,
+  `winner B` is, of the two beads above the black bead `B`, the one with
+  the larger lambex, and `pi n` is the onyx whose bead is the seed of
+  the winner above `bullet n`. "Infinitely many covers" (Theorem 4)
+  reads: for every bound `N` there is a cover larger than `N`.
 - **The fast program** (`Fast.lean`): `heightFast`, a transcription of
   the Python program of Section 5.
 

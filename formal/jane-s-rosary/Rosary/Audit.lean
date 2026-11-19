@@ -5,6 +5,7 @@
 import Rosary.Fast
 import Rosary.Lemma1
 import Rosary.Reluctant
+import Rosary.Onyx
 
 /-!
 # What the proofs rest on
@@ -49,3 +50,7 @@ open Rosary
 #print axioms theorem2_fresh
 #print axioms theorem2_injective
 #print axioms theorem2_no_gap
+#print axioms proposition2
+#print axioms gap_one_iff
+#print axioms lemma8
+#print axioms theorem4

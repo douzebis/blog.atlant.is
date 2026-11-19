@@ -12,5 +12,6 @@ import Rosary.Seed
 import Rosary.Theorem1
 import Rosary.Fast
 import Rosary.Reluctant
+import Rosary.Onyx
 import Rosary.Examples
 import Rosary.Audit
