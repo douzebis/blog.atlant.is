@@ -4,6 +4,7 @@
 
 import Rosary.Fast
 import Rosary.Lemma1
+import Rosary.Reluctant
 
 /-!
 # What the proofs rest on
@@ -42,3 +43,9 @@ open Rosary
 #print axioms theorem1_part5_mu
 #print axioms theorem1_part5_nu
 #print axioms height_eq_heightFast
+#print axioms rho_succ
+#print axioms mem_told
+#print axioms lemma3
+#print axioms theorem2_fresh
+#print axioms theorem2_injective
+#print axioms theorem2_no_gap

@@ -3,6 +3,7 @@
 -- SPDX-License-Identifier: MIT
 
 import Rosary.Fast
+import Rosary.Reluctant
 
 /-!
 # The examples of the paper, as tests of the definitions
@@ -64,5 +65,13 @@ example : lambex (mu 4) = 4 ∧ lambex (nu 4) = 2 := by decide
 /-- Above the black bead 10 the candidates are 20, with seed 13, and 21,
 with seed 4 (Section 9). -/
 example : seed (mu 10) = 13 ∧ seed (nu 10) = 4 := by decide
+
+/-! ## Section 6: the reluctant recitation -/
+
+/-- `ρ(0), ρ(1), … = 1, 2, 3, 5, 8, 4, 6, 9, 14, 7, 11, 17, 26, 13, …` -/
+example : (List.range 14).map rho
+    = [1, 2, 3, 5, 8, 4, 6, 9, 14, 7, 11, 17, 26, 13] := by decide
+
+example : rho 5 = 4 ∧ rho 12 = 26 := by decide
 
 end Rosary

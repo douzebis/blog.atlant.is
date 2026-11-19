@@ -23,7 +23,7 @@ history:
   - date: "2026-11-18"
     text: "The beads are counted from 1 instead of 0, so that a down move halves the position and an up move multiplies it by 3/2. Black beads get a count of their own, written in bold, and the beads of the onyx rosary are called onyxes. No result changed."
   - date: "2026-11-19"
-    text: "Part I (Fact 1, Lemmas 1 and 2, Corollary 1, Theorem 1, the fast algorithm for the height) and Lemmas 6 and 7 are checked by the proof assistant Lean."
+    text: "Part I (Fact 1, Lemmas 1 and 2, Corollary 1, Theorem 1, the fast algorithm for the height), Theorem 2 and Lemmas 6 and 7 are checked by the proof assistant Lean."
 diagrams:
   - "images/reluctant-jane-1024x422.png"
 categories:
@@ -1498,10 +1498,12 @@ checks them all.
 | Section 4: every bead is $\sigma(n)U^{\Lambda(n)}$, in one way only | `seed_spec`, `seed_upPow` |
 | Theorem 1, parts 1 to 5 | `theorem1_part1` to `theorem1_part5_nu` |
 | The program "height in logarithmic time" computes the height | `height_eq_heightFast` |
+| Lemma 3 | `lemma3` |
+| Theorem 2: never stuck, no bead told twice, no gap | `theorem2_fresh`, `theorem2_injective`, `theorem2_no_gap` |
 | Lemmas 6 and 7 | `lemma6`, `lemma7_even`, `lemma7_odd`, `lemma7` |
 
 Not checked in this way, so far: the logarithmic bound of Proposition 1,
-and everything from Theorem 2 on except Lemmas 6 and 7. One thing Lean
+and everything from Theorem 3 on except Lemmas 6 and 7. One thing Lean
 cannot check is that a statement written in Lean says what the paper says;
 that is for a reader to judge, and the guide shows how the statements read.
 

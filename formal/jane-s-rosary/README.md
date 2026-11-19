@@ -32,6 +32,9 @@ This page is written for a reader who has never used a proof assistant.
 | Theorem 1, part 4 | `theorem1_part4` | [`Rosary/Theorem1.lean`](Rosary/Theorem1.lean) |
 | Theorem 1, part 5 | `theorem1_part5_mu`, `theorem1_part5_nu` | [`Rosary/Theorem1.lean`](Rosary/Theorem1.lean) |
 | The program "height in logarithmic time" computes the height | `heightFast`, `height_eq_heightFast` | [`Rosary/Fast.lean`](Rosary/Fast.lean) |
+| The reluctant recitation | `told`, `rho`, `rho_succ`, `rho_move`, `mem_told` | [`Rosary/Reluctant.lean`](Rosary/Reluctant.lean) |
+| Lemma 3 (down-closure) | `lemma3` | [`Rosary/Reluctant.lean`](Rosary/Reluctant.lean) |
+| Theorem 2: never stuck, injective, no gap | `theorem2_fresh`, `theorem2_injective`, `theorem2_no_gap` | [`Rosary/Reluctant.lean`](Rosary/Reluctant.lean) |
 | Lemma 6 (parity) | `lemma6` | [`Rosary/Parity.lean`](Rosary/Parity.lean) |
 | Lemma 7 (parity changes) | `lemma7_even`, `lemma7_odd`, `lemma7` | [`Rosary/Parity.lean`](Rosary/Parity.lean) |
 | The examples of the paper | `example` lines | [`Rosary/Examples.lean`](Rosary/Examples.lean) |
@@ -173,6 +176,22 @@ computed from them in `Examples.lean`.
   a black bead is met. What to read: `seed_black`, `seed_white` (how they
   are computed) and `seed_spec` (the seed is black and
   $n = \sigma(n)U^{\Lambda(n)}$).
+- **The reluctant recitation** (`Reluctant.lean`): `told i` is the list
+  of the beads told after `i` moves, the latest first (the paper's set
+  $V_i$), and `rho i` is its first element, the bead where Jane is. What
+  to read is the rule, as a theorem:
+
+  ```lean
+  theorem rho_succ (i : Nat) :
+      rho (i + 1) =
+        if 2 ≤ rho i ∧ down (rho i) ∉ told i then down (rho i) else up (rho i)
+  ```
+
+  "Down if Jane is not at bead 1 and the bead below has not been told, up
+  otherwise." The definition never gets stuck, because it sends Jane up
+  without asking whether the bead above is fresh. That it always is fresh
+  is `theorem2_fresh`; this is how "the recitation is well defined" is
+  said in Lean.
 - **The fast program** (`Fast.lean`): `heightFast`, a transcription of
   the Python program of Section 5.
 

@@ -6,7 +6,7 @@ SPDX-License-Identifier: MIT
 
 # 0004 — Jane's infinite rosary: proofs checked by a proof assistant
 
-**Status:** in-progress (plan approved 2026-11-19; steps 0 and 1 done)
+**Status:** in-progress (plan approved 2026-11-19; steps 0, 1 and 2 done)
 **App:** blog.atlant.is (paper *Jane's infinite rosary*)
 **Implemented in:** <!-- YYYY-MM-DD, fill after implementation -->
 
@@ -118,7 +118,7 @@ read it. The author's go-ahead is needed between steps.
 |---|---|---|---|
 | 0 | Warm-up: definitions, Fact 1, Lemma 1, Lemmas 6 and 7; the guide; the check | Lean alone | done, 250 lines |
 | 1 | Part I: height, Lemma 2, Corollary 1, Theorem 1, Proposition 1 (first two bounds); the fast algorithm computes the height | Lean alone | done 2026-11-19, 900 lines |
-| 2 | Theorem 2: the reluctant recitation, Lemma 3, never stuck, injective, no gap | Lean alone | 400 to 800 lines |
+| 2 | Theorem 2: the reluctant recitation, Lemma 3, never stuck, injective, no gap | Lean alone | done 2026-11-19, 230 lines |
 | 3 | Part III: Proposition 2, Lemma 8, Theorem 4, Corollaries 2 and 3 (Corollary 3 after step 4) | Lean alone, or Mathlib for infinite sets | 500 to 1 000 lines |
 | 4 | Theorem 3: Lemmas 4 and 5, the rotation, every bead is told | Mathlib | 600 to 1 500 lines |
 | 5 | Theorem 5, part 1, and $E = o(t)$ (part 2 without the square root) | Mathlib | 500 to 1 000 lines |
@@ -169,6 +169,9 @@ the first theorem is verified, not one per step.
   argument, organized differently: one lemma (`ladder_step`) walks the two
   ladders rung by rung, by induction on the bead, inside the induction on
   the height. No error was found in the paper's proofs of Part I.
+- **Step 2.** The proof of Theorem 2 is the paper's, with the same
+  invariant (a new bead at each move; no gap at all earlier times). No
+  error was found.
 - The check and its tests are shared scripts, `formal/check.sh` and
   `formal/test-check.sh`, so that another paper can use them.
 
