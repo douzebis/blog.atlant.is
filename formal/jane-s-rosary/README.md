@@ -44,14 +44,33 @@ This page is written for a reader who has never used a proof assistant.
 | Lemma 7 (parity changes) | `lemma7_even`, `lemma7_odd`, `lemma7` | [`Rosary/Parity.lean`](Rosary/Parity.lean) |
 | The examples of the paper | `example` lines | [`Rosary/Examples.lean`](Rosary/Examples.lean) |
 
-Not done so far: the logarithmic upper bound of Proposition 1, Lemmas 4
-and 5, Theorems 5 and 6 and Lemma 9, which need real logarithms;
-Corollaries 2 and 3.
+A second project, [`../jane-s-rosary-real`](../jane-s-rosary-real), uses
+Mathlib, Lean's library of mathematics, for the statements that need real
+numbers:
 
-## Theorem 3 is proved differently
+| In the paper | In Lean | File |
+|---|---|---|
+| Lemma 4 and Lemma 5 (logarithms of beads) | `lemma5_up`, `lemma5_down` | `RosaryReal/Phase.lean` |
+| $\log_2 3$ is irrational | `alpha_irrational` | `RosaryReal/Phase.lean` |
+| Step 4: the rotation reaches every arc in a bounded number of steps | `rotation_cover` | `RosaryReal/Rotation.lean` |
+| Steps 2 and 3; the bookkeeping of Step 4 | `eventually_large`, `exists_up`, `phase_track` | `RosaryReal/Track.lean` |
+| **Theorem 3, by the proof of the paper** | `theorem3_by_rotation` | `RosaryReal/Theorem3.lean` |
+
+To check it (the first time, Lean and Mathlib are downloaded, about 10 GB
+on disk):
+
+```sh
+nix-shell formal/shell.nix --run "bash formal/check-real.sh"
+```
+
+Not done so far: the logarithmic upper bound of Proposition 1, Theorems 5
+and 6 and Lemma 9; Corollaries 2 and 3.
+
+## Theorem 3 is proved twice
 
 The paper proves Theorem 3 with phases, logarithms and the rotation of the
-circle (Lemmas 4 and 5). The Lean proof uses integers only. Suppose bead
+circle (Lemmas 4 and 5); that proof is checked in the second project. The
+first project has another proof, which uses integers only. Suppose bead
 $m$ is never told. Then:
 
 1. If no bead of an interval $[A, C)$ is ever told, the same holds for

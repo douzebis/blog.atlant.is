@@ -201,6 +201,17 @@ the first theorem is verified, not one per step.
   Mathlib's prebuilt files are used and nothing is compiled. Tools:
   `nix-shell formal/shell.nix`. The first project stays free of any
   library and keeps its pure Nix check.
+- **Theorem 3, the paper's proof (2026-11-19).** Verified in the second
+  project: Lemma 5 (with Lemma 4 inside its second part), the
+  irrationality of log2 3, the uniform covering time of the rotation
+  (from Dirichlet's approximation theorem, which Mathlib has), Steps 1
+  to 4. One device differs from the paper's wording: instead of naming
+  Jane's positions "right after her j-th up move", the proof keeps, at
+  every time, the bead she reached by her last up move and the number of
+  up moves so far (`phase_track`). No error was found. The errors of
+  Lemma 5 are stated with "at most" where the paper has "less than".
+  Check: `nix-shell formal/shell.nix --run "bash formal/check-real.sh"`;
+  a job of the workflow runs it.
 - The check and its tests are shared scripts, `formal/check.sh` and
   `formal/test-check.sh`, so that another paper can use them.
 

@@ -23,7 +23,7 @@ history:
   - date: "2026-11-18"
     text: "The beads are counted from 1 instead of 0, so that a down move halves the position and an up move multiplies it by 3/2. Black beads get a count of their own, written in bold, and the beads of the onyx rosary are called onyxes. No result changed."
   - date: "2026-11-19"
-    text: "Theorems 1 to 4, with the lemmas and propositions they rest on and the fast algorithm for the height, are checked by the proof assistant Lean. For Theorem 3 the checked proof is a different one, with integers only; it is sketched in the section on the proof assistant."
+    text: "Theorems 1 to 4, with the lemmas and propositions they rest on and the fast algorithm for the height, are checked by the proof assistant Lean. Theorem 3 is checked twice: by the proof of Section 8, and by a second proof with integers only, sketched in the section on the proof assistant."
 diagrams:
   - "images/reluctant-jane-1024x422.png"
 categories:
@@ -1500,17 +1500,23 @@ checks them all.
 | The program "height in logarithmic time" computes the height | `height_eq_heightFast` |
 | Lemma 3 | `lemma3` |
 | Theorem 2: never stuck, no bead told twice, no gap | `theorem2_fresh`, `theorem2_injective`, `theorem2_no_gap` |
-| **Theorem 3**: every bead is told, exactly once | `theorem3`, `theorem3_permutation` |
+| Lemmas 4 and 5 | `lemma5_up`, `lemma5_down` |
+| **Theorem 3**: every bead is told, exactly once, by the proof of Section 8 | `theorem3_by_rotation` |
+| Theorem 3 again, by the proof sketched below | `theorem3`, `theorem3_permutation` |
 | Proposition 2 | `proposition2` |
 | Lemmas 6 and 7 | `lemma6`, `lemma7_even`, `lemma7_odd`, `lemma7` |
 | Lemma 8 | `lemma8`, `gap_one_iff` |
 | Theorem 4 | `theorem4` |
 
 Not checked in this way, so far: the logarithmic bound of Proposition 1,
-Lemmas 4 and 5, Corollaries 2 and 3, and Part IV.
+Corollaries 2 and 3, and Part IV. The statements about logarithms
+(Lemmas 4 and 5, and the proof of Section 8) are in a second directory,
+[`formal/jane-s-rosary-real`](https://github.com/douzebis/blog.atlant.is/tree/main/formal/jane-s-rosary-real),
+which uses Mathlib, Lean's library of mathematics; everything else uses
+no library at all.
 
-**Theorem 3 without logarithms.** The proof of Theorem 3 that Lean checked
-is not the one of Section 8. It uses integers only. Suppose that bead $m$
+**Theorem 3 without logarithms.** Lean also checked a second proof of
+Theorem 3, found while preparing the first. It uses integers only. Suppose that bead $m$
 is never told.
 
 1. If no bead of an interval $[A, C)$ is ever told, then no bead of

@@ -54,6 +54,19 @@ jobs:
           nix-build formal/jane-s-rosary --no-out-link \
             2>&1 | tee /tmp/rosary-formal-build.log
 
+  # The proofs that use Mathlib.  Lean and Mathlib come from the network,
+  # in the versions pinned by the project.
+  formal-real:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+      - name: Check the formal proofs that use Mathlib
+        run: |
+          nix-shell formal/shell.nix --run "bash formal/check-real.sh" \
+            > /tmp/rosary-real-check.log 2>&1 || { tail -50 /tmp/rosary-real-check.log; exit 1; }
+          tail -15 /tmp/rosary-real-check.log
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
