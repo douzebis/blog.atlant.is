@@ -214,6 +214,10 @@ the first theorem is verified, not one per step.
   a job of the workflow runs it.
 - **Proposition 1, the logarithmic bound (2026-11-19)**: `height_log`,
   in the second project, by the paper's induction on `n - 7`.
+- **Theorem 5, part 1 (2026-11-19)**: `theorem5_part1`, by the paper's
+  proof. The sum of 1/rho(s) over t different times is bounded by the
+  harmonic sum (`sum_inv_le`), which is the paper's "since rho is
+  injective".
 - The check and its tests are shared scripts, `formal/check.sh` and
   `formal/test-check.sh`, so that another paper can use them.
 

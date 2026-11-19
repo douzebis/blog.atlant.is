@@ -56,6 +56,7 @@ numbers:
 | Step 4: the rotation reaches every arc in a bounded number of steps | `rotation_cover` | `RosaryReal/Rotation.lean` |
 | Steps 2 and 3; the bookkeeping of Step 4 | `eventually_large`, `exists_up`, `phase_track` | `RosaryReal/Track.lean` |
 | **Theorem 3, by the proof of the paper** | `theorem3_by_rotation` | `RosaryReal/Theorem3.lean` |
+| The number of up moves $u(t)$; Theorem 5, part 1 | `ups`, `theorem5_part1` | `RosaryReal/Track.lean`, `RosaryReal/Theorem5.lean` |
 
 To check it (the first time, Lean and Mathlib are downloaded, about 10 GB
 on disk):
@@ -64,7 +65,8 @@ on disk):
 nix-shell formal/shell.nix --run "bash formal/check-real.sh"
 ```
 
-Not done so far: Theorems 5 and 6 and Lemma 9; Corollaries 2 and 3.
+Not done so far: Theorem 5, parts 2 and 3, Lemma 9 and Theorem 6;
+Corollaries 2 and 3.
 
 ## Theorem 3 is proved twice
 

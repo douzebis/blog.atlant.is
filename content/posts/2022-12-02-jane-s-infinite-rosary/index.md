@@ -1503,14 +1503,16 @@ checks them all.
 | Lemmas 4 and 5 | `lemma5_up`, `lemma5_down` |
 | **Theorem 3**: every bead is told, exactly once, by the proof of Section 8 | `theorem3_by_rotation` |
 | Theorem 3 again, by the proof sketched below | `theorem3`, `theorem3_permutation` |
+| Theorem 5, part 1 | `theorem5_part1` |
 | Proposition 2 | `proposition2` |
 | Lemmas 6 and 7 | `lemma6`, `lemma7_even`, `lemma7_odd`, `lemma7` |
 | Lemma 8 | `lemma8`, `gap_one_iff` |
 | Theorem 4 | `theorem4` |
 
-Not checked in this way, so far: Corollaries 2 and 3, and Part IV. The
+Not checked in this way, so far: Corollaries 2 and 3, and Part IV except
+the first part of Theorem 5. The
 statements about logarithms (one bound of Proposition 1, Lemmas 4 and 5,
-and the proof of Section 8) are in a second directory,
+the proof of Section 8, Theorem 5) are in a second directory,
 [`formal/jane-s-rosary-real`](https://github.com/douzebis/blog.atlant.is/tree/main/formal/jane-s-rosary-real),
 which uses Mathlib, Lean's library of mathematics; everything else uses
 no library at all.
