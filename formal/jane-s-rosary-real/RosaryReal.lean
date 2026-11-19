@@ -3,6 +3,7 @@
 -- SPDX-License-Identifier: MIT
 
 import RosaryReal.Phase
+import RosaryReal.Prop1
 import RosaryReal.Rotation
 import RosaryReal.Track
 import RosaryReal.Theorem3

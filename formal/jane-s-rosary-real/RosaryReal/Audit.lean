@@ -3,6 +3,7 @@
 -- SPDX-License-Identifier: MIT
 
 import RosaryReal.Theorem3
+import RosaryReal.Prop1
 
 /-!
 # What the proofs rest on
@@ -21,3 +22,4 @@ open Rosary
 #print axioms exists_up
 #print axioms phase_track
 #print axioms theorem3_by_rotation
+#print axioms height_log

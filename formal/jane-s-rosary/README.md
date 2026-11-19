@@ -50,6 +50,7 @@ numbers:
 
 | In the paper | In Lean | File |
 |---|---|---|
+| Proposition 1, the logarithmic bound | `height_log` | `RosaryReal/Prop1.lean` |
 | Lemma 4 and Lemma 5 (logarithms of beads) | `lemma5_up`, `lemma5_down` | `RosaryReal/Phase.lean` |
 | $\log_2 3$ is irrational | `alpha_irrational` | `RosaryReal/Phase.lean` |
 | Step 4: the rotation reaches every arc in a bounded number of steps | `rotation_cover` | `RosaryReal/Rotation.lean` |
@@ -63,8 +64,7 @@ on disk):
 nix-shell formal/shell.nix --run "bash formal/check-real.sh"
 ```
 
-Not done so far: the logarithmic upper bound of Proposition 1, Theorems 5
-and 6 and Lemma 9; Corollaries 2 and 3.
+Not done so far: Theorems 5 and 6 and Lemma 9; Corollaries 2 and 3.
 
 ## Theorem 3 is proved twice
 

@@ -1492,7 +1492,7 @@ checks them all.
 | Statement | In Lean |
 |---|---|
 | Fact 1 | file `Fact1.lean` |
-| Proposition 1: every bead has a height; $h(n) \le (4n-1)/3$; the lower bound | `exists_reach`, `height_upper`, `height_lower` |
+| Proposition 1, its three bounds | `exists_reach`, `height_upper`, `height_lower`, `height_log` |
 | Lemma 1 | `lemma1` |
 | Lemma 2, Corollary 1 | `lemma2`, `corollary1` |
 | Section 4: every bead is $\sigma(n)U^{\Lambda(n)}$, in one way only | `seed_spec`, `seed_upPow` |
@@ -1508,9 +1508,9 @@ checks them all.
 | Lemma 8 | `lemma8`, `gap_one_iff` |
 | Theorem 4 | `theorem4` |
 
-Not checked in this way, so far: the logarithmic bound of Proposition 1,
-Corollaries 2 and 3, and Part IV. The statements about logarithms
-(Lemmas 4 and 5, and the proof of Section 8) are in a second directory,
+Not checked in this way, so far: Corollaries 2 and 3, and Part IV. The
+statements about logarithms (one bound of Proposition 1, Lemmas 4 and 5,
+and the proof of Section 8) are in a second directory,
 [`formal/jane-s-rosary-real`](https://github.com/douzebis/blog.atlant.is/tree/main/formal/jane-s-rosary-real),
 which uses Mathlib, Lean's library of mathematics; everything else uses
 no library at all.
