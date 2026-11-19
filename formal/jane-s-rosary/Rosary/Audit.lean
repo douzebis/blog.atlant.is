@@ -6,6 +6,7 @@ import Rosary.Fast
 import Rosary.Lemma1
 import Rosary.Reluctant
 import Rosary.Onyx
+import Rosary.Theorem3
 
 /-!
 # What the proofs rest on
@@ -54,3 +55,9 @@ open Rosary
 #print axioms gap_one_iff
 #print axioms lemma8
 #print axioms theorem4
+#print axioms small_ratio
+#print axioms cover
+#print axioms untold_double
+#print axioms untold_triple
+#print axioms theorem3
+#print axioms theorem3_permutation

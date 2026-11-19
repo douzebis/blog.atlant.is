@@ -6,7 +6,7 @@ SPDX-License-Identifier: MIT
 
 # 0004 — Jane's infinite rosary: proofs checked by a proof assistant
 
-**Status:** in-progress (plan approved 2026-11-19; steps 0, 1 and 2 done; step 3 done except Corollaries 2 and 3)
+**Status:** in-progress (plan approved 2026-11-19; steps 0 to 4 done, except Corollaries 2 and 3 and the logarithmic bound of Proposition 1)
 **App:** blog.atlant.is (paper *Jane's infinite rosary*)
 **Implemented in:** <!-- YYYY-MM-DD, fill after implementation -->
 
@@ -120,7 +120,7 @@ read it. The author's go-ahead is needed between steps.
 | 1 | Part I: height, Lemma 2, Corollary 1, Theorem 1, Proposition 1 (first two bounds); the fast algorithm computes the height | Lean alone | done 2026-11-19, 900 lines |
 | 2 | Theorem 2: the reluctant recitation, Lemma 3, never stuck, injective, no gap | Lean alone | done 2026-11-19, 230 lines |
 | 3 | Part III: Proposition 2, Lemma 8, Theorem 4, Corollaries 2 and 3 (Corollary 3 after step 4) | Lean alone, or Mathlib for infinite sets | Proposition 2, Lemma 8 and Theorem 4 done 2026-11-19, 300 lines, Lean alone; the corollaries remain |
-| 4 | Theorem 3: Lemmas 4 and 5, the rotation, every bead is told | Mathlib | 600 to 1 500 lines |
+| 4 | Theorem 3: every bead is told | Mathlib | done 2026-11-19, 330 lines, Lean alone, by another proof (see below); Lemmas 4 and 5 are not needed by it and are not formalized |
 | 5 | Theorem 5, part 1, and $E = o(t)$ (part 2 without the square root) | Mathlib | 500 to 1 000 lines |
 | 6 | Lemma 9, the square root of Theorem 5, Theorem 6, all under the hypothesis "$\mu_0$ is an irrationality exponent of $\log_2 3$" | Mathlib; the three-distance theorem or a cruder substitute | uncertain |
 
@@ -180,6 +180,17 @@ the first theorem is verified, not one per step.
   is not done: it needs the ranks of the covers and lists, about as much
   text as Theorem 4, for a statement the paper proves in one line.
   Corollary 3 needs Theorem 3. No error was found.
+- **Step 4.** Mathlib could not be installed: the shared host had 6 GB of
+  free disk when the step started, less than Mathlib needs. Looking for a
+  way without real numbers led to a different proof of Theorem 3, which
+  uses integers only: the beads never told are closed under doubling and
+  tripling of intervals, and the intervals `[m s, (m + 1) s)` with
+  `s = 2^e 3^j` cover all large integers (`Rosary/Theorem3.lean`, and the
+  README). It is shorter than the plan expected, needs no library, and
+  has no error terms. It gives no bound on the time at which a bead is
+  told, so it does not replace the paper's proof as the starting point of
+  Part IV. What remains (the logarithmic bound of Proposition 1, Lemmas 4
+  and 5, Theorems 5 and 6) does need real logarithms, hence Mathlib.
 - The check and its tests are shared scripts, `formal/check.sh` and
   `formal/test-check.sh`, so that another paper can use them.
 

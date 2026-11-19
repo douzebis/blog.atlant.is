@@ -23,7 +23,7 @@ history:
   - date: "2026-11-18"
     text: "The beads are counted from 1 instead of 0, so that a down move halves the position and an up move multiplies it by 3/2. Black beads get a count of their own, written in bold, and the beads of the onyx rosary are called onyxes. No result changed."
   - date: "2026-11-19"
-    text: "Theorems 1, 2 and 4, with the lemmas and propositions they rest on and the fast algorithm for the height, are checked by the proof assistant Lean."
+    text: "Theorems 1 to 4, with the lemmas and propositions they rest on and the fast algorithm for the height, are checked by the proof assistant Lean. For Theorem 3 the checked proof is a different one, with integers only; it is sketched in the section on the proof assistant."
 diagrams:
   - "images/reluctant-jane-1024x422.png"
 categories:
@@ -1500,13 +1500,40 @@ checks them all.
 | The program "height in logarithmic time" computes the height | `height_eq_heightFast` |
 | Lemma 3 | `lemma3` |
 | Theorem 2: never stuck, no bead told twice, no gap | `theorem2_fresh`, `theorem2_injective`, `theorem2_no_gap` |
+| **Theorem 3**: every bead is told, exactly once | `theorem3`, `theorem3_permutation` |
 | Proposition 2 | `proposition2` |
 | Lemmas 6 and 7 | `lemma6`, `lemma7_even`, `lemma7_odd`, `lemma7` |
 | Lemma 8 | `lemma8`, `gap_one_iff` |
 | Theorem 4 | `theorem4` |
 
 Not checked in this way, so far: the logarithmic bound of Proposition 1,
-Theorem 3 and its lemmas, Corollaries 2 and 3, and Part IV. One thing Lean
+Lemmas 4 and 5, Corollaries 2 and 3, and Part IV.
+
+**Theorem 3 without logarithms.** The proof of Theorem 3 that Lean checked
+is not the one of Section 8. It uses integers only. Suppose that bead $m$
+is never told.
+
+1. If no bead of an interval $[A, C)$ is ever told, then no bead of
+   $[2A, 2C)$ is, and no bead of $[3A, 3C)$ either. For $[2A, 2C)$ this is
+   Lemma 3: a told bead $n$ has $nD$ told. For $[3A, 3C)$ it is the no-gap
+   property of Theorem 2: a told white bead $n$ there has $n\lambda$ told,
+   in $[2A, 2C)$; and a told black bead $n$ there was reached by a down
+   move from $n\mu$ or $n\nu$, a told white bead whose $\lambda$ lies in
+   $[4A, 4C)$.
+2. Starting from $[m, m+1)$: no bead of $[ms, (m+1)s)$ is ever told, for
+   every $s$ of the form $2^e 3^j$.
+3. Among such numbers there are two, $P < Q$, with $Q/P < 1 + 1/m$ (by the
+   pigeonhole principle; this is where $2^a \neq 3^b$ comes in). Going
+   from $2^r P^k$ to $2^r Q^k$ by steps of ratio $Q/P$, one step $s$ has
+   $ms \le n < (m+1)s$, for every large $n$: the intervals of step 2 cover
+   all large integers.
+4. But Jane tells arbitrarily large beads, since she never tells a bead
+   twice. Contradiction.
+
+The intervals of step 2 are exact, so there is no rounding error to
+control and no phase to follow. On the other hand this proof says nothing
+about when a bead is told, which is what Section 11 extracts from the
+proof of Section 8. One thing Lean
 cannot check is that a statement written in Lean says what the paper says;
 that is for a reader to judge, and the guide shows how the statements read.
 

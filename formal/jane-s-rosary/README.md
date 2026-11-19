@@ -39,13 +39,35 @@ This page is written for a reader who has never used a proof assistant.
 | Proposition 2: $\boldsymbol{\pi}(\boldsymbol{n}) \le (8\boldsymbol{n}+1)/9 < \boldsymbol{n}$ | `proposition2` | [`Rosary/Onyx.lean`](Rosary/Onyx.lean) |
 | Lemma 8 (neighboring up-chains) | `lemma8`, `gap_one_iff` | [`Rosary/Onyx.lean`](Rosary/Onyx.lean) |
 | Theorem 4: every onyx has infinitely many covers | `theorem4` | [`Rosary/Onyx.lean`](Rosary/Onyx.lean) |
+| **Theorem 3**: every bead is told; $\rho$ is a permutation | `theorem3`, `theorem3_permutation` | [`Rosary/Theorem3.lean`](Rosary/Theorem3.lean) |
 | Lemma 6 (parity) | `lemma6` | [`Rosary/Parity.lean`](Rosary/Parity.lean) |
 | Lemma 7 (parity changes) | `lemma7_even`, `lemma7_odd`, `lemma7` | [`Rosary/Parity.lean`](Rosary/Parity.lean) |
 | The examples of the paper | `example` lines | [`Rosary/Examples.lean`](Rosary/Examples.lean) |
 
-Not done so far: the logarithmic upper bound of Proposition 1, which
-needs real logarithms (planned with Theorem 3); Corollaries 2 and 3;
-Theorems 3, 5 and 6 and their lemmas.
+Not done so far: the logarithmic upper bound of Proposition 1, Lemmas 4
+and 5, Theorems 5 and 6 and Lemma 9, which need real logarithms;
+Corollaries 2 and 3.
+
+## Theorem 3 is proved differently
+
+The paper proves Theorem 3 with phases, logarithms and the rotation of the
+circle (Lemmas 4 and 5). The Lean proof uses integers only. Suppose bead
+$m$ is never told. Then:
+
+1. If no bead of an interval $[A, C)$ is ever told, the same holds for
+   $[2A, 2C)$, by Lemma 3, and for $[3A, 3C)$, by the no-gap property of
+   Theorem 2 (`untold_double`, `untold_triple`).
+2. So no bead of $[ms, (m+1)s)$ is ever told, for every $s = 2^e 3^j$
+   (`untold_smooth`).
+3. Some $2^e 3^j$ and $2^{e'} 3^{j'}$ are within a factor $1 + 1/m$ of
+   each other, by the pigeonhole principle (`small_ratio`); stepping by
+   that factor, the intervals $[ms, (m+1)s)$ cover all large integers
+   (`cover`).
+4. But Jane tells arbitrarily large beads, since she never tells a bead
+   twice (`rho_unbounded`).
+
+No real number is needed, and there is no error term to control: the
+intervals of step 2 are exact.
 
 ## How to run the check
 
