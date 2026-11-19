@@ -6,7 +6,7 @@ SPDX-License-Identifier: MIT
 
 # 0004 — Jane's infinite rosary: proofs checked by a proof assistant
 
-**Status:** draft
+**Status:** in-progress (plan approved 2026-11-19; step 0 done)
 **App:** blog.atlant.is (paper *Jane's infinite rosary*)
 **Implemented in:** <!-- YYYY-MM-DD, fill after implementation -->
 
@@ -164,28 +164,28 @@ the first theorem is verified, not one per step.
   already enforces the rule in `formal/jane-s-rosary/default.nix`, without
   the tests.
 
+## Decisions
+
+Approved by the author on 2026-11-19, as proposed:
+
+- **Publication.** The Lean files are public, in the repository of the
+  site (`formal/jane-s-rosary/`), so that anyone can review the statements
+  and rerun the check.
+- **Review of statements.** Lean cannot check that a Lean statement says
+  what the paper says. At each step the author reads the new definitions
+  and statements (not the proofs), with the explanation provided, and
+  says whether they match.
+- **Mathlib under Nix.** Mathlib is large and is normally fetched prebuilt
+  from the network, while the site's build is offline
+  (`docs/invariants/0001-build-is-reproducible-and-offline.md`). The
+  formal check stays outside `site.nix`; Mathlib is pinned by commit in
+  the Lake manifest. The details are settled when Mathlib first comes in
+  (step 4, or step 3 if its vocabulary for infinite sets is wanted there).
+- **How far to go.** Review after step 4; steps 5 and 6 are decided then.
+
 ## Open questions
 
-- **Mathlib under Nix.** Mathlib is large (several gigabytes built) and
-  is normally fetched prebuilt by Lean's own tool, from the network. The
-  site's build is offline and reproducible
-  (`docs/invariants/0001-build-is-reproducible-and-offline.md`). Options:
-  (a) keep the formal check outside `site.nix`, pin Mathlib by commit in
-  the Lake manifest, and let the check fetch it (reproducible, not
-  offline); (b) a fixed-output Nix derivation for the Mathlib cache
-  (offline after the first fetch, more work). Proposed: (a), decided at
-  step 4.
-- **Should step 3 use Mathlib?** "Infinitely many covers" and "a
-  bijection onto finite sequences" are easier to state with Mathlib's
-  vocabulary. Proposed: decide at step 3; if Mathlib comes in then, the
-  question above is decided then too.
-- **How far to go.** Steps 1 and 2 are clearly worth it. Step 4 gives the
-  main theorem. Steps 5 and 6 cost more for results that matter less.
-  Proposed: review after step 4.
-- **Review of statements.** Lean cannot check that a Lean statement says
-  what the paper says. Proposed: at each step the author reads the new
-  definitions and statements (not the proofs) with the explanation
-  provided, and says whether they match.
+- None at this stage.
 
 ## References
 
