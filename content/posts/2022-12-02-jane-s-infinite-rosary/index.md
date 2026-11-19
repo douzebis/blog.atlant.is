@@ -5,7 +5,7 @@
 
 title: "Jane's infinite rosary"
 date: "2022-12-02"
-revised: "2026-11-18"
+revised: "2026-11-19"
 language: "en"
 math: true
 description: "Jane tells the beads of an infinite rosary by moving up or down by the label of the bead she is on. We describe the shortest ways to each bead and compute their length in logarithmic time. We then prove that reluctant Jane, who moves down whenever she can, tells every bead exactly once, and that she moves up with frequency log 2 / log 3."
@@ -22,6 +22,8 @@ history:
     version: "versions/jane-s-infinite-rosary/2026-11-18"
   - date: "2026-11-18"
     text: "The beads are counted from 1 instead of 0, so that a down move halves the position and an up move multiplies it by 3/2. Black beads get a count of their own, written in bold, and the beads of the onyx rosary are called onyxes. No result changed."
+  - date: "2026-11-19"
+    text: "Part I (Fact 1, Lemmas 1 and 2, Corollary 1, Theorem 1, the fast algorithm for the height) and Lemmas 6 and 7 are checked by the proof assistant Lean."
 diagrams:
   - "images/reluctant-jane-1024x422.png"
 categories:
@@ -1474,6 +1476,34 @@ heights: the exploration that serves as a reference only visits the beads up
 to a bound, so what it finds are lengths of actual recitations, that is, upper
 bounds for the heights; that it agrees with the fast algorithm is strong
 evidence, and the proof is Lemma 2 and Theorem 1.
+
+## Checked by a proof assistant
+
+A test says nothing about the beads it does not reach, and a proof on paper
+is as good as its readers. For the statements below there is a third kind
+of evidence: the statement and its proof were written in the language of
+the proof assistant [Lean 4](https://lean-lang.org), and Lean checked every
+step of the proof, with no computation left to the reader. The Lean files
+are in
+[`formal/jane-s-rosary`](https://github.com/douzebis/blog.atlant.is/tree/main/formal/jane-s-rosary),
+with a guide for readers who have never used a proof assistant; one command
+checks them all.
+
+| Statement | In Lean |
+|---|---|
+| Fact 1 | file `Fact1.lean` |
+| Proposition 1: every bead has a height; $h(n) \le (4n-1)/3$; the lower bound | `exists_reach`, `height_upper`, `height_lower` |
+| Lemma 1 | `lemma1` |
+| Lemma 2, Corollary 1 | `lemma2`, `corollary1` |
+| Section 4: every bead is $\sigma(n)U^{\Lambda(n)}$, in one way only | `seed_spec`, `seed_upPow` |
+| Theorem 1, parts 1 to 5 | `theorem1_part1` to `theorem1_part5_nu` |
+| The program "height in logarithmic time" computes the height | `height_eq_heightFast` |
+| Lemmas 6 and 7 | `lemma6`, `lemma7_even`, `lemma7_odd`, `lemma7` |
+
+Not checked in this way, so far: the logarithmic bound of Proposition 1,
+and everything from Theorem 2 on except Lemmas 6 and 7. One thing Lean
+cannot check is that a statement written in Lean says what the paper says;
+that is for a reader to judge, and the guide shows how the statements read.
 
 ## Names at a glance
 

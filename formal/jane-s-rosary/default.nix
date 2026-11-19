@@ -4,9 +4,11 @@
 
 # Checks the formal proofs: `nix-build formal/jane-s-rosary`.
 #
-# The build fails if a proof does not check, if a proof is unfinished
-# (`sorry`), or if a theorem depends on an axiom other than the three
-# standard ones.  The result is the log of the check.
+# The build first runs the regression tests of the check
+# (../test-check.sh), then the check itself (../check.sh): it fails if a
+# proof is not accepted, if a proof is unfinished (`sorry`), if a file
+# declares an axiom, or if a theorem depends on an axiom other than the
+# three standard ones.  The result is the log of the check.
 {
   pkgs ? import ../../nix/nixpkgs.nix,
 }:
@@ -16,30 +18,26 @@ pkgs.runCommand "rosary-formal"
     nativeBuildInputs = [ pkgs.lean4 ];
     src = pkgs.lib.cleanSourceWith {
       src = ./.;
-      filter = path: _type: baseNameOf path != ".lake" && baseNameOf path != "lake-manifest.json";
+      filter =
+        path: _type:
+        !(builtins.elem (baseNameOf path) [
+          ".lake"
+          "lake-manifest.json"
+          "check.log"
+        ]);
     };
+    check = ../check.sh;
+    testCheck = ../test-check.sh;
   }
   ''
-    set -o pipefail
     export HOME=$TMPDIR
+    mkdir tools
+    cp $check tools/check.sh
+    cp $testCheck tools/test-check.sh
+    bash tools/test-check.sh
     cp -r $src work
     chmod -R u+w work
-    cd work
-    lake build 2>&1 | tee check.log
-    if grep -n "sorry" check.log; then
-      echo "unfinished proof"
-      exit 1
-    fi
-    if ! grep -q "depends on axioms\|does not depend on any axioms" check.log; then
-      echo "the audit printed nothing"
-      exit 1
-    fi
-    if grep "depends on axioms" check.log \
-        | sed -e 's/propext//g; s/Classical\.choice//g; s/Quot\.sound//g' \
-        | grep -v "depends on axioms: \[[, ]*\]$"; then
-      echo "a theorem depends on an unexpected axiom"
-      exit 1
-    fi
+    bash tools/check.sh work
     mkdir $out
-    cp check.log $out/
+    cp work/check.log $out/
   ''

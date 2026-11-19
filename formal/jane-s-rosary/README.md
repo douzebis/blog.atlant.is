@@ -19,12 +19,25 @@ This page is written for a reader who has never used a proof assistant.
 | In the paper | In Lean | File |
 |---|---|---|
 | The names of Section 1 | `label`, `up`, `down`, `lam`, `mu`, `nu`, `Black`, `White`, `upPow` | [`Rosary/Basic.lean`](Rosary/Basic.lean) |
-| The examples of Section 1 (bead 8) | `example` lines | [`Rosary/Examples.lean`](Rosary/Examples.lean) |
 | Fact 1, part 1 | `up_odd`, `up_even`, `up_injective`, `up_white`, `lam_up`, `up_lam`, `black_not_up` | [`Rosary/Fact1.lean`](Rosary/Fact1.lean) |
 | Fact 1, part 2 | `down_eq_iff`, `mu_even`, `nu_odd`, `mu_down`, `nu_down` | [`Rosary/Fact1.lean`](Rosary/Fact1.lean) |
+| Recitation, height | `Reach`, `height`, `height_spec` | [`Rosary/Height.lean`](Rosary/Height.lean) |
+| Proposition 1: every bead has a height; $h(n) \le (4n-1)/3$; $\log_{3/2}\frac{n+1}{2} \le h(n)$ | `exists_reach`, `height_upper`, `height_lower` | [`Rosary/Height.lean`](Rosary/Height.lean) |
 | Lemma 1 (commutation) | `lemma1` | [`Rosary/Lemma1.lean`](Rosary/Lemma1.lean) |
+| Lemma 2 (white beads) | `lemma2` | [`Rosary/Lemma2.lean`](Rosary/Lemma2.lean) |
+| Corollary 1 (black beads) | `corollary1`, `white_above_black` | [`Rosary/Lemma2.lean`](Rosary/Lemma2.lean) |
+| Seed, lambex; the up-chains of the black beads partition the rosary | `seed`, `lambex`, `seed_spec`, `seed_upPow`, `height_seed` | [`Rosary/Seed.lean`](Rosary/Seed.lean) |
+| Theorem 1, parts 1 and 2 | `theorem1_part1`, `theorem1_part2` | [`Rosary/Theorem1.lean`](Rosary/Theorem1.lean) |
+| Theorem 1, part 3 | `theorem1_part3` | [`Rosary/Theorem1.lean`](Rosary/Theorem1.lean) |
+| Theorem 1, part 4 | `theorem1_part4` | [`Rosary/Theorem1.lean`](Rosary/Theorem1.lean) |
+| Theorem 1, part 5 | `theorem1_part5_mu`, `theorem1_part5_nu` | [`Rosary/Theorem1.lean`](Rosary/Theorem1.lean) |
+| The program "height in logarithmic time" computes the height | `heightFast`, `height_eq_heightFast` | [`Rosary/Fast.lean`](Rosary/Fast.lean) |
 | Lemma 6 (parity) | `lemma6` | [`Rosary/Parity.lean`](Rosary/Parity.lean) |
 | Lemma 7 (parity changes) | `lemma7_even`, `lemma7_odd`, `lemma7` | [`Rosary/Parity.lean`](Rosary/Parity.lean) |
+| The examples of the paper | `example` lines | [`Rosary/Examples.lean`](Rosary/Examples.lean) |
+
+Not done in Part I: the logarithmic upper bound of Proposition 1, which
+needs real logarithms (planned with Theorem 3).
 
 ## How to run the check
 
@@ -32,7 +45,7 @@ This page is written for a reader who has never used a proof assistant.
 nix-build formal/jane-s-rosary 2>&1 | tee /tmp/rosary-formal-build.log
 ```
 
-It takes about a minute. If it ends with a path in `/nix/store`, every
+It takes a few minutes. If it ends with a path in `/nix/store`, every
 proof was accepted. It fails if a proof is wrong, if a proof is unfinished,
 or if a theorem rests on an assumption that is not one of Lean's three
 standard axioms.
@@ -67,7 +80,7 @@ What it does not buy: Lean checks that the proof proves *the statement as
 written in Lean*. Whether that statement says what the paper says is for a
 human to judge. So the part to read with care is short:
 
-1. **the definitions** (all in `Basic.lean`, about 40 lines), and
+1. **the definitions** (listed below, a few lines each), and
 2. **the statements** of the theorems (the text between `theorem` and
    `:= by`).
 
@@ -125,6 +138,57 @@ The signs:
 | `¬` | not | `≠` | is different from |
 | `a / b` | the quotient, rounded down | `a % b` | the remainder |
 | `a ∣ b` | `a` divides `b` | `2 ^ r` | $2^r$ |
+
+## The definitions to review
+
+Everything rests on these. Each is short; the examples of the paper are
+computed from them in `Examples.lean`.
+
+- **The moves** (`Basic.lean`): `label`, `up`, `down`, `lam`, `mu`, `nu`,
+  `Black`, `White`, and `upPow n i` for $nU^i$.
+- **Recitations** (`Height.lean`). `Reach k n` means: some recitation of
+  `k` moves goes from bead 1 to bead `n`. It is defined by three rules,
+  and nothing else is a recitation:
+
+  ```lean
+  inductive Reach : Nat → Nat → Prop
+    | start : Reach 0 1
+    | up {k n : Nat} : Reach k n → Reach (k + 1) (up n)
+    | down {k n : Nat} : Reach k n → 2 ≤ n → Reach (k + 1) (down n)
+  ```
+
+  "With 0 moves Jane is at bead 1. If she can be at `n` after `k` moves,
+  she can be at `up n` after `k + 1` moves; and at `down n` too, provided
+  `n` is not bead 1."
+- **Height** (`Height.lean`): `height n` is the least `k` such that
+  `Reach k n`. What to read is the theorem that characterizes it:
+
+  ```lean
+  theorem height_spec (n : Nat) (hn : 1 ≤ n) :
+      Reach (height n) n ∧ ∀ j, Reach j n → height n ≤ j
+  ```
+
+  "Some recitation to `n` has `height n` moves, and none has fewer."
+- **Seed and lambex** (`Seed.lean`): defined by going back with `λ` until
+  a black bead is met. What to read: `seed_black`, `seed_white` (how they
+  are computed) and `seed_spec` (the seed is black and
+  $n = \sigma(n)U^{\Lambda(n)}$).
+- **The fast program** (`Fast.lean`): `heightFast`, a transcription of
+  the Python program of Section 5.
+
+**Fuel.** Lean accepts a function only if it can see that its computation
+stops. For `seed`, `lambex` and `heightFast` the simplest way is a counter
+that decreases at each step, called `fuel` in the files: `seed n` goes
+back at most `n` times, which is always enough. The theorems
+`seed_black`, `seed_white` and `height_eq_heightFast` show that the
+counter never runs out.
+
+**How Theorem 1 is stated.** The paper writes the black bead as
+$\boldsymbol{n}^\bullet$ and sets $2\boldsymbol{n} - 1 = 3^e q$. Parts 1
+and 2 are stated that way, with the bead written `3 * n - 2` and
+`bChain e q i` for $b_i = 2^i 3^{e+1-i} q$. Parts 3, 4 and 5 do not
+mention $e$ and $q$ and are stated for a black bead `B` with `4 ≤ B`.
+Part 5 is two theorems, one for each winner.
 
 ## How the Lean text differs from the paper
 

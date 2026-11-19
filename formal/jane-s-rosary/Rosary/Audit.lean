@@ -2,9 +2,8 @@
 --
 -- SPDX-License-Identifier: MIT
 
-import Rosary.Fact1
+import Rosary.Fast
 import Rosary.Lemma1
-import Rosary.Parity
 
 /-!
 # What the proofs rest on
@@ -28,3 +27,18 @@ open Rosary
 #print axioms lemma7_even
 #print axioms lemma7_odd
 #print axioms lemma7
+#print axioms height_spec
+#print axioms height_upper
+#print axioms height_lower
+#print axioms lemma2
+#print axioms corollary1
+#print axioms seed_spec
+#print axioms seed_upPow
+#print axioms height_seed
+#print axioms theorem1_part1
+#print axioms theorem1_part2
+#print axioms theorem1_part3
+#print axioms theorem1_part4
+#print axioms theorem1_part5_mu
+#print axioms theorem1_part5_nu
+#print axioms height_eq_heightFast

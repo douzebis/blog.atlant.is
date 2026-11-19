@@ -42,6 +42,18 @@ jobs:
         with:
           path: public
 
+  # The proofs checked by Lean (docs/invariants/0004).  A separate job: a
+  # failure here does not keep the site from being published.
+  formal:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+      - name: Check the formal proofs
+        run: |
+          nix-build formal/jane-s-rosary --no-out-link \
+            2>&1 | tee /tmp/rosary-formal-build.log
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
