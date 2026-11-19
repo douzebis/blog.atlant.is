@@ -392,3 +392,23 @@ Unchanged: Lemma 1, Lemma 2, Theorem 2, Corollary 3, Lemma 9, Conjectures
 A, B and D, Questions C and E. (The proofs of Lemma 1 and of Theorems 1
 and 6 were rewritten in the new numbering; `check_shortest.py` now checks
 the six diagrams of Lemma 1 and the chains of Theorem 1.)
+
+### 2026-11-19 — a reading of the whole text after the renumbering
+
+The text was reread from end to end as prose. Changes:
+
+- A wrong claim is removed: the opening said that Jane Street's page
+  counts from 1. The page labels its squares and does not number them
+  (where it needs an index it counts from 0). The dictionary now says
+  "the n-th square".
+- Lemma 9 and the proofs of Theorems 5 and 6 write the exponent
+  mu0 - 1 as beta. It was nu, which is also the name of a move. Lemma 9
+  is the only statement that differs from the previous day's text, and
+  only by this letter.
+- Lemma 3 in words is "once Jane has left a bead, the bead below it has
+  been told" (the earlier wording, "never leaves a bead before", was
+  wrong for a down move), in its four places; Remark 1 after Theorem 3
+  says "never moves up from a bead before".
+- The cone of m is said to contain m; "every black bead" (not "every
+  bead") has infinitely many children in the onyx rosary; "a few names"
+  for "seven names", which did not match the count; "paper" for "note".

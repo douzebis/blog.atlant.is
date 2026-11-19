@@ -76,20 +76,19 @@ forever. Neither happens:
   $\log_3 2 \approx 0.6309$, a little less than two moves out of three;
 - *Theorem 6*: bead $m$ gets its turn after at most polynomially many moves.
 
-Theorem 3 was a conjecture in the first version of this note (see the history
+Theorem 3 was a conjecture in the first version of this paper (see the history
 above), and it is the conjecture recorded in the OEIS entries below.
 
 **Why it works, in one breath.** A down move halves the position of the bead
 (rounding down), and an up move multiplies it by $3/2$ (rounding up). So
-Jane's rule plays the powers of $2$
-against the powers of $3$, and because no power of $2$ is a power of $3$, that
-is, because $\log_2 3$ is irrational, she cannot fall into a routine: on a
+Jane's rule plays the powers of $2$ against the powers of $3$, and because no
+power of $2$ is a power of $3$, that is, because $\log_2 3$ is irrational, she cannot fall into a routine: on a
 logarithmic scale each up move turns her around a circle by very nearly the
 same irrational angle, down moves do not turn her at all, and such a rotation
 sooner or later visits every arc of the circle. Section 8 makes this precise.
 
 Along the way the black beads turn out to carry a tree of their own, the
-*onyx rosary*, in which every bead has infinitely many children (*Theorem 4*).
+*onyx rosary*, in which every black bead has infinitely many children (*Theorem 4*).
 
 **Where this comes from.** The rosary is [Jane Street](https://www.janestreet.com/)'s
 puzzle [Traversing the Infinite Sidewalk](https://www.janestreet.com/numberphile/)
@@ -99,14 +98,15 @@ in disguise, and three entries of the
 
 | Here | On the sidewalk | OEIS |
 |---|---|---|
-| bead $n$, moves up and down | square $n$, jumps forward and backward | counted from $0$: slab $n - 1$ |
-| height $h(n)$ | minimum number of jumps from the first square to square $n$ | [A358838](https://oeis.org/A358838), at $n - 1$ |
+| bead $n$, moves up and down | the $n$-th square, jumps forward and backward | slab $n - 1$ |
+| height $h(n)$ | minimum number of jumps from the first square to the $n$-th | [A358838](https://oeis.org/A358838), at $n - 1$ |
 | reluctant recitation $\rho$ | the greedy walk | [A359005](https://oeis.org/A359005), plus one |
 | the move at which bead $m$ is told, $\rho^{-1}(m)$ | the inverse mapping of the greedy walk | [A359008](https://oeis.org/A359008), at $m - 1$ |
 
-Like Jane Street's page, this paper counts from $1$. The OEIS entries count
-the slabs from $0$, as the earlier versions of this paper counted the beads
-(see the history above): their slab $n - 1$ is our bead $n$.
+Jane Street's page labels its squares and does not number them. The OEIS
+entries number the slabs from $0$, as the earlier versions of this paper
+numbered the beads (see the history above): their slab $n - 1$ is our bead
+$n$.
 
 **And what is still open.** Plenty; Section 12 has seven questions. A
 favorite: look at each of Jane's down moves and count the up moves that
@@ -165,7 +165,7 @@ bead they apply to, and read from left to right: $nUD$ means "go up from $n$,
 then down". This way a recitation reads in the order in which Jane tells it:
 $1\,UUUUD$ is bead $1$, four moves up, one move down, and that is bead $4$.
 
-Only seven names are needed to begin with. Bead $8$ will serve as an example
+A few names are needed to begin with. Bead $8$ will serve as an example
 throughout.
 
 - **Bead**: a positive integer $n$ (the position of the bead in the rosary,
@@ -224,10 +224,10 @@ Three more names, for sequences of moves:
   recitation $1, 2, 3, 5, 8$ shows that $h(8) \leq 4$ (in fact $h(8) = 4$,
   by Lemma 2 below).
 
-**The binary tree.** Down halves, and $\mu$, $\nu$ double: *the rosary is
-the infinite binary tree in heap order*. Moving down means moving to the
-parent, i.e. erasing the last binary digit of $n$, and $n\mu$, $n\nu$ are
-the two children of $n$. Bead $8$ is $1000$ in binary: its parent is bead
+**The binary tree.** A down move is $n \mapsto \lfloor n/2 \rfloor$: *the
+rosary is the infinite binary tree in heap order*. Moving down means moving
+to the parent, i.e. erasing the last binary digit of $n$, and $n\mu$,
+$n\nu$ are the two children of $n$. Bead $8$ is $1000$ in binary: its parent is bead
 $4$ and its children are beads $16$ and $17$. Moving up is the map
 $n \mapsto \lceil 3n/2 \rceil$ studied by Odlyzko and Wilf in connection with
 the Josephus problem [OW91]. Most of what follows is an interplay between
@@ -492,7 +492,7 @@ like $K\cdot(3/2)^i$ for a constant $K$ depending on the chain.
 $\sigma(n) \leq n\lambda$ for white $n$, the two neighbors of a black bead
 $\boldsymbol{n}^\bullet > 1$ have small seeds:
 $\sigma(\boldsymbol{n}^\bullet - 1) \leq 2\boldsymbol{n}-2$ and $\sigma(\boldsymbol{n}^\bullet + 1) \leq 2\boldsymbol{n}-1$.
-(This was "Conjecture 3" in the very first version of this note.)
+(This was "Conjecture 3" in the very first version of this paper.)
 
 ### 5. Theorem 1: minimal recitations ending in a black bead
 
@@ -699,7 +699,7 @@ $n \in V_i$, $n > 1$ and $n \neq \rho(i)$, then $nD \in V_i$.
 *Proof.* Say $n = \rho(j)$ with $j < i$. At that moment either $nD$ had been
 told already, or Jane moved to it: $\rho(j+1) = nD$. $\quad\Box$
 
-So *Jane never leaves a bead before the bead below it has been told.* In the
+So *once Jane has left a bead, the bead below it has been told.* In the
 binary tree: the set of told beads is always a subtree containing the root,
 except possibly for the path Jane is currently descending.
 
@@ -756,7 +756,7 @@ Both cases contradict $g \notin V_{i+1}$. $\quad\Box$
 **Theorem 3.** $\rho$ is a permutation of $\mathbb{N}^*$: the reluctant
 recitation tells every bead exactly once.
 
-(The January 2023 version of this note stated this as a conjecture, checked
+(The January 2023 version of this paper stated this as a conjecture, checked
 by computer for the first $7\,884\,654$ beads.)
 
 That Jane tells no bead twice is Theorem 2. What remains is that she leaves
@@ -766,7 +766,7 @@ no bead out.
 
 1. Then Jane stays out of the whole *cone* of $m$, that is, of everything
    above $m$ in the binary tree: had she told a bead up there, she would have
-   come down to $m$ (Lemma 3).
+   told $m$ as well (Lemma 3).
 2. The cone of $m$ is easy to recognize: its beads are those whose position
    $n$, written in binary, starts with the digits of $m$. On a logarithmic
    scale this is a condition on the fractional part
@@ -797,12 +797,12 @@ $m \in\ \downarrow\!(n)$, and the **phase** of a bead $n$ as
 
 $$\theta(n) = \log_2 n \bmod 1 \ \in \mathbb{R}/\mathbb{Z}.$$
 
-The cone of $m$ is everything above $m$ in the binary tree: the cone of bead
-$4$ is $\{4,\ 8, 9,\ 16, 17, 18, 19,\ \ldots\}$. If Jane tells one of these
-beads, she tells bead $4$ as well: by Lemma 3 she cannot leave a bead for good
-before the bead below it is told. The
-phase forgets how high a bead is in the tree and remembers only where it
-stands within its level: bead $8$, the first of its level, has phase $0$.
+The cone of $m$ is $m$ and everything above it in the binary tree: the cone
+of bead $4$ is $\{4,\ 8, 9,\ 16, 17, 18, 19,\ \ldots\}$. If Jane tells one
+of these beads, she tells bead $4$ as well: by Lemma 3, once she has left a
+bead, the bead below it has been told. The phase forgets how high a bead is
+in the tree and remembers only where it stands within its level: bead $8$,
+the first of its level, has phase $0$.
 
 ![Figure 10](images/figure-10.svg)
 
@@ -839,7 +839,7 @@ $m \leq n/2^k < m+1$ and $\log_2(1 + \frac{1}{m}) < \frac{3}{2m}$. $\quad\Box$
 
 *Proof of Theorem 3.* Fix a bead $m$ and suppose that $m$ is never told.
 
-*Step 1: Jane never enters the cone of $m$.* By Lemma 3, whenever Jane leaves a
+*Step 1: Jane never enters the cone of $m$.* By Lemma 3, once Jane has left a
 bead $n > 1$, the bead $nD$ has been told. So every bead of
 $\downarrow\!(n)$ is eventually told, for every told bead $n$. Hence no bead of
 the cone of $m$ is ever told.
@@ -871,8 +871,8 @@ contradicts Step 1. $\quad\Box$
 **Remarks.**
 
 1. The proof uses very little about the reluctant rule: it applies to *any*
-   injective recitation that makes infinitely many up moves and never leaves a
-   bead before the bead below it has been told.
+   injective recitation that makes infinitely many up moves and never moves up
+   from a bead before the bead below it has been told.
 2. The argument is not effective because of Step 2. Section 11 makes it
    effective.
 
@@ -880,7 +880,7 @@ contradicts Step 1. $\quad\Box$
 
 *Sections 9 and 10.* Shortest recitations, followed backwards, hop from black
 bead to black bead. Keeping only the black beads gives a tree, the onyx
-rosary, in which every bead has infinitely many children (Theorem 4). This
+rosary, in which every black bead has infinitely many children (Theorem 4). This
 part rests on Theorem 1.
 
 ### 9. Interlude: for a few names more
@@ -1052,8 +1052,8 @@ $\mathbf{3}, \mathbf{4}, \mathbf{6}, \mathbf{41}, \mathbf{92}, \ldots$, and thos
 $\mathbf{8}, \mathbf{12}, \mathbf{26}, \mathbf{39}, \ldots$).
 
 The **address** $\boldsymbol{\tau}(\boldsymbol{n})$ of an onyx $\boldsymbol{n}$ tells where it
-sits in the tree, read from the root (earlier versions called
-$\boldsymbol{\tau}$ the canonical onyx mapping):
+sits in the tree, read from the root (earlier versions called it the
+canonical onyx mapping and wrote it $C$):
 
 $$\boldsymbol{\tau}(\boldsymbol{n}) = \Big(\boldsymbol{\iota}\big(\boldsymbol{\pi}^{\boldsymbol{h}(\boldsymbol{n})-1}(\boldsymbol{n})\big),\ \ldots,\ \boldsymbol{\iota}\big(\boldsymbol{\pi}(\boldsymbol{n})\big),\ \boldsymbol{\iota}(\boldsymbol{n})\Big) \in (\mathbb{N}^*)^{<\omega}.$$
 
@@ -1209,7 +1209,7 @@ $$E \leq \frac{t+1}{K} + K + d_K \qquad\text{whenever } E \ge K + e_K. \tag{$\as
 For fixed $K$ this already gives $\limsup E/t \leq 1/K$, hence $E = o(t)$,
 using nothing but the irrationality of $\alpha$. To get the stated bound, use
 the fact that $\log_2 3$ has a finite irrationality exponent (Baker's theorem;
-see Theorem 6 below): $\eta_K \geq cK^{-\nu}$ for some constants $c, \nu > 0$,
+see Theorem 6 below): $\eta_K \geq cK^{-\beta}$ for some constants $c, \beta > 0$,
 so $d_K, e_K = O(\log K)$, and $(\ast\ast)$ with $K = \lceil\sqrt{t}\,\rceil$
 gives $E \leq 2\sqrt{t} + O(\log t)$. Finally, at a time when Jane is not about
 to move up she is inside a run of down moves, which started just after an up
@@ -1231,16 +1231,16 @@ that $|\log_2 3 - p/q| \geq c\,q^{-\mu_0}$ for some $c > 0$ and all integers
 $p$ and $q \ge 1$. Baker's theory of linear forms in logarithms [Ba75] shows
 that such a $\mu_0$ exists; Rhin's measure [Rh87] gives $\mu_0 \leq 8.616$.
 
-**Lemma 9 (covering time of a rotation).** Let $\nu = \mu_0 - 1$, so that
-$\lVert q\alpha \rVert \geq c\,q^{-\nu}$ for all $q \geq 1$. For every
-$0 < w < 1$, any $J = \lfloor (2/w)^{\nu}/c \rfloor$ consecutive points of an
+**Lemma 9 (covering time of a rotation).** Let $\beta = \mu_0 - 1$, so that
+$\lVert q\alpha \rVert \geq c\,q^{-\beta}$ for all $q \geq 1$. For every
+$0 < w < 1$, any $J = \lfloor (2/w)^{\beta}/c \rfloor$ consecutive points of an
 orbit of the rotation by $\alpha$ meet every arc of length $w$.
 
 *Proof.* Let $(q_k)$ be the denominators of the convergents of $\alpha$ and let
 $k$ be minimal with $q_k \geq 2/w$. By the three-distance theorem [Sós58], the
 gaps left on the circle by $q_k$ consecutive points of an orbit have length at
 most $\lVert q_{k-1}\alpha \rVert + \lVert q_k\alpha \rVert < 2/q_k \leq w$. And
-$q_k < 1/\lVert q_{k-1}\alpha \rVert \leq q_{k-1}^{\nu}/c < (2/w)^{\nu}/c$.
+$q_k < 1/\lVert q_{k-1}\alpha \rVert \leq q_{k-1}^{\beta}/c < (2/w)^{\beta}/c$.
 $\quad\Box$
 
 **Theorem 6.** There is a constant $\kappa$ such that for every bead $m$,
@@ -1254,7 +1254,7 @@ of its position; and after $t$ moves, all the beads up to a fixed (small)
 power of $t$ have been told.
 
 *The idea.* The proof of Theorem 3 has one step that gives no bound: "wait
-until Jane has left the beads below $N$ for good". Counting replaces waiting.
+until Jane has left the beads up to $N$ for good". Counting replaces waiting.
 There are only $N$ beads up to $N$, so Jane makes at most $N + 1$
 excursions above $N$; and an excursion that lasts long enough enters the cone
 of $m$. "Long enough" is Lemma 9, and this is where the arithmetic of
@@ -1264,7 +1264,7 @@ too well approximated by fractions.
 
 *Proof.* We rerun the proof of Theorem 3 with a clock. Recall that
 $w_m \geq 1/m$. Let $J$ be given by Lemma 9 for arcs of length $w_m/3$,
-so $J \leq (6m)^{\nu}/c$, and let $N = 6Jm$, so that $2J/N \leq w_m/3$ and
+so $J \leq (6m)^{\beta}/c$, and let $N = 6Jm$, so that $2J/N \leq w_m/3$ and
 $N \ge m$.
 
 Consider the moves made before Jane enters the cone of $m$. At most $N$
@@ -1280,7 +1280,7 @@ Finally, an up move at most doubles $n$ and a down move at least halves
 it, so at any time the number of down moves is at most the number of up
 moves. Altogether
 $\rho^{-1}(m) \leq 2\big((N+1)J + N\big) \leq 30\,J^2 m
-\leq \kappa\, m^{2\nu + 1}$. The bound on $F$ follows since the right-hand
+\leq \kappa\, m^{2\beta + 1} = \kappa\, m^{2\mu_0 - 1}$. The bound on $F$ follows since the right-hand
 side is increasing in $m$. $\quad\Box$
 
 *Used:* the proof of Theorem 3, Lemma 9, and the irrationality exponent of
@@ -1491,7 +1491,7 @@ evidence, and the proof is Lemma 2 and Theorem 1.
 | seed, lambex | $\sigma(n)$, $\Lambda(n)$ | the black bead at the start of the up-chain through $n$; the number of up moves from it to $n$ (the "$\lambda$-exponent") | [Section 4](#4-interlude-more-names) |
 | winner | "$\mu$ wins", "$\nu$ wins" | of $\boldsymbol{n}^\bullet\mu$ and $\boldsymbol{n}^\bullet\nu$, the one with the larger lambex | [Section 5](#5-theorem-1-minimal-recitations-ending-in-a-black-bead) |
 | reluctant recitation | $\rho(i)$, $V_i$ | Jane's $i$-th bead when she moves down whenever she can; the beads told so far | [Section 6](#6-janes-reluctant-recitation) |
-| cone | | the beads above $m$ in the binary tree | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |
+| cone | | bead $m$ and the beads above it in the binary tree | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |
 | phase | $\theta(n)$ | $\log_2 n$ modulo $1$ | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |
 | the angle | $\alpha$ | $\log_2(3/2)$, by which an up move turns the phase | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |
 | canonical recitation | $C(n)$ | the minimal recitation that always takes the winner | [Section 9](#9-interlude-for-a-few-names-more) |
