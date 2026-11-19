@@ -1,0 +1,199 @@
+<!--
+SPDX-FileCopyrightText: 2026 Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)
+
+SPDX-License-Identifier: MIT
+-->
+
+# 0004 — Jane's infinite rosary: proofs checked by a proof assistant
+
+**Status:** draft
+**App:** blog.atlant.is (paper *Jane's infinite rosary*)
+**Implemented in:** <!-- YYYY-MM-DD, fill after implementation -->
+
+## Problem
+
+The proofs of the paper have been read by their author and by Claude, and
+its statements have been tested by programs on finitely many beads
+(`research/jane-s-rosary`, "Checked by computer" in the paper). Neither is
+a verification:
+
+- a test on 60 000 beads says nothing about the others;
+- the proofs were written, rewritten for the numbering from 1, and
+  reread by the same two readers. Theorem 1 has an induction with four
+  beads and two cases; Theorem 2 carries two invariants at once; Theorem 6
+  counts blocks and moves. A slip there would not show in the tests.
+
+A proof assistant checks every step of a proof mechanically. The author
+has never used one.
+
+## Goals
+
+- The results of the paper that can reasonably be formalized are stated
+  and proved in Lean 4, in `formal/jane-s-rosary/`, and one command checks
+  them all.
+- For each formalized statement, a reader of the paper can find the Lean
+  statement and convince themselves that both say the same thing, without
+  reading any proof.
+- The paper says, statement by statement, what is formally verified, what
+  is verified under a stated hypothesis, and what is not.
+- The author can follow the work: the directory has a guide for a reader
+  new to proof assistants, and each step is explained when it is
+  delivered.
+- If the formalization finds an error or a gap in the paper, the paper is
+  corrected and the correction is recorded in its history.
+
+## Non-goals
+
+- Formalizing Baker's theorem or Rhin's irrationality measure of
+  $\log_2 3$. Results that need them are proved under an explicit
+  hypothesis (see step 6).
+- The conjectures and questions of Section 12, and the numerical data.
+- Verifying the programs of `research/jane-s-rosary` or the Python
+  listings of the paper.
+- Contributing to Mathlib.
+- Following the paper's proofs line by line. The Lean proof of a
+  statement may take another route when that is simpler; what must match
+  is the statement.
+- A second formalization in Rocq.
+
+## Specification
+
+### The tool
+
+Lean 4, from the pinned nixpkgs (`nix/nixpkgs.nix`, Lean 4.29.1 today).
+
+Reasons for Lean over Rocq: Theorems 3 and 5 need real logarithms and the
+rotation of the circle, and Lean's mathematical library, Mathlib, is the
+larger and the more uniform for that; one system for the whole paper is
+better than two. For Part I alone the two would be equivalent.
+
+Steps 0 to 3 use Lean alone, without any library. Step 4 onward needs
+Mathlib (see Open questions for how to obtain it under Nix).
+
+### Layout
+
+```
+formal/jane-s-rosary/
+  README.md          the guide, with the table paper <-> Lean
+  default.nix        the check
+  lakefile.toml      the Lean project
+  Rosary.lean        imports everything
+  Rosary/Basic.lean      the definitions
+  Rosary/Examples.lean   the paper's examples, computed
+  Rosary/Fact1.lean, Lemma1.lean, Parity.lean, ...   one file per result or group
+  Rosary/Audit.lean      the axioms behind each theorem
+```
+
+### Rules
+
+1. **Definitions are few, in one place, and tested.** All the names of
+   the paper are defined in `Basic.lean` (later definitions, such as the
+   height or the reluctant recitation, in the file of the part that
+   introduces them, and listed in the README). Each definition is
+   followed, in `Examples.lean`, by the examples that the paper gives for
+   it, computed by Lean.
+2. **Statements mirror the paper.** Each theorem carries, as its comment,
+   the statement of the paper. Where the Lean statement differs in form
+   (hypothesis `1 ≤ n`, "there is" for "call it", "after every step there
+   is a later one" for "infinitely often"), the README says how.
+3. **No unfinished proof.** `sorry` is rejected by the check.
+4. **No hidden assumption.** `Audit.lean` prints the axioms behind every
+   theorem named in the README table; the check accepts only `propext`,
+   `Classical.choice` and `Quot.sound`. A result proved under a
+   mathematical hypothesis takes it as an explicit argument of the
+   theorem, never as an `axiom`.
+5. **One command.** `nix-build formal/jane-s-rosary` checks everything.
+   It is run by the GitHub workflow of the site from step 1 on.
+6. **The paper is the reference.** The Lean files follow the current
+   text (beads counted from 1). When a statement of the paper changes,
+   its Lean statement changes with it.
+
+### Steps
+
+Each step ends with the check passing, the README table extended, a
+commit, and an explanation to the author of what was stated and how to
+read it. The author's go-ahead is needed between steps.
+
+| Step | Content | Needs | Size (guess) |
+|---|---|---|---|
+| 0 | Warm-up: definitions, Fact 1, Lemma 1, Lemmas 6 and 7; the guide; the check | Lean alone | done, 250 lines |
+| 1 | Part I: height, Lemma 2, Corollary 1, Theorem 1, Proposition 1 (first two bounds), Proposition 2; the fast algorithm computes the height | Lean alone | 600 to 1 200 lines |
+| 2 | Theorem 2: the reluctant recitation, Lemma 3, never stuck, injective, no gap | Lean alone | 400 to 800 lines |
+| 3 | Part III: Lemma 8, Theorem 4, Corollaries 2 and 3 (Corollary 3 after step 4) | Lean alone, or Mathlib for infinite sets | 500 to 1 000 lines |
+| 4 | Theorem 3: Lemmas 4 and 5, the rotation, every bead is told | Mathlib | 600 to 1 500 lines |
+| 5 | Theorem 5, part 1, and $E = o(t)$ (part 2 without the square root) | Mathlib | 500 to 1 000 lines |
+| 6 | Lemma 9, the square root of Theorem 5, Theorem 6, all under the hypothesis "$\mu_0$ is an irrationality exponent of $\log_2 3$" | Mathlib; the three-distance theorem or a cruder substitute | uncertain |
+
+Notes on the steps:
+
+- **Step 1** is the one with the best return: Theorem 1 is the most
+  intricate elementary proof of the paper. The height is defined from the
+  relation "bead $n$ is reached from bead 1 in $k$ moves", so that
+  nothing in its definition presupposes the results. The logarithmic
+  bound of Proposition 1 needs real logarithms and waits for step 4.
+- **Step 2** defines $\rho$ as a function that is total by construction
+  (when no fresh bead is below, move up) and proves that the up move is
+  always to a fresh bead; this is how "well defined" is expressed.
+- **Step 4** needs: $\log_2 3$ is irrational (immediate, $2^a \ne 3^b$);
+  the estimates of Lemma 5; and a uniform covering time for the rotation
+  by $\alpha$ (the integer $J$ of the proof). Whether Mathlib has the
+  last one ready is to be checked at the start of the step; if not, it is
+  proved by the pigeonhole principle.
+- **Step 6** may be cut down or dropped after step 5. The three-distance
+  theorem was formalized in Coq (Mayero, 2000) but, as far as we know, is
+  not in Mathlib; Lemma 9 can be replaced by a covering time with a worse
+  exponent, in which case the Lean theorem would have a different
+  exponent than the paper's Theorem 6 and the paper would say so.
+
+The sizes are guesses by someone who has not yet done the work; step 0
+took 250 lines for results that the paper proves in 40.
+
+### In the paper
+
+From step 1 on, the section "Checked by computer" gains a paragraph and a
+table "Checked by a proof assistant": statement, Lean name with a link,
+and the hypothesis if any. The history of the paper gets one entry when
+the first theorem is verified, not one per step.
+
+## Invariants
+
+- To be created with step 1: `docs/invariants/0004-formal-proofs-are-complete.md`
+  ("the check of `formal/` accepts no `sorry` and no axiom beyond the
+  three standard ones"), with regression tests that feed the check a file
+  with `sorry` and a file with an `axiom` and expect a failure. Step 0
+  already enforces the rule in `formal/jane-s-rosary/default.nix`, without
+  the tests.
+
+## Open questions
+
+- **Mathlib under Nix.** Mathlib is large (several gigabytes built) and
+  is normally fetched prebuilt by Lean's own tool, from the network. The
+  site's build is offline and reproducible
+  (`docs/invariants/0001-build-is-reproducible-and-offline.md`). Options:
+  (a) keep the formal check outside `site.nix`, pin Mathlib by commit in
+  the Lake manifest, and let the check fetch it (reproducible, not
+  offline); (b) a fixed-output Nix derivation for the Mathlib cache
+  (offline after the first fetch, more work). Proposed: (a), decided at
+  step 4.
+- **Should step 3 use Mathlib?** "Infinitely many covers" and "a
+  bijection onto finite sequences" are easier to state with Mathlib's
+  vocabulary. Proposed: decide at step 3; if Mathlib comes in then, the
+  question above is decided then too.
+- **How far to go.** Steps 1 and 2 are clearly worth it. Step 4 gives the
+  main theorem. Steps 5 and 6 cost more for results that matter less.
+  Proposed: review after step 4.
+- **Review of statements.** Lean cannot check that a Lean statement says
+  what the paper says. Proposed: at each step the author reads the new
+  definitions and statements (not the proofs) with the explanation
+  provided, and says whether they match.
+
+## References
+
+- `formal/jane-s-rosary/README.md`: the guide and the state of the work.
+- The paper: `content/posts/2022-12-02-jane-s-infinite-rosary/index.md`.
+- `docs/papers/jane-s-rosary/statements.md`: the statements and the
+  programs that test them.
+- Lean: <https://lean-lang.org>; Mathlib:
+  <https://leanprover-community.github.io>.
+- M. Mayero, *The Three Gap Theorem (Steinhaus conjecture)*, TYPES 1999,
+  LNCS 1956 (2000).
