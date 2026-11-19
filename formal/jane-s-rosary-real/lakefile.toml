@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: 2026 Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)
+#
+# SPDX-License-Identifier: MIT
+
+name = "rosaryReal"
+defaultTargets = ["RosaryReal"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "v4.29.1"
+
+[[require]]
+name = "rosary"
+path = "../jane-s-rosary"
+
+[[lean_lib]]
+name = "RosaryReal"

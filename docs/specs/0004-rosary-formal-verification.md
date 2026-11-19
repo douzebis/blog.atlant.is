@@ -191,6 +191,16 @@ the first theorem is verified, not one per step.
   told, so it does not replace the paper's proof as the starting point of
   Part IV. What remains (the logarithmic bound of Proposition 1, Lemmas 4
   and 5, Theorems 5 and 6) does need real logarithms, hence Mathlib.
+- **Mathlib (2026-11-19).** The author added disk space and asked for
+  the paper's own proof of Theorem 3 to be verified too, not only the
+  integer one. Mathlib is installed in a second project,
+  `formal/jane-s-rosary-real/`, which depends on the first (by path) and
+  on Mathlib at tag `v4.29.1`, pinned in its `lake-manifest.json`. Lean
+  comes from `elan` for that project, in the version named by its
+  `lean-toolchain` file, the same 4.29.1 as the Nix one, so that
+  Mathlib's prebuilt files are used and nothing is compiled. Tools:
+  `nix-shell formal/shell.nix`. The first project stays free of any
+  library and keeps its pure Nix check.
 - The check and its tests are shared scripts, `formal/check.sh` and
   `formal/test-check.sh`, so that another paper can use them.
 
