@@ -195,7 +195,7 @@ the first theorem is verified, not one per step.
   the paper's own proof of Theorem 3 to be verified too, not only the
   integer one. Mathlib is installed in a second project,
   `formal/jane-s-rosary-real/`, which depends on the first (by path) and
-  on Mathlib at tag `v4.29.1`, pinned in its `lake-manifest.json`. Lean
+  on Mathlib, pinned in its `lake-manifest.json` (at first at tag `v4.29.1`; see below). Lean
   comes from `elan` for that project, in the version named by its
   `lean-toolchain` file, the same 4.29.1 as the Nix one, so that
   Mathlib's prebuilt files are used and nothing is compiled. Tools:
@@ -218,6 +218,16 @@ the first theorem is verified, not one per step.
   proof. The sum of 1/rho(s) over t different times is bounded by the
   harmonic sum (`sum_inv_le`), which is the paper's "since rho is
   injective".
+- **Lean 4.34.1 for the Mathlib project (2026-11-19).** The second
+  project moved from Lean 4.29.1 to 4.34.1 and to Mathlib revision
+  `d13f23b7`, the versions used by an external Lean proof that the
+  irrationality exponent of log 3 / log 2 is at most 3
+  (github.com/rohitkrjha/log23-measure), so that one project can use both.
+  Nothing had to be changed in the proofs. The first project is still
+  checked by Nix with Lean 4.29.1, and is also compiled by the second with
+  4.34.1: its files must compile under both. Under 4.34.1 they give
+  deprecation warnings for `if_pos`, `if_neg` and `dif_pos`, names kept
+  because the replacements do not exist in 4.29.1.
 - The check and its tests are shared scripts, `formal/check.sh` and
   `formal/test-check.sh`, so that another paper can use them.
 
