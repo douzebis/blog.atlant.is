@@ -140,6 +140,16 @@ $$
   Theorem 3.
 - **Part IV, the pace of the recitation** (Section 11): Theorems 5 and 6. It
   continues Part II and uses neither Theorem 1 nor Part III.
+
+  Part IV is the only place where a fact comes from outside the paper.
+  Everything up to Theorem 3 needs only that $\log_2 3$ is irrational,
+  which is $2^a \neq 3^b$. The clock of Theorem 6, and the square root in
+  Theorem 5, need more: that fractions cannot approach $\log_2 3$ faster
+  than a fixed power of their denominator (a finite *irrationality
+  exponent*). This is a theorem, with two sources: the classical measures
+  of Baker and Rhin, and a bound formalized in Lean by R. K. Jha in 2026.
+  Section 11 states its results for any such exponent and then says what
+  each source gives ("Which exponent?", after Theorem 6).
 - **Coda**: the rosary's relatives (the sidewalk, the powers of $3/2$, the
   $3x+1$ problem), and what is still open (Section 12).
 
