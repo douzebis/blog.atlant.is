@@ -21,6 +21,7 @@ pkgs.runCommand "jane-s-rosary-arxiv"
     post = ../../content/posts/2022-12-02-jane-s-infinite-rosary;
     builder_py = ./build.py;
     declaration = ./declaration.md;
+    related = ./related.md;
   }
   ''
     export HOME=$TMPDIR
@@ -28,6 +29,7 @@ pkgs.runCommand "jane-s-rosary-arxiv"
     mkdir -p repo/content/posts repo/arxiv/jane-s-rosary
     cp -r $post repo/content/posts/2022-12-02-jane-s-infinite-rosary
     cp $declaration repo/arxiv/jane-s-rosary/declaration.md
+    cp $related repo/arxiv/jane-s-rosary/related.md
     python3 $builder_py repo/content/posts/2022-12-02-jane-s-infinite-rosary src
     cd src
     for pass in 1 2 3; do

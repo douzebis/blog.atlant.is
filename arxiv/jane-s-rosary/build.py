@@ -37,7 +37,16 @@ bead $m$ is told after at most polynomially many moves. Along the way the
 beads congruent to $1$ modulo $3$ are shown to carry a tree in which every
 node has infinitely many children. The main results have been formalized
 and checked in the Lean proof assistant.
+
+**MSC 2020:** 11B83 (primary); 11J82, 11K06, 68V20 (secondary).
+**Keywords:** integer sequences, greedy walk, permutation of the integers,
+powers of 3/2, irrational rotation, irrationality exponent, formal proof,
+Lean.
 """
+
+PAGE = (
+    "https://douzebis.github.io/blog.atlant.is/posts/2022-12-02-jane-s-infinite-rosary/"
+)
 
 # Passages of the web page that are reworded for the paper: (web, paper).
 REWORDINGS = [
@@ -68,10 +77,157 @@ TEASER = (
 
 HEADER = r"""
 \usepackage{amscd}
+\usepackage{amsthm}
 \usepackage{float}
 \floatplacement{figure}{htbp}
 \renewcommand{\arraystretch}{1.15}
+% Statements keep the numbers of the web page: the label is given by hand.
+\newcommand{\stmtname}{}
+\theoremstyle{plain}
+\newtheorem*{stmtplain}{\stmtname}
+\theoremstyle{definition}
+\newtheorem*{stmtupright}{\stmtname}
+\newenvironment{named}[1]{\renewcommand{\stmtname}{#1}\begin{stmtplain}}{\end{stmtplain}}
+\newenvironment{namedupright}[1]{\renewcommand{\stmtname}{#1}\begin{stmtupright}}{\end{stmtupright}}
+% Sections without a number that still appear in the table of contents.
+\newcommand{\unnumbered}[1]{\section*{#1}\addcontentsline{toc}{section}{#1}}
+\newcommand{\unnumberedpart}[1]{\part*{#1}\addcontentsline{toc}{part}{#1}}
 """
+
+STATEMENT = re.compile(
+    r"^\*\*((?:Theorem|Lemma|Corollary|Proposition|Fact|Conjecture|Question) [0-9A-Z]+)"
+    r"(?: \(([^)]*)\))?\.\*\* ?"
+)
+CONTINUES = re.compile(r"^(\d+\.|[-*] |\$\$| )")
+BOX = "$\\quad\\Box$"
+
+
+def raw(latex: str) -> str:
+    return f"`{latex}`{{=latex}}"
+
+
+def anchor(title: str) -> str:
+    """The identifier that the web page gives to a heading."""
+    kept = re.sub(r"[^a-z0-9 -]", "", title.lower())
+    return kept.replace(" ", "-")
+
+
+def adapt_headings(body: str) -> str:
+    """Parts, numbered sections and unnumbered ones, as LaTeX makes them."""
+    out: list[str] = []
+    expected = 1
+    fenced = False
+    for line in body.split("\n"):
+        if line.startswith("```"):
+            fenced = not fenced
+        heading = None if fenced else re.match(r"^(#{2,4}) (.*)$", line)
+        if heading is None:
+            out.append(line)
+            continue
+        level, title = len(heading.group(1)), heading.group(2)
+        if re.search(r"[*`\[]", title):
+            fail(f"a heading with markup: {title!r}")
+        label = f"\\label{{{anchor(title)}}}"
+        part = re.match(r"^Part [IVX]+\. (.*)$", title)
+        numbered = re.match(r"^(\d+)\. (.*)$", title)
+        if level == 2 and part:
+            latex = f"\\part{{{part.group(1)}}}{label}"
+        elif level == 2 and title == "Coda":
+            latex = f"\\unnumberedpart{{{title}}}{label}"
+        elif level == 3 and numbered:
+            if int(numbered.group(1)) != expected:
+                fail(f"section {numbered.group(1)} where {expected} was expected")
+            expected += 1
+            latex = f"\\section{{{numbered.group(2)}}}{label}"
+        elif level in (2, 3):
+            latex = f"\\unnumbered{{{title}}}{label}"
+        else:
+            latex = f"\\subsection*{{{title}}}{label}"
+        out += ["```{=latex}", latex, "```"]
+    return "\n".join(out)
+
+
+def adapt_statements(body: str) -> str:
+    """Theorems, lemmas and the like as theorem environments."""
+    lines = body.split("\n")
+    out: list[str] = []
+    inside = False
+    in_display = False
+    previous_blank = True
+
+    def close() -> None:
+        nonlocal inside
+        if inside:
+            while out and out[-1] == "":
+                out.pop()
+            out.extend(["", "```{=latex}", "\\end{" + environment + "}", "```", ""])
+            inside = False
+
+    environment = "named"
+    for line in lines:
+        start = STATEMENT.match(line) if previous_blank and not in_display else None
+        if start:
+            close()
+            name, title = start.group(1), start.group(2)
+            environment = (
+                "namedupright"
+                if name.split()[0] in ("Conjecture", "Question")
+                else "named"
+            )
+            head = f"\\begin{{{environment}}}{{{name}}}" + (
+                f"[{title}]" if title else ""
+            )
+            out.append(raw(head) + " " + line[start.end() :])
+            inside = True
+        elif (
+            inside
+            and previous_blank
+            and not in_display
+            and not CONTINUES.match(line)
+            and line.strip()
+        ):
+            close()
+            out.append(line)
+        else:
+            out.append(line)
+        if line.count("$$") % 2 == 1:
+            in_display = not in_display
+        previous_blank = line.strip() == ""
+    close()
+    return "\n".join(out)
+
+
+def adapt_proofs(body: str) -> str:
+    """Proofs as proof environments, with the square at their end."""
+    lines = body.split("\n")
+    out: list[str] = []
+    open_proofs = 0
+    pending_end = False
+    for line in lines:
+        if pending_end and line.strip() == "":
+            out.extend(["", "```{=latex}", "\\end{proof}", "```"])
+            pending_end = False
+        start = re.match(r"^\*Proof( of [^*]*)?\.\* ?", line)
+        if start:
+            if open_proofs:
+                fail("a proof starts inside another one")
+            open_proofs = 1
+            option = f"[Proof{start.group(1)}]" if start.group(1) else ""
+            line = raw("\\begin{proof}" + option) + " " + line[start.end() :]
+        if BOX in line:
+            if not open_proofs:
+                fail("the end of a proof without its start")
+            # Inside a list item the square is placed by hand and the proof
+            # is closed after the list; in a paragraph the proof ends there.
+            in_list = line.startswith(" ")
+            mark = raw("\\qedhere") if in_list else raw("\\end{proof}")
+            line = line.replace(" " + BOX, mark).replace(BOX, mark)
+            open_proofs = 0
+            pending_end = in_list
+        out.append(line)
+    if open_proofs or pending_end:
+        fail("a proof is not closed")
+    return "\n".join(out)
 
 
 def fail(message: str) -> None:
@@ -158,8 +314,19 @@ def main() -> int:
         if body.count(web) != 1:
             fail(f"passage to reword not found exactly once: {web!r}")
         body = body.replace(web, paper)
+    opening = "Jane owns a special rosary."
+    still_open = "**And what is still open.**"
+    if body.count(opening) != 1 or body.count(still_open) != 1:
+        fail("the opening is not where it was")
+    related = (
+        post.parent.parent.parent / "arxiv" / "jane-s-rosary" / "related.md"
+    ).read_text()
+    body = body.replace(opening, "## Introduction\n\n" + opening)
+    body = body.replace(still_open, related + still_open)
     images: set[str] = set()
     body = adapt_figures(body, images)
+    body = adapt_statements(body)
+    body = adapt_proofs(body)
     for leftover in ("history above", "live version", "this site", "Click the picture"):
         if leftover in body:
             fail(f"web-only wording left in the text: {leftover!r}")
@@ -171,7 +338,7 @@ def main() -> int:
     body += (
         "\n## Versions of this paper\n\n"
         "This paper is also a web page, with interactive versions of its figures, "
-        "at <https://blog.atlant.is/posts/2022-12-02-jane-s-infinite-rosary/>; its "
+        f"at <{PAGE}>; its "
         "sources, the programs and the Lean files are at "
         "<https://github.com/douzebis/blog.atlant.is>. The earlier versions are kept "
         "there and can be compared.\n\n" + versions + "\n"
@@ -180,6 +347,7 @@ def main() -> int:
         post.parent.parent.parent / "arxiv" / "jane-s-rosary" / "declaration.md"
     )
     body += "\n" + declaration.read_text()
+    body = adapt_headings(body)
 
     for name in sorted(images):
         source = post / "images" / name
@@ -207,12 +375,15 @@ def main() -> int:
     subprocess.run(
         [
             "pandoc",
-            "--from=markdown+smart+gfm_auto_identifiers",
+            "--from=markdown+smart+gfm_auto_identifiers-fancy_lists-example_lists",
             "--to=latex",
             "--standalone",
             "--shift-heading-level-by=-1",
             "--no-highlight",
             "--metadata-file=meta.yaml",
+            "--number-sections",
+            "--toc",
+            "--toc-depth=1",
             "--include-in-header=header.tex",
             "--variable=documentclass:article",
             "--variable=classoption:11pt",
@@ -227,6 +398,11 @@ def main() -> int:
         cwd=out,
         check=True,
     )
+    tex = (out / "paper.tex").read_text()
+    labels = set(re.findall(r"\\label\{([^}]*)\}", tex))
+    for target in sorted(set(re.findall(r"\\hyperref\[([^\]]*)\]", tex))):
+        if target not in labels:
+            fail(f"a link inside the paper has no target: {target}")
     for scratch in ("body.md", "header.tex", "meta.yaml"):
         (out / scratch).unlink()
     print(f"build.py: wrote {out}/paper.tex and {len(images)} figures")
