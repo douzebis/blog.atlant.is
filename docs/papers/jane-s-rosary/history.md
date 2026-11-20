@@ -440,6 +440,25 @@ the paper's proofs. Changes to the paper:
   form in which Lean keeps the books.
 - Lemma 5 is unchanged: the Lean statements were made strict to match it.
 
-Not verified by reading the sources: that Rhin's 8.616 is still the best
-classical measure for log 3 / log 2 (Jha's manuscript cites Wu and Wang,
-2014, with 5.1163, for a quantity we have not identified).
+Sources checked on 2026-11-20:
+
+- Rhin's 8.616 is a bound for log 3 / log 2: L. Spiegelhofer, *Collisions
+  of the binary and ternary sum-of-digits functions* (arXiv:2105.11173v1,
+  2021), writes, for alpha = log 3 / log 2: "a bound for the irrationality
+  measure mu(alpha) of alpha [...] was given by Rhin [46, Equation (8)]:
+  we have mu(alpha) <= 8.616. We also note that Wu and Wang [58] obtained
+  the bound mu(log 3) <= 5.1163051." Rhin's paper itself was not read
+  (not available online to us).
+- Wu and Wang's 5.1163051 (J. Number Theory 142, 2014) is stated for
+  log 3. Jha's manuscript says that their linear-form estimate implies
+  the same bound for log 3 / log 2. We could not read their paper
+  (publisher's page refused), so the paper keeps Rhin's value for
+  log 3 / log 2 and does not quote 5.1163051.
+- [OAI26]: at commit adc7f124 of github.com/openai/math (the commit Jha's
+  sources are copied from), the directory
+  `preprints/The-irrationality-exponent-of-pi-is-2-September-24-2026`
+  holds `paper.pdf` and a README giving the author as OpenAI and the date
+  as September 24, 2026; `lean/OAI/NumberTheory/PiExponent/Main.lean`
+  states `theorem main` and contains no `sorry`. We did not compile that
+  file; the part of that library which Jha's proof uses was compiled and
+  replayed with the rest of his sources.

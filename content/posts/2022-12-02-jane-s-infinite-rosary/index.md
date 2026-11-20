@@ -1325,9 +1325,9 @@ $\mu_0$ of $\log_2 3$. Two sources give one.
 - *A formalized bound.* In October 2026, R. K. Jha [Jh26] announced that
   every $\mu_0 > 3$ is an irrationality exponent of $\log_2 3$: for every
   $\varepsilon > 0$, $|\log_2 3 - p/q| \ge q^{-(3+\varepsilon)}$ for all
-  large $q$. The proof is written in Lean and builds on the formalization
-  of the irrationality exponent of $\pi$ in OpenAI's release of the same
-  month [OAI26]. With it, **every bead $m$ is told within
+  large $q$. The proof is written in Lean and uses the Lean library that
+  comes with OpenAI's preprint on the irrationality exponent of $\pi$
+  [OAI26]. With it, **every bead $m$ is told within
   $\kappa\, m^{5 + 2\varepsilon}$ moves**, for every $\varepsilon > 0$,
   and this version of Theorem 6 is checked by Lean from end to end.
 
@@ -1706,8 +1706,11 @@ number of up moves among them; $\log_3 2 = 0.6309297\ldots$
   <https://www.janestreet.com/numberphile2022>.
 - [Ma68] K. Mahler, *An unsolved problem on the powers of 3/2*, J. Austral.
   Math. Soc. 8 (1968), 313–321.
-- [OAI26] OpenAI, *The irrationality exponent of $\pi$ is 2*, result 017
-  of the repository <https://github.com/openai/math> (2026).
+- [OAI26] OpenAI, *The irrationality exponent of $\pi$ is 2*, preprint
+  dated September 24, 2026, with Lean sources, in the repository
+  <https://github.com/openai/math> (directories
+  `preprints/The-irrationality-exponent-of-pi-is-2-September-24-2026` and
+  `lean/OAI/NumberTheory/PiExponent`).
 - [OEIS] OEIS Foundation, *The On-Line Encyclopedia of Integer Sequences*,
   <https://oeis.org>: sequences [A061419](https://oeis.org/A061419),
   [A358838](https://oeis.org/A358838), [A359005](https://oeis.org/A359005),
