@@ -462,3 +462,7 @@ Sources checked on 2026-11-20:
   states `theorem main` and contains no `sorry`. We did not compile that
   file; the part of that library which Jha's proof uses was compiled and
   replayed with the rest of his sources.
+
+2026-11-20: the word "lambex" becomes "lambdex" in the text of the paper
+(the author's choice). The Lean files, the programs, the figure code and
+the earlier versions keep `lambex`.

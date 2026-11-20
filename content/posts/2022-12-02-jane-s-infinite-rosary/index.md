@@ -462,7 +462,7 @@ only moves up. This takes four names; bead $8$ is the example again.
   what she tells if she only moves down; it is finite and ends in $1$:
   $\downarrow\!(8) = \{8, 4, 2, 1\}$.
 - **Seed**: $\sigma(n)$ is the unique black bead from which $n$ is reached by up
-  moves only. **Lambex** (for "$\lambda$-exponent"): $\Lambda(n)$ is the number
+  moves only. **Lambdex** (for "$\lambda$-exponent"): $\Lambda(n)$ is the number
   of those up moves. In other words $n = \sigma(n)U^{\Lambda(n)}$ and
   $\sigma(n) = n\lambda^{\Lambda(n)}$, which is where the name comes from.
   Going back from bead $8$ by $\lambda$ gives $5, 3, 2, 1$, and $1$ is black:
@@ -471,7 +471,7 @@ only moves up. This takes four names; bead $8$ is the example again.
 
 By Fact 1, the up-chains of the black beads partition the rosary,
 $\mathbb{N}^* = \biguplus_{\boldsymbol{n}} \uparrow\!(\boldsymbol{n}^\bullet)$. So a bead is known
-by the number of its seed and by its lambex:
+by the number of its seed and by its lambdex:
 
 $$\gamma(n) = \big(\boldsymbol{k},\ \Lambda(n)\big) \quad\text{where}\quad \sigma(n) = \boldsymbol{k}^\bullet$$
 
@@ -522,15 +522,15 @@ $$2\boldsymbol{n} - 1 = 3^e q \quad\text{with } 3 \nmid q, \qquad\text{and}\qqua
    to $\boldsymbol{n}^\bullet$ ending in $\sigma(w)\,U^{\Lambda(w)}D$.
 
 In words: of the two beads $\boldsymbol{n}^\bullet\mu$ and $\boldsymbol{n}^\bullet\nu$ above a black bead, *the one
-with the larger lambex, equivalently the smaller seed, lies on a minimal
+with the larger lambdex, equivalently the smaller seed, lies on a minimal
 recitation*; and which one it is can be read off the base-3 expansion of
 $2\boldsymbol{n}-1$. Above the black bead $4 = \mathbf{2}^\bullet$, for instance, $2\boldsymbol{n} - 1 = 3$,
 so $e = 1$, $q = 1$ and $b_2 = 4$ is black: $\mu$ wins, and indeed
-$4\mu = 8$ has lambex $4$ while $4\nu = 9$ has lambex $2$.
+$4\mu = 8$ has lambdex $4$ while $4\nu = 9$ has lambdex $2$.
 
 [![Figure 7](images/figure-07.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=back&label=position&color=position&arrows=yes&interactive=yes&first=1)
 
-> Figure 7: when in doubt, choose the predecessor with the larger lambex. Each arrow points to where a shortest recitation comes from. White beads point one step to the left. A black bead, in the left column, has two candidates: the solid arrow points to the winner, the dashed one to the loser, and the winner is always the one further to the right in its row ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=back&label=position&color=position&arrows=yes&interactive=yes&first=1)).
+> Figure 7: when in doubt, choose the predecessor with the larger lambdex. Each arrow points to where a shortest recitation comes from. White beads point one step to the left. A black bead, in the left column, has two candidates: the solid arrow points to the winner, the dashed one to the loser, and the winner is always the one further to the right in its row ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=back&label=position&color=position&arrows=yes&interactive=yes&first=1)).
 
 *The idea.* Follow the two candidates $a_0 = \boldsymbol{n}^\bullet\mu$ and $b_0 = \boldsymbol{n}^\bullet\nu$
 backwards along their up-chains. They are neighbors, and they stay neighbors,
@@ -573,7 +573,7 @@ $a_i\lambda = \lfloor \frac{2}{3}(b_i - 1) \rfloor = b_{i+1} - 1 = a_{i+1}$.
 Finally $b_{e+1} = 2^{e+1}q$ is not
 divisible by $3$: if it is $\equiv 1$ then $b_{e+1}$ is black and
 $a_{e+1} \equiv 0$ is white, and if it is $\equiv 2$ then $b_{e+1}$ is white
-and $a_{e+1} \equiv 1$ is black. The lambex of the bead that turned black is
+and $a_{e+1} \equiv 1$ is black. The lambdex of the bead that turned black is
 $e+1$; the other one is larger.
 
 **(3).** The loser's seed is the black bead $s \in \{a_{e+1}, b_{e+1}\}$, and
@@ -905,10 +905,10 @@ bead $8$.
 - **Canonical recitation** $C(n)$ to a bead $n$: the recitation
   $1 = a_0, a_1, \ldots, a_{h(n)} = n$ defined backwards by
   $a_{i-1} = a_i\lambda$ if $a_i$ is white, and $a_{i-1} =$ the winner among
-  $a_i\mu$, $a_i\nu$ (the one with the larger lambex) if $a_i$ is black. By
+  $a_i\mu$, $a_i\nu$ (the one with the larger lambdex) if $a_i$ is black. By
   Lemma 2 and Theorem 1 it is a minimal recitation to $n$. For the black
-  bead $4$ the candidates are $4\mu = 8$, with lambex $4$, and $4\nu = 9$,
-  with lambex $2$: bead $8$ wins, and
+  bead $4$ the candidates are $4\mu = 8$, with lambdex $4$, and $4\nu = 9$,
+  with lambdex $2$: bead $8$ wins, and
   $C(4) = 1, 2, 3, 5, 8, 4$.
 - **Onyx rosary**: the rosary obtained by removing all white beads. Its
   beads are called **onyxes**: onyx $\boldsymbol{n}$ is the black bead number
@@ -1675,8 +1675,8 @@ machine. The record of what was done, and of what was not, is in
 | recitation, minimal recitation | | a sequence of moves; one of least length | [Section 1](#1-prelude-names) |
 | height | $h(n)$ | the least number of moves from bead $1$ to $n$ | [Section 1](#1-prelude-names) |
 | up-chain, down-chain | $\uparrow\!(n)$, $\downarrow\!(n)$ | the beads reached from $n$ by up moves only, by down moves only | [Section 4](#4-interlude-more-names) |
-| seed, lambex | $\sigma(n)$, $\Lambda(n)$ | the black bead at the start of the up-chain through $n$; the number of up moves from it to $n$ (the "$\lambda$-exponent") | [Section 4](#4-interlude-more-names) |
-| winner | "$\mu$ wins", "$\nu$ wins" | of $\boldsymbol{n}^\bullet\mu$ and $\boldsymbol{n}^\bullet\nu$, the one with the larger lambex | [Section 5](#5-theorem-1-minimal-recitations-ending-in-a-black-bead) |
+| seed, lambdex | $\sigma(n)$, $\Lambda(n)$ | the black bead at the start of the up-chain through $n$; the number of up moves from it to $n$ (the "$\lambda$-exponent") | [Section 4](#4-interlude-more-names) |
+| winner | "$\mu$ wins", "$\nu$ wins" | of $\boldsymbol{n}^\bullet\mu$ and $\boldsymbol{n}^\bullet\nu$, the one with the larger lambdex | [Section 5](#5-theorem-1-minimal-recitations-ending-in-a-black-bead) |
 | reluctant recitation | $\rho(i)$, $V_i$ | Jane's $i$-th bead when she moves down whenever she can; the beads told so far | [Section 6](#6-janes-reluctant-recitation) |
 | cone | | bead $m$ and the beads above it in the binary tree | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |
 | phase | $\theta(n)$ | $\log_2 n$ modulo $1$ | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |

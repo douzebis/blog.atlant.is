@@ -86,7 +86,7 @@ REWORDINGS = [
 # The links inside the text keep pointing to the web title's identifier.
 TITLES = {
     "1. Prelude: names": "1. Notation and names",
-    "4. Interlude: more names": "4. More names: chains, seeds and lambexes",
+    "4. Interlude: more names": "4. More names: chains, seeds and lambdexes",
     "9. Interlude: for a few names more": "9. Names for the onyx rosary",
 }
 

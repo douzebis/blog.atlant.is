@@ -241,7 +241,8 @@ computed from them in `Examples.lean`.
   ```
 
   "Some recitation to `n` has `height n` moves, and none has fewer."
-- **Seed and lambex** (`Seed.lean`): defined by going back with `λ` until
+- **Seed and lambdex** (`Seed.lean`; the Lean name is `lambex`, the word
+  the paper used until November 2026): defined by going back with `λ` until
   a black bead is met. What to read: `seed_black`, `seed_white` (how they
   are computed) and `seed_spec` (the seed is black and
   $n = \sigma(n)U^{\Lambda(n)}$).
