@@ -56,6 +56,8 @@ numbers:
 | Step 4: the rotation reaches every arc in a bounded number of steps | `rotation_cover` | `RosaryReal/Rotation.lean` |
 | Steps 2 and 3; the bookkeeping of Step 4 | `eventually_large`, `exists_up`, `phase_track` | `RosaryReal/Track.lean` |
 | **Theorem 3, by the proof of the paper** | `theorem3_by_rotation` | `RosaryReal/Theorem3.lean` |
+| Lemma 9, under the hypothesis on $\log_2 3$ | `BadlyApproximable`, `lemma9` | `RosaryReal/Lemma9.lean` |
+| **Theorem 6**, under the hypothesis that $\mu_0$ is an irrationality exponent of $\log_2 3$ | `IrrationalityExponent`, `theorem6_exponent` | `RosaryReal/Theorem6.lean` |
 | The number of up moves $u(t)$; Theorem 5, part 1 | `ups`, `theorem5_part1` | `RosaryReal/Track.lean`, `RosaryReal/Theorem5.lean` |
 
 To check it (the first time, Lean and Mathlib are downloaded, about 10 GB
@@ -65,8 +67,23 @@ on disk):
 nix-shell formal/shell.nix --run "bash formal/check-real.sh"
 ```
 
-Not done so far: Theorem 5, parts 2 and 3, Lemma 9 and Theorem 6;
-Corollaries 2 and 3.
+Not done so far: Theorem 5, parts 2 and 3; the bound on the frontier
+$F(t)$ that the paper derives from Theorem 6; Corollaries 2 and 3.
+
+**A theorem with a hypothesis.** Theorem 6 needs a fact about $\log_2 3$
+that is not proved in these files: some $\mu_0$ is an *irrationality
+exponent*, that is, $|\log_2 3 - p/q| \ge c\,q^{-\mu_0}$ for all $p$ and
+$q \ge 1$. In Lean this fact is an input of the theorem:
+
+```lean
+theorem theorem6_exponent (c μ₀ : ℝ) (hμ : 1 < μ₀) (H : IrrationalityExponent c μ₀) :
+    ∃ κ : ℝ, ∀ m i : ℕ, 1 ≤ m → rho i = m → (i : ℝ) ≤ κ * (m : ℝ) ^ (2 * μ₀ - 1)
+```
+
+"For all `c` and `μ₀`: if `μ₀ > 1` and `H` holds, then there is a `κ`
+such that a bead `m` told at time `i` has `i ≤ κ m^(2μ₀ - 1)`." Nothing
+is assumed behind the reader's back: `H` is in the statement, and the
+check still refuses any axiom.
 
 ## Theorem 3 is proved twice
 

@@ -32,48 +32,12 @@ theorem told_div (p : ℕ) :
     rw [down_eq] at h
     exact ⟨i'', h⟩
 
-/-- **Theorem 3, by the rotation.**  The reluctant recitation tells every
-bead. -/
-theorem theorem3_by_rotation (m : ℕ) (hm : 1 ≤ m) : ∃ i, rho i = m := by
-  by_contra hno
+/-- A bead `b > m` whose logarithm, minus an integer `Z`, lies strictly
+between `log₂ m` and `log₂ (m + 1)` is in the cone of `m`: `bD^p = m`. -/
+theorem cone_of_phase (m N b : ℕ) (hm : 1 ≤ m) (hNm : m ≤ N) (hbN : N < b) (Z : ℤ)
+    (hlo : logb 2 m < logb 2 b - (Z : ℝ))
+    (hhi : logb 2 b - (Z : ℝ) < logb 2 ((m : ℝ) + 1)) : ∃ p : ℕ, b / 2 ^ p = m := by
   have hm0 : (0 : ℝ) < m := by exact_mod_cast hm
-  -- the arc of `m`: from `log₂ m` to `log₂ (m + 1)`, of length `w`
-  have hw : 0 < logb 2 ((m : ℝ) + 1) - logb 2 m := by
-    have := Real.logb_lt_logb (b := 2) (by norm_num) hm0 (show (m : ℝ) < m + 1 by linarith)
-    linarith
-  generalize hwdef : logb 2 ((m : ℝ) + 1) - logb 2 m = w at hw
-  -- `J` steps of the rotation reach its middle third
-  obtain ⟨J, hJ⟩ := rotation_cover (logb 2 m + w / 3) (w / 3) (by positivity)
-  -- `N` so large that the errors of `J` steps stay below `w/3`
-  obtain ⟨N, hN1, hNm, hNJ⟩ : ∃ N : ℕ, 1 ≤ N ∧ m ≤ N ∧ (J : ℝ) * (2 / N) < w / 3 := by
-    refine ⟨m + ⌈6 * J / w⌉₊ + 1, by omega, by omega, ?_⟩
-    have h1 : 6 * J / w ≤ (⌈6 * J / w⌉₊ : ℝ) := Nat.le_ceil _
-    have h2 : 6 * (J : ℝ) ≤ ⌈6 * J / w⌉₊ * w := by rwa [div_le_iff₀ hw] at h1
-    have hpos : (0 : ℝ) < ((m + ⌈6 * J / w⌉₊ + 1 : ℕ) : ℝ) := by positivity
-    rw [mul_div_assoc', div_lt_iff₀ hpos]
-    push_cast
-    nlinarith
-  -- Step 2: after time `T`, all beads are larger than `N`
-  obtain ⟨T, hT⟩ := eventually_large N
-  -- Step 4: some `j < J` brings the phase into the middle third
-  obtain ⟨j, hj, z1, hz1, hz2⟩ := hJ (logb 2 (rho T))
-  -- Step 3: a time `t` at which Jane has made `j` up moves since `T`
-  obtain ⟨t, ht, hups⟩ := exists_ups T j
-  obtain ⟨b, k, u, z, hb, hrho, hu, herr⟩ := phase_track N T hN1 hT t ht
-  have huj : u = j := by omega
-  subst huj
-  have herr' : |logb 2 b - logb 2 (rho T) - u * alpha - z| < w / 3 := by
-    refine lt_of_le_of_lt herr (lt_of_le_of_lt ?_ hNJ)
-    have : (u : ℝ) ≤ J := by exact_mod_cast hj.le
-    exact mul_le_mul_of_nonneg_right this (by positivity)
-  rw [abs_lt] at herr'
-  -- so the told bead `b` has its phase in the arc of `m`
-  have hlo : logb 2 m < logb 2 b - ((z + z1 : ℤ) : ℝ) := by
-    push_cast; linarith [herr'.1]
-  have hhi : logb 2 b - ((z + z1 : ℤ) : ℝ) < logb 2 ((m : ℝ) + 1) := by
-    push_cast; linarith [herr'.2]
-  generalize z + z1 = Z at hlo hhi
-  have hbN : N < b := lt_of_lt_of_le (hT t ht) (by rw [hrho]; exact Nat.div_le_self b _)
   have hb0 : (0 : ℝ) < b := by exact_mod_cast (by omega : 0 < b)
   -- `b` is larger than `m`, so the integer `Z` is not negative
   have hZ : 0 ≤ Z := by
@@ -108,6 +72,51 @@ theorem theorem3_by_rotation (m : ℕ) (hm : 1 ≤ m) : ∃ i, rho i = m := by
   have c1' : m * 2 ^ p ≤ b := by exact_mod_cast c1.le
   have c2' : b < (m + 1) * 2 ^ p := by exact_mod_cast c2
   have hdiv : b / 2 ^ p = m := Nat.div_eq_of_lt_le c1' c2'
+  exact ⟨p, hdiv⟩
+
+/-- **Theorem 3, by the rotation.**  The reluctant recitation tells every
+bead. -/
+theorem theorem3_by_rotation (m : ℕ) (hm : 1 ≤ m) : ∃ i, rho i = m := by
+  by_contra hno
+  have hm0 : (0 : ℝ) < m := by exact_mod_cast hm
+  -- the arc of `m`: from `log₂ m` to `log₂ (m + 1)`, of length `w`
+  have hw : 0 < logb 2 ((m : ℝ) + 1) - logb 2 m := by
+    have := Real.logb_lt_logb (b := 2) (by norm_num) hm0 (show (m : ℝ) < m + 1 by linarith)
+    linarith
+  generalize hwdef : logb 2 ((m : ℝ) + 1) - logb 2 m = w at hw
+  -- `J` steps of the rotation reach its middle third
+  obtain ⟨J, hJ⟩ := rotation_cover (logb 2 m + w / 3) (w / 3) (by positivity)
+  -- `N` so large that the errors of `J` steps stay below `w/3`
+  obtain ⟨N, hN1, hNm, hNJ⟩ : ∃ N : ℕ, 1 ≤ N ∧ m ≤ N ∧ (J : ℝ) * (2 / N) < w / 3 := by
+    refine ⟨m + ⌈6 * J / w⌉₊ + 1, by omega, by omega, ?_⟩
+    have h1 : 6 * J / w ≤ (⌈6 * J / w⌉₊ : ℝ) := Nat.le_ceil _
+    have h2 : 6 * (J : ℝ) ≤ ⌈6 * J / w⌉₊ * w := by rwa [div_le_iff₀ hw] at h1
+    have hpos : (0 : ℝ) < ((m + ⌈6 * J / w⌉₊ + 1 : ℕ) : ℝ) := by positivity
+    rw [mul_div_assoc', div_lt_iff₀ hpos]
+    push_cast
+    nlinarith
+  -- Step 2: after time `T`, all beads are larger than `N`
+  obtain ⟨T, hT⟩ := eventually_large N
+  -- Step 4: some `j < J` brings the phase into the middle third
+  obtain ⟨j, hj, z1, hz1, hz2⟩ := hJ (logb 2 (rho T))
+  -- Step 3: a time `t` at which Jane has made `j` up moves since `T`
+  obtain ⟨t, ht, hups⟩ := exists_ups T j
+  obtain ⟨b, k, u, z, hb, hrho, hu, herr⟩ :=
+    phase_track N T hN1 t ht fun s h1 _ => hT s h1
+  have huj : u = j := by omega
+  subst huj
+  have herr' : |logb 2 b - logb 2 (rho T) - u * alpha - z| < w / 3 := by
+    refine lt_of_le_of_lt herr (lt_of_le_of_lt ?_ hNJ)
+    have : (u : ℝ) ≤ J := by exact_mod_cast hj.le
+    exact mul_le_mul_of_nonneg_right this (by positivity)
+  rw [abs_lt] at herr'
+  -- so the told bead `b` has its phase in the arc of `m`
+  have hlo : logb 2 m < logb 2 b - ((z + z1 : ℤ) : ℝ) := by
+    push_cast; linarith [herr'.1]
+  have hhi : logb 2 b - ((z + z1 : ℤ) : ℝ) < logb 2 ((m : ℝ) + 1) := by
+    push_cast; linarith [herr'.2]
+  have hbN : N < b := lt_of_lt_of_le (hT t ht) (by rw [hrho]; exact Nat.div_le_self b _)
+  obtain ⟨p, hdiv⟩ := cone_of_phase m N b hm hNm hbN _ hlo hhi
   -- Step 1: then `m` is told
   obtain ⟨i', hi'⟩ := told_div p b t hb (by omega)
   rw [hdiv] at hi'

@@ -5,6 +5,7 @@
 import RosaryReal.Theorem3
 import RosaryReal.Prop1
 import RosaryReal.Theorem5
+import RosaryReal.Theorem6
 
 /-!
 # What the proofs rest on
@@ -25,3 +26,7 @@ open Rosary
 #print axioms theorem3_by_rotation
 #print axioms height_log
 #print axioms theorem5_part1
+#print axioms lemma9
+#print axioms time_bound
+#print axioms theorem6
+#print axioms theorem6_exponent

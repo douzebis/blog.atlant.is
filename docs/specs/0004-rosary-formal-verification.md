@@ -228,6 +228,18 @@ the first theorem is verified, not one per step.
   4.34.1: its files must compile under both. Under 4.34.1 they give
   deprecation warnings for `if_pos`, `if_neg` and `dif_pos`, names kept
   because the replacements do not exist in 4.29.1.
+- **Lemma 9 and Theorem 6 (2026-11-20)**, in conditional form: the
+  hypothesis "mu0 is an irrationality exponent of log2 3, with constant
+  c" is an argument of the theorems (`IrrationalityExponent`,
+  `BadlyApproximable`), not an axiom. `theorem6_exponent` has the paper's
+  exponent 2 mu0 - 1. Lemma 9 is proved without the three-distance
+  theorem and without continued fractions: a fraction P/Q in lowest
+  terms close to alpha (Dirichlet), the points i alpha for i < Q are
+  within 1/Q of the multiples of 1/Q, and Q is large because alpha is
+  badly approximable. This gives J <= (4/w)^nu / c + 1, with the paper's
+  exponent and a constant 4 where the paper has 2. Theorem 6 follows the
+  paper (excursions above N, counting the visits below N); its constant
+  differs: i <= 4 (N + 1)(J + 1). The bound on F(t) is not done.
 - The check and its tests are shared scripts, `formal/check.sh` and
   `formal/test-check.sh`, so that another paper can use them.
 

@@ -91,23 +91,24 @@ theorem exists_ups (T j : ℕ) : ∃ t, T ≤ t ∧ ups t = ups T + j := by
     rw [ups_succ_up _ (Nat.find_spec hex), hmin _ (le_refl _), hu]
     ring
 
-/-- **Step 4, the bookkeeping.**  After time `T` all beads are larger than
-`N`.  At any later time `t`, Jane's bead lies below a told bead `b` (the
+/-- **Step 4, the bookkeeping.**  From time `T` to time `t` all the beads
+Jane leaves are larger than `N`.  At time `t`, Jane's bead lies below a told bead `b` (the
 bead she reached by her last up move): `ρ(t) = bD^k`.  If she has made `u`
 up moves since `T`, then `log₂ b` is `log₂ ρ(T) + u α`, up to an integer
 and an error of at most `2u/N`. -/
-theorem phase_track (N T : ℕ) (hN : 1 ≤ N) (hT : ∀ t, T ≤ t → N < rho t) :
-    ∀ t, T ≤ t → ∃ b k u : ℕ, ∃ z : ℤ,
+theorem phase_track (N T : ℕ) (hN : 1 ≤ N) :
+    ∀ t, T ≤ t → (∀ s, T ≤ s → s < t → N < rho s) → ∃ b k u : ℕ, ∃ z : ℤ,
       b ∈ told t ∧ rho t = b / 2 ^ k ∧ ups t = ups T + u ∧
       |logb 2 b - logb 2 (rho T) - u * alpha - z| ≤ u * (2 / N) := by
   intro t ht
   induction t, ht using Nat.le_induction with
-  | base => exact ⟨rho T, 0, 0, 0, rho_mem T, by simp, rfl, by simp⟩
+  | base => intro _; exact ⟨rho T, 0, 0, 0, rho_mem T, by simp, rfl, by simp⟩
   | succ t ht ih =>
-    obtain ⟨b, k, u, z, hb, hrho, hu, herr⟩ := ih
+    intro hT
+    obtain ⟨b, k, u, z, hb, hrho, hu, herr⟩ := ih fun s h1 h2 => hT s h1 (by omega)
     rcases rho_move t with hup | ⟨_, hd⟩
     · -- an up move: the new bead is the new anchor
-      have hm : N < rho t := hT t ht
+      have hm : N < rho t := hT t ht (Nat.lt_succ_self t)
       have hpos : 1 ≤ rho t := rho_pos t
       have l1 := lemma5_up (rho t) hpos
       have l2 := lemma5_down b k (rho t) hpos hrho.symm
