@@ -11,4 +11,6 @@ import RosaryReal.Theorem3
 import RosaryReal.Theorem5
 import RosaryReal.Theorem6
 import RosaryReal.ThreeDistance
+import RosaryReal.BestApprox
+import RosaryReal.Lemma9Three
 import RosaryReal.Audit

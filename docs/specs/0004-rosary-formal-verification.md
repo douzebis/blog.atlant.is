@@ -269,6 +269,20 @@ the first theorem is verified, not one per step.
   use it yet: getting the paper's constant 2 from it also needs the fact
   that the denominators of the convergents are best approximations,
   which Mathlib does not seem to have.
+- **Lemma 9 by the paper's proof (2026-11-20)**: `lemma9_three`, with
+  the paper's bound J <= (2/w)^nu / c, from the three-distance theorem.
+  One point differs from the paper's wording. The paper takes "the
+  denominators q_k of the convergents of alpha" and uses that they are
+  best approximations. The Lean proof takes the best approximations
+  themselves (q such that ||q alpha|| < ||k alpha|| for 1 <= k < q) and
+  never mentions convergents; that the two families coincide is the
+  classical theorem, which is not formalized here and not needed. Steps:
+  `ThreeDistance.best_approx_gaps` (for a best approximation q, the q
+  points leave arcs of two lengths, at most ||k alpha|| + ||q alpha||);
+  the first best approximation q >= 2/w exists and is at most
+  (2/w)^nu / c (Dirichlet, twice, and bad approximability);
+  `cover_of_gaps`. Theorem 6 now uses this lemma; `lemma9`, the shorter
+  proof with the constant 4, is kept as a second proof.
 - The check and its tests are shared scripts, `formal/check.sh` and
   `formal/test-check.sh`, so that another paper can use them.
 

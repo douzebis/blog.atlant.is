@@ -3,7 +3,7 @@
 -- SPDX-License-Identifier: MIT
 
 import RosaryReal.Theorem3
-import RosaryReal.Lemma9
+import RosaryReal.Lemma9Three
 
 /-!
 # Theorem 6: bead `m` is told in polynomial time
@@ -338,19 +338,24 @@ theorem theorem6 (c ν : ℝ) (hν : 0 < ν) (H : BadlyApproximable c ν) :
   have hm1 : (1 : ℝ) ≤ m := by exact_mod_cast hm
   -- the arc of `m`
   have hwl := arc_lower m hm
-  generalize hwdef : logb 2 ((m : ℝ) + 1) - logb 2 m = w at hwl
+  have hwle : logb 2 ((m : ℝ) + 1) - logb 2 m ≤ 1 := by
+    have h := Real.logb_le_logb_of_le (b := 2) (by norm_num)
+      (show (0 : ℝ) < (m : ℝ) + 1 by positivity) (show (m : ℝ) + 1 ≤ 2 * m by linarith)
+    rw [Real.logb_mul (by norm_num) hm0.ne', Real.logb_self_eq_one (by norm_num)] at h
+    linarith
+  generalize hwdef : logb 2 ((m : ℝ) + 1) - logb 2 m = w at hwl hwle
   have hw : 0 < w := lt_of_lt_of_le (by positivity) hwl
   have hinv : 1 / w ≤ 2 * m := (one_div_le hw (by positivity)).mpr hwl
   -- Lemma 9 for its middle third
-  obtain ⟨J, hJle, hJ⟩ := lemma9 c ν hν H (w / 3) (by positivity)
+  obtain ⟨J, hJle, hJ⟩ := lemma9_three c ν hν H (w / 3) (by positivity) (by linarith)
   have hX1 : (1 : ℝ) ≤ (m : ℝ) ^ ν := Real.one_le_rpow hm1 hν.le
   have hJA : (J : ℝ) ≤ A * (m : ℝ) ^ ν := by
-    have e : 4 / (w / 3) = 12 * (1 / w) := by field_simp; ring
-    have h1 : (4 / (w / 3)) ^ ν ≤ (24 * (m : ℝ)) ^ ν := by
+    have e : 2 / (w / 3) = 6 * (1 / w) := by field_simp; norm_num
+    have h1 : (2 / (w / 3)) ^ ν ≤ (24 * (m : ℝ)) ^ ν := by
       rw [e]
       exact Real.rpow_le_rpow (by positivity) (by linarith) hν.le
     rw [Real.mul_rpow (by norm_num) hm0.le] at h1
-    have h2 : (4 / (w / 3)) ^ ν / c ≤ 24 ^ ν * (m : ℝ) ^ ν / c :=
+    have h2 : (2 / (w / 3)) ^ ν / c ≤ 24 ^ ν * (m : ℝ) ^ ν / c :=
       div_le_div_of_nonneg_right h1 hc.le
     have e3 : A * (m : ℝ) ^ ν = 24 ^ ν * (m : ℝ) ^ ν / c + (m : ℝ) ^ ν := by
       rw [← hAdef]; ring

@@ -56,9 +56,10 @@ numbers:
 | Step 4: the rotation reaches every arc in a bounded number of steps | `rotation_cover` | `RosaryReal/Rotation.lean` |
 | Steps 2 and 3; the bookkeeping of Step 4 | `eventually_large`, `exists_up`, `phase_track` | `RosaryReal/Track.lean` |
 | **Theorem 3, by the proof of the paper** | `theorem3_by_rotation` | `RosaryReal/Theorem3.lean` |
-| Lemma 9, under the hypothesis on $\log_2 3$ | `BadlyApproximable`, `lemma9` | `RosaryReal/Lemma9.lean` |
+| Lemma 9, under the hypothesis on $\log_2 3$, by the paper's proof (three-distance theorem, best approximations), with the paper's constant | `BadlyApproximable`, `lemma9_three`, `ThreeDistance.best_approx_gaps` | `RosaryReal/Lemma9Three.lean`, `RosaryReal/BestApprox.lean` |
+| Lemma 9 again, by a shorter proof without the three-distance theorem (constant 4 for 2) | `lemma9` | `RosaryReal/Lemma9.lean` |
 | **Theorem 6**, under the hypothesis that $\mu_0$ is an irrationality exponent of $\log_2 3$ | `IrrationalityExponent`, `theorem6_exponent` | `RosaryReal/Theorem6.lean` |
-| The three-distance theorem (cited by the paper for Lemma 9; not used by the Lean proof of Lemma 9) | `ThreeDistance.three_distance` | `RosaryReal/ThreeDistance.lean` |
+| The three-distance theorem | `ThreeDistance.three_distance` | `RosaryReal/ThreeDistance.lean` |
 | The number of up moves $u(t)$; Theorem 5, part 1 | `ups`, `theorem5_part1` | `RosaryReal/Track.lean`, `RosaryReal/Theorem5.lean` |
 
 To check it (the first time, Lean and Mathlib are downloaded, about 10 GB
