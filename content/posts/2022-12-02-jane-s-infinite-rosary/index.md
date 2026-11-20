@@ -23,7 +23,7 @@ history:
   - date: "2026-11-18"
     text: "The beads are counted from 1 instead of 0, so that a down move halves the position and an up move multiplies it by 3/2. Black beads get a count of their own, written in bold, and the beads of the onyx rosary are called onyxes. No result changed."
   - date: "2026-11-20"
-    text: "Theorems 1 to 4 and 6, with the lemmas and propositions they rest on, are checked by the proof assistant Lean. Theorem 3 is checked twice: by the proof of Section 8, and by a second proof with integers only. Theorem 6 is stated in two variants, one resting on the classical irrationality measures of log₂ 3, the other on a bound formalized in Lean by R. K. Jha. The proofs of Lemma 9 and of Theorem 6 are reworded to follow the checked proofs."
+    text: "Every theorem, lemma, proposition and corollary of the paper is checked by the proof assistant Lean. Theorem 3 is checked twice: by the proof of Section 8, and by a second proof with integers only. Theorem 6 is stated in two variants, one resting on the classical irrationality measures of log₂ 3, the other on a bound formalized in Lean by R. K. Jha. The proofs of Lemma 9 and of Theorem 6 are reworded to follow the checked proofs."
 diagrams:
   - "images/reluctant-jane-1024x422.png"
 categories:
@@ -1329,7 +1329,9 @@ $\mu_0$ of $\log_2 3$. Two sources give one.
   comes with OpenAI's preprint on the irrationality exponent of $\pi$
   [OAI26]. With it, **every bead $m$ is told within
   $\kappa\, m^{5 + 2\varepsilon}$ moves**, for every $\varepsilon > 0$,
-  and this version of Theorem 6 is checked by Lean from end to end.
+  and this version of Theorem 6 is checked by Lean from end to end. The
+  same holds for parts 2 and 3 of Theorem 5, which need a finite
+  irrationality exponent too.
 
   The bound on $\log_2 3$ is Jha's result, not ours. It is recent and, to
   our knowledge, has not been reviewed by specialists; we have not read
@@ -1552,9 +1554,11 @@ checks them all.
 | **Theorem 3**: every bead is told, exactly once, by the proof of Section 8 | `theorem3_by_rotation` |
 | Theorem 3 again, by the proof sketched below | `theorem3`, `theorem3_permutation` |
 | Theorem 5, part 1 | `theorem5_part1` |
+| Theorem 5, part 2 without the square root: $\lfloor \log_2 \rho(t) \rfloor = o(t)$ | `depth_bound_up`, `depth_sublinear` |
+| Theorem 5, parts 2 and 3, with the irrationality exponent as a hypothesis | `theorem5_part2`, `theorem5_part3` |
 | The three-distance theorem | `three_distance` |
 | Lemma 9 and Theorem 6 (both bounds), with the irrationality exponent $\mu_0$ as a hypothesis | `lemma9_three`, `theorem6_exponent`, `theorem6_frontier` |
-| The first bound of Theorem 6 with the exponent $5 + 2\varepsilon$, from Jha's formalized bound | `theorem6_log23` |
+| Theorem 6 with the exponent $5 + 2\varepsilon$, and parts 2 and 3 of Theorem 5, with no hypothesis, from Jha's formalized bound | `theorem6_log23`, `theorem6_frontier_log23`, `theorem5_part2_log23`, `theorem5_part3_log23` |
 | Proposition 2 | `proposition2` |
 | Lemmas 6 and 7 | `lemma6`, `lemma7_even`, `lemma7_odd`, `lemma7` |
 | Lemma 8 | `lemma8`, `gap_one_iff` |
@@ -1562,7 +1566,9 @@ checks them all.
 | Corollary 2: the address is a bijection, and the order is the prefix order | `corollary2_injective`, `corollary2_surjective`, `corollary2_prefix` |
 | Corollary 3: the foraging sequence takes every value infinitely often | `corollary3` |
 
-Not checked in this way, so far: parts 2 and 3 of Theorem 5.
+With this, every theorem, lemma, proposition and corollary of the paper
+is checked in this way. The conjectures and questions of Section 12 are
+not: they have no proof to check.
 
 The Lean files are in three directories. The first,
 [`formal/jane-s-rosary`](https://github.com/douzebis/blog.atlant.is/tree/main/formal/jane-s-rosary),
@@ -1588,6 +1594,12 @@ Where the checked proofs differ from the text:
 - **Theorem 6.** The checked proof follows the text with cruder
   constants: $w_m \ge 1/(2m)$ and a slightly larger $N$. Only $\kappa$
   changes.
+- **Theorem 5, part 2.** The checked inequality is
+  $K(E - 1 - K - D) \le t + 1$ for every time $t$, where $E$ is the depth
+  of $\rho(t)$ and $2^D \ge 16K/\eta_K$; the text has
+  $E \le (t+1)/K + K + d_K$ with $2^{d_K} \ge 3/\eta_K$. The argument is
+  the same; the constants are cruder. Parts 2 and 3 are stated for
+  $t \ge 2$, with explicit constants in place of the $O$'s.
 
 **Theorem 3 without logarithms.** Lean also checked a second proof of
 Theorem 3, found while preparing the first. It uses integers only. Suppose that bead $m$

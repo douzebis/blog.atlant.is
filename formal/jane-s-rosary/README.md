@@ -63,6 +63,8 @@ numbers:
 | **Theorem 6**, under the hypothesis that $\mu_0$ is an irrationality exponent of $\log_2 3$ | `IrrationalityExponent`, `theorem6_exponent` | `RosaryReal/Theorem6.lean` |
 | The three-distance theorem | `ThreeDistance.three_distance` | `RosaryReal/ThreeDistance.lean` |
 | The number of up moves $u(t)$; Theorem 5, part 1 | `ups`, `theorem5_part1` | `RosaryReal/Track.lean`, `RosaryReal/Theorem5.lean` |
+| Theorem 5, part 2: the count in the binary tree; the depth is $o(t)$ | `depth_bound_up`, `depth_sublinear` | `RosaryReal/Depth.lean` |
+| Theorem 5, parts 2 and 3, under the hypothesis on $\log_2 3$ | `theorem5_part2`, `theorem5_part3` | `RosaryReal/Theorem5b.lean` |
 
 To check it (the first time, Lean and Mathlib are downloaded, about 10 GB
 on disk):
@@ -72,7 +74,15 @@ nix-shell formal/shell.nix --run "bash formal/check-real.sh"
 ```
 
 The bound on the frontier $F(t)$ is `theorem6_frontier`, in
-`RosaryReal/Theorem6.lean`. Not done so far: Theorem 5, parts 2 and 3.
+`RosaryReal/Theorem6.lean`.
+
+A third project, [`../jane-s-rosary-log23`](../jane-s-rosary-log23),
+removes the hypothesis on $\log_2 3$ by using R. K. Jha's formalized bound
+(`theorem6_log23`, `theorem6_frontier_log23`, `theorem5_part2_log23`,
+`theorem5_part3_log23`).
+
+Every theorem, lemma, proposition and corollary of the paper is now
+checked.
 
 **A theorem with a hypothesis.** Theorem 6 needs a fact about $\log_2 3$
 that is not proved in these files: some $\mu_0$ is an *irrationality

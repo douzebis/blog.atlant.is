@@ -3,6 +3,7 @@
 -- SPDX-License-Identifier: MIT
 
 import RosaryReal.Theorem6
+import RosaryReal.Theorem5b
 import LogarithmExtension.LogRatioMain
 
 /-!
@@ -92,7 +93,34 @@ theorem theorem6_log23 (ε : ℝ) (hε : 0 < ε) :
   have := h m i hm hi
   rwa [show 2 * (3 + ε) - 1 = 5 + 2 * ε by ring] at this
 
+/-- **Theorem 6, the frontier, without a hypothesis.**  For every `ε > 0`
+there is a `κ > 0` with `F(t) > (t/κ)^(1/(5 + 2ε))` for all `t`. -/
+theorem theorem6_frontier_log23 (ε : ℝ) (hε : 0 < ε) :
+    ∃ κ : ℝ, 0 < κ ∧ ∀ t : ℕ, ((t : ℝ) / κ) ^ (1 / (5 + 2 * ε)) < frontier t := by
+  obtain ⟨c, hc⟩ := irrationalityExponent_log23 ε hε
+  obtain ⟨κ, hκ, h⟩ := theorem6_frontier c (3 + ε) (by linarith) hc
+  refine ⟨κ, hκ, fun t => ?_⟩
+  have := h t
+  rwa [show 2 * (3 + ε) - 1 = 5 + 2 * ε by ring] at this
+
+/-- **Theorem 5, part 2, without a hypothesis:**
+`log₂ ρ(t) ≤ 2 √t + C log t` for all `t ≥ 2`. -/
+theorem theorem5_part2_log23 :
+    ∃ C : ℝ, ∀ t : ℕ, 2 ≤ t → logb 2 (rho t) ≤ 2 * √t + C * Real.log t := by
+  obtain ⟨c, hc⟩ := irrationalityExponent_log23 1 one_pos
+  exact theorem5_part2 c (3 + 1 - 1) (by norm_num) (badly_of_exponent c (3 + 1) hc)
+
+/-- **Theorem 5, part 3, without a hypothesis:**
+`|u(t)/t - log₃ 2| ≤ C/√t` for all `t ≥ 2`. -/
+theorem theorem5_part3_log23 :
+    ∃ C : ℝ, ∀ t : ℕ, 2 ≤ t → |(ups t : ℝ) / t - logb 3 2| ≤ C / √t := by
+  obtain ⟨c, hc⟩ := irrationalityExponent_log23 1 one_pos
+  exact theorem5_part3 c (3 + 1 - 1) (by norm_num) (badly_of_exponent c (3 + 1) hc)
+
 end Rosary
 
+#print axioms Rosary.theorem6_frontier_log23
+#print axioms Rosary.theorem5_part2_log23
+#print axioms Rosary.theorem5_part3_log23
 #print axioms Rosary.irrationalityExponent_log23
 #print axioms Rosary.theorem6_log23

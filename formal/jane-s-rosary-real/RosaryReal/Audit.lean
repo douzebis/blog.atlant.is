@@ -8,6 +8,7 @@ import RosaryReal.Theorem5
 import RosaryReal.Theorem6
 import RosaryReal.ThreeDistance
 import RosaryReal.Lemma9Three
+import RosaryReal.Theorem5b
 
 /-!
 # What the proofs rest on
@@ -36,3 +37,7 @@ open Rosary
 #print axioms ThreeDistance.best_approx_gaps
 #print axioms lemma9_three
 #print axioms theorem6_frontier
+#print axioms depth_bound_up
+#print axioms depth_sublinear
+#print axioms theorem5_part2
+#print axioms theorem5_part3

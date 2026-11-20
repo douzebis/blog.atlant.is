@@ -466,3 +466,9 @@ Sources checked on 2026-11-20:
 2026-11-20: the word "lambex" becomes "lambdex" in the text of the paper
 (the author's choice). The Lean files, the programs, the figure code and
 the earlier versions keep `lambex`.
+
+2026-11-20, later: Corollaries 2 and 3, the bound on the frontier and
+parts 2 and 3 of Theorem 5 are checked by Lean too; every theorem, lemma,
+proposition and corollary of the paper now is. No error was found. The
+paper's section on the proof assistant says where the checked proof of
+Theorem 5, part 2, has cruder constants than the text.

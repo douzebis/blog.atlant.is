@@ -6,9 +6,10 @@ SPDX-License-Identifier: MIT
 
 # 0004 — Jane's infinite rosary: proofs checked by a proof assistant
 
-**Status:** in-progress (plan approved 2026-11-19; steps 0 to 4 done, except Corollaries 2 and 3 and the logarithmic bound of Proposition 1)
+**Status:** implemented
+**Note:** plan approved 2026-11-19; all steps done on 2026-11-20
 **App:** blog.atlant.is (paper *Jane's infinite rosary*)
-**Implemented in:** <!-- YYYY-MM-DD, fill after implementation -->
+**Implemented in:** 2026-11-20
 
 ## Problem
 
@@ -293,6 +294,18 @@ the first theorem is verified, not one per step.
   black bead B and every time T, at some later time Jane enters the
   up-chain of B from another one; the compressed sequence itself is not
   defined. The bound on F(t) is `theorem6_frontier`.
+- **Theorem 5, parts 2 and 3 (2026-11-20).** `RosaryReal/Depth.lean`:
+  the inequality of the proof, `K (E - K - D) <= t + 1` at a time when
+  Jane is about to move up (`depth_bound_up`), by the paper's argument:
+  the last time at depth at most E - K, the K beads reached by the next
+  up moves, their phases pairwise far apart, hence different ancestors
+  at every depth from D to E - K, all of them told. Then all times
+  (`depth_bound`) and the statement without hypothesis that the depth is
+  o(t) (`depth_sublinear`). `RosaryReal/Theorem5b.lean`: under bad
+  approximability, `log2 rho(t) <= 2 sqrt t + C log t` and
+  `|u(t)/t - log_3 2| <= C / sqrt t` for t >= 2. The third project gives
+  both without hypothesis, from Jha's bound. With this, every numbered
+  statement of the paper that has a proof is checked.
 - The check and its tests are shared scripts, `formal/check.sh` and
   `formal/test-check.sh`, so that another paper can use them.
 
