@@ -98,3 +98,14 @@ two-line change of step 3), builds, applies `formal/check.sh`, then runs
   An attestation states that the file was produced by that workflow run
   at that commit. It says nothing about the content, which is to be read
   in the log.
+
+## The runs quoted in the paper's annex (2026-11-20)
+
+At commit `8321e0f` of this repository, after the paper was reworded:
+run 44701209645 of `formal-log23` (08:16 to 09:45 UTC), 942 of 942
+modules replayed (914 of the external formalization, 28 of ours), and run
+44701206189 of `pages` for the first two projects, 27 of 27 modules
+replayed. The five logs and their SHA-256 are in the table of the annex;
+each attestation was verified with `gh attestation verify`. The replay
+log of the second project is the same file from one run to the next, so
+GitHub holds several attestations for it.

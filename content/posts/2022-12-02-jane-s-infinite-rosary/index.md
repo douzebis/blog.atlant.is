@@ -1636,6 +1636,22 @@ this commit, produced these files. Anyone can verify it:
 `gh attestation verify <log> --repo douzebis/blog.atlant.is`. The signature
 says where a log comes from; what was checked is to be read in the log.
 
+The checks of the three projects at commit `8321e0f` of
+[our repository](https://github.com/douzebis/blog.atlant.is), with the
+attestations verified on 20 November 2026:
+
+| Project | Run | Log | SHA-256 of the log |
+|---|---|---|---|
+| `jane-s-rosary` (no library) | [44701206189](https://github.com/douzebis/blog.atlant.is/actions/runs/44701206189) | `rosary-check.log` | `4b07c45be15d27daab8c778a24356f520edec6779bd8408bc80b8223695b8954` |
+| `jane-s-rosary-real` (Mathlib) | [44701206189](https://github.com/douzebis/blog.atlant.is/actions/runs/44701206189) | `rosary-real-check.log` | `20e575a7e514bb57ae1dc9c6b86c67c95ebea49be687d8a0211d34131ba07060` |
+| the same, kernel replay: 27 of 27 modules | [44701206189](https://github.com/douzebis/blog.atlant.is/actions/runs/44701206189) | `rosary-real-recheck.log` | `3630d6d881f4a2789165a454f691d7daa971a73b83fbf5db67ea4ab043a89021` |
+| `jane-s-rosary-log23` (with Jha's formalization) | [44701209645](https://github.com/douzebis/blog.atlant.is/actions/runs/44701209645) | `rosary-log23-check.log` | `2d8be5948999549633aeac944b8fe20a2add23774c0311cef42e9415152e9038` |
+| the same, kernel replay: 942 of 942 modules | [44701209645](https://github.com/douzebis/blog.atlant.is/actions/runs/44701209645) | `rosary-log23-recheck.log` | `050a0a5bff0df00a76f636493548fd23db016ba03a12ac44a59cf648cbe64289` |
+
+The 942 modules of the last line are 914 of the 916 modules of Jha's
+formalization and 28 of ours; the two left out are audit modules of his
+that our project does not use.
+
 Jha's formalization is fetched from the fork
 [`douzebis/log23-measure`](https://github.com/douzebis/log23-measure) at
 commit `2da397e`: his commit `8a43e60`, plus a two-line change of the build
