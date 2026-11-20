@@ -58,6 +58,7 @@ numbers:
 | **Theorem 3, by the proof of the paper** | `theorem3_by_rotation` | `RosaryReal/Theorem3.lean` |
 | Lemma 9, under the hypothesis on $\log_2 3$ | `BadlyApproximable`, `lemma9` | `RosaryReal/Lemma9.lean` |
 | **Theorem 6**, under the hypothesis that $\mu_0$ is an irrationality exponent of $\log_2 3$ | `IrrationalityExponent`, `theorem6_exponent` | `RosaryReal/Theorem6.lean` |
+| The three-distance theorem (cited by the paper for Lemma 9; not used by the Lean proof of Lemma 9) | `ThreeDistance.three_distance` | `RosaryReal/ThreeDistance.lean` |
 | The number of up moves $u(t)$; Theorem 5, part 1 | `ups`, `theorem5_part1` | `RosaryReal/Track.lean`, `RosaryReal/Theorem5.lean` |
 
 To check it (the first time, Lean and Mathlib are downloaded, about 10 GB

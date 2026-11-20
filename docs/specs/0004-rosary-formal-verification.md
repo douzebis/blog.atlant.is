@@ -259,6 +259,16 @@ the first theorem is verified, not one per step.
   that log (`gh attestation verify`).
 - `formal/check.sh` reads axiom lists that are printed over several
   lines (Lean wraps long names); a regression test covers it.
+- **The three-distance theorem (2026-11-20)**, at the author's request,
+  for its own sake: `ThreeDistance.three_distance` in the second project,
+  for an irrational alpha and N >= 2 points. With A the smallest step
+  forward (at k = a) and B the smallest step backward (at k = b) among
+  1 <= k < N: a + b >= N, and the arc that starts at the point i alpha
+  has length A if i + a < N, B if b <= i, and A + B otherwise. The proof
+  is elementary (adding two steps, four comparisons). Lemma 9 does not
+  use it yet: getting the paper's constant 2 from it also needs the fact
+  that the denominators of the convergents are best approximations,
+  which Mathlib does not seem to have.
 - The check and its tests are shared scripts, `formal/check.sh` and
   `formal/test-check.sh`, so that another paper can use them.
 
