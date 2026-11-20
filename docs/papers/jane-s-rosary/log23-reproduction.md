@@ -67,3 +67,34 @@ Platform: Linux x86_64 (NixOS), Lean installed by elan.
   introduction, nor the proofs.
 - The author's own replay script was not run.
 - No kernel other than Lean's own was used.
+
+## On a GitHub machine, with signed logs (2026-11-20)
+
+The workflow `formal-log23` of this repository, run on demand, does the
+same from a clean machine: it fetches the fork
+`github.com/douzebis/log23-measure` at commit
+`2da397ecf69ef2990b4a84805387827cc13c6181` (the upstream commit plus the
+two-line change of step 3), builds, applies `formal/check.sh`, then runs
+`leanchecker` on every compiled module.
+
+- Run: <https://github.com/douzebis/blog.atlant.is/actions/runs/44687110127>,
+  at commit `8cdb9ec` of this repository, 06:20 to 07:53 UTC.
+- Result: `Build completed successfully (9864 jobs)`, `check: ok`;
+  `recheck: 939 of 939 modules replayed by the kernel, 0 failed`.
+- The 939 modules are 914 of the 916 modules of the external
+  formalization and 25 of ours. The two not included are
+  `LogarithmExtension.LogRatioAverageAudit` and
+  `LogarithmExtension.LogRatioScalingAudit`, which our project does not
+  import and so does not build; they were built and replayed on our own
+  host (step 5).
+- GitHub's attestations for the two logs were verified with
+  `gh attestation verify <file> --repo douzebis/blog.atlant.is`:
+
+  | File | SHA-256 |
+  |---|---|
+  | `rosary-log23-check.log` | `f77250e1715a5826f42b64b9b2e5d7d09a549e000c4e2006ef5bd7173f7474db` |
+  | `rosary-log23-recheck.log` | `a07dfe8d53371561030838bfe52f714b0f03a9d3db39035e1ccc6ad69e215972` |
+
+  An attestation states that the file was produced by that workflow run
+  at that commit. It says nothing about the content, which is to be read
+  in the log.
