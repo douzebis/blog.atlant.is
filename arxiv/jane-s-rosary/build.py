@@ -22,7 +22,7 @@ import shutil
 import subprocess
 import sys
 
-TITLE = "Jane's infinite rosary"
+TITLE = "Jane's infinite rosary: shortest paths and the reluctant walk on the infinite sidewalk"
 AUTHOR = "Frédéric Ruget"
 ABSTRACT = """\
 Jane tells the beads of an infinite rosary: from bead $n$ she moves up or
@@ -30,16 +30,16 @@ down by $\\lceil n/2 \\rceil$ beads. This is Jane Street's puzzle
 \\emph{Traversing the Infinite Sidewalk}. We describe the shortest ways to
 each bead and compute their length in logarithmic time. We then study the
 reluctant recitation, in which Jane moves down whenever the bead below has
-not been told yet, and up otherwise (sequence A359005 of the OEIS). We prove
-that it never gets stuck, that it tells every bead exactly once, which was
-a conjecture, that Jane moves up with frequency $\\log 2/\\log 3$, and that
+not been told yet, and up otherwise. We prove that it never gets stuck,
+that it tells every bead exactly once, as conjectured in an earlier
+version of this paper, that Jane moves up with frequency $\\log 2/\\log 3$, and that
 bead $m$ is told after at most polynomially many moves. Along the way the
 beads congruent to $1$ modulo $3$ are shown to carry a tree in which every
 node has infinitely many children. The main results have been formalized
 and checked in the Lean proof assistant.
 
 **MSC 2020:** 11B83 (primary); 11J82, 11K06, 68V20 (secondary).
-**Keywords:** integer sequences, greedy walk, permutation of the integers,
+**Keywords:** integer sequences, permutation of the integers,
 powers of 3/2, irrational rotation, irrationality exponent, formal proof,
 Lean.
 """
@@ -61,6 +61,18 @@ REWORDINGS = [
         "numbered the beads:",
     ),
     (
+        "reached from bead $1$. The fun starts with two finer questions.",
+        "reached from bead $1$. This paper is about two finer questions.",
+    ),
+    (
+        "**And what is still open.** Plenty; Section 12 has seven questions. A\nfavorite: look at",
+        "**What is still open.** Section 12 has seven questions. For instance: look at",
+    ),
+    (
+        "is the easiest to state and the most teasing: is a certain",
+        "is the easiest to state and the most intriguing: is a certain",
+    ),
+    (
         "kept with the sources of this site, in",
         "kept with the sources of this paper, in",
     ),
@@ -69,6 +81,19 @@ REWORDINGS = [
         "nothing but the numbers (see the versions at the end) |",
     ),
 ]
+
+# Section titles that are reworded for the paper: web title -> paper title.
+# The links inside the text keep pointing to the web title's identifier.
+TITLES = {
+    "1. Prelude: names": "1. Notation and names",
+    "4. Interlude: more names": "4. More names: chains, seeds and lambexes",
+    "9. Interlude: for a few names more": "9. Names for the onyx rosary",
+}
+
+# The quotations placed under some headings of the web page.  The paper
+# keeps one of them.
+EPIGRAPHS = 6
+KEPT_EPIGRAPH = "Bartleby"
 
 TEASER = (
     "![](images/reluctant-jane-1024x422.png)\n\n"
@@ -117,6 +142,7 @@ def adapt_headings(body: str) -> str:
     out: list[str] = []
     expected = 1
     fenced = False
+    seen_titles: set[str] = set()
     for line in body.split("\n"):
         if line.startswith("```"):
             fenced = not fenced
@@ -128,6 +154,9 @@ def adapt_headings(body: str) -> str:
         if re.search(r"[*`\[]", title):
             fail(f"a heading with markup: {title!r}")
         label = f"\\label{{{anchor(title)}}}"
+        if title in TITLES:
+            seen_titles.add(title)
+            title = TITLES[title]
         part = re.match(r"^Part [IVX]+\. (.*)$", title)
         numbered = re.match(r"^(\d+)\. (.*)$", title)
         if level == 2 and part:
@@ -144,7 +173,27 @@ def adapt_headings(body: str) -> str:
         else:
             latex = f"\\subsection*{{{title}}}{label}"
         out += ["```{=latex}", latex, "```"]
+    if seen_titles != set(TITLES):
+        fail(f"section titles to reword not found: {sorted(set(TITLES) - seen_titles)}")
     return "\n".join(out)
+
+
+def drop_epigraphs(body: str) -> str:
+    """Remove the quotations that follow a heading, except one.  To be
+    called when the captions of the figures, the only other quotations of
+    the page, have been turned into figures."""
+    blocks = re.split(r"\n{2,}", body)
+    out: list[str] = []
+    found = 0
+    for block in blocks:
+        if block.startswith(">"):
+            found += 1
+            if KEPT_EPIGRAPH not in block:
+                continue
+        out.append(block)
+    if found != EPIGRAPHS:
+        fail(f"{found} quotations found where {EPIGRAPHS} were expected")
+    return "\n\n".join(out)
 
 
 def adapt_statements(body: str) -> str:
@@ -315,7 +364,7 @@ def main() -> int:
             fail(f"passage to reword not found exactly once: {web!r}")
         body = body.replace(web, paper)
     opening = "Jane owns a special rosary."
-    still_open = "**And what is still open.**"
+    still_open = "**What is still open.**"
     if body.count(opening) != 1 or body.count(still_open) != 1:
         fail("the opening is not where it was")
     related = (
@@ -325,6 +374,7 @@ def main() -> int:
     body = body.replace(still_open, related + still_open)
     images: set[str] = set()
     body = adapt_figures(body, images)
+    body = drop_epigraphs(body)
     body = adapt_statements(body)
     body = adapt_proofs(body)
     for leftover in ("history above", "live version", "this site", "Click the picture"):

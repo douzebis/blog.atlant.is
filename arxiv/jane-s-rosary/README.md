@@ -22,6 +22,9 @@ the form of a paper:
 - numbered parts and sections, a table of contents;
 - theorems, lemmas and proofs as LaTeX environments, with the numbers of
   the web page;
+- a subtitle; three section titles and three sentences reworded in a
+  more sober voice; of the six quotations under the headings, only
+  Bartleby's is kept;
 - the figures with their captions; the links to the interactive figures,
   and the wording that only makes sense on the web, are removed;
 - the history of the page as a list of versions, and a declaration on the
