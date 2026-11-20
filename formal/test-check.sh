@@ -58,4 +58,11 @@ expect wrong fail
 project silent 'theorem t (n : Nat) : n + 0 = n := by omega'
 expect silent fail
 
+# An axiom that hides in a list printed over several lines.
+project hidden 'axiom a_rather_long_name_for_an_axiom_that_makes_the_list_wrap_over_two_lines_x : True
+axiom b_rather_long_name_for_an_axiom_that_makes_the_list_wrap_over_two_lines_y : True
+theorem t : True ∧ True := ⟨a_rather_long_name_for_an_axiom_that_makes_the_list_wrap_over_two_lines_x, b_rather_long_name_for_an_axiom_that_makes_the_list_wrap_over_two_lines_y⟩
+#print axioms t'
+expect hidden fail
+
 [ "$failures" -eq 0 ]

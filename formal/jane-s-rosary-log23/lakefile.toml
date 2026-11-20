@@ -1,0 +1,30 @@
+# SPDX-FileCopyrightText: 2026 Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)
+#
+# SPDX-License-Identifier: MIT
+
+name = "rosaryLog23"
+defaultTargets = ["RosaryLog23"]
+# One copy of Mathlib for this project and for jane-s-rosary-real.
+packagesDir = "../jane-s-rosary-real/.lake/packages"
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "d13f23b723b8a846827a245b89c10fc7d3f11612"
+
+[[require]]
+name = "rosaryReal"
+path = "../jane-s-rosary-real"
+
+# Rohit Kumar Jha's formalization of the bound on the irrationality
+# exponent of log 3 / log 2, from a fork that only adds the two-line
+# change needed to build from a clean clone
+# (docs/papers/jane-s-rosary/log23-reproduction.md).
+[[require]]
+name = "logarithm_extension"
+git = "https://github.com/douzebis/log23-measure"
+rev = "2da397ecf69ef2990b4a84805387827cc13c6181"
+subDir = "sources/lean"
+
+[[lean_lib]]
+name = "RosaryLog23"

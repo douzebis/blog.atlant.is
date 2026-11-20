@@ -46,18 +46,36 @@ jobs:
   # failure here does not keep the site from being published.
   formal:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
     steps:
       - uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31
       - name: Check the formal proofs
         run: |
-          nix-build formal/jane-s-rosary --no-out-link \
+          nix-build formal/jane-s-rosary -o formal-result \
             2>&1 | tee /tmp/rosary-formal-build.log
+          cp formal-result/check.log rosary-check.log
+      - uses: actions/upload-artifact@v7
+        with:
+          name: rosary-check-log
+          path: rosary-check.log
+      # GitHub signs the statement "this run, at this commit, produced this
+      # log": gh attestation verify rosary-check.log --repo douzebis/blog.atlant.is
+      - uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: rosary-check.log
 
   # The proofs that use Mathlib.  Lean and Mathlib come from the network,
   # in the versions pinned by the project.
   formal-real:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
     steps:
       - uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31
@@ -66,6 +84,14 @@ jobs:
           nix-shell formal/shell.nix --run "bash formal/check-real.sh" \
             > /tmp/rosary-real-check.log 2>&1 || { tail -50 /tmp/rosary-real-check.log; exit 1; }
           tail -15 /tmp/rosary-real-check.log
+          cp formal/jane-s-rosary-real/check.log rosary-real-check.log
+      - uses: actions/upload-artifact@v7
+        with:
+          name: rosary-real-check-log
+          path: rosary-real-check.log
+      - uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: rosary-real-check.log
 
   deploy:
     needs: build

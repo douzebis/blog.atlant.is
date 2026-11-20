@@ -240,6 +240,25 @@ the first theorem is verified, not one per step.
   exponent and a constant 4 where the paper has 2. Theorem 6 follows the
   paper (excursions above N, counting the visits below N); its constant
   differs: i <= 4 (N + 1)(J + 1). The bound on F(t) is not done.
+- **Theorem 6 without a hypothesis (2026-11-20).** A third project,
+  `formal/jane-s-rosary-log23/`, depends on the second and on Rohit Kumar
+  Jha's formalization of the bound 3 on the irrationality exponent of
+  log 3 / log 2, fetched from the fork `github.com/douzebis/log23-measure`
+  at a pinned commit (the upstream commit plus a two-line change of
+  `lakefile.toml` without which a clean clone does not build). The fork
+  also keeps a copy of that work. The project contains only the bridge
+  (`irrationalityExponent_log23`: every mu > 3 is an irrationality
+  exponent of log2 3, for some constant) and `theorem6_log23`: every bead
+  m is told within kappa m^(5 + 2 eps) moves. The bound on log 3 / log 2
+  is Jha's result. Check: `nix-shell formal/shell.nix --run "bash
+  formal/check-log23.sh"`, and the workflow `formal-log23`, run on demand
+  (about an hour). Record of the reproduction of the external proof:
+  `docs/papers/jane-s-rosary/log23-reproduction.md`.
+- **Attestations.** The formal jobs of the workflows upload the log of
+  the check and ask GitHub to sign that the run, at its commit, produced
+  that log (`gh attestation verify`).
+- `formal/check.sh` reads axiom lists that are printed over several
+  lines (Lean wraps long names); a regression test covers it.
 - The check and its tests are shared scripts, `formal/check.sh` and
   `formal/test-check.sh`, so that another paper can use them.
 

@@ -1,0 +1,37 @@
+# SPDX-FileCopyrightText: 2026 Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)
+#
+# SPDX-License-Identifier: MIT
+
+# Checks formal/jane-s-rosary-log23, on demand: it compiles the 916 modules
+# of an external formalization (github.com/rohitkrjha/log23-measure, from
+# the fork pinned in the project), which takes about an hour.
+name: formal-log23
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+      - name: Check the bridge to Theorem 6
+        run: |
+          nix-shell formal/shell.nix --run "bash formal/check-log23.sh" \
+            > /tmp/rosary-log23-check.log 2>&1 || { tail -80 /tmp/rosary-log23-check.log; exit 1; }
+          tail -15 /tmp/rosary-log23-check.log
+          cp formal/jane-s-rosary-log23/check.log rosary-log23-check.log
+      - uses: actions/upload-artifact@v7
+        with:
+          name: rosary-log23-check-log
+          path: rosary-log23-check.log
+      - uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: rosary-log23-check.log

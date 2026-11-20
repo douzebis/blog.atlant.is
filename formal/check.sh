@@ -35,7 +35,9 @@ if ! grep -q "depends on axioms\|does not depend on any axioms" check.log; then
     exit 1
 fi
 
-if grep "depends on axioms" check.log \
+# An axiom list may run over several lines: join the log before reading it.
+if tr '\n' ' ' < check.log \
+    | grep -o "depends on axioms: \[[^]]*\]" \
     | sed -e 's/propext//g; s/Classical\.choice//g; s/Quot\.sound//g' \
     | grep -v "depends on axioms: \[[, ]*\]$"; then
     echo "check: a theorem depends on an unexpected axiom"
