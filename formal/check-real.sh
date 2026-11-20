@@ -16,4 +16,11 @@ here=$(cd "$(dirname "$0")" && pwd)
 cd "$here/jane-s-rosary-real"
 lake exe cache get > cache.log 2>&1 || { tail -20 cache.log; exit 1; }
 rm -f cache.log
-exec bash "$here/check.sh" "$here/jane-s-rosary-real"
+bash "$here/check.sh" "$here/jane-s-rosary-real"
+
+# All of the first project too, with this project's Lean, and then every
+# module of both through the kernel once more.
+lake build @rosary/Rosary > /dev/null
+RECHECK_SKIP="RosaryReal" bash "$here/recheck.sh" "$here/jane-s-rosary-real" \
+    "$here/jane-s-rosary-real/.lake/build/lib/lean" \
+    "$here/jane-s-rosary/.lake/build/lib/lean"

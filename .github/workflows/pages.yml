@@ -85,13 +85,18 @@ jobs:
             > /tmp/rosary-real-check.log 2>&1 || { tail -50 /tmp/rosary-real-check.log; exit 1; }
           tail -15 /tmp/rosary-real-check.log
           cp formal/jane-s-rosary-real/check.log rosary-real-check.log
+          cp formal/jane-s-rosary-real/recheck.log rosary-real-recheck.log
       - uses: actions/upload-artifact@v7
         with:
           name: rosary-real-check-log
-          path: rosary-real-check.log
+          path: |
+            rosary-real-check.log
+            rosary-real-recheck.log
       - uses: actions/attest-build-provenance@v4
         with:
-          subject-path: rosary-real-check.log
+          subject-path: |
+            rosary-real-check.log
+            rosary-real-recheck.log
 
   deploy:
     needs: build

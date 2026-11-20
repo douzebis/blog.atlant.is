@@ -4,7 +4,8 @@
 
 # Checks formal/jane-s-rosary-log23, on demand: it compiles the 916 modules
 # of an external formalization (github.com/rohitkrjha/log23-measure, from
-# the fork pinned in the project), which takes about an hour.
+# the fork pinned in the project), then replays every module, its 916
+# and ours, through Lean's kernel.  About an hour and a half.
 name: formal-log23
 
 on:
@@ -28,10 +29,15 @@ jobs:
             > /tmp/rosary-log23-check.log 2>&1 || { tail -80 /tmp/rosary-log23-check.log; exit 1; }
           tail -15 /tmp/rosary-log23-check.log
           cp formal/jane-s-rosary-log23/check.log rosary-log23-check.log
+          cp formal/jane-s-rosary-log23/recheck.log rosary-log23-recheck.log
       - uses: actions/upload-artifact@v7
         with:
           name: rosary-log23-check-log
-          path: rosary-log23-check.log
+          path: |
+            rosary-log23-check.log
+            rosary-log23-recheck.log
       - uses: actions/attest-build-provenance@v4
         with:
-          subject-path: rosary-log23-check.log
+          subject-path: |
+            rosary-log23-check.log
+            rosary-log23-recheck.log
