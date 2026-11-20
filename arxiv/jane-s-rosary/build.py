@@ -1,0 +1,237 @@
+# SPDX-FileCopyrightText: 2026 Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)
+#
+# SPDX-License-Identifier: MIT
+
+"""Make the LaTeX version of the paper *Jane's infinite rosary* for arXiv.
+
+usage: build.py POST_DIR OUT_DIR
+
+Reads POST_DIR/index.md (the source of the web page) and writes, in
+OUT_DIR, `paper.tex` and its figures, ready for `pdflatex`.  The web page
+stays the only source of the text: this program adapts what is specific to
+the web (figures that link to interactive pages, the history kept in the
+front matter) and stops with an error if a passage it expects to adapt is
+no longer there.
+
+Needs `pandoc` and `rsvg-convert` on the PATH.
+"""
+
+import pathlib
+import re
+import shutil
+import subprocess
+import sys
+
+TITLE = "Jane's infinite rosary"
+AUTHOR = "Frédéric Ruget"
+ABSTRACT = """\
+Jane tells the beads of an infinite rosary: from bead $n$ she moves up or
+down by $\\lceil n/2 \\rceil$ beads. This is Jane Street's puzzle
+\\emph{Traversing the Infinite Sidewalk}. We describe the shortest ways to
+each bead and compute their length in logarithmic time. We then study the
+reluctant recitation, in which Jane moves down whenever the bead below has
+not been told yet, and up otherwise (sequence A359005 of the OEIS). We prove
+that it never gets stuck, that it tells every bead exactly once, which was
+a conjecture, that Jane moves up with frequency $\\log 2/\\log 3$, and that
+bead $m$ is told after at most polynomially many moves. Along the way the
+beads congruent to $1$ modulo $3$ are shown to carry a tree in which every
+node has infinitely many children. The main results have been formalized
+and checked in the Lean proof assistant.
+"""
+
+# Passages of the web page that are reworded for the paper: (web, paper).
+REWORDINGS = [
+    (
+        "Theorem 3 was a conjecture in the first version of this paper (see the history\n"
+        "above), and it is",
+        "Theorem 3 was a conjecture in the first version of this paper (January 2023;\n"
+        "see the versions at the end), and it is",
+    ),
+    (
+        "numbered the beads (see the history above):",
+        "numbered the beads:",
+    ),
+    (
+        "kept with the sources of this site, in",
+        "kept with the sources of this paper, in",
+    ),
+    (
+        "nothing but the numbers (see the history) |",
+        "nothing but the numbers (see the versions at the end) |",
+    ),
+]
+
+TEASER = (
+    "![](images/reluctant-jane-1024x422.png)\n\n"
+    "> Reluctant Jane at work (a detail of Figure 8).\n\n"
+)
+
+HEADER = r"""
+\usepackage{amscd}
+\usepackage{float}
+\floatplacement{figure}{htbp}
+\renewcommand{\arraystretch}{1.15}
+"""
+
+
+def fail(message: str) -> None:
+    print(f"build.py: {message}", file=sys.stderr)
+    sys.exit(1)
+
+
+def split_front_matter(text: str) -> tuple[str, str]:
+    match = re.match(r"---\n(.*?)\n---\n", text, re.S)
+    if match is None:
+        fail("no front matter")
+        raise AssertionError
+    return match.group(1), text[match.end() :]
+
+
+def history(front: str) -> list[tuple[str, str]]:
+    """The (date, text) entries of the history kept in the front matter."""
+    entries = re.findall(r'- date: "([^"]+)"\n\s+text: "((?:[^"\\]|\\.)*)"', front)
+    if not entries:
+        fail("no history in the front matter")
+    return entries
+
+
+def caption_text(lines: list[str], number: int) -> str:
+    text = " ".join(line[1:].strip() for line in lines)
+    prefix = f"Figure {number}: "
+    if not text.startswith(prefix):
+        fail(f"the caption of figure {number} does not start with {prefix!r}")
+    text = text[len(prefix) :]
+    text = re.sub(r"\s*\(\[live version\]\([^)]*\)\)", "", text)
+    text = re.sub(r"\s*Click the picture[^.]*(?=\.)", "", text)
+    text = re.sub(r"\.\.$", ".", text.strip())
+    return text[0].upper() + text[1:]
+
+
+def adapt_figures(body: str, images: set[str]) -> str:
+    """Replace each picture and its caption (a quotation below it) by a
+    figure with that caption."""
+    lines = body.split("\n")
+    out: list[str] = []
+    expected = 1
+    i = 0
+    image = re.compile(r"^\[?!\[Figure (\d+)\]\(images/([^)]+)\)")
+    while i < len(lines):
+        match = image.match(lines[i])
+        if match is None:
+            out.append(lines[i])
+            i += 1
+            continue
+        number, name = int(match.group(1)), match.group(2)
+        if number != expected:
+            fail(f"figure {number} found where figure {expected} was expected")
+        expected += 1
+        i += 1
+        while i < len(lines) and lines[i] == "":
+            i += 1
+        quoted = []
+        while i < len(lines) and lines[i].startswith(">"):
+            quoted.append(lines[i])
+            i += 1
+        if not quoted:
+            fail(f"figure {number} has no caption")
+        images.add(name)
+        target = name[:-4] + ".pdf" if name.endswith(".svg") else name
+        out.append(
+            f"![{caption_text(quoted, number)}]({target}){{#fig-{number} width=100%}}"
+        )
+        out.append("")
+    return "\n".join(out)
+
+
+def main() -> int:
+    if len(sys.argv) != 3:
+        print(__doc__)
+        return 2
+    post, out = pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2])
+    out.mkdir(parents=True, exist_ok=True)
+    front, body = split_front_matter((post / "index.md").read_text())
+
+    if body.count(TEASER) != 1:
+        fail("the opening picture is not where it was")
+    body = body.replace(TEASER, "")
+    for web, paper in REWORDINGS:
+        if body.count(web) != 1:
+            fail(f"passage to reword not found exactly once: {web!r}")
+        body = body.replace(web, paper)
+    images: set[str] = set()
+    body = adapt_figures(body, images)
+    for leftover in ("history above", "live version", "this site", "Click the picture"):
+        if leftover in body:
+            fail(f"web-only wording left in the text: {leftover!r}")
+
+    versions = "\n".join(
+        f"- *{date}.* " + text.replace("log₂ 3", "$\\log_2 3$")
+        for date, text in history(front)
+    )
+    body += (
+        "\n## Versions of this paper\n\n"
+        "This paper is also a web page, with interactive versions of its figures, "
+        "at <https://blog.atlant.is/posts/2022-12-02-jane-s-infinite-rosary/>; its "
+        "sources, the programs and the Lean files are at "
+        "<https://github.com/douzebis/blog.atlant.is>. The earlier versions are kept "
+        "there and can be compared.\n\n" + versions + "\n"
+    )
+    declaration = (
+        post.parent.parent.parent / "arxiv" / "jane-s-rosary" / "declaration.md"
+    )
+    body += "\n" + declaration.read_text()
+
+    for name in sorted(images):
+        source = post / "images" / name
+        if name.endswith(".svg"):
+            subprocess.run(
+                [
+                    "rsvg-convert",
+                    "-f",
+                    "pdf",
+                    "-o",
+                    str(out / (name[:-4] + ".pdf")),
+                    str(source),
+                ],
+                check=True,
+            )
+        else:
+            shutil.copy(source, out / name)
+
+    (out / "body.md").write_text(body)
+    (out / "header.tex").write_text(HEADER)
+    (out / "meta.yaml").write_text(
+        f'title: "{TITLE}"\nauthor: "{AUTHOR}"\n'
+        "abstract: |\n" + "".join(f"  {line}\n" for line in ABSTRACT.splitlines())
+    )
+    subprocess.run(
+        [
+            "pandoc",
+            "--from=markdown+smart+gfm_auto_identifiers",
+            "--to=latex",
+            "--standalone",
+            "--shift-heading-level-by=-1",
+            "--no-highlight",
+            "--metadata-file=meta.yaml",
+            "--include-in-header=header.tex",
+            "--variable=documentclass:article",
+            "--variable=classoption:11pt",
+            "--variable=geometry:margin=1in",
+            "--variable=colorlinks:true",
+            "--variable=linkcolor:black",
+            "--variable=urlcolor:blue",
+            "--fail-if-warnings",
+            "--output=paper.tex",
+            "body.md",
+        ],
+        cwd=out,
+        check=True,
+    )
+    for scratch in ("body.md", "header.tex", "meta.yaml"):
+        (out / scratch).unlink()
+    print(f"build.py: wrote {out}/paper.tex and {len(images)} figures")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
