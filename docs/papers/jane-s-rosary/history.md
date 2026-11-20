@@ -412,3 +412,34 @@ The text was reread from end to end as prose. Changes:
 - The cone of m is said to contain m; "every black bead" (not "every
   bead") has infinitely many children in the onyx rosary; "a few names"
   for "seven names", which did not match the count; "paper" for "note".
+
+### 2026-11-19 and 2026-11-20 — the proofs checked by Lean, and what it changed in the text
+
+The plan and its record are in
+`docs/specs/0004-rosary-formal-verification.md`. No error was found in
+the paper's proofs. Changes to the paper:
+
+- New sections "Checked by a proof assistant" (what is verified, where,
+  how the checked proofs differ from the text, and a second proof of
+  Theorem 3 with integers only, found on the way) and "Annex: the machine
+  checks".
+- Lemma 9: same statement; its proof now takes the best approximations
+  of alpha by their defining property, where it took "the denominators of
+  the convergents", and spells out the two uses of Dirichlet's theorem.
+  This is the proof Lean checked.
+- Theorem 6: same statement; its proof is reorganized as in the checked
+  proof (an excursion above N with J up moves brings m within 2t moves;
+  then the count), and its constants change: 4 (N + 1)(J + 1) <= 56 J^2 m
+  for 2 ((N + 1) J + N) <= 30 J^2 m.
+- After Theorem 6, "Which exponent?": the classical measures (Baker,
+  Rhin), and R. K. Jha's formalized bound 3 on the irrationality exponent
+  of log 3 / log 2, with which Theorem 6 has the exponent 5 + 2 eps. The
+  bound is credited to him; what we did with it is in
+  `log23-reproduction.md`. References [Jh26] and [OAI26] added.
+- Step 4 of the proof of Theorem 3: one sentence in parentheses on the
+  form in which Lean keeps the books.
+- Lemma 5 is unchanged: the Lean statements were made strict to match it.
+
+Not verified by reading the sources: that Rhin's 8.616 is still the best
+classical measure for log 3 / log 2 (Jha's manuscript cites Wu and Wang,
+2014, with 5.1163, for a quantity we have not identified).

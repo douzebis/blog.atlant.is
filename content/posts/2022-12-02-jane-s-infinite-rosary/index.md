@@ -5,7 +5,7 @@
 
 title: "Jane's infinite rosary"
 date: "2022-12-02"
-revised: "2026-11-19"
+revised: "2026-11-20"
 language: "en"
 math: true
 description: "Jane tells the beads of an infinite rosary by moving up or down by the label of the bead she is on. We describe the shortest ways to each bead and compute their length in logarithmic time. We then prove that reluctant Jane, who moves down whenever she can, tells every bead exactly once, and that she moves up with frequency log 2 / log 3."
@@ -22,8 +22,8 @@ history:
     version: "versions/jane-s-infinite-rosary/2026-11-18"
   - date: "2026-11-18"
     text: "The beads are counted from 1 instead of 0, so that a down move halves the position and an up move multiplies it by 3/2. Black beads get a count of their own, written in bold, and the beads of the onyx rosary are called onyxes. No result changed."
-  - date: "2026-11-19"
-    text: "Theorems 1 to 4, with the lemmas and propositions they rest on and the fast algorithm for the height, are checked by the proof assistant Lean. Theorem 3 is checked twice: by the proof of Section 8, and by a second proof with integers only, sketched in the section on the proof assistant."
+  - date: "2026-11-20"
+    text: "Theorems 1 to 4 and 6, with the lemmas and propositions they rest on, are checked by the proof assistant Lean. Theorem 3 is checked twice: by the proof of Section 8, and by a second proof with integers only. Theorem 6 is stated in two variants, one resting on the classical irrationality measures of log₂ 3, the other on a bound formalized in Lean by R. K. Jha. The proofs of Lemma 9 and of Theorem 6 are reworded to follow the checked proofs."
 diagrams:
   - "images/reluctant-jane-1024x422.png"
 categories:
@@ -865,6 +865,11 @@ one up move, all the beads involved being larger than $N$. By Lemma 5,
 $$\theta(n_j) = \theta(n_0) + j\alpha + \delta_j, \qquad
   |\delta_j| \leq j\Big(\frac{3}{2N} + \frac{1}{2N}\Big) = \frac{2j}{N} .$$
 
+(The same can be said without naming the $n_j$: at every time, Jane's bead
+lies in the cone of the bead $b$ that she reached by her last up move, and
+if she has made $j$ up moves since $n_0$ then
+$\theta(b) = \theta(n_0) + j\alpha + \delta_j$ with the same bound.)
+
 Pick $j < J$ such that $\theta(n_0) + j\alpha$ lies in the middle third of
 $A_m$. Since $|\delta_j| < w_m/3$, the phase $\theta(n_j)$ lies in $A_m$, and
 $n_j > N \geq m$: the told bead $n_j$ belongs to the cone of $m$. This
@@ -1238,11 +1243,27 @@ $\lVert q\alpha \rVert \geq c\,q^{-\beta}$ for all $q \geq 1$. For every
 $0 < w < 1$, any $J = \lfloor (2/w)^{\beta}/c \rfloor$ consecutive points of an
 orbit of the rotation by $\alpha$ meet every arc of length $w$.
 
-*Proof.* Let $(q_k)$ be the denominators of the convergents of $\alpha$ and let
-$k$ be minimal with $q_k \geq 2/w$. By the three-distance theorem [Sós58], the
-gaps left on the circle by $q_k$ consecutive points of an orbit have length at
-most $\lVert q_{k-1}\alpha \rVert + \lVert q_k\alpha \rVert < 2/q_k \leq w$. And
-$q_k < 1/\lVert q_{k-1}\alpha \rVert \leq q_{k-1}^{\beta}/c < (2/w)^{\beta}/c$.
+*Proof.* Call $q \ge 1$ a *best approximation* of $\alpha$ when
+$\lVert q\alpha \rVert < \lVert k\alpha \rVert$ for all $1 \le k < q$.
+(The best approximations are the denominators $q_k$ of the convergents of
+$\alpha$; only the property is used here.)
+
+Among the denominators $k < 2/w$, let $k_0$ be one for which
+$\lVert k\alpha \rVert$ is smallest, and let $q$ be the first denominator
+with $\lVert q\alpha \rVert < \lVert k_0\alpha \rVert$. It exists by
+Dirichlet's approximation theorem, it is a best approximation, and
+$q \ge 2/w$.
+
+By the three-distance theorem [Sós58], $q$ consecutive points of an orbit
+cut the circle into arcs of at most three lengths. Because $q\alpha$ is
+closer to $0$ than every $k\alpha$ with $k < q$, only two of them occur,
+and both are at most
+$\lVert k_0\alpha \rVert + \lVert q\alpha \rVert < 2\lVert k_0\alpha \rVert$.
+By Dirichlet's theorem again, some $k < q$ has
+$\lVert k\alpha \rVert \le 1/q$, hence $\lVert k_0\alpha \rVert \le 1/q$:
+the arcs are shorter than $2/q \le w$, so $q$ consecutive points meet
+every arc of length $w$. And
+$q \le 1/\lVert k_0\alpha \rVert \leq k_0^{\beta}/c < (2/w)^{\beta}/c$.
 $\quad\Box$
 
 **Theorem 6.** There is a constant $\kappa$ such that for every bead $m$,
@@ -1269,28 +1290,55 @@ $w_m \geq 1/m$. Let $J$ be given by Lemma 9 for arcs of length $w_m/3$,
 so $J \leq (6m)^{\beta}/c$, and let $N = 6Jm$, so that $2J/N \leq w_m/3$ and
 $N \ge m$.
 
-Consider the moves made before Jane enters the cone of $m$. At most $N$
-of the beads told are $\leq N$ (they are distinct), so the remaining times
-form at most $N + 1$ maximal blocks during which Jane stays above $N$. By
-Step 4 of the proof of Theorem 3, a block contains fewer than $J$ up moves
-after its first bead. Counting the up move that enters each block and the up
-moves that reach a bead $\leq N$, Jane makes at most
-$(N+1)J + N$ up moves before entering the cone of $m$.
+*An excursion above $N$ with $J$ up moves reaches $m$.* Suppose that from
+time $T$ to time $t$ Jane stays on beads larger than $N$ and makes at least
+$J$ up moves. By Step 4 of the proof of Theorem 3, at some time $t' \le t$
+the bead $b$ that she reached by her last up move is in the cone of $m$:
+$m = bD^p$. An up move at most doubles a bead, so $b \le 2^{t'}$ and
+$p \le t'$. By Lemma 3, once $b$ is told, $bD$, $bD^2$, $\ldots$ are told
+one move after the other at the latest: $m$ is told by time
+$t' + p \le 2t$.
 
-Once she is in the cone of $m$, she moves straight down to $m$ (Step 1).
-Finally, an up move at most doubles $n$ and a down move at least halves
-it, so at any time the number of down moves is at most the number of up
-moves. Altogether
-$\rho^{-1}(m) \leq 2\big((N+1)J + N\big) \leq 30\,J^2 m
-\leq \kappa\, m^{2\beta + 1} = \kappa\, m^{2\mu_0 - 1}$. The bound on $F$ follows since the right-hand
-side is increasing in $m$. $\quad\Box$
+*Counting.* Let $i = \rho^{-1}(m)$ and $t = \lfloor (i-1)/2 \rfloor$, so
+that $2t < i$. By the above, no excursion above $N$ up to time $t$ contains
+$J$ up moves. Jane is on a bead $\le N$ at most $N$ times, the beads she
+tells being distinct. So her first $t + 1$ moves contain at most
+$(N+1)(J+1)$ up moves: at most $J$ in each of the at most $N + 1$
+excursions, and at most one after each visit below $N$.
+
+Finally, an up move at most doubles the bead and a down move at least
+halves it, so at any time the down moves are at most as many as the up
+moves: $t + 1 \le 2(N+1)(J+1)$. Altogether
+$\rho^{-1}(m) = i \le 2t + 2 \leq 4(N+1)(J+1) \leq 56\,J^2 m
+\leq \kappa\, m^{2\beta + 1} = \kappa\, m^{2\mu_0 - 1}$. The bound on $F$
+follows since the right-hand side is increasing in $m$. $\quad\Box$
 
 *Used:* the proof of Theorem 3, Lemma 9, and the irrationality exponent of
 $\log_2 3$.
 
-With Rhin's exponent, $2\mu_0 - 1 \le 16.24$. This is a proof of concept
-rather than a sharp estimate: the truth seems to be $\rho^{-1}(m) \approx m\log m$
-(Conjecture A).
+**Which exponent?** Theorem 6 holds for every irrationality exponent
+$\mu_0$ of $\log_2 3$. Two sources give one.
+
+- *The classical measures.* Baker's theorem gives a finite $\mu_0$, and
+  Rhin's measure [Rh87] gives $\mu_0 \le 8.616$: the exponent
+  $2\mu_0 - 1$ of Theorem 6 is at most $16.24$.
+- *A formalized bound.* In October 2026, R. K. Jha [Jh26] announced that
+  every $\mu_0 > 3$ is an irrationality exponent of $\log_2 3$: for every
+  $\varepsilon > 0$, $|\log_2 3 - p/q| \ge q^{-(3+\varepsilon)}$ for all
+  large $q$. The proof is written in Lean and builds on the formalization
+  of the irrationality exponent of $\pi$ in OpenAI's release of the same
+  month [OAI26]. With it, **every bead $m$ is told within
+  $\kappa\, m^{5 + 2\varepsilon}$ moves**, for every $\varepsilon > 0$,
+  and this version of Theorem 6 is checked by Lean from end to end.
+
+  The bound on $\log_2 3$ is Jha's result, not ours. It is recent and, to
+  our knowledge, has not been reviewed by specialists; we have not read
+  its mathematics. What we did is rebuild his formalization and replay it
+  through Lean's kernel; the [annex](#annex-the-machine-checks) says
+  exactly how.
+
+Either way this is a proof of concept rather than a sharp estimate: the
+truth seems to be $\rho^{-1}(m) \approx m\log m$ (Conjecture A).
 
 #### Numerical data
 
@@ -1506,22 +1554,39 @@ checks them all.
 | Theorem 5, part 1 | `theorem5_part1` |
 | The three-distance theorem | `three_distance` |
 | Lemma 9 and the first bound of Theorem 6, with the irrationality exponent $\mu_0$ as a hypothesis | `lemma9_three`, `theorem6_exponent` |
+| The first bound of Theorem 6 with the exponent $5 + 2\varepsilon$, from Jha's formalized bound | `theorem6_log23` |
 | Proposition 2 | `proposition2` |
 | Lemmas 6 and 7 | `lemma6`, `lemma7_even`, `lemma7_odd`, `lemma7` |
 | Lemma 8 | `lemma8`, `gap_one_iff` |
 | Theorem 4 | `theorem4` |
 
-Not checked in this way, so far: Corollaries 2 and 3, the rest of
-Theorem 5, and the bound on $F$ in Theorem 6. In Lean's proof of Lemma 9
-the $q_k$ are taken as the best approximations of $\alpha$ (the $q$
-with $\lVert q\alpha \rVert < \lVert k\alpha \rVert$ for all
-$1 \le k < q$), which is the only property of the convergents that the
-proof uses. The
-statements about logarithms (one bound of Proposition 1, Lemmas 4 and 5,
-the proof of Section 8, Theorem 5) are in a second directory,
+Not checked in this way, so far: Corollaries 2 and 3, parts 2 and 3 of
+Theorem 5, and the bound on $F$ in Theorem 6.
+
+The Lean files are in three directories. The first,
+[`formal/jane-s-rosary`](https://github.com/douzebis/blog.atlant.is/tree/main/formal/jane-s-rosary),
+uses no library at all (Parts I and III, Theorem 2, the second proof of
+Theorem 3). The second,
 [`formal/jane-s-rosary-real`](https://github.com/douzebis/blog.atlant.is/tree/main/formal/jane-s-rosary-real),
-which uses Mathlib, Lean's library of mathematics; everything else uses
-no library at all.
+uses Mathlib, Lean's library of mathematics, for everything that speaks of
+logarithms. The third,
+[`formal/jane-s-rosary-log23`](https://github.com/douzebis/blog.atlant.is/tree/main/formal/jane-s-rosary-log23),
+joins Theorem 6 to Jha's formalization, which it fetches and does not
+copy.
+
+Where the checked proofs differ from the text:
+
+- **A hypothesis is an input, never an assumption in the background.**
+  Theorem 6 is proved in Lean in the form "for every $c$ and $\mu_0$, if
+  $|\log_2 3 - p/q| \ge c\,q^{-\mu_0}$ for all $p$ and $q \ge 1$,
+  then…". The check refuses any axiom beyond the three on which Lean's
+  mathematics rests.
+- **Lemma 9** is checked by the proof printed above, and also by a
+  shorter one, without the three-distance theorem, which gives
+  $(4/w)^\beta/c + 1$.
+- **Theorem 6.** The checked proof follows the text with cruder
+  constants: $w_m \ge 1/(2m)$ and a slightly larger $N$. Only $\kappa$
+  changes.
 
 **Theorem 3 without logarithms.** Lean also checked a second proof of
 Theorem 3, found while preparing the first. It uses integers only. Suppose that bead $m$
@@ -1550,6 +1615,35 @@ about when a bead is told, which is what Section 11 extracts from the
 proof of Section 8. One thing Lean
 cannot check is that a statement written in Lean says what the paper says;
 that is for a reader to judge, and the guide shows how the statements read.
+
+## Annex: the machine checks
+
+Each of the three Lean projects is checked by one command, which
+
+1. builds the project: Lean accepts every proof;
+2. fails on an unfinished proof (`sorry`) and on any declared axiom;
+3. prints the axioms behind each main theorem, and fails unless they are
+   the three on which Lean's mathematics rests (`propext`,
+   `Classical.choice`, `Quot.sound`);
+4. replays every compiled module once more through Lean's kernel, with the
+   tool `leanchecker` that comes with Lean: our modules and, for the third
+   project, those of Jha's formalization. Mathlib itself is not replayed.
+
+The commands run on GitHub's machines, at every change for the first two
+projects and on demand for the third, which takes an hour and a half. Each
+run publishes its logs, and GitHub signs the statement that this run, at
+this commit, produced these files. Anyone can verify it:
+`gh attestation verify <log> --repo douzebis/blog.atlant.is`. The signature
+says where a log comes from; what was checked is to be read in the log.
+
+Jha's formalization is fetched from the fork
+[`douzebis/log23-measure`](https://github.com/douzebis/log23-measure) at
+commit `2da397e`: his commit `8a43e60`, plus a two-line change of the build
+configuration without which a clean copy does not build (reported to the
+author). Its 916 modules, about 104 000 lines, of which 81 are his and 835
+come from OpenAI's library, were also built and replayed on our own
+machine. The record of what was done, and of what was not, is in
+[`docs/papers/jane-s-rosary/log23-reproduction.md`](https://github.com/douzebis/blog.atlant.is/blob/main/docs/papers/jane-s-rosary/log23-reproduction.md).
 
 ## Names at a glance
 
@@ -1604,10 +1698,16 @@ number of up moves among them; $\log_3 2 = 0.6309297\ldots$
 - [Ca12] X. Caruso, *Application des fractions continues à la construction des
   gammes musicales*, Revue des Mathématiques de l'Enseignement Supérieur
   123, no. 1 (2012).
+- [Jh26] R. K. Jha, *Rational approximation to $\log_2 3$*, preprint with
+  Lean sources (2026),
+  [doi:10.5281/zenodo.23256301](https://doi.org/10.5281/zenodo.23256301),
+  <https://github.com/rohitkrjha/log23-measure>.
 - [JS22] Jane Street, *Traversing the Infinite Sidewalk* (2022),
   <https://www.janestreet.com/numberphile2022>.
 - [Ma68] K. Mahler, *An unsolved problem on the powers of 3/2*, J. Austral.
   Math. Soc. 8 (1968), 313–321.
+- [OAI26] OpenAI, *The irrationality exponent of $\pi$ is 2*, result 017
+  of the repository <https://github.com/openai/math> (2026).
 - [OEIS] OEIS Foundation, *The On-Line Encyclopedia of Integer Sequences*,
   <https://oeis.org>: sequences [A061419](https://oeis.org/A061419),
   [A358838](https://oeis.org/A358838), [A359005](https://oeis.org/A359005),

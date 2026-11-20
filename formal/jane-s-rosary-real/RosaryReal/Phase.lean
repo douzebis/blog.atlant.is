@@ -20,20 +20,20 @@ open Real
 /-- `α = log₂ (3/2)`. -/
 noncomputable def alpha : ℝ := logb 2 (3 / 2)
 
-/-- `log₂ (1 + x) ≤ (3/2) x` for `x > 0`. -/
-theorem logb_one_add_le (x : ℝ) (hx : 0 < x) : logb 2 (1 + x) ≤ 3 / 2 * x := by
+/-- `log₂ (1 + x) < (3/2) x` for `x > 0`. -/
+theorem logb_one_add_lt (x : ℝ) (hx : 0 < x) : logb 2 (1 + x) < 3 / 2 * x := by
   have h1 : Real.log (1 + x) ≤ x := by
     have := Real.log_le_sub_one_of_pos (show 0 < 1 + x by linarith)
     linarith
   have h2 : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
-  rw [Real.logb, div_le_iff₀ (by linarith)]
+  rw [Real.logb, div_lt_iff₀ (by linarith)]
   nlinarith
 
 /-- **Lemma 5, part 1.**  `log₂ (nU) = log₂ n + α + ε` with
-`0 ≤ ε ≤ 1/(2n)`. -/
+`0 ≤ ε < 1/(2n)`. -/
 theorem lemma5_up (n : ℕ) (hn : 1 ≤ n) :
     logb 2 n + alpha ≤ logb 2 (up n) ∧
-    logb 2 (up n) ≤ logb 2 n + alpha + 1 / (2 * n) := by
+    logb 2 (up n) < logb 2 n + alpha + 1 / (2 * n) := by
   have hn0 : (0 : ℝ) < n := by exact_mod_cast hn
   have h1 : 3 * n ≤ 2 * up n := by simp only [up, label]; omega
   have h2 : 2 * up n ≤ 3 * n + 1 := by simp only [up, label]; omega
@@ -57,15 +57,15 @@ theorem lemma5_up (n : ℕ) (hn : 1 ≤ n) :
           Real.logb_le_logb_of_le (by norm_num) hup h2'
       _ = logb 2 n + alpha + logb 2 (1 + 1 / (3 * n)) := by
           rw [Real.logb_mul hpos.ne' (by positivity), hmul]
-      _ ≤ logb 2 n + alpha + 3 / 2 * (1 / (3 * n)) := by
-          linarith [logb_one_add_le _ hx]
+      _ < logb 2 n + alpha + 3 / 2 * (1 / (3 * n)) := by
+          linarith [logb_one_add_lt _ hx]
       _ = logb 2 n + alpha + 1 / (2 * n) := by field_simp
 
 /-- **Lemma 4 and Lemma 5, part 2.**  If `m = nD^k`, that is
 `m = ⌊n/2^k⌋ ≥ 1`, then `log₂ m = log₂ n - k - ε'` with
-`0 ≤ ε' ≤ 3/(2m)`. -/
+`0 ≤ ε' < 3/(2m)`. -/
 theorem lemma5_down (n k m : ℕ) (hm : 1 ≤ m) (h : n / 2 ^ k = m) :
-    logb 2 m + k ≤ logb 2 n ∧ logb 2 n ≤ logb 2 m + k + 3 / (2 * m) := by
+    logb 2 m + k ≤ logb 2 n ∧ logb 2 n < logb 2 m + k + 3 / (2 * m) := by
   have hm0 : (0 : ℝ) < m := by exact_mod_cast hm
   have h1 : m * 2 ^ k ≤ n := by rw [← h]; exact Nat.div_mul_le_self n (2 ^ k)
   have h2 : n < (m + 1) * 2 ^ k := by
@@ -88,8 +88,8 @@ theorem lemma5_down (n k m : ℕ) (hm : 1 ≤ m) (h : n / 2 ^ k = m) :
       _ = logb 2 m + logb 2 (1 + 1 / m) + k := by
           rw [Real.logb_mul (by positivity) (by positivity),
             Real.logb_mul hm0.ne' (by positivity), hpow]
-      _ ≤ logb 2 m + k + 3 / (2 * m) := by
-          have := logb_one_add_le _ hx
+      _ < logb 2 m + k + 3 / (2 * m) := by
+          have := logb_one_add_lt _ hx
           have e : (3 : ℝ) / 2 * (1 / m) = 3 / (2 * m) := by field_simp
           linarith
 
