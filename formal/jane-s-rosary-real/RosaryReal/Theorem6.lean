@@ -439,4 +439,57 @@ theorem theorem6_exponent (c μ₀ : ℝ) (hμ : 1 < μ₀) (H : IrrationalityEx
   have := h m i hm hi
   rwa [show 2 * (μ₀ - 1) + 1 = 2 * μ₀ - 1 by ring] at this
 
+/-! ## The frontier -/
+
+/-- At every time some bead has not been told. -/
+theorem exists_untold (t : ℕ) : ∃ m, 1 ≤ m ∧ m ∉ told t := by
+  refine ⟨2 ^ t + 1, Nat.le_add_left 1 _, fun h => ?_⟩
+  obtain ⟨s, hs, hr⟩ := (mem_told t _).mp h
+  have h1 := rho_le_two_pow s
+  have h2 : 2 ^ s ≤ 2 ^ t := Nat.pow_le_pow_right (by norm_num) hs
+  omega
+
+/-- **The frontier** `F(t)`: the smallest bead that has not been told
+after `t` moves. -/
+def frontier (t : ℕ) : ℕ := Nat.find (exists_untold t)
+
+theorem frontier_spec (t : ℕ) :
+    1 ≤ frontier t ∧ frontier t ∉ told t ∧
+    ∀ m, 1 ≤ m → m < frontier t → m ∈ told t := by
+  refine ⟨(Nat.find_spec (exists_untold t)).1, (Nat.find_spec (exists_untold t)).2, ?_⟩
+  intro m hm hlt
+  by_contra hnot
+  exact Nat.find_min (exists_untold t) hlt ⟨hm, hnot⟩
+
+/-- **Theorem 6, the bound on the frontier.**  With `μ₀ > 1` an
+irrationality exponent of `log₂ 3`, there is a constant `κ > 0` such that
+`F(t) > (t/κ)^(1/(2μ₀ - 1))` for all `t`. -/
+theorem theorem6_frontier (c μ₀ : ℝ) (hμ : 1 < μ₀) (H : IrrationalityExponent c μ₀) :
+    ∃ κ : ℝ, 0 < κ ∧ ∀ t : ℕ, ((t : ℝ) / κ) ^ (1 / (2 * μ₀ - 1)) < frontier t := by
+  obtain ⟨κ, hκ⟩ := theorem6_exponent c μ₀ hμ H
+  have he : 0 < 2 * μ₀ - 1 := by linarith
+  refine ⟨max κ 1, lt_max_of_lt_right one_pos, fun t => ?_⟩
+  obtain ⟨hF1, hFnot, -⟩ := frontier_spec t
+  generalize frontier t = F at hF1 hFnot
+  have hF0 : (0 : ℝ) < F := by exact_mod_cast hF1
+  -- the bead `F` is told at some time `i > t`
+  obtain ⟨i, hi⟩ := theorem3_by_rotation F hF1
+  have hit : t < i := by
+    by_contra hle
+    exact hFnot ((mem_told t F).mpr ⟨i, by omega, hi⟩)
+  have hb := hκ F i hF1 hi
+  have hpow : (0 : ℝ) < (F : ℝ) ^ (2 * μ₀ - 1) := Real.rpow_pos_of_pos hF0 _
+  have h1 : (t : ℝ) < max κ 1 * (F : ℝ) ^ (2 * μ₀ - 1) := by
+    have : (t : ℝ) < i := by exact_mod_cast hit
+    have : κ * (F : ℝ) ^ (2 * μ₀ - 1) ≤ max κ 1 * (F : ℝ) ^ (2 * μ₀ - 1) :=
+      mul_le_mul_of_nonneg_right (le_max_left _ _) hpow.le
+    linarith
+  have h2 : (t : ℝ) / max κ 1 < (F : ℝ) ^ (2 * μ₀ - 1) := by
+    rw [div_lt_iff₀ (lt_max_of_lt_right one_pos)]; linarith
+  have h3 : ((t : ℝ) / max κ 1) ^ (1 / (2 * μ₀ - 1))
+      < ((F : ℝ) ^ (2 * μ₀ - 1)) ^ (1 / (2 * μ₀ - 1)) :=
+    Real.rpow_lt_rpow (by positivity) h2 (by positivity)
+  rw [← Real.rpow_mul hF0.le, mul_one_div_cancel he.ne', Real.rpow_one] at h3
+  exact h3
+
 end Rosary

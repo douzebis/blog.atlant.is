@@ -7,6 +7,8 @@ import Rosary.Lemma1
 import Rosary.Reluctant
 import Rosary.Onyx
 import Rosary.Theorem3
+import Rosary.Address
+import Rosary.Foraging
 
 /-!
 # What the proofs rest on
@@ -61,3 +63,7 @@ open Rosary
 #print axioms untold_triple
 #print axioms theorem3
 #print axioms theorem3_permutation
+#print axioms corollary2_injective
+#print axioms corollary2_surjective
+#print axioms corollary2_prefix
+#print axioms corollary3

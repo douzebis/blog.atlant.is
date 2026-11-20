@@ -40,6 +40,8 @@ This page is written for a reader who has never used a proof assistant.
 | Lemma 8 (neighboring up-chains) | `lemma8`, `gap_one_iff` | [`Rosary/Onyx.lean`](Rosary/Onyx.lean) |
 | Theorem 4: every onyx has infinitely many covers | `theorem4` | [`Rosary/Onyx.lean`](Rosary/Onyx.lean) |
 | **Theorem 3**: every bead is told; $\rho$ is a permutation | `theorem3`, `theorem3_permutation` | [`Rosary/Theorem3.lean`](Rosary/Theorem3.lean) |
+| Corollary 2: the address of an onyx | `rank`, `address`, `Below`, `corollary2_injective`, `corollary2_surjective`, `corollary2_prefix` | [`Rosary/Address.lean`](Rosary/Address.lean) |
+| Corollary 3: the foraging sequence | `corollary3` | [`Rosary/Foraging.lean`](Rosary/Foraging.lean) |
 | Lemma 6 (parity) | `lemma6` | [`Rosary/Parity.lean`](Rosary/Parity.lean) |
 | Lemma 7 (parity changes) | `lemma7_even`, `lemma7_odd`, `lemma7` | [`Rosary/Parity.lean`](Rosary/Parity.lean) |
 | The examples of the paper | `example` lines | [`Rosary/Examples.lean`](Rosary/Examples.lean) |
@@ -69,8 +71,8 @@ on disk):
 nix-shell formal/shell.nix --run "bash formal/check-real.sh"
 ```
 
-Not done so far: Theorem 5, parts 2 and 3; the bound on the frontier
-$F(t)$ that the paper derives from Theorem 6; Corollaries 2 and 3.
+The bound on the frontier $F(t)$ is `theorem6_frontier`, in
+`RosaryReal/Theorem6.lean`. Not done so far: Theorem 5, parts 2 and 3.
 
 **A theorem with a hypothesis.** Theorem 6 needs a fact about $\log_2 3$
 that is not proved in these files: some $\mu_0$ is an *irrationality

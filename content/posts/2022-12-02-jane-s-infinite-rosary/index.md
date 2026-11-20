@@ -1553,15 +1553,16 @@ checks them all.
 | Theorem 3 again, by the proof sketched below | `theorem3`, `theorem3_permutation` |
 | Theorem 5, part 1 | `theorem5_part1` |
 | The three-distance theorem | `three_distance` |
-| Lemma 9 and the first bound of Theorem 6, with the irrationality exponent $\mu_0$ as a hypothesis | `lemma9_three`, `theorem6_exponent` |
+| Lemma 9 and Theorem 6 (both bounds), with the irrationality exponent $\mu_0$ as a hypothesis | `lemma9_three`, `theorem6_exponent`, `theorem6_frontier` |
 | The first bound of Theorem 6 with the exponent $5 + 2\varepsilon$, from Jha's formalized bound | `theorem6_log23` |
 | Proposition 2 | `proposition2` |
 | Lemmas 6 and 7 | `lemma6`, `lemma7_even`, `lemma7_odd`, `lemma7` |
 | Lemma 8 | `lemma8`, `gap_one_iff` |
 | Theorem 4 | `theorem4` |
+| Corollary 2: the address is a bijection, and the order is the prefix order | `corollary2_injective`, `corollary2_surjective`, `corollary2_prefix` |
+| Corollary 3: the foraging sequence takes every value infinitely often | `corollary3` |
 
-Not checked in this way, so far: Corollaries 2 and 3, parts 2 and 3 of
-Theorem 5, and the bound on $F$ in Theorem 6.
+Not checked in this way, so far: parts 2 and 3 of Theorem 5.
 
 The Lean files are in three directories. The first,
 [`formal/jane-s-rosary`](https://github.com/douzebis/blog.atlant.is/tree/main/formal/jane-s-rosary),

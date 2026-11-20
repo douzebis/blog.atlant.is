@@ -13,6 +13,8 @@ import Rosary.Theorem1
 import Rosary.Fast
 import Rosary.Reluctant
 import Rosary.Onyx
+import Rosary.Address
 import Rosary.Theorem3
+import Rosary.Foraging
 import Rosary.Examples
 import Rosary.Audit

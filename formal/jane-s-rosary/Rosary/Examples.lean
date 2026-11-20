@@ -5,6 +5,7 @@
 import Rosary.Fast
 import Rosary.Reluctant
 import Rosary.Onyx
+import Rosary.Address
 
 /-!
 # The examples of the paper, as tests of the definitions
@@ -90,6 +91,14 @@ example : pi 10 = 9 := by decide
 3, 4, 6. -/
 example : [2, 5, 11, 16].map pi = [1, 1, 1, 1] ∧ [3, 4, 6].map pi = [2, 2, 2] := by
   decide
+
+/-- The table of addresses: `𝛕(𝟏) = ()`, `𝛕(𝟐) = (1)`, …, `𝛕(𝟏𝟏) = (3)`. -/
+example : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map address
+    = [[], [1], [1, 1], [1, 2], [2], [1, 3], [1, 1, 1], [2, 1], [2, 1, 1], [2, 1, 1, 1], [3]] := by
+  decide
+
+/-- `𝛊(𝟑𝟗) = 4`: onyx 39 is the fourth cover of onyx 5. -/
+example : pi 39 = 5 ∧ rank 39 = 4 := by decide
 
 /-- Lemma 8, the example: `↑(256) ∩ (↑(22) + 1)`.  The chain of 22 reaches
 255, and `255 + 1 = 2^8`. -/

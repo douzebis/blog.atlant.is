@@ -283,6 +283,16 @@ the first theorem is verified, not one per step.
   (2/w)^nu / c (Dirichlet, twice, and bad approximability);
   `cover_of_gaps`. Theorem 6 now uses this lemma; `lemma9`, the shorter
   proof with the constant 4, is kept as a second proof.
+- **Corollaries 2 and 3, and the frontier (2026-11-20).** Corollary 2 in
+  the first project (`Rosary/Address.lean`): the rank is the number of
+  covers of the predecessor up to the onyx; the address is defined from
+  the onyx back to the root and reversed; injectivity, surjectivity (from
+  Theorem 4) and "the order is the prefix order". The paper's table of
+  addresses is computed from the definition. Corollary 3
+  (`Rosary/Foraging.lean`) is stated on the sequence of seeds: for every
+  black bead B and every time T, at some later time Jane enters the
+  up-chain of B from another one; the compressed sequence itself is not
+  defined. The bound on F(t) is `theorem6_frontier`.
 - The check and its tests are shared scripts, `formal/check.sh` and
   `formal/test-check.sh`, so that another paper can use them.
 

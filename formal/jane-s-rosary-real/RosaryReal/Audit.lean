@@ -35,3 +35,4 @@ open Rosary
 #print axioms ThreeDistance.three_distance
 #print axioms ThreeDistance.best_approx_gaps
 #print axioms lemma9_three
+#print axioms theorem6_frontier
