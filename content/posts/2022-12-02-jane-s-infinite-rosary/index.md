@@ -1632,7 +1632,10 @@ ones. $\quad\Box$
 
 *For [Theorem 1](#theorem-1), Section 5.*
 
-*Proof.* With the notation and the sketch of Section 5, there are three steps.
+*Proof.* Recall the notation of Section 5: $2\boldsymbol{n} - 1 = 3^e q$ with
+$3 \nmid q$; the two candidates followed back, $a_i = \boldsymbol{n}^\bullet\mu\lambda^i$ and
+$b_i = \boldsymbol{n}^\bullet\nu\lambda^i$; the beads one row down, $c_i = a_iD$ and $d_i = b_iD$; and
+$a, b, c, d$ for $a_{e+1}, b_{e+1}, c_{e+1}, d_{e+1}$. There are three steps.
 
 **Step 1: the two chains.** *For $0 \leq i \leq e+1$ the beads $a_i$ and $b_i$
 are defined, and*
@@ -1669,7 +1672,25 @@ part 2.
 $d_i = b_i/2$ and $c_i = d_i - 1$. The same computation as in Step 1 gives
 $c_i = (\boldsymbol{n}^\bullet-1)\lambda^i$ and $d_i = (\boldsymbol{n}^\bullet+1)\lambda^i$, with $c_i$ and $d_i$ white
 for $i \leq e$.
-So the two ladders drawn above commute. Every bead from which a $\lambda$
+So the two ladders of the sketch commute:
+
+$$
+\begin{CD}
+a @<\lambda<< \cdots @<\lambda<< a_1 @<\lambda<< \whitebead{a_0 = \boldsymbol{n}^\bullet\mu}\\
+@VVDV @VVDV @VVDV @.\\
+c @<\lambda<< \cdots @<\lambda<< c_1 @<\lambda<< \whitebead{\boldsymbol{n}^\bullet-1}
+\end{CD}
+$$
+
+$$
+\begin{CD}
+b @<\lambda<< \cdots @<\lambda<< b_1 @<\lambda<< \whitebead{b_0 = \boldsymbol{n}^\bullet\nu}\\
+@VVDV @VVDV @VVDV @.\\
+d @<\lambda<< \cdots @<\lambda<< d_1 @<\lambda<< \whitebead{\boldsymbol{n}^\bullet+1}
+\end{CD}
+$$
+
+Every bead from which a $\lambda$
 arrow starts is white, so by [Lemma 2](#lemma-2) it
 is one higher than the bead the arrow points to. Reading the rows from right
 to left, and using [Corollary 1](#corollary-1) for the step down to $\boldsymbol{n}^\bullet$,
@@ -1722,8 +1743,29 @@ $n = nU\lambda \in T_j$, contradicting (a). So (a) holds at time $i+1$.
 
 *No gap at time $i+1$.* Let $w = \rho(i+1)$ be white and suppose
 $g = w\lambda \notin T_{i+1}$. The last move was not an up move (it would have
-come from $g$), so $\rho(i) \in \{w\mu, w\nu\}$: Jane has just come down onto $w$. With the two
-diagrams of Section 7 and their three reasons:
+come from $g$), so $\rho(i) \in \{w\mu, w\nu\}$: Jane has just come down onto $w$.
+
+Here are the two diagrams of [Lemma 1](#lemma-1) once more, with $g$ in the
+bottom left corner. Jane came down the right-hand side; the no-gap property
+gives the top arrow, and [Lemma 3](#lemma-3) the left-hand side.
+
+$$
+\begin{CD}
+\hat{w}\lambda @<\lambda<< \whitebead{\hat{w}}\\
+@VVDV @AAxA\\
+g @>U>> \whitebead{w}
+\end{CD}
+\qquad\qquad
+\begin{CD}
+by\lambda @<\lambda<< \whitebead{by}\\
+@VVDV @AAyA\\
+by\lambda D @. \blackbead{b}\\
+@VVDV @AAxA\\
+g @>U>> \whitebead{w}
+\end{CD}
+$$
+
+In detail:
 
 - If $\rho(i)$ is the white bead $\hat{w}$ (first diagram): by (b),
   $\hat{w}\lambda \in T_i$, and $\hat{w}\lambda \neq \rho(i)$, so
@@ -1875,7 +1917,7 @@ $$E \leq \frac{t+1}{K} + K + d_K \qquad\text{whenever } E \ge K + e_K. \tag{$\as
 For fixed $K$ this already gives $\limsup E/t \leq 1/K$, hence $E = o(t)$,
 using nothing but the irrationality of $\alpha$. To get the stated bound, use
 the fact that $\log_2 3$ has a finite irrationality exponent (Baker's theorem;
-see [Theorem 6](#theorem-6) below): $\eta_K \geq cK^{-\beta}$ for some constants $c, \beta > 0$,
+see Section 11): $\eta_K \geq cK^{-\beta}$ for some constants $c, \beta > 0$,
 so $d_K, e_K = O(\log K)$, and $(\ast\ast)$ with $K = \lceil\sqrt{t}\,\rceil$
 gives $E \leq 2\sqrt{t} + O(\log t)$. Finally, at a time when Jane is not about
 to move up she is inside a run of down moves, which started just after an up
@@ -1884,7 +1926,7 @@ move; and an up move increases $\log_2 n$ by at most $1$.
 (3) follows from (1) and (2). $\quad\Box$
 
 *Used:* [Theorem 2](#theorem-2), [Lemma 3](#lemma-3), [Lemma 5](#lemma-5), and, for the square root in (2), the
-irrationality exponent of $\log_2 3$ introduced below.
+irrationality exponent of $\log_2 3$ introduced in Section 11.
 
 ### Proof of Lemma 9
 
