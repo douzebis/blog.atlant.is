@@ -155,10 +155,12 @@ These reach the paper by a rebuild; to look at in the PDF.
       larger beads to the right and to the top, a mark under a bead for
       its color (a bullet for black, a small circle for white), and what
       "commutes" means.
-- [ ] The marks are written `\underset{\textstyle\bullet}{...}` and
-      `\underset{\textstyle\circ}{...}`. Check their size in the PDF,
-      and that the bullet under the onyx notation (n with a raised
-      bullet) is not confusing in print.
+- [ ] The marks are four commands, `\blackmark`, `\whitemark`,
+      `\blackbead{...}` and `\whitebead{...}`, defined twice: for the
+      web in `data/mathjax.json` (discs drawn by `assets/css/main.css`,
+      the same in the light and dark themes) and for the paper in the
+      preamble of `build.py` (TikZ). Check their size and gray levels in
+      print, and keep the two definitions in step.
 - [ ] The two diagrams in the sketch of Theorem 1 are mirrored (lambda
       now points left, as in Lemma 1) and no longer show the bead
       n-bullet itself: the right-hand ends are a_0 = n mu over n - 1,

@@ -351,8 +351,8 @@ read in the same way.
   from left to right, and along a column from bottom to top. So $U$ points
   to the right, $\lambda$ to the left, $D$ downwards, $\mu$ and $\nu$
   upwards.
-- A small mark under a bead gives its color when it is known: $\bullet$ for
-  a black bead, $\circ$ for a white one. A bead without a mark can be of
+- A mark under a bead gives its color when it is known: $\blackmark$ for a
+  black bead, $\whitemark$ for a white one. A bead without a mark can be of
   either color.
 - A diagram *commutes* when two routes that follow its arrows from one bead
   to another always arrive at the same bead; when the arrows go round in a
@@ -367,17 +367,17 @@ $\mu$ or $\nu$:
 
 $$
 \begin{CD}
-\hat{w}\lambda @<\lambda<< \underset{\textstyle\circ}{\hat{w}}\\
+\hat{w}\lambda @<\lambda<< \whitebead{\hat{w}}\\
 @VVDV @AAxA\\
-w\lambda @>U>> \underset{\textstyle\circ}{w}
+w\lambda @>U>> \whitebead{w}
 \end{CD}
 \qquad\qquad
 \begin{CD}
-by\lambda @<\lambda<< \underset{\textstyle\circ}{by}\\
+by\lambda @<\lambda<< \whitebead{by}\\
 @VVDV @AAyA\\
-by\lambda D @. \underset{\textstyle\bullet}{b}\\
+by\lambda D @. \blackbead{b}\\
 @VVDV @AAxA\\
-w\lambda @>U>> \underset{\textstyle\circ}{w}
+w\lambda @>U>> \whitebead{w}
 \end{CD}
 $$
 
@@ -386,25 +386,25 @@ bead is $\hat{w} = w\nu = 6k+5$ and the black bead is $b = w\mu = 6k+4$:
 
 $$
 \begin{CD}
-4k+3 @<\lambda<< \underset{\textstyle\circ}{6k+5}\\
+4k+3 @<\lambda<< \whitebead{6k+5}\\
 @VVDV @AA\nu A\\
-2k+1 @>U>> \underset{\textstyle\circ}{3k+2}
+2k+1 @>U>> \whitebead{3k+2}
 \end{CD}
 \qquad
 \begin{CD}
-8k+5 @<\lambda<< \underset{\textstyle\circ}{12k+8}\\
+8k+5 @<\lambda<< \whitebead{12k+8}\\
 @VVDV @AA\mu A\\
-4k+2 @. \underset{\textstyle\bullet}{6k+4}\\
+4k+2 @. \blackbead{6k+4}\\
 @VVDV @AA\mu A\\
-2k+1 @>U>> \underset{\textstyle\circ}{3k+2}
+2k+1 @>U>> \whitebead{3k+2}
 \end{CD}
 \qquad
 \begin{CD}
-8k+6 @<\lambda<< \underset{\textstyle\circ}{12k+9}\\
+8k+6 @<\lambda<< \whitebead{12k+9}\\
 @VVDV @AA\nu A\\
-4k+3 @. \underset{\textstyle\bullet}{6k+4}\\
+4k+3 @. \blackbead{6k+4}\\
 @VVDV @AA\mu A\\
-2k+1 @>U>> \underset{\textstyle\circ}{3k+2}
+2k+1 @>U>> \whitebead{3k+2}
 \end{CD}
 $$
 
@@ -413,25 +413,25 @@ and the black bead is $b = w\nu = 6k+1$:
 
 $$
 \begin{CD}
-4k @<\lambda<< \underset{\textstyle\circ}{6k}\\
+4k @<\lambda<< \whitebead{6k}\\
 @VVDV @AA\mu A\\
-2k @>U>> \underset{\textstyle\circ}{3k}
+2k @>U>> \whitebead{3k}
 \end{CD}
 \qquad
 \begin{CD}
-8k+1 @<\lambda<< \underset{\textstyle\circ}{12k+2}\\
+8k+1 @<\lambda<< \whitebead{12k+2}\\
 @VVDV @AA\mu A\\
-4k @. \underset{\textstyle\bullet}{6k+1}\\
+4k @. \blackbead{6k+1}\\
 @VVDV @AA\nu A\\
-2k @>U>> \underset{\textstyle\circ}{3k}
+2k @>U>> \whitebead{3k}
 \end{CD}
 \qquad
 \begin{CD}
-8k+2 @<\lambda<< \underset{\textstyle\circ}{12k+3}\\
+8k+2 @<\lambda<< \whitebead{12k+3}\\
 @VVDV @AA\nu A\\
-4k+1 @. \underset{\textstyle\bullet}{6k+1}\\
+4k+1 @. \blackbead{6k+1}\\
 @VVDV @AA\nu A\\
-2k @>U>> \underset{\textstyle\circ}{3k}
+2k @>U>> \whitebead{3k}
 \end{CD}
 $$
 
@@ -471,15 +471,15 @@ For $b = \boldsymbol{n}^\bullet$ the two candidates are:
 
 $$
 \begin{CD}
-4\boldsymbol{n}-3 @<\lambda<< \underset{\textstyle\circ}{6\boldsymbol{n}-4}\\
+4\boldsymbol{n}-3 @<\lambda<< \whitebead{6\boldsymbol{n}-4}\\
 @. @AA\mu A\\
-{} @. \underset{\textstyle\bullet}{\boldsymbol{n}^\bullet}
+{} @. \blackbead{\boldsymbol{n}^\bullet}
 \end{CD}
 \qquad\qquad
 \begin{CD}
-4\boldsymbol{n}-2 @<\lambda<< \underset{\textstyle\circ}{6\boldsymbol{n}-3}\\
+4\boldsymbol{n}-2 @<\lambda<< \whitebead{6\boldsymbol{n}-3}\\
 @. @AA\nu A\\
-{} @. \underset{\textstyle\bullet}{\boldsymbol{n}^\bullet}
+{} @. \blackbead{\boldsymbol{n}^\bullet}
 \end{CD}
 $$
 
@@ -586,17 +586,17 @@ neighbors of our black bead, $\boldsymbol{n}^\bullet - 1$ and $\boldsymbol{n}^\b
 
 $$
 \begin{CD}
-a @<\lambda<< \cdots @<\lambda<< a_1 @<\lambda<< \underset{\textstyle\circ}{a_0 = \boldsymbol{n}^\bullet\mu}\\
+a @<\lambda<< \cdots @<\lambda<< a_1 @<\lambda<< \whitebead{a_0 = \boldsymbol{n}^\bullet\mu}\\
 @VVDV @. @VVDV @.\\
-c @<\lambda<< \cdots @<\lambda<< c_1 @<\lambda<< \underset{\textstyle\circ}{\boldsymbol{n}^\bullet-1}
+c @<\lambda<< \cdots @<\lambda<< c_1 @<\lambda<< \whitebead{\boldsymbol{n}^\bullet-1}
 \end{CD}
 $$
 
 $$
 \begin{CD}
-b @<\lambda<< \cdots @<\lambda<< b_1 @<\lambda<< \underset{\textstyle\circ}{b_0 = \boldsymbol{n}^\bullet\nu}\\
+b @<\lambda<< \cdots @<\lambda<< b_1 @<\lambda<< \whitebead{b_0 = \boldsymbol{n}^\bullet\nu}\\
 @VVDV @. @VVDV @.\\
-d @<\lambda<< \cdots @<\lambda<< d_1 @<\lambda<< \underset{\textstyle\circ}{\boldsymbol{n}^\bullet+1}
+d @<\lambda<< \cdots @<\lambda<< d_1 @<\lambda<< \whitebead{\boldsymbol{n}^\bullet+1}
 \end{CD}
 $$
 

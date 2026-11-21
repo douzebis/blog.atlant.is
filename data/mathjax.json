@@ -21,6 +21,18 @@
       ]
     ],
     "processEscapes": true,
-    "tags": "ams"
+    "tags": "ams",
+    "macros": {
+      "blackmark": "\\class{bead-black}{\\rule{0.85em}{0.85em}}",
+      "whitemark": "\\class{bead-white}{\\rule{0.85em}{0.85em}}",
+      "blackbead": [
+        "\\underset{\\class{bead-black}{\\rule{1.2em}{1.2em}}}{#1}",
+        1
+      ],
+      "whitebead": [
+        "\\underset{\\class{bead-white}{\\rule{1.2em}{1.2em}}}{#1}",
+        1
+      ]
+    }
   }
 }

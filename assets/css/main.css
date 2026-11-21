@@ -11,6 +11,9 @@
   --rule: #d9d9d2;
   --link: #1a5a96;
   --code-background: #f1f1ec;
+  --bead-black: #6e6e6a;
+  --bead-white: #f0f0ea;
+  --bead-rim: #8c8c86;
   color-scheme: light dark;
 }
 
@@ -22,6 +25,9 @@
     --rule: #3c3c38;
     --link: #8fbfe8;
     --code-background: #262624;
+    --bead-black: #6e6e6a;
+    --bead-white: #e6e6e0;
+    --bead-rim: #a0a098;
   }
 }
 
@@ -297,4 +303,22 @@ mjx-container[display="true"] {
 .table-wrap mjx-container,
 .table-wrap mjx-container * {
   white-space: nowrap !important;
+}
+
+/* The marks that give the color of a bead in a diagram (the macros
+   \blackmark and \whitemark of data/mathjax.json): a disc of the same size
+   for both colors, drawn like the beads of the figures, in both themes. */
+mjx-container .bead-black,
+mjx-container .bead-white {
+  border-radius: 50%;
+  border: 1px solid var(--bead-rim);
+}
+
+mjx-container .bead-black {
+  background: var(--bead-black) !important;
+  border-color: var(--bead-black);
+}
+
+mjx-container .bead-white {
+  background: var(--bead-white) !important;
 }

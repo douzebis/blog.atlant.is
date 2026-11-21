@@ -94,6 +94,13 @@ HEADER = r"""
 \usepackage{amscd}
 \usepackage{amsthm}
 \usepackage{float}
+\usepackage{tikz}
+% The marks that give the color of a bead in a diagram.  The web page
+% defines the same four commands for MathJax (data/mathjax.json).
+\newcommand{\blackmark}{\tikz[baseline=-0.6ex]\fill[black!60] (0,0) circle (0.62ex);}
+\newcommand{\whitemark}{\tikz[baseline=-0.6ex]\draw[black!55, fill=black!6, line width=0.3pt] (0,0) circle (0.62ex);}
+\newcommand{\blackbead}[1]{\underset{\textstyle\blackmark}{#1}}
+\newcommand{\whitebead}[1]{\underset{\textstyle\whitemark}{#1}}
 \floatplacement{figure}{htbp}
 \renewcommand{\arraystretch}{1.15}
 % Statements keep the numbers of the web page: the label is given by hand.
