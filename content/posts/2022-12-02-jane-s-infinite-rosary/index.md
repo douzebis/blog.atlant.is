@@ -1175,10 +1175,10 @@ part rests on [Theorem 1](#theorem-1).
 
 ### 9. Interlude: for a few names more
 
-> **Colonnello Mortimer**: Che succede ragazzo?
-> **Il Monco**: No, niente vecchio, non mi tornavano i conti. Ne mancava uno.
+> **Colonel Mortimer**: What's going on, boy?
+> **Monco**: Nothing, old man. My count didn't come out right. One was missing.
 >
-> Sergio Leone, *Per qualche dollaro in più* (1965)
+> Sergio Leone, *For a Few Dollars More* (1965)
 
 Bold is for the onyx rosary, which lives on the black beads only: the
 names of its maps are bold, like the numbers that count the onyxes since
