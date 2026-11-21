@@ -28,6 +28,7 @@ error if one fails.
 | The renumbering of November 2026 (beads from 1 instead of 0) changed no mathematics | `check_renumbering.py` | `python check_renumbering.py` | 200,000 beads, 300,000 moves, 60,000 onyxes |
 | Height: exploration and logarithmic algorithm agree | `check_shortest.py` | `python check_shortest.py` | beads below 60,000 |
 | Proposition 1 (bounds on the height, the cases of its proof) | `check_shortest.py` | same | beads up to 10^6 |
+| Question H (the record streaks of equal heights it quotes) | `check_shortest.py` | same | beads up to 10^6 |
 | Fact 1, the six diagrams of Lemma 1, Lemma 2, Corollary 1 | `check_shortest.py` | same | beads below 60,000 |
 | Theorem 1, parts 1 to 5, and the chains of its proof | `check_shortest.py` | same | black beads below 60,000 |
 | Remark on seeds of neighbors of black beads | `check_shortest.py` | same | black beads below 60,000 |

@@ -22,6 +22,8 @@ Checked for all beads below N unless said otherwise:
 - Proposition 1 (its two bounds on the height), the sharper bound of its
   proof, and the linear bound that the paper stated until November 2026,
   for all beads from 2 to 10^6, with the logarithmic algorithm;
+- the record streaks of equal heights quoted in Question H, among the
+  first 10^6 beads;
 - the examples of Part I (bead 8, its neighbor 9, the black bead 4).
 """
 
@@ -41,6 +43,25 @@ from rosary import (
     seed_and_lambex,
     up,
 )
+
+
+def record_streaks(heights: list[int]) -> list[tuple[int, int, int]]:
+    """The streaks of neighboring beads with the same height that are longer
+    than every streak before them: (length, first bead, height).  `heights`
+    is indexed by the bead, from 1; a streak cut by the end of the list is
+    not counted."""
+    records: list[tuple[int, int, int]] = []
+    last = len(heights) - 1
+    start = 1
+    while start <= last:
+        end = start
+        while end < last and heights[end + 1] == heights[start]:
+            end += 1
+        length = end - start + 1
+        if end < last and (not records or length > records[-1][0]):
+            records.append((length, start, heights[start]))
+        start = end + 1
+    return records
 
 
 def report(name: str, passed: bool) -> bool:
@@ -278,6 +299,26 @@ def main() -> int:
                 if abs(heights[n] - 4 - 3 * math.log(n - 7) / log98) < 1e-9
             ]
             == [8],
+        ),
+        report(
+            "Question H: the record streaks of equal heights among the first 10^6 beads",
+            [
+                record
+                for record in record_streaks(heights)
+                if record[0] in (5, 7, 10, 14, 69, 106, 305, 735)
+            ]
+            == [
+                (5, 50, 14),
+                (7, 75, 15),
+                (10, 113, 16),
+                (14, 170, 17),
+                (69, 4711, 36),
+                (106, 20303, 45),
+                (305, 165057, 61),
+                (735, 940908, 68),
+            ]
+            and record_streaks(heights)[-1][0] == 735
+            and [up(50), up(75), up(113)] == [75, 113, 170],
         ),
         report(
             "h(1), h(2), ... = 0, 1, 2, 5, 3, 6, 9, 4, 7, 10, 10",

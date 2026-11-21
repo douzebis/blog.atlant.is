@@ -1,0 +1,13 @@
+{{- /* The content of a page, in which every statement can be linked to: the
+       paragraph that starts with a bold "Theorem 3." or "Lemma 1 (name)."
+       gets the identifier "theorem-3" or "lemma-1".  The references to the
+       statements are links to these identifiers (tools/link_statements.py
+       writes them), and the build check refuses a link whose identifier is
+       missing. */ -}}
+{{- $content := . -}}
+{{- range slice "Theorem" "Lemma" "Corollary" "Proposition" "Fact" "Conjecture" "Question" -}}
+  {{- $from := printf `<p><strong>%s ([0-9]+|[A-Z])(\.| \()` . -}}
+  {{- $to := printf `<p id="%s-$1"><strong>%s $1$2` (lower .) . -}}
+  {{- $content = replaceRE $from $to $content -}}
+{{- end -}}
+{{- $content | safeHTML -}}

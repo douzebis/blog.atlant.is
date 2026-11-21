@@ -159,6 +159,8 @@ function f_label(bead, type) {
             return '' + label(bead)
         case 'height':
             return f_label_height(bead)
+        case 'plain_height':
+            return '' + height(bead)
         case 'reluctant_inv':
             return f_label_reluctant_inv(bead)
         default:

@@ -361,6 +361,109 @@ class CompareStatements(unittest.TestCase):
         self.assertIn("removed: Lemma 2", result.stdout)
         self.assertIn("added: Question B", result.stdout)
 
+    def test_links_to_statements_do_not_count(self) -> None:
+        new = PAPER.replace(
+            "**Lemma 2 (name).** A single",
+            "**Lemma 2 (name).** By [Theorem 1](#theorem-1), a single",
+        )
+        old = PAPER.replace(
+            "**Lemma 2 (name).** A single",
+            "**Lemma 2 (name).** By Theorem 1, a single",
+        )
+        result = self.compare(old, new)
+        self.assertEqual(result.returncode, 0, result.stdout)
+
+
+LINKED = """---
+title: "Theorem 9 in the front matter"
+---
+
+## 1. About Theorem 1
+
+**Theorem 1.** A claim.
+
+*Proof of Theorem 1.* By Lemma 2 and by Theorem
+1 itself, see $\\text{Lemma 2}$ and `Lemma 2`. $\\quad\\Box$
+
+**Lemma 2 (name).** Another claim, used in Theorems 1 and 3 and in
+Conjectures A to C. (It was "Lemma 7" once.)
+
+**Theorem 3.** A third.
+
+**Conjecture A (first).** One.
+
+**Conjecture C (third).** Three.
+"""
+
+
+class LinkStatements(unittest.TestCase):
+    def run_tool(
+        self, text: str, *options: str
+    ) -> tuple[subprocess.CompletedProcess[str], str]:
+        with tempfile.TemporaryDirectory() as name:
+            post = pathlib.Path(name) / "index.md"
+            post.write_text(text)
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(TOOLS / "link_statements.py"),
+                    str(post),
+                    *options,
+                ],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            return result, post.read_text()
+
+    def test_references_become_links(self) -> None:
+        result, text = self.run_tool(LINKED)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("By [Lemma 2](#lemma-2) and by [Theorem\n1](#theorem-1)", text)
+        self.assertIn("[Theorems 1](#theorem-1) and [3](#theorem-3)", text)
+        self.assertIn("[Conjectures A](#conjecture-A) to [C](#conjecture-C)", text)
+
+    def test_heads_formulas_code_and_quotes_are_left_alone(self) -> None:
+        _, text = self.run_tool(LINKED)
+        for kept in (
+            'title: "Theorem 9 in the front matter"',
+            "## 1. About Theorem 1",
+            "**Theorem 1.** A claim.",
+            "*Proof of Theorem 1.*",
+            "$\\text{Lemma 2}$ and `Lemma 2`",
+            '"Lemma 7"',
+        ):
+            self.assertIn(kept, text)
+
+    def test_running_twice_changes_nothing(self) -> None:
+        _, once = self.run_tool(LINKED)
+        result, twice = self.run_tool(once)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(once, twice)
+
+    def test_check_reports_references_that_are_not_links(self) -> None:
+        result, text = self.run_tool(LINKED, "--check")
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(text, LINKED)
+        _, linked = self.run_tool(LINKED)
+        result, _ = self.run_tool(linked, "--check")
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_reference_to_a_missing_statement_fails(self) -> None:
+        result, text = self.run_tool(LINKED + "\nSee Lemma 5.\n")
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("no statement for #lemma-5", result.stderr)
+
+    def test_the_rosary_paper_is_linked(self) -> None:
+        post = REPO / "content/posts/2022-12-02-jane-s-infinite-rosary/index.md"
+        result = subprocess.run(
+            [sys.executable, str(TOOLS / "link_statements.py"), str(post), "--check"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

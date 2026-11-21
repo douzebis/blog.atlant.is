@@ -53,13 +53,13 @@ $n + L(n)$ or *down* to bead $n - L(n)$.
 > Figure 2: telling the beads. Each bead shows its label, and its two arrows, one up (to the right) and one down (to the left), reach as many places away as the label says. The color of an arrow tells its length, and the arrows that leave the picture fade out ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=both&colors=label&string=yes&end=open&interactive=yes&first=1)).
 
 **Can Jane tell every bead of her rosary?** Yes, by a short induction
-(Proposition 1): every bead can be
+([Proposition 1](#proposition-1)): every bead can be
 reached from bead $1$. The fun starts with two finer questions.
 
 **How fast?** The least number of moves needed to reach bead $n$ is its
 *height*. Bead $4$, only three beads away from bead $1$, has height $5$: Jane
 must go up four times, to bead $8$, before one move down brings her to it.
-*Theorem 1* says what shortest recitations look like, bead by bead, and turns
+*[Theorem 1](#theorem-1)* says what shortest recitations look like, bead by bead, and turns
 into a program that computes the height of bead $n$ in about $\log n$ steps,
 without searching.
 
@@ -73,11 +73,11 @@ and nothing in her rule seems to prevent her from painting herself into a
 corner, with told beads both below and above, or from leaving some bead behind
 forever. Neither happens:
 
-- *Theorem 2*: she never gets stuck;
-- *Theorem 3*: she tells every bead, exactly once;
-- *Theorem 5*: in the long run she moves up with frequency exactly
+- *[Theorem 2](#theorem-2)*: she never gets stuck;
+- *[Theorem 3](#theorem-3)*: she tells every bead, exactly once;
+- *[Theorem 5](#theorem-5)*: in the long run she moves up with frequency exactly
   $\log_3 2 \approx 0.6309$, a little less than two moves out of three;
-- *Theorem 6*: bead $m$ gets its turn after at most polynomially many moves.
+- *[Theorem 6](#theorem-6)*: bead $m$ gets its turn after at most polynomially many moves.
 
 **Why she tells every bead, by ear.** Hear the position of a bead as the
 frequency of a note. A down move halves it: Jane drops an octave, onto the
@@ -90,7 +90,7 @@ she never enters. Section 8 makes this precise, with a circle in place of the
 octave.
 
 Along the way the black beads turn out to form a tree, the *onyx rosary*, in
-which every black bead has infinitely many children (*Theorem 4*).
+which every black bead has infinitely many children (*[Theorem 4](#theorem-4)*).
 
 **Where this comes from.** The rosary is [Jane Street](https://www.janestreet.com/)'s
 puzzle [Traversing the Infinite Sidewalk](https://www.janestreet.com/numberphile/)
@@ -105,7 +105,7 @@ in disguise, and three entries of the
 | reluctant recitation $\rho$ | the greedy walk | [A359005](https://oeis.org/A359005), plus one |
 | the move at which bead $m$ is told, $\rho^{-1}(m)$ | the inverse mapping of the greedy walk | [A359008](https://oeis.org/A359008), at $m - 1$ |
 
-**And what is still open.** Plenty; Section 12 has seven questions. A
+**And what is still open.** Plenty; Section 12 has eight questions. A
 favorite: in the reluctant recitation, look at each of Jane's down moves and
 count the up moves that came just before it. After $2^{27}$ moves, the count
 is exactly one in $49.993\%$ of the cases. Is the true proportion one half?
@@ -124,27 +124,27 @@ $$
 $$
 
 - **Part I, shortest recitations** (Sections 1 to 5): the names, the height,
-  Theorem 1 and the fast algorithm. It needs nothing.
-- **Part II, the reluctant recitation** (Sections 6 to 8): Theorems 2 and 3.
+  [Theorem 1](#theorem-1) and the fast algorithm. It needs nothing.
+- **Part II, the reluctant recitation** (Sections 6 to 8): [Theorems 2](#theorem-2) and [3](#theorem-3).
   From Part I it needs the names (Section 1 and the first lines of Section 4)
-  and one elementary lemma (Lemma 1, in Section 3). It does not use
-  Theorem 1: a reader in a hurry to see why reluctant Jane tells every bead
-  can read Section 1 and Lemma 1, and jump to Section 6.
-- **Part III, the onyx rosary** (Sections 9 and 10): Theorem 4. It is built
-  on Theorem 1; only its last corollary, on Jane's foraging sequence, also uses
-  Theorem 3.
-- **Part IV, the pace of the recitation** (Section 11): Theorems 5 and 6. It
-  continues Part II and uses neither Theorem 1 nor Part III.
+  and one elementary lemma ([Lemma 1](#lemma-1), in Section 3). It does not use
+  [Theorem 1](#theorem-1): a reader in a hurry to see why reluctant Jane tells every bead
+  can read Section 1 and [Lemma 1](#lemma-1), and jump to Section 6.
+- **Part III, the onyx rosary** (Sections 9 and 10): [Theorem 4](#theorem-4). It is built
+  on [Theorem 1](#theorem-1); only its last corollary, on Jane's foraging sequence, also uses
+  [Theorem 3](#theorem-3).
+- **Part IV, the pace of the recitation** (Section 11): [Theorems 5](#theorem-5) and [6](#theorem-6). It
+  continues Part II and uses neither [Theorem 1](#theorem-1) nor Part III.
 
   Part IV is the only place where the paper uses a result that is not
-  elementary, and that it does not prove. Everything up to Theorem 3 needs
-  only that $\log_2 3$ is irrational, which is $2^a \neq 3^b$. The clock of Theorem 6, and the square root in
-  Theorem 5, need more: that fractions cannot approach $\log_2 3$ faster
+  elementary, and that it does not prove. Everything up to [Theorem 3](#theorem-3) needs
+  only that $\log_2 3$ is irrational, which is $2^a \neq 3^b$. The clock of [Theorem 6](#theorem-6), and the square root in
+  [Theorem 5](#theorem-5), need more: that fractions cannot approach $\log_2 3$ faster
   than a fixed power of their denominator (a finite *irrationality
   exponent*). This is a theorem, with two sources: the classical measures
   of Baker and Rhin, and a bound formalized in Lean by R. K. Jha in 2026.
   Section 11 states its results for any such exponent and then says what
-  each source gives ("Which exponent?", after Theorem 6).
+  each source gives ("Which exponent?", after [Theorem 6](#theorem-6)).
 - **Coda**: the rosary's relatives (the sidewalk, the powers of $3/2$, the
   $3x+1$ problem), and what is still open (Section 12).
 
@@ -156,8 +156,8 @@ version of this paper. Every name used in the paper is listed in a
 
 *Sections 1 to 5.* The names of things, the height of a bead, and what a
 shortest recitation looks like: always one step up from $n\lambda$ to reach a
-white bead $n$ (Lemma 2), and, to reach a black bead, a choice between two
-ways that Theorem 1 settles. The part ends with the fast algorithm for the
+white bead $n$ ([Lemma 2](#lemma-2)), and, to reach a black bead, a choice between two
+ways that [Theorem 1](#theorem-1) settles. The part ends with the fast algorithm for the
 height.
 
 ### 1. Prelude: names
@@ -230,7 +230,7 @@ Three more names, for sequences of moves:
   Unless stated otherwise, a minimal recitation *to* $m$ starts at bead $1$.
 - **Height**: $h(n)$ is the length of a minimal recitation to $n$. The
   recitation $1, 2, 3, 5, 8$ shows that $h(8) \leq 4$ (in fact $h(8) = 4$,
-  by Lemma 2 below).
+  by [Lemma 2](#lemma-2) below).
 
 **The binary tree.** A down move is $n \mapsto \lfloor n/2 \rfloor$: *the
 rosary is the infinite binary tree*, with bead $1$ at the root and the beads
@@ -328,11 +328,11 @@ def height(n: int) -> int:
 
 [![Figure 4](images/figure-04.png)](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000&first=1 "live")
 
-> Figure 4: the heights of the first $10\,000$ beads, with positions on a logarithmic scale. Look at the horizontal dashes: long runs of neighboring beads share the same height. Click the picture to explore it ([live version](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000&first=1)).
+> Figure 4: the heights of the first $10\,000$ beads, with positions on a logarithmic scale. Look at the horizontal dashes: long streaks of neighboring beads share the same height ([Question H](#question-H) in Section 12 asks how long they get). Click the picture to explore it ([live version](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000&first=1)).
 
 ### 3. Minimal recitations
 
-Everything in this section, and Theorem 2 later on, rests on one elementary
+Everything in this section, and [Theorem 2](#theorem-2) later on, rests on one elementary
 observation about the beads sitting "above" a white bead.
 
 **Lemma 1 (commutation).** Let $w$ be a white bead.
@@ -358,7 +358,7 @@ read in the same way.
   to another always arrive at the same bead; when the arrows go round in a
   loop, this means that the loop closes.
 
-Both statements of Lemma 1 say that a loop closes. Start from $w$, in the
+Both statements of [Lemma 1](#lemma-1) say that a loop closes. Start from $w$, in the
 bottom right corner: go up the right-hand side, across the top, and down the
 left-hand side; you arrive at $w\lambda$, from which one up move leads back
 to $w$. With $w = 8$ in the first diagram: up to $\hat{w} = 17$, across to
@@ -452,10 +452,10 @@ $p \in \{w\mu, w\nu\}$ of height $h - 1$. We exhibit a recitation to
 $w\lambda$ of length at most $h - 1$; appending one up move then gives a
 recitation to $w$ of length at most $h$ that ends with an up move.
 
-- If $p$ is the white bead $\hat{w}$ of Lemma 1: by induction
+- If $p$ is the white bead $\hat{w}$ of [Lemma 1](#lemma-1): by induction
   $h(\hat{w}\lambda) = h - 2$, and $\hat{w}\lambda D = w\lambda$, so
   $h(w\lambda) \leq h - 1$.
-- If $p$ is the black bead $b$ of Lemma 1: by Fact 1, $\mathcal{R}$ reaches
+- If $p$ is the black bead $b$ of [Lemma 1](#lemma-1): by [Fact 1](#fact-1), $\mathcal{R}$ reaches
   $b$ by a down move from a white bead $p' \in \{b\mu, b\nu\}$ of height
   $h - 2$. By induction $h(p'\lambda) = h - 3$, and $p'\lambda DD = w\lambda$,
   so $h(w\lambda) \leq h - 1$. $\quad\Box$
@@ -464,8 +464,8 @@ recitation to $w$ of length at most $h$ that ends with an up move.
 $h(b) = 1 + \min\big(h(b\mu), h(b\nu)\big)$, and there is a minimal recitation
 to $b$ that ends with *up*-*down*.
 
-*Proof.* A black bead can only be reached by a down move (Fact 1), from $b\mu$
-or $b\nu$, which are both white; apply Lemma 2. $\quad\Box$
+*Proof.* A black bead can only be reached by a down move ([Fact 1](#fact-1)), from $b\mu$
+or $b\nu$, which are both white; apply [Lemma 2](#lemma-2). $\quad\Box$
 
 For $b = \boldsymbol{n}^\bullet$ the two candidates are:
 
@@ -484,7 +484,7 @@ $$
 $$
 
 So a minimal recitation can be built backwards: from a white bead apply
-$\lambda$; from a black bead choose between $\mu$ and $\nu$. Theorem 1 says
+$\lambda$; from a black bead choose between $\mu$ and $\nu$. [Theorem 1](#theorem-1) says
 which one to choose.
 
 ### 4. Interlude: more names
@@ -493,7 +493,7 @@ which one to choose.
 >
 > Ridley Scott, *Blade Runner* (1982)
 
-Theorem 1 compares two beads by looking at where they come from when one
+[Theorem 1](#theorem-1) compares two beads by looking at where they come from when one
 only moves up. This takes four names; bead $8$ is the example again.
 
 - **Up-chain**: $\uparrow\!(n) = \{nU^i \mid i \in \mathbb{N}\}$, what Jane tells
@@ -503,16 +503,17 @@ only moves up. This takes four names; bead $8$ is the example again.
   what she tells if she only moves down; it is finite and ends in $1$:
   $\downarrow\!(8) = \{8, 4, 2, 1\}$.
 - **Seed**: $\sigma(n)$ is the unique black bead from which $n$ is reached by up
-  moves only. **Lambdex** (for "$\lambda$-exponent"): $\Lambda(n)$ is the number
-  of those up moves. In other words $n = \sigma(n)U^{\Lambda(n)}$ and
-  $\sigma(n) = n\lambda^{\Lambda(n)}$, which is where the name comes from.
+  moves only. **Lambda exponent**: $\Lambda(n)$ is the number of those up
+  moves. In other words $n = \sigma(n)U^{\Lambda(n)}$ and
+  $\sigma(n) = n\lambda^{\Lambda(n)}$: it is the exponent of $\lambda$ that
+  leads from $n$ back to its seed.
   Going back from bead $8$ by $\lambda$ gives $5, 3, 2, 1$, and $1$ is black:
   $\sigma(8) = 1$ and $\Lambda(8) = 4$. Its neighbor $9$ goes back to $6$ and
   then to $4$, which is black: $\sigma(9) = 4$ and $\Lambda(9) = 2$.
 
-By Fact 1, the up-chains of the black beads partition the rosary,
+By [Fact 1](#fact-1), the up-chains of the black beads partition the rosary,
 $\mathbb{N}^* = \biguplus_{\boldsymbol{n}} \uparrow\!(\boldsymbol{n}^\bullet)$. So a bead is known
-by the number of its seed and by its lambdex:
+by the number of its seed and by its lambda exponent:
 
 $$\gamma(n) = \big(\boldsymbol{k},\ \Lambda(n)\big) \quad\text{where}\quad \sigma(n) = \boldsymbol{k}^\bullet$$
 
@@ -523,13 +524,15 @@ instance $\gamma(8) = (\mathbf{1}, 4)$ and $\gamma(9) = (\mathbf{2}, 2)$.
 
 > Figure 5: the rosary deconstructed. Each row is an up-chain and starts from a black bead, on the left: an up move is a step to the right, and $\lambda$ is a step to the left. Bead $8$ sits in the bottom row, four steps from its seed $1$ ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=none&label=position&color=none&arrows=none&interactive=yes&first=1)).
 
-[![Figure 6](images/figure-06.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic&label=height&color=height&arrows=yes&interactive=yes&first=1)
+[![Figure 6](images/figure-06.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic_back&label=plain_height&color=none&below=position&arrows=yes&interactive=yes&first=1)
 
-> Figure 6: the same, with heights in place of positions. Each arrow leads to a bead from the one before it on a shortest recitation: white beads are reached from their left (Lemma 2), black beads from one of the two beads above them in the binary tree ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic&label=height&color=height&arrows=yes&interactive=yes&first=1)).
+> Figure 6: the same, with the height written in each bead and the position underneath. Each arrow leads from a bead back to the one before it on a shortest recitation: a white bead points one step to the left ([Lemma 2](#lemma-2)), a black bead to one of the two beads above it in the binary tree ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic_back&label=plain_height&color=none&below=position&arrows=yes&interactive=yes&first=1)).
 
 The up-chain of bead $1$ reads $1, 2, 3, 5, 8, 12, 18, 27, 41,
-\ldots$ ([A061419](https://oeis.org/A061419)); by [OW91] every up-chain grows
-like $K\cdot(3/2)^i$ for a constant $K$ depending on the chain.
+\ldots$ ([A061419](https://oeis.org/A061419)); every up-chain grows
+geometrically: $nU^i/(3/2)^i$ increases to a limit $K$ that depends on the
+chain, and $nU^i$ stays within $1$ of $K\,(3/2)^i$. For the chain of bead $1$
+this is in [OW91], with $K \approx 1.6222$.
 
 **Remark (neighbors of black beads have lower seeds).** Since
 $\sigma(n) \leq n\lambda$ for white $n$, the two neighbors of a black bead
@@ -563,15 +566,15 @@ $$2\boldsymbol{n} - 1 = 3^e q \quad\text{with } 3 \nmid q, \qquad\text{and}\qqua
    to $\boldsymbol{n}^\bullet$ ending in $\sigma(w)\,U^{\Lambda(w)}D$.
 
 In words: of the two beads $\boldsymbol{n}^\bullet\mu$ and $\boldsymbol{n}^\bullet\nu$ above a black bead, *the one
-with the larger lambdex, equivalently the smaller seed, lies on a minimal
+with the larger lambda exponent, equivalently the smaller seed, lies on a minimal
 recitation*; and which one it is can be read off the base-3 expansion of
 $2\boldsymbol{n}-1$. Above bead $4$, which is onyx $\mathbf{2}$, for instance, $2\boldsymbol{n} - 1 = 3$,
 so $e = 1$, $q = 1$ and $b_2 = 4$ is black: $\mu$ wins, and indeed
-$4\mu = 8$ has lambdex $4$ while $4\nu = 9$ has lambdex $2$.
+$4\mu = 8$ has lambda exponent $4$ while $4\nu = 9$ has lambda exponent $2$.
 
 [![Figure 7](images/figure-07.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=back&label=position&color=position&arrows=yes&interactive=yes&first=1)
 
-> Figure 7: when in doubt, choose the predecessor with the larger lambdex. Each arrow points to where a shortest recitation comes from. White beads point one step to the left. A black bead, in the left column, has two candidates: the solid arrow points to the winner, the dashed one to the loser, and the winner is always the one further to the right in its row ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=back&label=position&color=position&arrows=yes&interactive=yes&first=1)).
+> Figure 7: when in doubt, choose the predecessor with the larger lambda exponent. Each arrow points to where a shortest recitation comes from. White beads point one step to the left. A black bead, in the left column, has two candidates: the solid arrow points to the winner, the dashed one to the loser, and the winner is always the one further to the right in its row ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=back&label=position&color=position&arrows=yes&interactive=yes&first=1)).
 
 *The idea.* Follow the two candidates $a_0 = \boldsymbol{n}^\bullet\mu$ and $b_0 = \boldsymbol{n}^\bullet\nu$
 backwards along their up-chains. They are neighbors, and they stay neighbors,
@@ -600,7 +603,7 @@ d @<\lambda<< \cdots @<\lambda<< d_1 @<\lambda<< \whitebead{\boldsymbol{n}^\bull
 \end{CD}
 $$
 
-By Lemma 2, walking along a row costs one move per arrow. So the heights of
+By [Lemma 2](#lemma-2), walking along a row costs one move per arrow. So the heights of
 $\boldsymbol{n}^\bullet$, $\boldsymbol{n}^\bullet - 1$ and $\boldsymbol{n}^\bullet + 1$ are read off the four beads at the left-hand
 ends, $a$, $b$, $c = c_{e+1}$ and $d = d_{e+1}$. Exactly two of these four are
 black, and comparing them comes down to statement (4) for a smaller black
@@ -614,7 +617,7 @@ $a_i\lambda = \lfloor \frac{2}{3}(b_i - 1) \rfloor = b_{i+1} - 1 = a_{i+1}$.
 Finally $b_{e+1} = 2^{e+1}q$ is not
 divisible by $3$: if it is $\equiv 1$ then $b_{e+1}$ is black and
 $a_{e+1} \equiv 0$ is white, and if it is $\equiv 2$ then $b_{e+1}$ is white
-and $a_{e+1} \equiv 1$ is black. The lambdex of the bead that turned black is
+and $a_{e+1} \equiv 1$ is black. The lambda exponent of the bead that turned black is
 $e+1$; the other one is larger.
 
 **(3).** The loser's seed is the black bead $s \in \{a_{e+1}, b_{e+1}\}$, and
@@ -627,9 +630,9 @@ $c_i = a_iD = d_i - 1$. The same computation as above gives
 $c_i = (\boldsymbol{n}^\bullet-1)\lambda^i$ and $d_i = (\boldsymbol{n}^\bullet+1)\lambda^i$, with $c_i$ and $d_i$ white
 for $i \leq e$. Write $a, b, c, d$ for $a_{e+1}, b_{e+1}, c_{e+1}, d_{e+1}$.
 So the two ladders drawn above commute. Every bead from which a $\lambda$
-arrow starts is white, so by Lemma 2 it
+arrow starts is white, so by [Lemma 2](#lemma-2) it
 is one higher than the bead the arrow points to. Reading the rows from right
-to left, and using Corollary 1 for the step down to $\boldsymbol{n}^\bullet$,
+to left, and using [Corollary 1](#corollary-1) for the step down to $\boldsymbol{n}^\bullet$,
 
 $$h(\boldsymbol{n}^\bullet) = \min\big(h(a), h(b)\big) + e + 2, \qquad
   h(\boldsymbol{n}^\bullet-1) = h(c) + e + 1, \qquad h(\boldsymbol{n}^\bullet+1) = h(d) + e + 1. \tag{$\ast$}$$
@@ -650,7 +653,7 @@ which $c = 1$, so from now on $c > 1$.
 $h(b) < h(\boldsymbol{n}^\bullet)$, and the induction hypothesis (4) applied to the black bead
 $b$ would give $h(b) \geq h(b-1) = h(a)$, a contradiction. Hence
 $h(\boldsymbol{n}^\bullet) = h(a) + e + 2$, and since $a = \sigma(\boldsymbol{n}^\bullet\mu)U^{\Lambda(\boldsymbol{n}^\bullet\mu)-e-1}$,
-Lemma 2 gives (5). Next, $c = aD$ yields
+[Lemma 2](#lemma-2) gives (5). Next, $c = aD$ yields
 $h(\boldsymbol{n}^\bullet-1) = h(c) + e + 1 \leq h(a) + e + 2 = h(\boldsymbol{n}^\bullet)$. Finally $c$ is black with
 $h(c) \leq h(a) + 1 < h(\boldsymbol{n}^\bullet)$, so by induction $h(d) = h(c+1) \leq h(c)$ and
 $h(\boldsymbol{n}^\bullet+1) = h(d) + e + 1 \leq h(\boldsymbol{n}^\bullet)$.
@@ -661,11 +664,11 @@ $h(\boldsymbol{n}^\bullet) = h(b) + e + 2$, which gives (5). Then $d = bD$ yield
 $h(\boldsymbol{n}^\bullet+1) \leq h(\boldsymbol{n}^\bullet)$, and $d$ is black with $h(d) < h(\boldsymbol{n}^\bullet)$, so
 $h(c) = h(d-1) \leq h(d)$ and $h(\boldsymbol{n}^\bullet-1) \leq h(\boldsymbol{n}^\bullet)$. $\quad\Box$
 
-*Used:* Lemma 2 and Corollary 1.
+*Used:* [Lemma 2](#lemma-2) and [Corollary 1](#corollary-1).
 
 #### Computing the height in logarithmic time
 
-Lemma 2 and Theorem 1 give an algorithm that computes $h(n)$ in $O(\log n)$
+[Lemma 2](#lemma-2) and [Theorem 1](#theorem-1) give an algorithm that computes $h(n)$ in $O(\log n)$
 arithmetic operations and constant space:
 
 ```python
@@ -696,8 +699,8 @@ def height(n: int) -> int:
 > Herman Melville, *Bartleby, the Scrivener* (1853)
 
 *Sections 6 to 8.* Jane's reluctant rule, the proof that it never leaves her
-stuck (Theorem 2) and the proof that it leads her to every bead (Theorem 3).
-From Part I this part uses the names and Lemma 1, nothing more.
+stuck ([Theorem 2](#theorem-2)) and the proof that it leads her to every bead ([Theorem 3](#theorem-3)).
+From Part I this part uses the names and [Lemma 1](#lemma-1), nothing more.
 
 ### 6. Jane's reluctant recitation
 
@@ -733,7 +736,7 @@ def rho(i: int) -> int:
 ```
 
 A priori the definition could break down: Jane might find that both the bead
-below and the bead above have already been told. Theorem 2 says that this
+below and the bead above have already been told. [Theorem 2](#theorem-2) says that this
 never happens.
 
 **Lemma 3 (down-closure).** As long as the recitation is defined: if
@@ -754,16 +757,16 @@ every white bead $w \in V_i$, we have $w\lambda \in V_i$.
 
 [![Figure 9](images/figure-09.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=31&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes&first=1)
 
-> Figure 9: the same after $31$ moves. The beads told so far, in color, fill every row from the left without leaving a hole: this is the no-gap property of Theorem 2 ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=31&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes&first=1)).
+> Figure 9: the same after $31$ moves. The beads told so far, in color, fill every row from the left without leaving a hole: this is the no-gap property of [Theorem 2](#theorem-2) ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=31&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes&first=1)).
 
 *The idea.* Jane is stuck if the bead below her and the bead above her have
 both been told. Suppose she stands on $n$, wants to go up, and finds $nU$
 already told. Then $nU$, a white bead, was told at a time when the bead
 before it in its up-chain, $nU\lambda = n$, was not: a *gap* in the up-chain.
 So it is enough to show that Jane never creates a gap, and this is what the
-two diagrams of Lemma 1 are for: whichever way Jane comes down onto a white
+two diagrams of [Lemma 1](#lemma-1) are for: whichever way Jane comes down onto a white
 bead $w$, they show that $w\lambda$ lies below a bead she has told before,
-and Lemma 3 says that she has then told $w\lambda$ too.
+and [Lemma 3](#lemma-3) says that she has then told $w\lambda$ too.
 
 *Proof.* By induction on $i$ we prove: (a) $\rho(0), \ldots, \rho(i)$ are
 defined and distinct; (b) the no-gap property holds at all times $j \leq i$.
@@ -777,22 +780,22 @@ $n = nU\lambda \in V_j$, contradicting (a). So (a) holds at time $i+1$.
 
 *No gap at time $i+1$.* Let $w = \rho(i+1)$ be white and suppose
 $g = w\lambda \notin V_{i+1}$. The last move was not an up move (it would have
-come from $g$), so $\rho(i) \in \{w\mu, w\nu\}$. We use Lemma 1 and its two
+come from $g$), so $\rho(i) \in \{w\mu, w\nu\}$. We use [Lemma 1](#lemma-1) and its two
 diagrams: Jane arrived at $w$ down the right-hand side, and the left-hand
 side shows that $g$ had been told before.
 
 - If $\rho(i)$ is the white bead $\hat{w}$: by (b), $\hat{w}\lambda \in V_i$,
-  and $\hat{w}\lambda \neq \rho(i)$, so Lemma 3 gives
+  and $\hat{w}\lambda \neq \rho(i)$, so [Lemma 3](#lemma-3) gives
   $g = \hat{w}\lambda D \in V_i$.
 - If $\rho(i)$ is the black bead $b$: a black bead is never reached by an up
   move, so $\rho(i-1) = p$ for some $p \in \{b\mu, b\nu\}$, which is white.
-  By (b), $p\lambda \in V_{i-1}$. Applying Lemma 3 twice (to $p\lambda$ and
+  By (b), $p\lambda \in V_{i-1}$. Applying [Lemma 3](#lemma-3) twice (to $p\lambda$ and
   then to $p\lambda D$, neither of which is the current bead $p$) gives
   $g = p\lambda DD \in V_{i-1}$.
 
 Both cases contradict $g \notin V_{i+1}$. $\quad\Box$
 
-*Used:* Fact 1, Lemma 1 and Lemma 3.
+*Used:* [Fact 1](#fact-1), [Lemma 1](#lemma-1) and [Lemma 3](#lemma-3).
 
 ### 8. Theorem 3: Jane's reluctant recitation tells all beads
 
@@ -802,22 +805,22 @@ recitation tells every bead exactly once.
 (The January 2023 version of this paper stated this as a conjecture, checked
 by computer for the first $7\,884\,654$ beads.)
 
-That Jane tells no bead twice is Theorem 2. What remains is that she leaves
+That Jane tells no bead twice is [Theorem 2](#theorem-2). What remains is that she leaves
 no bead out.
 
 *The idea.* Suppose some bead $m$ is never told.
 
 1. Then Jane stays out of the whole *cone* of $m$, that is, of everything
    above $m$ in the binary tree: had she told a bead up there, she would have
-   told $m$ as well (Lemma 3).
+   told $m$ as well ([Lemma 3](#lemma-3)).
 2. The cone of $m$ is easy to recognize: its beads are those whose position
    $n$, written in binary, starts with the digits of $m$. On a logarithmic
    scale this is a condition on the fractional part
    of $\log_2 n$ alone, the *phase* of the bead: it must fall in a fixed arc
-   of the circle (Lemma 4).
+   of the circle ([Lemma 4](#lemma-4)).
 3. A down move erases the last binary digit of $n$ and leaves the leading
    ones alone: the phase hardly moves. An up move multiplies $n$ by $3/2$, or
-   very nearly: the phase turns by $\alpha = \log_2(3/2)$ (Lemma 5).
+   very nearly: the phase turns by $\alpha = \log_2(3/2)$ ([Lemma 5](#lemma-5)).
 4. So Jane's phase goes round the circle in steps of $\alpha$, and $\alpha$ is
    irrational: the steps never close up, and they visit every arc (Figure
    11). Sooner or later the phase falls in the arc of $m$: Jane is in the
@@ -842,7 +845,7 @@ $$\theta(n) = \log_2 n \bmod 1 \ \in \mathbb{R}/\mathbb{Z}.$$
 
 The cone of $m$ is $m$ and everything above it in the binary tree: the cone
 of bead $4$ is $\{4,\ 8, 9,\ 16, 17, 18, 19,\ \ldots\}$. If Jane tells one
-of these beads, she tells bead $4$ as well: by Lemma 3, once she has left a
+of these beads, she tells bead $4$ as well: by [Lemma 3](#lemma-3), once she has left a
 bead, the bead below it has been told. The phase forgets how high a bead is
 in the tree and remembers only where it stands within its level: bead $8$,
 the first of its level, has phase $0$.
@@ -857,7 +860,7 @@ the first of its level, has phase $0$.
 > $\alpha \approx 0.585$ of the width, wrapping around: it leaves the strip,
 > and the question is when Jane's phase will come back to it.
 
-By Lemma 4, $n$ is in the cone of $m$ if and only if $n \geq m$ and
+By [Lemma 4](#lemma-4), $n$ is in the cone of $m$ if and only if $n \geq m$ and
 $\theta(n)$ lies in the arc
 $A_m = \big[\log_2 m,\ \log_2(m+1)\big) \bmod 1$, whose length is
 $w_m = \log_2\big(1 + \frac{1}{m}\big) \ge \frac{1}{m}$. Let
@@ -873,7 +876,7 @@ $$\alpha = \log_2\frac{3}{2} = \log_2 3 - 1 .$$
    $0 \leq \varepsilon' < \dfrac{3}{2m}$.
 
 *Proof.* (1) $nU = \lceil 3n/2 \rceil \in \{3n/2,\ (3n+1)/2\}$ and
-$\log_2(1 + \frac{1}{3n}) < \frac{1}{2n}$. (2) By Lemma 4,
+$\log_2(1 + \frac{1}{3n}) < \frac{1}{2n}$. (2) By [Lemma 4](#lemma-4),
 $m \leq n/2^k < m+1$ and $\log_2(1 + \frac{1}{m}) < \frac{3}{2m}$. $\quad\Box$
 
 [![Figure 11](images/figure-11.png)](https://blog.atlant.is/figures/jane-s-rosary/irrational-log2-3.html?n=40&interactive=yes)
@@ -882,7 +885,7 @@ $m \leq n/2^k < m+1$ and $\log_2(1 + \frac{1}{m}) < \frac{3}{2m}$. $\quad\Box$
 
 *Proof of Theorem 3.* Fix a bead $m$ and suppose that $m$ is never told.
 
-*Step 1: Jane never enters the cone of $m$.* By Lemma 3, once Jane has left a
+*Step 1: Jane never enters the cone of $m$.* By [Lemma 3](#lemma-3), once Jane has left a
 bead $n > 1$, the bead $nD$ has been told. So every bead of
 $\downarrow\!(n)$ is eventually told, for every told bead $n$. Hence no bead of
 the cone of $m$ is ever told.
@@ -890,8 +893,8 @@ the cone of $m$ is ever told.
 *Step 2: Jane drifts away.* Since $\rho$ is injective, for every $N$ there is a
 time $T_N$ after which all beads told are larger than $N$.
 
-*Step 3: Jane makes infinitely many up moves*, since she never halts (Theorem
-2) and a run of down moves is finite.
+*Step 3: Jane makes infinitely many up moves*, since she never halts ([Theorem
+2](#theorem-2)) and a run of down moves is finite.
 
 *Step 4: rotation.* Since $\log_2 3$ is irrational, so is $\alpha$, and the
 rotation of the circle by $\alpha$ is minimal: there is an integer $J$ such
@@ -901,7 +904,7 @@ the arc $A_m$. Choose $N \ge m$ such that $2J/N < w_m/3$, and look at Jane
 after time $T_N$. Let $n_0$ be her position at some time after $T_N$ and let
 $n_j$ be her position right after her $j$-th subsequent up move. Between
 $n_{j-1}$ and $n_j$ she makes a (possibly empty) run of down moves followed by
-one up move, all the beads involved being larger than $N$. By Lemma 5,
+one up move, all the beads involved being larger than $N$. By [Lemma 5](#lemma-5),
 
 $$\theta(n_j) = \theta(n_0) + j\alpha + \delta_j, \qquad
   |\delta_j| \leq j\Big(\frac{3}{2N} + \frac{1}{2N}\Big) = \frac{2j}{N} .$$
@@ -928,8 +931,8 @@ contradicts Step 1. $\quad\Box$
 
 *Sections 9 and 10.* Shortest recitations, followed backwards, hop from black
 bead to black bead. Keeping only the black beads gives a tree, the onyx
-rosary, in which every black bead has infinitely many children (Theorem 4). This
-part rests on Theorem 1.
+rosary, in which every black bead has infinitely many children ([Theorem 4](#theorem-4)). This
+part rests on [Theorem 1](#theorem-1).
 
 ### 9. Interlude: for a few names more
 
@@ -946,10 +949,10 @@ through our bead $8$.
 - **Canonical recitation** $C(n)$ to a bead $n$: the recitation
   $1 = a_0, a_1, \ldots, a_{h(n)} = n$ defined backwards by
   $a_{i-1} = a_i\lambda$ if $a_i$ is white, and $a_{i-1} =$ the winner among
-  $a_i\mu$, $a_i\nu$ (the one with the larger lambdex) if $a_i$ is black. By
-  Lemma 2 and Theorem 1 it is a minimal recitation to $n$. For the (black)
-  bead $4$ the candidates are $4\mu = 8$, with lambdex $4$, and $4\nu = 9$,
-  with lambdex $2$: bead $8$ wins, and
+  $a_i\mu$, $a_i\nu$ (the one with the larger lambda exponent) if $a_i$ is black. By
+  [Lemma 2](#lemma-2) and [Theorem 1](#theorem-1) it is a minimal recitation to $n$. For the (black)
+  bead $4$ the candidates are $4\mu = 8$, with lambda exponent $4$, and
+  $4\nu = 9$, with lambda exponent $2$: bead $8$ wins, and
   $C(4) = 1, 2, 3, 5, 8, 4$.
 - **Onyx rosary**: the rosary obtained by removing all white beads. Its
   beads are the onyxes of Section 1: onyx $\boldsymbol{n}$ is bead
@@ -985,7 +988,7 @@ through our bead $8$.
   $\boldsymbol{\mu}(\boldsymbol{n})^\bullet = \sigma(\boldsymbol{n}^\bullet\mu)$ and
   $\boldsymbol{\nu}(\boldsymbol{n})^\bullet = \sigma(\boldsymbol{n}^\bullet\nu)$, so that
   $\boldsymbol{\pi}(\boldsymbol{n}) = \min(\boldsymbol{\mu}(\boldsymbol{n}), \boldsymbol{\nu}(\boldsymbol{n}))$
-  by Theorem 1.
+  by [Theorem 1](#theorem-1).
 
 ### 10. Jane's onyx rosary
 
@@ -999,7 +1002,7 @@ $\boldsymbol{m} \boldsymbol{\preceq} \boldsymbol{n} \implies \boldsymbol{m} \leq
 its Hasse diagram is a tree rooted at $\mathbf{1}$ in which $\boldsymbol{n}$ is at distance
 $\boldsymbol{h}(\boldsymbol{n})$ from the root.
 
-*Proof.* With the notations of Theorem 1, the winner is $b_{e+1}$ or
+*Proof.* With the notations of [Theorem 1](#theorem-1), the winner is $b_{e+1}$ or
 $b_{e+1} - 1$, and it is white, so its seed is at most its image by
 $\lambda$, which is at most $\frac{1}{3}(2b_{e+1} - 1)$ in both cases. Since
 $b_{e+1} \leq b_1 = 4\boldsymbol{n} - 2$, this gives
@@ -1009,7 +1012,7 @@ $3\boldsymbol{\pi}(\boldsymbol{n}) - 2 = \sigma(w) \leq \frac{1}{3}(8\boldsymbol
 
 [![Figure 12](images/figure-12.png)](https://blog.atlant.is/figures/jane-s-rosary/onyx-ordering.html?n=1000&interactive=yes&first=1 "live")
 
-> Figure 12: the onyx tree on the first $70$ onyxes, with its root, onyx $\mathbf{1}$, at the bottom. Each onyx hangs from its onyx predecessor. Onyx $\mathbf{1}$ already has six children here ($\mathbf{2}$, $\mathbf{5}$, $\mathbf{11}$, $\mathbf{16}$, $\mathbf{24}$ and $\mathbf{53}$), and Theorem 4 says that more will keep coming, for every onyx. Click the picture for the tree on $1\,000$ onyxes ([live version](https://blog.atlant.is/figures/jane-s-rosary/onyx-ordering.html?n=1000&interactive=yes&first=1)).
+> Figure 12: the onyx tree on the first $70$ onyxes, with its root, onyx $\mathbf{1}$, at the bottom. Each onyx hangs from its onyx predecessor. Onyx $\mathbf{1}$ already has six children here ($\mathbf{2}$, $\mathbf{5}$, $\mathbf{11}$, $\mathbf{16}$, $\mathbf{24}$ and $\mathbf{53}$), and [Theorem 4](#theorem-4) says that more will keep coming, for every onyx. Click the picture for the tree on $1\,000$ onyxes ([live version](https://blog.atlant.is/figures/jane-s-rosary/onyx-ordering.html?n=1000&interactive=yes&first=1)).
 
 We say that $\boldsymbol{n}$ **covers** $\boldsymbol{m}$ when $\boldsymbol{\pi}(\boldsymbol{n}) = \boldsymbol{m}$.
 
@@ -1021,11 +1024,11 @@ above a black bead, $kD = \boldsymbol{n}^\bullet$, it is one of the two candidat
 the last step down to $\boldsymbol{n}^\bullet$; and if it wins, $\boldsymbol{n}$ covers $\boldsymbol{m}$. Two
 things are needed. First, that the chain passes just above a black bead
 infinitely often: this happens each time the parity changes along the chain
-(Lemma 6), and it changes forever (Lemma 7). Second, that $k$ loses only
-finitely often. By Theorem 1, $k$ can only lose to a neighbor $k \pm 1$ with
+([Lemma 6](#lemma-6)), and it changes forever ([Lemma 7](#lemma-7)). Second, that $k$ loses only
+finitely often. By [Theorem 1](#theorem-1), $k$ can only lose to a neighbor $k \pm 1$ with
 a smaller seed: our chain would then run side by side with one of the
 finitely many chains that start lower. And two up-chains run side by side
-only finitely many times (Lemma 8).
+only finitely many times ([Lemma 8](#lemma-8)).
 
 The three lemmas are about beads, not onyxes: nothing in them is bold.
 
@@ -1056,7 +1059,7 @@ strictly increasing, $a_r < b_r < a_{r+1}$ for all $r$. So the only element of
 $\uparrow\!(m) + 1$ that $b_r$ can be equal to is $a_r + 1$. Now
 $b_{r+1} - a_{r+1} = (b_r - a_r) + L(b_r) - L(a_r)$ is non-decreasing in $r$,
 and when $b_r - a_r = 1$ it remains equal to $1$ if and only if $a_r$ is odd.
-By Lemma 7 this happens exactly for $r \leq v_2(a+1)$. $\quad\Box$
+By [Lemma 7](#lemma-7) this happens exactly for $r \leq v_2(a+1)$. $\quad\Box$
 
 (Two up-chains can keep each other company for a while:
 $\uparrow\!(256) \cap (\uparrow\!(22) + 1)$ has 9 elements,
@@ -1068,10 +1071,10 @@ $2^8,\ 2^7 3,\ 2^6 3^2,\ \ldots,\ 3^8$. Only finiteness matters below.)
 
 $$S = \{k \in\ \uparrow\!(\boldsymbol{m}^\bullet) \mid kD \text{ is black and } kD > 1\}.$$
 
-By Lemmas 6 and 7, $S$ is infinite. For $k \in S$, write
+By [Lemmas 6](#lemma-6) and [7](#lemma-7), $S$ is infinite. For $k \in S$, write
 $kD = \boldsymbol{n}^\bullet$; then
 $\{k, k'\} = \{\boldsymbol{n}^\bullet\mu, \boldsymbol{n}^\bullet\nu\}$ where the
-*sibling* $k' = k \pm 1$ is white. By Theorem 1, $k$ is the winner (so that
+*sibling* $k' = k \pm 1$ is white. By [Theorem 1](#theorem-1), $k$ is the winner (so that
 $\boldsymbol{\pi}(\boldsymbol{n}) = \boldsymbol{m}$) if and only if
 $\sigma(k') > \sigma(k) = \boldsymbol{m}^\bullet$.
 Suppose not: then $k' \in\ \uparrow\!(\boldsymbol{j}^\bullet)$ for some onyx
@@ -1079,13 +1082,13 @@ $\boldsymbol{j} < \boldsymbol{m}$, and therefore
 
 $$k \in\ \uparrow\!(\boldsymbol{m}^\bullet) \cap \big((\uparrow\!(\boldsymbol{j}^\bullet) + 1) \cup (\uparrow\!(\boldsymbol{j}^\bullet) - 1)\big).$$
 
-By Lemma 8 (applied twice, exchanging the roles of the two chains for the
+By [Lemma 8](#lemma-8) (applied twice, exchanging the roles of the two chains for the
 "$-1$" part), this set is finite for each of the finitely many
 $\boldsymbol{j} < \boldsymbol{m}$. So all but finitely many $k \in S$ are winners, and distinct
 $k$ give distinct black beads $kD = \boldsymbol{n}^\bullet$, hence distinct onyxes
 $\boldsymbol{n}$ covering $\boldsymbol{m}$. $\quad\Box$
 
-*Used:* Theorem 1 and Lemmas 6, 7 and 8.
+*Used:* [Theorem 1](#theorem-1) and [Lemmas 6](#lemma-6), [7](#lemma-7) and [8](#lemma-8).
 
 #### Corollary: the address of an onyx
 
@@ -1112,7 +1115,7 @@ $\boldsymbol{\tau}(\boldsymbol{n})$. In other words, the onyx ordering is isomor
 infinitely branching tree.
 
 *Proof.* Injectivity and the prefix property hold in any rooted tree;
-surjectivity is Theorem 4. $\quad\Box$
+surjectivity is [Theorem 4](#theorem-4). $\quad\Box$
 
 | $\boldsymbol{n}$ | $\mathbf{1}$ | $\mathbf{2}$ | $\mathbf{3}$ | $\mathbf{4}$ | $\mathbf{5}$ | $\mathbf{6}$ | $\mathbf{7}$ | $\mathbf{8}$ | $\mathbf{9}$ | $\mathbf{10}$ | $\mathbf{11}$ |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -1130,7 +1133,7 @@ $$\mathbf{1}, \mathbf{2}, \mathbf{3}, \mathbf{5}, \mathbf{4}, \mathbf{14}, \math
 **Corollary 3.** The foraging sequence is infinite and takes every value
 infinitely often.
 
-*Proof.* By Theorem 3 Jane tells every bead of every up-chain, so she is in
+*Proof.* By [Theorem 3](#theorem-3) Jane tells every bead of every up-chain, so she is in
 $\uparrow\!(\boldsymbol{m}^\bullet)$ at infinitely many times, and she is outside of it
 at infinitely many times. Hence the onyx of $\sigma(\rho(i))$ takes the
 value $\boldsymbol{m}$ on infinitely many maximal runs. $\quad\Box$
@@ -1167,13 +1170,13 @@ def Phi(n: int) -> int:
 >
 > Tsutomu Nihei, *Blame!* (freely translated)
 
-*Section 11.* Theorem 3 says that every bead gets its turn; this part says
-how Jane spends her time (Theorem 5) and how long a bead may have to wait
-(Theorem 6). It continues Part II and uses neither Theorem 1 nor Part III.
+*Section 11.* [Theorem 3](#theorem-3) says that every bead gets its turn; this part says
+how Jane spends her time ([Theorem 5](#theorem-5)) and how long a bead may have to wait
+([Theorem 6](#theorem-6)). It continues Part II and uses neither [Theorem 1](#theorem-1) nor Part III.
 
 ### 11. How reluctant is Jane?
 
-This section makes Theorem 3 quantitative. Let $u(t)$ be the number of up
+This section makes [Theorem 3](#theorem-3) quantitative. Let $u(t)$ be the number of up
 moves among Jane's first $t$ moves, and let
 
 $$F(t) = \min\big(\mathbb{N}^*\setminus V_t\big)$$
@@ -1203,15 +1206,15 @@ then $3^u$ and $2^t$ must be of the same order: $u/t \approx \log_3 2$.
 Part (1) keeps the books of the rounding errors. They add up to no more than
 a logarithm, because Jane never tells a bead twice. Part (2) says how far
 Jane can be: after $t$ moves her bead has at most about $2\sqrt{t}$ binary
-digits. The reason is the rotation of Theorem 3 once more: a walker who is
+digits. The reason is the rotation of [Theorem 3](#theorem-3) once more: a walker who is
 very far up has, on her way, entered many different branches of the tree, and
-each of them had to be told all the way down (Lemma 3); with only $t$ beads
+each of them had to be told all the way down ([Lemma 3](#lemma-3)); with only $t$ beads
 told, there is a limit to that.
 
 The proof of (2) is the most technical passage of the paper. It can be
 skipped: nothing later depends on its details.
 
-*Proof.* (1) Sum the identities of Lemma 5 over the first $t$ moves (each down
+*Proof.* (1) Sum the identities of [Lemma 5](#lemma-5) over the first $t$ moves (each down
 move being a run of length $1$):
 
 $$\log_2 \rho(t) = u(t)\,\alpha - (t - u(t)) + E_t, \qquad
@@ -1226,7 +1229,7 @@ $1 + \alpha = \log_2 3$.
 (2) Call *depth* of a bead $n$ the integer $\lfloor \log_2 n \rfloor$: a
 down move decreases the depth by exactly $1$ and an up move increases it by
 $0$ or $1$. Let $t$ be a time at which Jane is about to move up, and let $E$
-be the depth of $\rho(t)$. By Lemma 3, $V_t$ is then closed under $D$: it is a
+be the depth of $\rho(t)$. By [Lemma 3](#lemma-3), $V_t$ is then closed under $D$: it is a
 subtree with $t + 1$ nodes.
 
 Fix an integer $K \geq 2$ and let
@@ -1238,7 +1241,7 @@ $e = E - K$ and consider the last time $s < t$ at which Jane was at depth at
 most $e$. After time $s$ she stays at depth at least $e + 1$, i.e. on beads
 $n \geq 2^{e+1}$, and she makes at least $K - 1$ further up moves before
 time $t$. Let $n_0 = \rho(s+1)$ and let $n_1, \ldots, n_{K-1}$ be her
-positions right after the next $K - 1$ up moves. As in the proof of Theorem 3,
+positions right after the next $K - 1$ up moves. As in the proof of [Theorem 3](#theorem-3),
 for $0 \le i < j < K$,
 
 $$\theta(n_j) - \theta(n_i) = (j - i)\alpha + \delta, \qquad
@@ -1257,7 +1260,7 @@ $$E \leq \frac{t+1}{K} + K + d_K \qquad\text{whenever } E \ge K + e_K. \tag{$\as
 For fixed $K$ this already gives $\limsup E/t \leq 1/K$, hence $E = o(t)$,
 using nothing but the irrationality of $\alpha$. To get the stated bound, use
 the fact that $\log_2 3$ has a finite irrationality exponent (Baker's theorem;
-see Theorem 6 below): $\eta_K \geq cK^{-\beta}$ for some constants $c, \beta > 0$,
+see [Theorem 6](#theorem-6) below): $\eta_K \geq cK^{-\beta}$ for some constants $c, \beta > 0$,
 so $d_K, e_K = O(\log K)$, and $(\ast\ast)$ with $K = \lceil\sqrt{t}\,\rceil$
 gives $E \leq 2\sqrt{t} + O(\log t)$. Finally, at a time when Jane is not about
 to move up she is inside a run of down moves, which started just after an up
@@ -1265,11 +1268,11 @@ move; and an up move increases $\log_2 n$ by at most $1$.
 
 (3) follows from (1) and (2). $\quad\Box$
 
-*Used:* Theorem 2, Lemma 3, Lemma 5, and, for the square root in (2), the
+*Used:* [Theorem 2](#theorem-2), [Lemma 3](#lemma-3), [Lemma 5](#lemma-5), and, for the square root in (2), the
 irrationality exponent of $\log_2 3$ introduced below.
 
 The square root in (2) is certainly far from the truth: numerically
-$\rho(t)$ grows polynomially (see Conjecture B), in which case
+$\rho(t)$ grows polynomially (see [Conjecture B](#conjecture-B)), in which case
 $u(t) = t\log_3 2 + O(\log t)$.
 
 #### Theorem 6: bead $m$ is told in polynomial time
@@ -1317,26 +1320,26 @@ In words: every bead is told after a number of moves bounded by a fixed power
 of its position; and after $t$ moves, all the beads up to a fixed (small)
 power of $t$ have been told.
 
-*The idea.* The proof of Theorem 3 has one step that gives no bound: "wait
+*The idea.* The proof of [Theorem 3](#theorem-3) has one step that gives no bound: "wait
 until Jane has left the beads up to $N$ for good". Counting replaces waiting.
 There are only $N$ beads up to $N$, so Jane makes at most $N + 1$
 excursions above $N$; and an excursion that lasts long enough enters the cone
-of $m$. "Long enough" is Lemma 9, and this is where the arithmetic of
+of $m$. "Long enough" is [Lemma 9](#lemma-9), and this is where the arithmetic of
 $\log_2 3$ comes in: the rotation by $\alpha$ reaches every arc of length $w$
 within a number of steps that is a power of $1/w$, because $\log_2 3$ is not
 too well approximated by fractions.
 
-*Proof.* We rerun the proof of Theorem 3 with a clock. Recall that
-$w_m \geq 1/m$. Let $J$ be given by Lemma 9 for arcs of length $w_m/3$,
+*Proof.* We rerun the proof of [Theorem 3](#theorem-3) with a clock. Recall that
+$w_m \geq 1/m$. Let $J$ be given by [Lemma 9](#lemma-9) for arcs of length $w_m/3$,
 so $J \leq (6m)^{\beta}/c$, and let $N = 6Jm$, so that $2J/N \leq w_m/3$ and
 $N \ge m$.
 
 *An excursion above $N$ with $J$ up moves reaches $m$.* Suppose that from
 time $T$ to time $t$ Jane stays on beads larger than $N$ and makes at least
-$J$ up moves. By Step 4 of the proof of Theorem 3, at some time $t' \le t$
+$J$ up moves. By Step 4 of the proof of [Theorem 3](#theorem-3), at some time $t' \le t$
 the bead $b$ that she reached by her last up move is in the cone of $m$:
 $m = bD^p$. An up move at most doubles a bead, so $b \le 2^{t'}$ and
-$p \le t'$. By Lemma 3, once $b$ is told, $bD$, $bD^2$, $\ldots$ are told
+$p \le t'$. By [Lemma 3](#lemma-3), once $b$ is told, $bD$, $bD^2$, $\ldots$ are told
 one move after the other at the latest: $m$ is told by time
 $t' + p \le 2t$.
 
@@ -1354,15 +1357,15 @@ $\rho^{-1}(m) = i \le 2t + 2 \leq 4(N+1)(J+1) \leq 56\,J^2 m
 \leq \kappa\, m^{2\beta + 1} = \kappa\, m^{2\mu_0 - 1}$. The bound on $F$
 follows since the right-hand side is increasing in $m$. $\quad\Box$
 
-*Used:* the proof of Theorem 3, Lemma 9, and the irrationality exponent of
+*Used:* the proof of [Theorem 3](#theorem-3), [Lemma 9](#lemma-9), and the irrationality exponent of
 $\log_2 3$.
 
-**Which exponent?** Theorem 6 holds for every irrationality exponent
+**Which exponent?** [Theorem 6](#theorem-6) holds for every irrationality exponent
 $\mu_0$ of $\log_2 3$. Two sources give one.
 
 - *The classical measures.* Baker's theorem gives a finite $\mu_0$, and
   Rhin's measure [Rh87] gives $\mu_0 \le 8.616$: the exponent
-  $2\mu_0 - 1$ of Theorem 6 is at most $16.24$.
+  $2\mu_0 - 1$ of [Theorem 6](#theorem-6) is at most $16.24$.
 - *A formalized bound.* In October 2026, R. K. Jha [Jh26] announced that
   every $\mu_0 > 3$ is an irrationality exponent of $\log_2 3$: for every
   $\varepsilon > 0$, $|\log_2 3 - p/q| \ge q^{-(3+\varepsilon)}$ for all
@@ -1370,8 +1373,8 @@ $\mu_0$ of $\log_2 3$. Two sources give one.
   comes with OpenAI's preprint on the irrationality exponent of $\pi$
   [OAI26]. With it, **every bead $m$ is told within
   $\kappa\, m^{5 + 2\varepsilon}$ moves**, for every $\varepsilon > 0$,
-  and this version of Theorem 6 is checked by Lean from end to end. The
-  same holds for parts 2 and 3 of Theorem 5, which need a finite
+  and this version of [Theorem 6](#theorem-6) is checked by Lean from end to end. The
+  same holds for parts 2 and 3 of [Theorem 5](#theorem-5), which need a finite
   irrationality exponent too.
 
   The bound on $\log_2 3$ is Jha's result, not ours. It is recent and, to
@@ -1381,7 +1384,7 @@ $\mu_0$ of $\log_2 3$. Two sources give one.
   exactly how.
 
 Either way this is a proof of concept rather than a sharp estimate: the
-truth seems to be $\rho^{-1}(m) \approx m\log m$ (Conjecture A).
+truth seems to be $\rho^{-1}(m) \approx m\log m$ ([Conjecture A](#conjecture-A)).
 
 #### Numerical data
 
@@ -1396,10 +1399,10 @@ are in the [table of the appendix](#appendix-numerical-data).
 > Figure 13: two columns of the table of the appendix, for every power of two
 > from $2^{10}$
 > to $2^{27}$. On the left, $F(t)\log_2 t / t$ wanders between $2$ and $3$
-> without drifting: the frontier advances like $t/\log t$ (Conjecture A). On
+> without drifting: the frontier advances like $t/\log t$ ([Conjecture A](#conjecture-A)). On
 > the right, the excess of up moves over $t\log_3 2$ grows like a straight
-> line in $\log t$, far below the $\sqrt{t}$ that Theorem 5 allows
-> (Conjecture B).
+> line in $\log t$, far below the $\sqrt{t}$ that [Theorem 5](#theorem-5) allows
+> ([Conjecture B](#conjecture-B)).
 
 ## Coda
 
@@ -1419,14 +1422,15 @@ asks for the minimal number of jumps to each square, lists 500 values, points
 at their long runs of repeated values, and ends with questions: explain these
 behaviors, bound the sequence above and below, find another proof that every
 square can be reached, try variants. Part I answers some of them:
-Proposition 1 for the bounds and for reachability, Lemma 2 and Theorem 1 for
-what shortest paths look like. It does not explain the runs. The reluctant
+[Proposition 1](#proposition-1) for the bounds and for reachability, [Lemma 2](#lemma-2) and [Theorem 1](#theorem-1) for
+what shortest paths look like. It explains the runs only in part: see
+[Question H](#question-H) in Section 12. The reluctant
 recitation is one of the variants; it was suggested by Neal Gersh Tolunsky.
 
 **The sequences.** The heights are [A358838](https://oeis.org/A358838) in
 the OEIS, the reluctant recitation is [A359005](https://oeis.org/A359005) and
 its inverse is [A359008](https://oeis.org/A359008); the author entered them
-in December 2022. The last two record as a conjecture what is Theorem 3
+in December 2022. The last two record as a conjecture what is [Theorem 3](#theorem-3)
 here. Other sidewalks, with other labels, have since entered the OEIS
 (A360593 to A360595 by S. Brunner and A360744 to A360746 by N. G. Tolunsky,
 2023).
@@ -1447,7 +1451,7 @@ an up move and a down move. So the $3x+1$ map is a way of telling the rosary,
 conjecture says that a Jane who follows this rule ends up, wherever she
 starts, going back and forth between beads $1$ and $2$. Reluctant Jane follows
 another rule, about which everything can be proved. The two meet in one
-number: the frequency $\log_3 2$ of Theorem 5 is also the proportion of up
+number: the frequency $\log_3 2$ of [Theorem 5](#theorem-5) is also the proportion of up
 moves that a cycle of the $3x+1$ map through large numbers would have to
 approach, for the same reason, $3^u \approx 2^t$. The resemblance stops
 there, and nothing in this paper
@@ -1458,27 +1462,30 @@ the same number rules the tuning of scales, where twelve fifths miss seven
 octaves by a small interval, the Pythagorean comma, because $3^{12}$ is close
 to $2^{19}$ but not equal to it [Ca12]. The denominators $12$ and $53$ of the good approximations
 of $\log_2 3$, familiar to musicians, are among those that measure, in
-Lemma 9, how fast Jane's phase covers the circle.
+[Lemma 9](#lemma-9), how fast Jane's phase covers the circle.
 
 **What is new.** A search of the literature in November 2026 found nothing
 on the sidewalk beyond the puzzle page and the OEIS entries. As far as we
-know, Theorems 1 to 6 are new, and Theorem 3 settles the conjecture recorded
+know, [Theorems 1](#theorem-1) to [6](#theorem-6) are new, and [Theorem 3](#theorem-3) settles the conjecture recorded
 in A359005 and A359008.
 
 ### 12. Conjectures and open questions
 
-Seven questions, in the order of the paper. For the reader who would like to
+Eight questions, in the order of the paper, except the last one, which goes
+back to Part I. For the reader who would like to
 pick one:
 
-- *Question C* is the easiest to state and the most teasing: is a certain
+- *[Question C](#question-C)* is the easiest to state and the most teasing: is a certain
   proportion exactly one half?
-- *Conjectures A and B* would replace the rough bounds of Part IV by the
+- *[Conjectures A](#conjecture-A) and [B](#conjecture-B)* would replace the rough bounds of Part IV by the
   truth, and the numbers leave little doubt about what the truth is.
-- *Conjecture D* comes with an explicit constant and a heuristic that one may
-  try to make rigorous; *Question E* asks for the extremes.
-- *Conjecture F* is probably out of reach: it is of the same kind as Mahler's
+- *[Conjecture D](#conjecture-D)* comes with an explicit constant and a heuristic that one may
+  try to make rigorous; *[Question E](#question-E)* asks for the extremes.
+- *[Conjecture F](#conjecture-F)* is probably out of reach: it is of the same kind as Mahler's
   problem on the powers of $3/2$.
-- *Question G* is an invitation to play with other rules.
+- *[Question G](#question-G)* is an invitation to play with other rules.
+- *[Question H](#question-H)* asks how long the streaks of Figure 4 can get; it needs
+  nothing beyond Part I.
 
 **Conjecture A (the frontier).** $F(t) = \Theta(t/\log t)$; equivalently the
 largest index $\max_{m' \le m}\rho^{-1}(m')$ is of order $m\log m$. Numerically
@@ -1490,7 +1497,7 @@ seem to occupy $\Theta(\log t)$ further levels, each only partially.
 **Conjecture B (Jane does not wander far).** $\rho(t) \leq t^{C}$ for some
 constant $C$ and all $t \ge 2$ (numerically
 $\max_{i \le t}\rho(i) \leq t^{3/2}$ for $t = 2^5, \ldots, 2^{27}$). By
-Theorem 5 this would give $u(t) = t\log_3 2 + O(\log t)$, in agreement with
+[Theorem 5](#theorem-5) this would give $u(t) = t\log_3 2 + O(\log t)$, in agreement with
 Figure 13.
 
 **Question C (runs).** Among Jane's first $t$ down moves, let $p_r(t)$ be the
@@ -1499,7 +1506,7 @@ the limits $p_r = \lim p_r(t)$ exist? After $2^{27}$ moves,
 
 $$(p_0, p_1, p_2, \ldots) \approx (0.1012,\ 0.4999,\ 0.1552,\ 0.1429,\ 0.0565,\ 0.0296,\ 0.0088,\ 0.0040,\ 0.0011, \ldots)$$
 
-with necessarily $\sum_r r\,p_r = 1/\log_2(3/2) \approx 1.7095$ (Theorem 5). Is
+with necessarily $\sum_r r\,p_r = 1/\log_2(3/2) \approx 1.7095$ ([Theorem 5](#theorem-5)). Is
 $p_1 = 1/2$ exactly? (The observed value is $0.49993$ with a statistical error
 of about $10^{-4}$.)
 
@@ -1522,25 +1529,52 @@ $1024$ bits is $3.269$, $3.344$ and $3.362$, and the standard deviation of
 $h(n)$ is about $2.0\sqrt{\log_2 n}$.
 
 **Question E (extreme heights).** We have
-$\liminf h(n)/\log_2 n = 1/\log_2(3/2) \approx 1.710$ (Proposition 1). What is
-$\limsup h(n)/\log_2 n$? Proposition 1 gives at most
+$\liminf h(n)/\log_2 n = 1/\log_2(3/2) \approx 1.710$ ([Proposition 1](#proposition-1)). What is
+$\limsup h(n)/\log_2 n$? [Proposition 1](#proposition-1) gives at most
 $3/\log_2(9/8) \approx 17.65$, which is far from tight: the largest value
 observed for $10^3 \leq n < 10^6$ is about $5.3$.
 
 **Conjecture F (growth of the onyx tree).** The $k$-th cover of any onyx
 $\boldsymbol{m}$ satisfies $\boldsymbol{s}_{\boldsymbol{m}}(k)^{1/k} \to 9/4$; equivalently $\boldsymbol{m}$ has
-$\sim \frac{1}{2}\log_{3/2} N$ covers below $N$. By the proof of Theorem 4
+$\sim \frac{1}{2}\log_{3/2} N$ covers below $N$. By the proof of [Theorem 4](#theorem-4)
 this is equivalent to saying that the parity changes with asymptotic frequency
 $1/2$ along the up-chain $\uparrow\!(\boldsymbol{m}^\bullet)$. This is a statement of the same
 nature as Mahler's $3/2$ problem [Ma68] on the distribution of
 $(3/2)^k \bmod 1$, and is presumably very hard. A more accessible question:
 describe the distribution of the onyx height $\boldsymbol{h}(\boldsymbol{n})$.
 
-**Question G (other walks).** By Remark 1 after Theorem 3, the proof of
+**Question G (other walks).** By Remark 1 after [Theorem 3](#theorem-3), the proof of
 surjectivity only uses down-closure, injectivity and the irrationality of
 $\log_2 3$. Which other natural rules ("up unless...", random tie-breaking,
 sidewalks with labels $\lceil n/k \rceil$, ...) produce permutations of
 $\mathbb{N}^*$?
+
+**Question H (streaks of equal heights).** Figure 4 shows long streaks of
+neighboring beads that share the same height. How long can they get?
+
+Part I explains how a streak grows. By [Lemma 2](#lemma-2), $h(nU) = h(n) + 1$ for every
+bead $n$. So one up move carries a streak of $L$ beads onto $L$ consecutive
+white beads, which again share the same height and are spread over about
+$3L/2$ positions: streaks breed longer streaks, one step up. Only the black
+beads in between can break the new streak, and by [Theorem 1](#theorem-1) (part 4) a black
+bead is never lower than its two neighbors. What Part I does not say is how
+often a black bead falls in line with them.
+
+Among the first $10^6$ beads, here is where a streak of a given length first
+appears (each line is a record):
+
+| Length of the streak | It starts at bead | Height |
+|---|---|---|
+| $14$ | $170$ | $17$ |
+| $69$ | $4\,711$ | $36$ |
+| $106$ | $20\,303$ | $45$ |
+| $305$ | $165\,057$ | $61$ |
+| $735$ | $940\,908$ | $68$ |
+
+Records often come in families: the streaks of lengths $5$, $7$, $10$, $14$
+start at beads $50$, $75$, $113$, $170$, each one up move from the one before,
+and then the family dies. Are the streaks unbounded? Does the longest streak
+below $n$ grow like $\sqrt{n}$, as these numbers suggest?
 
 ## Checked by computer
 
@@ -1552,24 +1586,24 @@ one command runs all but the long one.
 | What | Tested on | Program |
 |---|---|---|
 | The two ways of computing the height agree | beads below $60\,000$ | `check_shortest.py` |
-| Proposition 1 | beads up to $10^6$ | `check_shortest.py` |
-| Fact 1, Lemma 1 (its six diagrams), Lemma 2, Corollary 1, Theorem 1 (parts 1 to 5) | beads below $60\,000$ | `check_shortest.py` |
-| Theorem 2: never stuck, no bead told twice, no gap | $300\,000$ moves | `check_reluctant.py` |
-| Theorem 2: never stuck. Theorem 3: all beads up to $10\,801\,813$ told | $2^{27}$ moves | `walk.c` |
-| Lemmas 4 and 5 | beads below $5\,000$ and $20\,000$ | `check_reluctant.py` |
-| Theorem 5, part 1 | $300\,000$ moves | `check_reluctant.py` |
-| Proposition 2, Lemmas 6 and 7, the computation behind Lemma 8, the table of $\boldsymbol{\tau}(\boldsymbol{n})$ | onyxes below $20\,000$ | `check_onyx.py` |
+| [Proposition 1](#proposition-1); the record streaks quoted in [Question H](#question-H) | beads up to $10^6$ | `check_shortest.py` |
+| [Fact 1](#fact-1), [Lemma 1](#lemma-1) (its six diagrams), [Lemma 2](#lemma-2), [Corollary 1](#corollary-1), [Theorem 1](#theorem-1) (parts 1 to 5) | beads below $60\,000$ | `check_shortest.py` |
+| [Theorem 2](#theorem-2): never stuck, no bead told twice, no gap | $300\,000$ moves | `check_reluctant.py` |
+| [Theorem 2](#theorem-2): never stuck. [Theorem 3](#theorem-3): all beads up to $10\,801\,813$ told | $2^{27}$ moves | `walk.c` |
+| [Lemmas 4](#lemma-4) and [5](#lemma-5) | beads below $5\,000$ and $20\,000$ | `check_reluctant.py` |
+| [Theorem 5](#theorem-5), part 1 | $300\,000$ moves | `check_reluctant.py` |
+| [Proposition 2](#proposition-2), [Lemmas 6](#lemma-6) and [7](#lemma-7), the computation behind [Lemma 8](#lemma-8), the table of $\boldsymbol{\tau}(\boldsymbol{n})$ | onyxes below $20\,000$ | `check_onyx.py` |
 | The four programs printed in this paper | against the programs above | `check_paper_code.py` |
 | The examples and the numbers quoted in the text | each one | the programs above |
 | Counting the beads from $1$ changed nothing but the numbers (see the history) | $200\,000$ beads, $300\,000$ moves | `check_renumbering.py` |
 | The numbers quoted with the open questions | see Section 12 | `walk.c`, `height_statistics.py` |
 
-Theorems 4 and 6 and the corollaries of Theorem 4 are statements about
+[Theorems 4](#theorem-4) and [6](#theorem-6) and the corollaries of [Theorem 4](#theorem-4) are statements about
 infinitely many beads at once, and were not tested as such. One caution about
 heights: the exploration that serves as a reference only visits the beads up
 to a bound, so what it finds are lengths of actual recitations, that is, upper
 bounds for the heights; that it agrees with the fast algorithm is strong
-evidence, and the proof is Lemma 2 and Theorem 1.
+evidence, and the proof is [Lemma 2](#lemma-2) and [Theorem 1](#theorem-1).
 
 ## Checked by a proof assistant
 
@@ -1585,30 +1619,30 @@ checks them all.
 
 | Statement | In Lean |
 |---|---|
-| Fact 1 | file `Fact1.lean` |
-| Proposition 1 | `exists_reach`, `height_lower`, `height_log` |
-| Lemma 1 | `lemma1` |
-| Lemma 2, Corollary 1 | `lemma2`, `corollary1` |
+| [Fact 1](#fact-1) | file `Fact1.lean` |
+| [Proposition 1](#proposition-1) | `exists_reach`, `height_lower`, `height_log` |
+| [Lemma 1](#lemma-1) | `lemma1` |
+| [Lemma 2](#lemma-2), [Corollary 1](#corollary-1) | `lemma2`, `corollary1` |
 | Section 4: every bead is $\sigma(n)U^{\Lambda(n)}$, in one way only | `seed_spec`, `seed_upPow` |
-| Theorem 1, parts 1 to 5 | `theorem1_part1` to `theorem1_part5_nu` |
+| [Theorem 1](#theorem-1), parts 1 to 5 | `theorem1_part1` to `theorem1_part5_nu` |
 | The program "height in logarithmic time" computes the height | `height_eq_heightFast` |
-| Lemma 3 | `lemma3` |
-| Theorem 2: never stuck, no bead told twice, no gap | `theorem2_fresh`, `theorem2_injective`, `theorem2_no_gap` |
-| Lemmas 4 and 5 | `lemma5_up`, `lemma5_down` |
-| **Theorem 3**: every bead is told, exactly once, by the proof of Section 8 | `theorem3_by_rotation` |
-| Theorem 3 again, by the proof sketched below | `theorem3`, `theorem3_permutation` |
-| Theorem 5, part 1 | `theorem5_part1` |
-| Theorem 5, part 2 without the square root: $\lfloor \log_2 \rho(t) \rfloor = o(t)$ | `depth_bound_up`, `depth_sublinear` |
-| Theorem 5, parts 2 and 3, with the irrationality exponent as a hypothesis | `theorem5_part2`, `theorem5_part3` |
+| [Lemma 3](#lemma-3) | `lemma3` |
+| [Theorem 2](#theorem-2): never stuck, no bead told twice, no gap | `theorem2_fresh`, `theorem2_injective`, `theorem2_no_gap` |
+| [Lemmas 4](#lemma-4) and [5](#lemma-5) | `lemma5_up`, `lemma5_down` |
+| **[Theorem 3](#theorem-3)**: every bead is told, exactly once, by the proof of Section 8 | `theorem3_by_rotation` |
+| [Theorem 3](#theorem-3) again, by the proof sketched below | `theorem3`, `theorem3_permutation` |
+| [Theorem 5](#theorem-5), part 1 | `theorem5_part1` |
+| [Theorem 5](#theorem-5), part 2 without the square root: $\lfloor \log_2 \rho(t) \rfloor = o(t)$ | `depth_bound_up`, `depth_sublinear` |
+| [Theorem 5](#theorem-5), parts 2 and 3, with the irrationality exponent as a hypothesis | `theorem5_part2`, `theorem5_part3` |
 | The three-distance theorem | `three_distance` |
-| Lemma 9 and Theorem 6 (both bounds), with the irrationality exponent $\mu_0$ as a hypothesis | `lemma9_three`, `theorem6_exponent`, `theorem6_frontier` |
-| Theorem 6 with the exponent $5 + 2\varepsilon$, and parts 2 and 3 of Theorem 5, with no hypothesis, from Jha's formalized bound | `theorem6_log23`, `theorem6_frontier_log23`, `theorem5_part2_log23`, `theorem5_part3_log23` |
-| Proposition 2 | `proposition2` |
-| Lemmas 6 and 7 | `lemma6`, `lemma7_even`, `lemma7_odd`, `lemma7` |
-| Lemma 8 | `lemma8`, `gap_one_iff` |
-| Theorem 4 | `theorem4` |
-| Corollary 2: the address is a bijection, and the order is the prefix order | `corollary2_injective`, `corollary2_surjective`, `corollary2_prefix` |
-| Corollary 3: the foraging sequence takes every value infinitely often | `corollary3` |
+| [Lemma 9](#lemma-9) and [Theorem 6](#theorem-6) (both bounds), with the irrationality exponent $\mu_0$ as a hypothesis | `lemma9_three`, `theorem6_exponent`, `theorem6_frontier` |
+| [Theorem 6](#theorem-6) with the exponent $5 + 2\varepsilon$, and parts 2 and 3 of [Theorem 5](#theorem-5), with no hypothesis, from Jha's formalized bound | `theorem6_log23`, `theorem6_frontier_log23`, `theorem5_part2_log23`, `theorem5_part3_log23` |
+| [Proposition 2](#proposition-2) | `proposition2` |
+| [Lemmas 6](#lemma-6) and [7](#lemma-7) | `lemma6`, `lemma7_even`, `lemma7_odd`, `lemma7` |
+| [Lemma 8](#lemma-8) | `lemma8`, `gap_one_iff` |
+| [Theorem 4](#theorem-4) | `theorem4` |
+| [Corollary 2](#corollary-2): the address is a bijection, and the order is the prefix order | `corollary2_injective`, `corollary2_surjective`, `corollary2_prefix` |
+| [Corollary 3](#corollary-3): the foraging sequence takes every value infinitely often | `corollary3` |
 
 With this, every theorem, lemma, proposition and corollary of the paper
 is checked in this way. The conjectures and questions of Section 12 are
@@ -1616,29 +1650,29 @@ not: they have no proof to check.
 
 The Lean files are in three directories. The first,
 [`formal/jane-s-rosary`](https://github.com/douzebis/blog.atlant.is/tree/main/formal/jane-s-rosary),
-uses no library at all (Parts I and III, Theorem 2, the second proof of
-Theorem 3). The second,
+uses no library at all (Parts I and III, [Theorem 2](#theorem-2), the second proof of
+[Theorem 3](#theorem-3)). The second,
 [`formal/jane-s-rosary-real`](https://github.com/douzebis/blog.atlant.is/tree/main/formal/jane-s-rosary-real),
 uses Mathlib, Lean's library of mathematics, for everything that speaks of
 logarithms. The third,
 [`formal/jane-s-rosary-log23`](https://github.com/douzebis/blog.atlant.is/tree/main/formal/jane-s-rosary-log23),
-joins Theorem 6 to Jha's formalization, which it fetches and does not
+joins [Theorem 6](#theorem-6) to Jha's formalization, which it fetches and does not
 copy.
 
 Where the checked proofs differ from the text:
 
 - **A hypothesis is an input, never an assumption in the background.**
-  Theorem 6 is proved in Lean in the form "for every $c$ and $\mu_0$, if
+  [Theorem 6](#theorem-6) is proved in Lean in the form "for every $c$ and $\mu_0$, if
   $|\log_2 3 - p/q| \ge c\,q^{-\mu_0}$ for all $p$ and $q \ge 1$,
   then…". The check refuses any axiom beyond the three on which Lean's
   mathematics rests.
-- **Lemma 9** is checked by the proof printed above, and also by a
+- **[Lemma 9](#lemma-9)** is checked by the proof printed above, and also by a
   shorter one, without the three-distance theorem, which gives
   $(4/w)^\beta/c + 1$.
-- **Theorem 6.** The checked proof follows the text with cruder
+- **[Theorem 6](#theorem-6).** The checked proof follows the text with cruder
   constants: $w_m \ge 1/(2m)$ and a slightly larger $N$. Only $\kappa$
   changes.
-- **Theorem 5, part 2.** The checked inequality is
+- **[Theorem 5](#theorem-5), part 2.** The checked inequality is
   $K(E - 1 - K - D) \le t + 1$ for every time $t$, where $E$ is the depth
   of $\rho(t)$ and $2^D \ge 16K/\eta_K$; the text has
   $E \le (t+1)/K + K + d_K$ with $2^{d_K} \ge 3/\eta_K$. The argument is
@@ -1646,13 +1680,13 @@ Where the checked proofs differ from the text:
   $t \ge 2$, with explicit constants in place of the $O$'s.
 
 **Theorem 3 without logarithms.** Lean also checked a second proof of
-Theorem 3, found while preparing the first. It uses integers only. Suppose that bead $m$
+[Theorem 3](#theorem-3), found while preparing the first. It uses integers only. Suppose that bead $m$
 is never told.
 
 1. If no bead of an interval $[A, C)$ is ever told, then no bead of
    $[2A, 2C)$ is, and no bead of $[3A, 3C)$ either. For $[2A, 2C)$ this is
-   Lemma 3: a told bead $n$ has $nD$ told. For $[3A, 3C)$ it is the no-gap
-   property of Theorem 2: a told white bead $n$ there has $n\lambda$ told,
+   [Lemma 3](#lemma-3): a told bead $n$ has $nD$ told. For $[3A, 3C)$ it is the no-gap
+   property of [Theorem 2](#theorem-2): a told white bead $n$ there has $n\lambda$ told,
    in $[2A, 2C)$; and a told black bead $n$ there was reached by a down
    move from $n\mu$ or $n\nu$, a told white bead whose $\lambda$ lies in
    $[4A, 4C)$.
@@ -1731,8 +1765,8 @@ machine. The record of what was done, and of what was not, is in
 | recitation, minimal recitation | | a sequence of moves; one of least length | [Section 1](#1-prelude-names) |
 | height | $h(n)$ | the least number of moves from bead $1$ to $n$ | [Section 1](#1-prelude-names) |
 | up-chain, down-chain | $\uparrow\!(n)$, $\downarrow\!(n)$ | the beads reached from $n$ by up moves only, by down moves only | [Section 4](#4-interlude-more-names) |
-| seed, lambdex | $\sigma(n)$, $\Lambda(n)$ | the black bead at the start of the up-chain through $n$; the number of up moves from it to $n$ (the "$\lambda$-exponent") | [Section 4](#4-interlude-more-names) |
-| winner | "$\mu$ wins", "$\nu$ wins" | of $\boldsymbol{n}^\bullet\mu$ and $\boldsymbol{n}^\bullet\nu$, the one with the larger lambdex | [Section 5](#5-theorem-1-minimal-recitations-ending-in-a-black-bead) |
+| seed, lambda exponent | $\sigma(n)$, $\Lambda(n)$ | the black bead at the start of the up-chain through $n$; the number of up moves from it to $n$ | [Section 4](#4-interlude-more-names) |
+| winner | "$\mu$ wins", "$\nu$ wins" | of $\boldsymbol{n}^\bullet\mu$ and $\boldsymbol{n}^\bullet\nu$, the one with the larger lambda exponent | [Section 5](#5-theorem-1-minimal-recitations-ending-in-a-black-bead) |
 | reluctant recitation | $\rho(i)$, $V_i$ | Jane's $i$-th bead when she moves down whenever she can; the beads told so far | [Section 6](#6-janes-reluctant-recitation) |
 | cone | | bead $m$ and the beads above it in the binary tree | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |
 | phase | $\theta(n)$ | $\log_2 n$ modulo $1$ | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |

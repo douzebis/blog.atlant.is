@@ -168,6 +168,31 @@ These reach the paper by a rebuild; to look at in the PDF.
       ends".
 - [ ] "By induction" replaces "by strong induction" (Lemma 2, Theorem 1).
 
+## 2026-11-21: links to statements, lambda exponent, Question H, Figure 6
+
+These reach the paper by a rebuild; to look at in the PDF.
+
+- [ ] Every reference to a fact, lemma, proposition, corollary, theorem,
+      conjecture or question is a link to its statement (206 of them,
+      written by `tools/link_statements.py`; a test keeps new references
+      linked). In the paper each statement carries the matching label.
+      Check how the links look in the PDF (color, boxes) and whether a
+      paper wants that many.
+- [ ] "Lambda exponent" replaces "lambdex" everywhere; the paper's title
+      of Section 4 is now "More names: chains, seeds and lambda
+      exponents".
+- [ ] Section 12 has an eighth question, Question H (streaks of equal
+      heights), with a small table of records; the opening says "eight
+      questions". The caption of Figure 4 and the coda point to it.
+- [ ] Section 4 says what "grows geometrically" means for an up-chain
+      (the ratio to (3/2)^i increases to a limit K, and the bead stays
+      within 1 of K (3/2)^i), and cites [OW91] for the chain of bead 1
+      only.
+- [ ] Figure 6 is redrawn: black and white beads, the height in the
+      bead, the position underneath, arrows from a bead back to its
+      predecessor. Whether Figure 5 stays is undecided; removing it
+      renumbers Figures 6 to 13.
+
 ## To do later, on the page's side (decided 2026-11-21, not started)
 
 The numbers of statements, figures and sections stay typed by hand, on
@@ -175,6 +200,10 @@ the page as in the paper: they are quoted outside the page (Lean files,
 comparison of versions, annex) and must not move silently. Two tools are
 to be written instead of automatic numbering:
 
+- [x] References to statements are checked: `tools/link_statements.py
+      --check` (run by the tests) fails if a reference is not a link or
+      names a statement that does not exist, and the site check fails on
+      a link without a target. Figures and sections are not covered yet.
 - [ ] A build check on the numbers as typed: statements, figures and
       sections each run 1, 2, 3, ... without gap or repeat, and every
       "Theorem n", "Lemma n", "Figure n", "Section n" in the text points

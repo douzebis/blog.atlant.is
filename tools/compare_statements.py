@@ -34,6 +34,9 @@ CONTINUES = re.compile(r"^(\d+\.|[-*] |\$\$| )")
 def statements(text: str) -> dict[str, str]:
     """The statements of a paper, by label, with white space normalized."""
     body = re.sub(r"\A---\n.*?\n---\n", "", text, flags=re.S)
+    # A reference to another statement may be a link to it: the link is not
+    # part of the wording.
+    body = re.sub(r"\[([^\]]*)\]\(#[^)]*\)", r"\1", body)
     found: dict[str, str] = {}
     label = None
     lines: list[str] = []

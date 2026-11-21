@@ -55,8 +55,8 @@ REWORDINGS = [
         "reached from bead $1$. This paper is about two finer questions.",
     ),
     (
-        "**And what is still open.** Plenty; Section 12 has seven questions. A\nfavorite: in the",
-        "**What is still open.** Section 12 has seven questions. For instance: in the",
+        "**And what is still open.** Plenty; Section 12 has eight questions. A\nfavorite: in the",
+        "**What is still open.** Section 12 has eight questions. For instance: in the",
     ),
     (
         "is the easiest to state and the most teasing: is a certain",
@@ -76,7 +76,7 @@ REWORDINGS = [
 # The links inside the text keep pointing to the web title's identifier.
 TITLES = {
     "1. Prelude: names": "1. Notation and names",
-    "4. Interlude: more names": "4. More names: chains, seeds and lambdexes",
+    "4. Interlude: more names": "4. More names: chains, seeds and lambda exponents",
     "9. Interlude: for a few names more": "9. Names for the onyx rosary",
 }
 
@@ -223,6 +223,12 @@ def adapt_statements(body: str) -> str:
             head = f"\\begin{{{environment}}}{{{name}}}" + (
                 f"[{title}]" if title else ""
             )
+            # The references to the statement are links to this label (the
+            # web page gives the statement the same identifier).
+            label = name.lower().replace(" ", "-")
+            if name.split()[1].isalpha():
+                label = name.split()[0].lower() + "-" + name.split()[1]
+            head += f"\\phantomsection\\label{{{label}}}\\hypertarget{{{label}}}{{}}"
             out.append(raw(head) + " " + line[start.end() :])
             inside = True
         elif (

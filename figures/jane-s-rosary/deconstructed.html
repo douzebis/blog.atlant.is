@@ -34,8 +34,12 @@
         // P.n          Count of nodes to display (0 means all)
         // P.width      Count of seeds
         // P.height     Count of lambdex
-        // P.ordering   ['none', 'up_n_down', 'height', 'canonic', 'back', 'reluctant']
-        // P.label     ['none', 'position', 'label', 'height', 'reluctant_inv']
+        // P.ordering   ['none', 'up_n_down', 'height', 'canonic', 'canonic_back', 'back', 'reluctant']
+        //              'canonic_back' is 'canonic' with each arrow turned
+        //              round, from a bead to the one before it, in one plain
+        //              color
+        // P.label     ['none', 'position', 'label', 'height', 'plain_height', 'reluctant_inv']
+        // P.below     ['position']: what is written under each bead
         // P.color     ['none', 'position', 'label', 'height', 'reluctant_inv']
         // P.arrows     ['no', 'yes', 'labelled']
         let wid = parseInt(P.width)
@@ -266,6 +270,23 @@
                             width: ARROW_REF/this.side,
                         }]
                     }
+                    case 'canonic_back': {
+                        if (node_id == 0) return []
+                        if (this.n != 0 && this.heights[node_id] >= this.n) return []
+                        let back_node = back(node)
+                        let back_node_id = this.positions.findIndex(e => e == back_node)
+                        if (back_node_id < 0) return []
+                        return [{
+                            id: node_id*this.side**2 + back_node_id,
+                            from: node_id,
+                            to: back_node_id,
+                            arrows: {to: {enabled: true, scaleFactor: 0.25}},
+                            color: THEME.line,
+                            smooth: node == up(back_node) ?
+                                false : {enabled: true, type: 'curvedCW'},
+                            width: ARROW_REF/this.side/1.6,
+                        }]
+                    }
                     case 'back': {
                         if (node == 0) return []
                         if (this.n != 0 && height(node_id) >= this.n) return []
@@ -376,6 +397,22 @@
         edges: THEME.edges,
       }
       var network = new vis.Network(container, data, options);
+
+      // The position of each bead, written under it.
+      if (P.below == 'position') {
+          network.on('afterDrawing', (ctx) => {
+              const size = FONT_REF/Do.side/1.7
+              ctx.font = size + 'px arial'
+              ctx.fillStyle = THEME.text
+              ctx.textAlign = 'center'
+              ctx.textBaseline = 'top'
+              for (let id = 0; id < wid*hei; ++id) {
+                  const box = network.getBoundingBox('' + id)
+                  ctx.fillText('#' + f_label_position(Do.positions[id]),
+                      (box.left + box.right)/2, box.bottom + size*0.3)
+              }
+          })
+      }
     </script>
   </body>
 </html>
