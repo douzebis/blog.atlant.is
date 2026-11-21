@@ -234,13 +234,13 @@ Three more names, for sequences of moves:
 
 **The binary tree.** A down move is $n \mapsto \lfloor n/2 \rfloor$: *the
 rosary is the infinite binary tree*, with bead $1$ at the root and the beads
-numbered level by level, from left to right, so that the two children of bead
-$n$ are $n\mu = 2n$ and $n\nu = 2n + 1$. Moving down means moving to the
-parent, i.e. erasing the last binary digit of $n$. Bead $8$ is $1000$ in
-binary: its parent is bead $4$ and its children are beads $16$ and $17$.
-Moving up multiplies the position by $3/2$, rounding up. Most of what follows
-is an interplay between this binary structure (down) and the multiplication
-by $3/2$ (up).
+numbered breadth-first (also known as heap order): level by level, from left
+to right, so that the two children of bead $n$ are $n\mu = 2n$ and
+$n\nu = 2n + 1$. Moving down means moving to the parent, i.e. erasing the
+last binary digit of $n$. Bead $8$ is $1000$ in binary: its parent is bead $4$
+and its children are beads $16$ and $17$. Moving up multiplies the position by
+$3/2$, rounding up. Most of what follows is an interplay between this binary
+structure (down) and the multiplication by $3/2$ (up).
 
 ### 2. The height of a bead
 
