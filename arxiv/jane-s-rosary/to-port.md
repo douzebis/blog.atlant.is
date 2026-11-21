@@ -73,6 +73,11 @@ the PDF.
       sober title ("the idea"), and whether it keeps the musical picture
       as it is.
 
+- [ ] The "Music" paragraph of the coda now refers back to "the
+      octaves and fifths of the opening" and names the Pythagorean
+      comma. If the paper changes the musical picture of the opening,
+      this sentence must follow.
+
 ## To do later, on the page's side (decided 2026-11-21, not started)
 
 The numbers of statements, figures and sections stay typed by hand, on

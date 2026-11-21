@@ -1422,9 +1422,10 @@ approach, for the same reason, $3^u \approx 2^t$. The resemblance stops
 there, and nothing in this paper
 bears on the $3x+1$ problem.
 
-**Music.** The same number rules the tuning of scales, where twelve fifths
-miss seven octaves by a comma because $3^{12}$ is close to $2^{19}$ but not
-equal to it [Ca12]. The denominators $12$ and $53$ of the good approximations
+**Music.** The octaves and fifths of the opening are more than a picture:
+the same number rules the tuning of scales, where twelve fifths miss seven
+octaves by a small interval, the Pythagorean comma, because $3^{12}$ is close
+to $2^{19}$ but not equal to it [Ca12]. The denominators $12$ and $53$ of the good approximations
 of $\log_2 3$, familiar to musicians, are among those that measure, in
 Lemma 9, how fast Jane's phase covers the circle.
 
