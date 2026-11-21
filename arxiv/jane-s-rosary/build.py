@@ -51,6 +51,10 @@ PAGE = (
 # Passages of the web page that are reworded for the paper: (web, paper).
 REWORDINGS = [
     (
+        "are kept (see the\nhistory above), and show what each of them contained.",
+        "are kept (see the\nversions at the end), and show what each of them contained.",
+    ),
+    (
         "reached from bead $1$. The fun starts with two finer questions.",
         "reached from bead $1$. This paper is about two finer questions.",
     ),
@@ -403,10 +407,6 @@ def main() -> int:
         "<https://github.com/douzebis/blog.atlant.is>. The earlier versions are kept "
         "there and can be compared.\n\n" + versions + "\n"
     )
-    declaration = (
-        post.parent.parent.parent / "arxiv" / "jane-s-rosary" / "declaration.md"
-    )
-    body += "\n" + declaration.read_text()
     body = adapt_headings(body)
 
     for name in sorted(images):

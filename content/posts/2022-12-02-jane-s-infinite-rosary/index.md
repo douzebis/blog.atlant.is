@@ -1970,6 +1970,36 @@ come from OpenAI's library, were also built and replayed on our own
 machine. The record of what was done, and of what was not, is in
 [`docs/papers/jane-s-rosary/log23-reproduction.md`](https://github.com/douzebis/blog.atlant.is/blob/main/docs/papers/jane-s-rosary/log23-reproduction.md).
 
+## Declaration on the use of AI tools
+
+This paper grew out of a blog post that the author wrote alone in 2022 and
+revised in January 2023. That text introduced the rosary, the reluctant
+recitation and the onyx rosary. It stated what are now [Theorems 1](#theorem-1), [2](#theorem-2) and [4](#theorem-4),
+with proofs that were complete in some places, and it left as a conjecture
+that the reluctant recitation tells every bead.
+
+The present version was written in November 2026 by the author in
+collaboration with Claude, an AI system made by Anthropic. The collaboration
+covered the mathematics, its verification and the writing:
+
+- *Proofs.* The proof of the conjecture ([Theorem 3](#theorem-3)): first the one by
+  rotation, then a second one, with integers only, which was found while the
+  first was being formalized. [Theorems 5](#theorem-5) and [6](#theorem-6).
+- *Verification.* The formalization of every statement in Lean, and the
+  programs that test the statements numerically.
+- *Text.* Most of the new text was drafted by Claude and then reworked in
+  discussion with the author; the figures were redrawn.
+
+The author set the questions, directed the work, read and questioned the
+text, and is the sole author of the paper: the author takes responsibility
+for its content. The earlier versions of this paper are kept (see the
+history above), and show what each of them contained.
+
+The statements listed in the section "Checked by a proof assistant" do not
+rest on trust in either the author or the assistant: their proofs are
+checked by Lean. The other statements, and the correspondence between the
+Lean statements and the text, rest on the usual reading.
+
 ## Names at a glance
 
 | Name | Notation | In short | Defined in |

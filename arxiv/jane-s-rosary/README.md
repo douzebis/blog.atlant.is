@@ -27,9 +27,9 @@ the form of a paper:
   Bartleby's is kept;
 - the figures with their captions; the links to the interactive figures,
   and the wording that only makes sense on the web, are removed;
-- the history of the page as a list of versions, and a declaration on the
-  use of AI tools (`declaration.md`, a draft that the author must rewrite
-  before any submission).
+- the history of the page as a list of versions. The declaration on the use
+  of AI tools is a section of the page itself, reviewed by the author, and
+  reaches the paper with the rest of the text.
 
 `build.py` stops with an error when a passage it adapts is no longer in
 the page, so a change of the page cannot silently leave the paper behind.

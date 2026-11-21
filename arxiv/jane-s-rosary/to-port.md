@@ -288,11 +288,14 @@ These reach the paper by a rebuild; to look at in the PDF.
       an "Appendix: proofs"; that section is gone again until the
       detailed proofs move, see the to-do list.) This settles the
       question "which proof of Theorem 3 leads": the rotation.
-- [ ] `declaration.md` is rewritten around the author's own wording (a
-      collaboration; what the 2023 text had; what was done in 2026; who
-      answers for the paper). It is still a draft, and carries one item
-      to confirm before submission: the author's reading of the Lean
-      statements.
+- [ ] The declaration on the use of AI tools was reviewed by the author
+      on 2026-11-21 and is now a section of the page ("Declaration on
+      the use of AI tools", before "Names at a glance"); the file
+      `declaration.md` is gone and the paper takes the section from the
+      page. Its last sentence says that the correspondence between the
+      Lean statements and the text rests "on the usual reading": before
+      submission, the author's reading of the Lean statements against
+      the text should have taken place.
 - [ ] Figure 11 is no longer the big circle: it is three strips on the
       phase axis of Figure 10, with the exact steps of alpha and Jane's
       real phase after each of twenty up moves, from the start, from
