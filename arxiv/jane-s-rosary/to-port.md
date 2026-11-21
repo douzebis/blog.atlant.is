@@ -125,6 +125,25 @@ These reach the paper by a rebuild; to read once in the PDF.
       bead number n". An onyx is a black bead seen as a bead of the onyx
       rosary.
 
+## 2026-11-21: Proposition 1 restated
+
+These reach the paper by a rebuild; to read once in the PDF.
+
+- [ ] Proposition 1 states two bounds, in base 2: the lower bound and
+      12 + 3 log2 n / log2(9/8). The linear bound (4n - 1)/3 is now a
+      remark after the proof ("Remark (small beads)").
+- [ ] The proof says where the recursion stops (beads 1 to 7, with a
+      table of their heights) and where the 12 comes from (3 + 9). Check
+      how the small table sits inside the proof in the PDF.
+- [ ] The sentence "Numerically, h(n) <= 1 + ..." is gone; tightness is
+      addressed in Question E of Section 12.
+- [ ] Heights are measured against log2 n everywhere (Section 2,
+      Conjecture D, Question E), with the constants recomputed: 1.710,
+      17.65, 3.369, 5.3. The two natural logarithms of Part IV (Theorem
+      5 and its proof) are left as they were, on purpose for now.
+- [ ] The abstract and introduction in `build.py`: check that nothing
+      there quotes the old form of Proposition 1 or a constant per ln n.
+
 ## To do later, on the page's side (decided 2026-11-21, not started)
 
 The numbers of statements, figures and sections stay typed by hand, on

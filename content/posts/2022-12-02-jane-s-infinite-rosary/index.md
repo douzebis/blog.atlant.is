@@ -252,7 +252,9 @@ By definition $h(1) = 0$.
 
 **Proposition 1.** Every bead has a finite height. Moreover, for all $n \geq 2$,
 
-$$\log_{3/2}\frac{n+1}{2} \;\leq\; h(n) \;\leq\; \min\Big(\frac{4n-1}{3},\;\; 12 + 3\,\frac{\ln n}{\ln(9/8)}\Big).$$
+$$\frac{\log_2(n+1) - 1}{\log_2(3/2)} \;\leq\; h(n) \;\leq\; 12 + \frac{3\,\log_2 n}{\log_2(9/8)},$$
+
+where $1/\log_2(3/2) \approx 1.710$ and $3/\log_2(9/8) \approx 17.65$.
 
 *Proof.* Let $n > 1$.
 
@@ -262,22 +264,45 @@ $$\log_{3/2}\frac{n+1}{2} \;\leq\; h(n) \;\leq\; \min\Big(\frac{4n-1}{3},\;\; 12
 - If $n \equiv 1 \pmod 9$, then $n = mU^2D$ with
   $m = n\nu\lambda^2 = \lceil 8n/9 \rceil < n$.
 
-By induction on $n$, every bead has a finite height, and $h(n) \leq 3 + h(m)$
-with $m - 7 \leq \frac{8}{9}(n-7)$ in all three cases. Both upper bounds follow
-by induction, the finitely many small cases being checked directly
-($h(n) = 0, 1, 2, 5, 3, 6, 9, 4, 7, 10, 10, \ldots$ for $n = 1, 2, 3, \ldots$;
-equality in $h(n) \le (4n-1)/3$ holds for $n = 4$ and $n = 7$).
+In all three cases $h(n) \leq 3 + h(m)$ and $m - 7 \leq \frac{8}{9}(n-7)$. By
+induction on $n$, every bead has a finite height.
 
-For the lower bound, note that $nU + 1 \leq \frac{3}{2}(n+1)$ and $nD < n$, so a
+*Upper bound.* Let $n \geq 8$, and repeat the step, from $n$ to $m$, from $m$
+to its own $m$, and so on, as long as the bead is at least $8$. After $k$
+steps the bead is at most $7 + (8/9)^k(n-7)$, which is less than $8$ as soon
+as $k > \log_{9/8}(n-7)$. So at most $1 + \log_{9/8}(n-7)$ steps, of at most
+three moves each, lead from $n$ down to one of the beads $1$ to $7$, whose
+heights are found by hand:
+
+| $n$ | $1$ | $2$ | $3$ | $4$ | $5$ | $6$ | $7$ |
+|---|---|---|---|---|---|---|---|
+| $h(n)$ | $0$ | $1$ | $2$ | $5$ | $3$ | $6$ | $9$ |
+
+They are at most $9$, so
+
+$$h(n) \;\leq\; 3\big(1 + \log_{9/8}(n-7)\big) + 9 \;\leq\; 12 + 3\log_{9/8} n = 12 + \frac{3\log_2 n}{\log_2(9/8)} .$$
+
+For $2 \leq n \leq 7$ the table gives $h(n) \leq 9$, which is less than $12$.
+
+*Lower bound.* Note that $nU + 1 \leq \frac{3}{2}(n+1)$ and $nD < n$, so a
 recitation of length $h$ starting at $1$ ends at a bead $n$ with
-$n + 1 \leq 2\,(3/2)^h$. $\quad\Box$
+$n + 1 \leq 2\,(3/2)^h$, that is, $\log_2(n+1) - 1 \leq h \log_2(3/2)$.
+$\quad\Box$
 
-The logarithmic upper bound was suggested by
-[Jianing Song](https://oeis.org/wiki/User:Jianing_Song). (Numerically,
-$h(n) \leq 1 + 3\ln n/\ln(9/8)$ for all $2 \le n \le 10^6$.) The lower bound is
+The upper bound was suggested by
+[Jianing Song](https://oeis.org/wiki/User:Jianing_Song). The lower bound is
 asymptotically attained along the recitation that only moves up, so
-$\liminf h(n)/\ln n = 1/\ln(3/2) \approx 2.466$. See Section 12 for what
-$h(n)/\ln n$ does for a typical $n$.
+$\liminf h(n)/\log_2 n = 1/\log_2(3/2) \approx 1.710$. See Section 12 for what
+$h(n)/\log_2 n$ does for a typical $n$, and for how far the upper bound is
+from what is observed.
+
+**Remark (small beads).** For small beads a linear bound is sharper:
+$h(n) \leq (4n-1)/3$ for every bead $n$, with equality at beads $4$ and $7$.
+It is the smaller of the two bounds up to $n = 96$. The proof is the same
+induction: the step keeps the bound for a white bead, and for a black bead as
+soon as $n - m \geq 3$, that is, from $n = 22$ on; the black beads $4$, $7$,
+$10$, $13$, $16$ and $19$ are checked by hand (their heights are $5$, $9$,
+$10$, $8$, $11$ and $14$).
 
 #### Computing the height by exploration
 
@@ -1472,24 +1497,26 @@ of about $10^{-4}$.)
 **Conjecture D (typical heights).** For almost all $n$ (in the sense of
 natural density),
 
-$$\frac{h(n)}{\ln n} \longrightarrow \frac{11}{\ln(3^9/2^{11})} = \frac{11}{9\ln 3 - 11\ln 2} \approx 4.861,$$
+$$\frac{h(n)}{\log_2 n} \longrightarrow \frac{11}{\log_2(3^9/2^{11})} = \frac{11}{9\log_2 3 - 11} \approx 3.369,$$
 
-with Gaussian fluctuations of order $\sqrt{\ln n}$. Heuristic: follow the
+with Gaussian fluctuations of order $\sqrt{\log_2 n}$. Heuristic: follow the
 canonical recitation backwards and assume that residues modulo $3$ are
 equidistributed. A white bead (probability $2/3$) costs one move and multiplies
 the position by $2/3$. A black bead $\boldsymbol{n}^\bullet$ (probability $1/3$) costs
 $e + 2$ moves, where $e = v_3(2\boldsymbol{n}-1)$ has mean $1/2$, multiplies the position
 by $2\cdot(2/3)^{e+1}$, and is always followed by a white bead. Per cycle this
 makes $11/6$ moves for a logarithmic decrease of
-$\frac{3}{2}\ln\frac{3}{2} - \frac{1}{3}\ln 2 = \frac{1}{6}\ln\frac{3^9}{2^{11}}$.
-Numerically the mean of $h(n)/\ln n$ over random $n$ of $64$, $256$ and $1024$
-bits is $4.716$, $4.824$ and $4.850$, and the standard deviation of $h(n)$ is
-about $2.4\sqrt{\ln n}$.
+$\frac{3}{2}\log_2\frac{3}{2} - \frac{1}{3} = \frac{1}{6}\log_2\frac{3^9}{2^{11}}$
+(in base $2$).
+Numerically the mean of $h(n)/\log_2 n$ over random $n$ of $64$, $256$ and
+$1024$ bits is $3.269$, $3.344$ and $3.362$, and the standard deviation of
+$h(n)$ is about $2.0\sqrt{\log_2 n}$.
 
 **Question E (extreme heights).** We have
-$\liminf h(n)/\ln n = 1/\ln(3/2) \approx 2.466$ (Proposition 1). What is
-$\limsup h(n)/\ln n$? Proposition 1 gives at most $3/\ln(9/8) \approx 25.5$;
-the largest value observed for $10^3 \leq n < 10^6$ is about $7.7$.
+$\liminf h(n)/\log_2 n = 1/\log_2(3/2) \approx 1.710$ (Proposition 1). What is
+$\limsup h(n)/\log_2 n$? Proposition 1 gives at most
+$3/\log_2(9/8) \approx 17.65$, which is far from tight: the largest value
+observed for $10^3 \leq n < 10^6$ is about $5.3$.
 
 **Conjecture F (growth of the onyx tree).** The $k$-th cover of any onyx
 $\boldsymbol{m}$ satisfies $\boldsymbol{s}_{\boldsymbol{m}}(k)^{1/k} \to 9/4$; equivalently $\boldsymbol{m}$ has
@@ -1550,7 +1577,7 @@ checks them all.
 | Statement | In Lean |
 |---|---|
 | Fact 1 | file `Fact1.lean` |
-| Proposition 1, its three bounds | `exists_reach`, `height_upper`, `height_lower`, `height_log` |
+| Proposition 1, and the linear bound of the remark after it | `exists_reach`, `height_upper`, `height_lower`, `height_log` |
 | Lemma 1 | `lemma1` |
 | Lemma 2, Corollary 1 | `lemma2`, `corollary1` |
 | Section 4: every bead is $\sigma(n)U^{\Lambda(n)}$, in one way only | `seed_spec`, `seed_upPow` |
