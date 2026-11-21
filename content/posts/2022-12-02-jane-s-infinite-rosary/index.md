@@ -778,14 +778,15 @@ has already been told (or when she is at bead $1$) does she reluctantly move
 *up*.
 
 We write $\rho(i)$ for the bead reached after $i$ moves and
-$V_i = \{\rho(0), \ldots, \rho(i)\}$ for the set of beads told so far. For
+$T_i = \{\rho(0), \ldots, \rho(i)\}$ for the set of beads told so far ($T$ for
+*told*). For
 instance $\rho(0), \rho(1), \ldots = 1, 2, 3, 5, 8, 4, 6, 9, 14, 7, 11, 17, 26,
 13, \ldots$, so $\rho(5) = 4$ and $\rho(12) = 26$. Time is counted from $0$:
 $\rho(i)$ comes after $i$ moves.
 
-[![Figure 8](images/figure-08.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes&first=1)
+[![Figure 8](images/figure-08.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=reluctant&label=position&color=none&ink=down&arrows=labelled&interactive=yes&first=1)
 
-> Figure 8: Jane's reluctant recitation on the deconstructed rosary. Each arrow carries the number of the move, and the beads are colored in the order in which they are told, from red to violet. An up move is a step to the right; a down move jumps to another row ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes&first=1)).
+> Figure 8: Jane's reluctant recitation on the deconstructed rosary. Each arrow carries the number of the move. An up move is a step to the right, drawn in gray; a down move jumps to another row, and these curved arrows are colored in the order of the moves, from red to green ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=reluctant&label=position&color=none&ink=down&arrows=labelled&interactive=yes&first=1)).
 
 ```python
 def rho(i: int) -> int:
@@ -807,7 +808,7 @@ below and the bead above have already been told. [Theorem 2](#theorem-2) says th
 never happens.
 
 **Lemma 3 (down-closure).** As long as the recitation is defined: if
-$n \in V_i$, $n > 1$ and $n \neq \rho(i)$, then $nD \in V_i$.
+$n \in T_i$, $n > 1$ and $n \neq \rho(i)$, then $nD \in T_i$.
 
 *Proof.* Say $n = \rho(j)$ with $j < i$. At that moment either $nD$ had been
 told already, or Jane moved to it: $\rho(j+1) = nD$. $\quad\Box$
@@ -820,7 +821,7 @@ except possibly for the path Jane is currently descending.
 
 **Theorem 2.** The reluctant recitation is well defined for all times, $\rho$
 is injective, and it never creates a gap in an up-chain: for every $i$ and
-every white bead $w \in V_i$, we have $w\lambda \in V_i$.
+every white bead $w \in T_i$, we have $w\lambda \in T_i$.
 
 [![Figure 9](images/figure-09.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=31&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes&first=1)
 
@@ -840,27 +841,27 @@ defined and distinct; (b) the no-gap property holds at all times $j \leq i$.
 Both are clear for $i = 0$.
 
 *Jane can move at time $i$.* Let $n = \rho(i)$. If $n > 1$ and
-$nD \notin V_i$, she moves down to a new bead. Otherwise she wants to move up
-to $nU$, and we must show $nU \notin V_i$. If $nU = \rho(j)$ for some
+$nD \notin T_i$, she moves down to a new bead. Otherwise she wants to move up
+to $nU$, and we must show $nU \notin T_i$. If $nU = \rho(j)$ for some
 $j \le i$, then $j < i$ and, $nU$ being white, (b) at time $j$ gives
-$n = nU\lambda \in V_j$, contradicting (a). So (a) holds at time $i+1$.
+$n = nU\lambda \in T_j$, contradicting (a). So (a) holds at time $i+1$.
 
 *No gap at time $i+1$.* Let $w = \rho(i+1)$ be white and suppose
-$g = w\lambda \notin V_{i+1}$. The last move was not an up move (it would have
+$g = w\lambda \notin T_{i+1}$. The last move was not an up move (it would have
 come from $g$), so $\rho(i) \in \{w\mu, w\nu\}$. We use [Lemma 1](#lemma-1) and its two
 diagrams: Jane arrived at $w$ down the right-hand side, and the left-hand
 side shows that $g$ had been told before.
 
-- If $\rho(i)$ is the white bead $\hat{w}$: by (b), $\hat{w}\lambda \in V_i$,
+- If $\rho(i)$ is the white bead $\hat{w}$: by (b), $\hat{w}\lambda \in T_i$,
   and $\hat{w}\lambda \neq \rho(i)$, so [Lemma 3](#lemma-3) gives
-  $g = \hat{w}\lambda D \in V_i$.
+  $g = \hat{w}\lambda D \in T_i$.
 - If $\rho(i)$ is the black bead $b$: a black bead is never reached by an up
   move, so $\rho(i-1) = p$ for some $p \in \{b\mu, b\nu\}$, which is white.
-  By (b), $p\lambda \in V_{i-1}$. Applying [Lemma 3](#lemma-3) twice (to $p\lambda$ and
+  By (b), $p\lambda \in T_{i-1}$. Applying [Lemma 3](#lemma-3) twice (to $p\lambda$ and
   then to $p\lambda D$, neither of which is the current bead $p$) gives
-  $g = p\lambda DD \in V_{i-1}$.
+  $g = p\lambda DD \in T_{i-1}$.
 
-Both cases contradict $g \notin V_{i+1}$. $\quad\Box$
+Both cases contradict $g \notin T_{i+1}$. $\quad\Box$
 
 *Used:* [Fact 1](#fact-1), [Lemma 1](#lemma-1) and [Lemma 3](#lemma-3).
 
@@ -1246,7 +1247,7 @@ how Jane spends her time ([Theorem 5](#theorem-5)) and how long a bead may have 
 This section makes [Theorem 3](#theorem-3) quantitative. Let $u(t)$ be the number of up
 moves among Jane's first $t$ moves, and let
 
-$$F(t) = \min\big(\mathbb{N}^*\setminus V_t\big)$$
+$$F(t) = \min\big(\mathbb{N}^*\setminus T_t\big)$$
 
 be the smallest bead that has not been told after $t$ moves (the *frontier*).
 Trivially $F(t) \leq t + 2$.
@@ -1296,7 +1297,7 @@ $1 + \alpha = \log_2 3$.
 (2) Call *depth* of a bead $n$ the integer $\lfloor \log_2 n \rfloor$: a
 down move decreases the depth by exactly $1$ and an up move increases it by
 $0$ or $1$. Let $t$ be a time at which Jane is about to move up, and let $E$
-be the depth of $\rho(t)$. By [Lemma 3](#lemma-3), $V_t$ is then closed under $D$: it is a
+be the depth of $\rho(t)$. By [Lemma 3](#lemma-3), $T_t$ is then closed under $D$: it is a
 subtree with $t + 1$ nodes.
 
 Fix an integer $K \geq 2$ and let
@@ -1320,7 +1321,7 @@ differ by at least $2^{-d}/\ln 2$ have distinct ancestors at depth $d$ (their
 "mantissas" $n/2^{\lfloor\log_2 n\rfloor} \in [1,2)$ differ by at least
 $2^{-d}$). Hence for every $d$ with $d_K \leq d \leq e$, the beads
 $n_0, \ldots, n_{K-1}$ have $K$ distinct ancestors at depth $d$, all of which
-belong to $V_t$. Counting, $t + 1 \geq K(E - K - d_K + 1)$, that is,
+belong to $T_t$. Counting, $t + 1 \geq K(E - K - d_K + 1)$, that is,
 
 $$E \leq \frac{t+1}{K} + K + d_K \qquad\text{whenever } E \ge K + e_K. \tag{$\ast\ast$}$$
 
@@ -1402,7 +1403,7 @@ so $J \leq (6m)^{\beta}/c$, and let $N = 6Jm$, so that $2J/N \leq w_m/3$ and
 $N \ge m$.
 
 *An excursion above $N$ with $J$ up moves reaches $m$.* Suppose that from
-time $T$ to time $t$ Jane stays on beads larger than $N$ and makes at least
+time $t_0$ to time $t$ Jane stays on beads larger than $N$ and makes at least
 $J$ up moves. By Step 4 of the proof of [Theorem 3](#theorem-3), at some time $t' \le t$
 the bead $b$ that she reached by her last up move is in the cone of $m$:
 $m = bD^p$. An up move at most doubles a bead, so $b \le 2^{t'}$ and
@@ -1834,7 +1835,7 @@ machine. The record of what was done, and of what was not, is in
 | up-chain, down-chain | $\uparrow\!(n)$, $\downarrow\!(n)$ | the beads reached from $n$ by up moves only, by down moves only | [Section 4](#4-interlude-more-names) |
 | seed, lambda exponent | $\sigma(n)$, $\Lambda(n)$ | the black bead at the start of the up-chain through $n$; the number of up moves from it to $n$ | [Section 4](#4-interlude-more-names) |
 | winner | "$\mu$ wins", "$\nu$ wins" | of $\boldsymbol{n}^\bullet\mu$ and $\boldsymbol{n}^\bullet\nu$, the one with the larger lambda exponent | [Section 5](#5-theorem-1-minimal-recitations-ending-in-a-black-bead) |
-| reluctant recitation | $\rho(i)$, $V_i$ | Jane's $i$-th bead when she moves down whenever she can; the beads told so far | [Section 6](#6-janes-reluctant-recitation) |
+| reluctant recitation | $\rho(i)$, $T_i$ | Jane's $i$-th bead when she moves down whenever she can; the beads told so far | [Section 6](#6-janes-reluctant-recitation) |
 | cone | | bead $m$ and the beads above it in the binary tree | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |
 | phase | $\theta(n)$ | $\log_2 n$ modulo $1$ | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |
 | the angle | $\alpha$ | $\log_2(3/2)$, by which an up move turns the phase | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |

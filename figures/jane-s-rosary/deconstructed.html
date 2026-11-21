@@ -47,6 +47,9 @@
         // P.columns   ['lambex']: write the lambda exponent under each column
         // P.color     ['none', 'position', 'label', 'height', 'reluctant_inv']
         // P.arrows     ['no', 'yes', 'labelled']
+        // P.ink        ['down']: with ordering=reluctant, the up moves are
+        //              drawn in one plain color and only the down moves
+        //              are colored, in the order of the moves
         let wid = parseInt(P.width)
         let hei = parseInt(P.height)
         let sym = P.sym == 'yes' ? true : false
@@ -363,7 +366,15 @@
                             false : {enabled: true, type: 'curvedCCW'}
                         let label = this.arrows == 'yes' ?
                             '' : '' + node_ord
+                        let ink = {}
+                        if (P.ink == 'down') {
+                            const rank = this.reluctant_invs.reduce(
+                                (c, e) => e < node_ord ? c + 1 : c, 0)
+                            ink = {color: node == up(prev_node) ? THEME.line
+                                : hsl_to_col(rank*300/this.side**2, 85, 45)}
+                        }
                         return [{
+                            ...ink,
                             id: prev_node_id*this.side**2 + node_id,
                             from: prev_node_id,
                             to: node_id,

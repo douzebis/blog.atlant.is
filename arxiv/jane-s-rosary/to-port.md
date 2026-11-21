@@ -256,6 +256,18 @@ These reach the paper by a rebuild; to look at in the PDF.
 - [ ] In the PDF, check that the whole statement, with its displayed
       rule and its three parts, sits inside one theorem environment.
 
+## 2026-11-21: Part II, first changes
+
+- [ ] The set of beads told after i moves is T_i ("T for told"), no
+      longer V_i; the time called T in the proof of Theorem 6 is now
+      t_0.
+- [ ] Figure 8 is redrawn: black and white beads, up moves as gray
+      horizontal arrows, down moves as curved arrows colored in the
+      order of the moves. Figure 9 ("the same after 31 moves") still has
+      colored beads, and the picture at the top of the page ("a detail
+      of Figure 8") is still a crop of the old colored figure: both are
+      to be brought in line or their captions changed.
+
 ## To do later, on the page's side (decided 2026-11-21, not started)
 
 The numbers of statements, figures and sections stay typed by hand, on
