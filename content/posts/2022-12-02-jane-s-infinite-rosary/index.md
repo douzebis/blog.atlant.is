@@ -79,19 +79,15 @@ forever. Neither happens:
   $\log_3 2 \approx 0.6309$, a little less than two moves out of three;
 - *Theorem 6*: bead $m$ gets its turn after at most polynomially many moves.
 
-**Why she tells every bead, in one breath.** A down move halves the position
-of the bead (rounding down), and an up move multiplies it by $3/2$ (rounding
-up). So Jane's rule plays the powers of $2$ against the powers of $3$. To
-watch the game, forget how far along the rosary Jane is and keep only where
-she stands between one power of $2$ and the next: put bead $n$ on a circle, at
-the fractional part of $\log_2 n$, so that doubling a position goes exactly
-once around the circle and lands on the same point. On this circle a down move
-hardly moves her, and each up move turns her by very nearly the same angle,
-$\log_2(3/2)$ of a full turn. No power of $2$ is a power of $3$, that is,
-$\log_2 3$ is irrational: the turns never close up, Jane cannot fall into a
-routine, and sooner or later she visits every arc of the circle. A bead that
-she never told would be an arc that she never enters. Section 8 makes this
-precise.
+**Why she tells every bead, by ear.** Hear the position of a bead as the
+frequency of a note. A down move halves it: Jane drops an octave, onto the
+same note, only lower. An up move multiplies it by $3/2$: she climbs a fifth,
+as from A to E. Now, stacking fifths never brings back the note you started
+from, in any octave, because no power of $3$ is a power of $2$. So as Jane
+climbs she keeps sounding new notes, and they end up crowding every stretch of
+the octave, however narrow. A bead that she never told would be a stretch that
+she never enters. Section 8 makes this precise, with a circle in place of the
+octave.
 
 Along the way the black beads turn out to carry a tree of their own, the
 *onyx rosary*, in which every black bead has infinitely many children (*Theorem 4*).

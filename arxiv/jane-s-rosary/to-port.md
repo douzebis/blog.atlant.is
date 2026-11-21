@@ -67,9 +67,11 @@ the PDF.
       of versions at the end of the paper) and under the statement of
       Theorem 3 in Section 8.
 - [ ] The paragraph "Why it works, in one breath" is now "Why she tells
-      every bead, in one breath" and says how the circle is made. Decide
-      whether the paper keeps "in one breath" or takes a more sober
-      title for it.
+      every bead, by ear": positions heard as frequencies, a down move
+      as an octave down, an up move as a fifth up, and no circle before
+      Section 8. Decide whether the paper keeps "by ear" or takes a more
+      sober title ("the idea"), and whether it keeps the musical picture
+      as it is.
 
 ## To do later, on the page's side (decided 2026-11-21, not started)
 
