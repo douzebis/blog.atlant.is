@@ -322,10 +322,34 @@ These reach the paper by a rebuild; to look at in the PDF.
 - [ ] The declaration no longer says that the 2023 proofs were complete
       "in some places".
 
+## 2026-11-22: detailed proofs in an appendix; Section 12 without a number
+
+- [ ] New section "Appendix: proofs", after the coda. It holds, in the
+      order of the paper: the proofs of Proposition 1, Lemma 1 (the six
+      computed diagrams), Theorem 1 (Steps 1 to 3), Theorem 2 (the
+      induction), Theorem 3 by rotation (Steps 1 to 4), two facts about
+      smooth numbers (Steps 4 and 5 of the second proof of Theorem 3),
+      Theorem 5, Lemma 9 and Theorem 6. Each starts with a line saying
+      which statement it is for, and the main text links to it.
+- [ ] What stays in the main text: every statement, every sketch, every
+      figure, the short proofs, the notation and the diagrams of Theorem
+      1, the diagrams and the three reasons of Theorem 2, the second
+      proof of Theorem 3 except for its two facts on smooth numbers, and
+      all of Part III (the author has not read it yet).
+- [ ] New sketches: Proposition 1 and Lemma 9 each have "The idea".
+- [ ] The section on open questions has no number any more
+      ("Conjectures and open questions"); the paper has 11 numbered
+      sections, and "Section 12" is gone from the text. `build.py`
+      follows for the one sentence it rewords.
+- [ ] For the paper: decide whether it wants the same split (an appendix
+      is natural in a paper), and where its appendix goes relative to
+      the sections on verification.
+
 ## To do later, on the page's side (decided 2026-11-21, not started)
 
-- [ ] **Move detailed proofs to the appendix** (decided 2026-11-21, not
-      started). The sketches ("The idea") are the entertaining part and
+- [x] (done on 2026-11-22, except Part III, which waits for the
+      author's reading) **Move detailed proofs to the appendix** (decided
+      2026-11-21). The sketches ("The idea") are the entertaining part and
       stay in the main text; the detailed proofs, which are needed but
       slow the reading, move to a new "Appendix: proofs". Candidates: the
       proof of Proposition 1; the six computations of Lemma 1; Steps 1

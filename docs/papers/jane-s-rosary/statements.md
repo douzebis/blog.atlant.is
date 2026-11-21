@@ -38,13 +38,13 @@ As of 2026-11-18 (the current version, beads counted from 1, spec 0003):
 | Theorem 5 | Theorem 5: Jane moves up with frequency … | `check_reluctant.py`, `walk.c` | part 1 on 300,000 moves; u(t)/t on 2^27 moves |
 | Lemma 9 | Theorem 6: bead … is told in polynomial time | `check_reluctant.py` | the fact on convergents, 8 denominators |
 | Theorem 6 | Theorem 6: bead … is told in polynomial time | — | not checked |
-| Conjecture A | 12. Conjectures and open questions | `walk.c` | evidence: 2^27 moves |
-| Conjecture B | 12. Conjectures and open questions | `walk.c` | evidence: 2^27 moves |
-| Question C | 12. Conjectures and open questions | `walk.c` | evidence: 2^27 moves |
-| Conjecture D | 12. Conjectures and open questions | `height_statistics.py` | evidence: random n of 64 to 1024 bits |
-| Question E | 12. Conjectures and open questions | `height_statistics.py` | evidence: n below 10^6 |
-| Conjecture F | 12. Conjectures and open questions | — | no program kept |
-| Question G | 12. Conjectures and open questions | — | no program kept |
+| Conjecture A | Conjectures and open questions | `walk.c` | evidence: 2^27 moves |
+| Conjecture B | Conjectures and open questions | `walk.c` | evidence: 2^27 moves |
+| Question C | Conjectures and open questions | `walk.c` | evidence: 2^27 moves |
+| Conjecture D | Conjectures and open questions | `height_statistics.py` | evidence: random n of 64 to 1024 bits |
+| Question E | Conjectures and open questions | `height_statistics.py` | evidence: n below 10^6 |
+| Conjecture F | Conjectures and open questions | — | no program kept |
+| Question G | Conjectures and open questions | — | no program kept |
 
 Status of the statements across versions:
 

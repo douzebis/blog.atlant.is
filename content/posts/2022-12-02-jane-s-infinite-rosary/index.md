@@ -106,7 +106,7 @@ in disguise, and three entries of the
 | reluctant recitation $\rho$ | the greedy walk | [A359005](https://oeis.org/A359005), plus one |
 | the move at which bead $m$ is told, $\rho^{-1}(m)$ | the inverse mapping of the greedy walk | [A359008](https://oeis.org/A359008), at $m - 1$ |
 
-**And what is still open.** Plenty; Section 12 has eight questions. A
+**And what is still open.** Plenty; the last section has eight questions. A
 favorite: in the reluctant recitation, look at each of Jane's down moves and
 count the up moves that came just before it. After $2^{27}$ moves, the count
 is exactly one in $49.993\%$ of the cases. Is the true proportion one half?
@@ -148,7 +148,9 @@ $$
   Section 11 states its results for any such exponent and then says what
   each source gives ("Which exponent?", after [Theorem 6](#theorem-6)).
 - **Coda**: the rosary's relatives (the sidewalk, the powers of $3/2$, the
-  $3x+1$ problem), and what is still open (Section 12).
+  $3x+1$ problem), and what is still open.
+- **Appendix**: the detailed proofs of the longer results. The main text
+  gives the idea of each and says where its proof is.
 
 Theorems, lemmas and conjectures keep the numbers they had in the previous
 version of this paper. Every name used in the paper is listed in a
@@ -258,50 +260,20 @@ $$\frac{\log_2(n+1) - 1}{\log_2(3/2)} \;\leq\; h(n) \;\leq\; 4 + \frac{3\,\log_2
 
 where $1/\log_2(3/2) \approx 1.710$ and $3/\log_2(9/8) \approx 17.65$.
 
-*Proof.* Let $n > 1$.
-
-- If $n$ is white, then $n = mU$ with $m = n\lambda = \lfloor 2n/3 \rfloor < n$.
-- If $n$ is black and $n \not\equiv 1 \pmod 9$, then $n = mU^2D$ with
-  $m = n\mu\lambda^2 = \lfloor 8n/9 \rfloor < n$.
-- If $n \equiv 1 \pmod 9$, then $n = mU^2D$ with
-  $m = n\nu\lambda^2 = \lceil 8n/9 \rceil < n$.
-
-In all three cases $h(n) \leq 3 + h(m)$, $m \geq \lfloor 2n/3 \rfloor$ and
-$m - 7 \leq \frac{8}{9}(n-7)$. By induction on $n$, every bead has a finite
-height.
-
-*Upper bound.* We prove a little more: for all $n \geq 8$,
-
-$$h(n) \;\leq\; 4 + 3\log_{9/8}(n-7), \qquad\text{with equality at } n = 8 .$$
-
-The induction starts from the heights of the first eleven beads, found by
-hand:
-
-| $n$ | $1$ | $2$ | $3$ | $4$ | $5$ | $6$ | $7$ | $8$ | $9$ | $10$ | $11$ |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| $h(n)$ | $0$ | $1$ | $2$ | $5$ | $3$ | $6$ | $9$ | $4$ | $7$ | $10$ | $10$ |
-
-- *Beads $8$ to $11$.* For $n = 8$ both sides are $4$. For $n = 9, 10, 11$
-  the height is at most $10$, and the right-hand side is at least
-  $4 + 3\log_{9/8} 2 \approx 21.65$.
-- *Beads from $12$ on.* Then $m \geq \lfloor 2n/3 \rfloor \geq 8$, so the
-  bound holds for $m$, and $m - 7 \leq \frac{8}{9}(n-7)$ says that
-  $\log_{9/8}(m-7) \leq \log_{9/8}(n-7) - 1$. Hence
-  $$h(n) \;\leq\; 3 + h(m) \;\leq\; 3 + 4 + 3\log_{9/8}(m-7) \;\leq\; 4 + 3\log_{9/8}(n-7) .$$
-
-The proposition follows. For $n \geq 8$, replace $n - 7$ by $n$ and
-$\log_{9/8} n$ by $\log_2 n/\log_2(9/8)$. For $2 \leq n \leq 7$ the table gives
-$h(n) \leq 9$, and the bound is at least $4 + 3\log_{9/8} 2 \approx 21.65$.
-
-*Lower bound.* Note that $nU + 1 \leq \frac{3}{2}(n+1)$ and $nD < n$, so a
-recitation of length $h$ starting at $1$ ends at a bead $n$ with
-$n + 1 \leq 2\,(3/2)^h$, that is, $\log_2(n+1) - 1 \leq h \log_2(3/2)$.
-$\quad\Box$
+*The idea.* Every bead $n > 1$ is at most three moves away from a smaller
+bead $m$: one up move if $n$ is white, up, up, down if it is black. And $m$
+is at most about $\frac{8}{9}n$. So every bead is reached, and going from $n$
+down to the first few beads takes about $\log_{9/8} n$ such steps, of at most
+three moves each: this is the upper bound, and its constant $4$ is the height
+of bead $8$, where the count stops. For the lower bound, an up move
+multiplies the position by about $3/2$ and a down move makes it smaller, so
+$h$ moves cannot lead much beyond $(3/2)^h$. The details are in the
+[appendix](#proof-of-proposition-1).
 
 The upper bound was suggested by
 [Jianing Song](https://oeis.org/wiki/User:Jianing_Song). The lower bound is
 asymptotically attained along the recitation that only moves up, so
-$\liminf h(n)/\log_2 n = 1/\log_2(3/2) \approx 1.710$. See Section 12 for what
+$\liminf h(n)/\log_2 n = 1/\log_2(3/2) \approx 1.710$. See [the open questions](#conjectures-and-open-questions) for what
 $h(n)/\log_2 n$ does for a typical $n$, and for how far the upper bound is
 from what is observed.
 
@@ -330,7 +302,7 @@ def height(n: int) -> int:
 
 [![Figure 4](images/figure-04.png)](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000&first=1 "live")
 
-> Figure 4: the heights of the first $10\,000$ beads, with positions on a logarithmic scale. Look at the horizontal dashes: long streaks of neighboring beads share the same height ([Question H](#question-H) in Section 12 asks how long they get). Click the picture to explore it ([live version](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000&first=1)).
+> Figure 4: the heights of the first $10\,000$ beads, with positions on a logarithmic scale. Look at the horizontal dashes: long streaks of neighboring beads share the same height ([Question H](#question-H) asks how long they get). Click the picture to explore it ([live version](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000&first=1)).
 
 ### 3. Minimal recitations
 
@@ -383,66 +355,9 @@ w\lambda @>U>> \whitebead{w}
 \end{CD}
 $$
 
-*Proof.* Direct computation. If $w = 3k+2$, then $w\lambda = 2k+1$, the white
-bead is $\hat{w} = w\nu = 6k+5$ and the black bead is $b = w\mu = 6k+4$:
-
-$$
-\begin{CD}
-4k+3 @<\lambda<< \whitebead{6k+5}\\
-@VVDV @AA\nu A\\
-2k+1 @>U>> \whitebead{3k+2}
-\end{CD}
-\qquad
-\begin{CD}
-8k+5 @<\lambda<< \whitebead{12k+8}\\
-@VVDV @AA\mu A\\
-4k+2 @. \blackbead{6k+4}\\
-@VVDV @AA\mu A\\
-2k+1 @>U>> \whitebead{3k+2}
-\end{CD}
-\qquad
-\begin{CD}
-8k+6 @<\lambda<< \whitebead{12k+9}\\
-@VVDV @AA\nu A\\
-4k+3 @. \blackbead{6k+4}\\
-@VVDV @AA\mu A\\
-2k+1 @>U>> \whitebead{3k+2}
-\end{CD}
-$$
-
-If $w = 3k$, then $w\lambda = 2k$, the white bead is $\hat{w} = w\mu = 6k$
-and the black bead is $b = w\nu = 6k+1$:
-
-$$
-\begin{CD}
-4k @<\lambda<< \whitebead{6k}\\
-@VVDV @AA\mu A\\
-2k @>U>> \whitebead{3k}
-\end{CD}
-\qquad
-\begin{CD}
-8k+1 @<\lambda<< \whitebead{12k+2}\\
-@VVDV @AA\mu A\\
-4k @. \blackbead{6k+1}\\
-@VVDV @AA\nu A\\
-2k @>U>> \whitebead{3k}
-\end{CD}
-\qquad
-\begin{CD}
-8k+2 @<\lambda<< \whitebead{12k+3}\\
-@VVDV @AA\nu A\\
-4k+1 @. \blackbead{6k+1}\\
-@VVDV @AA\nu A\\
-2k @>U>> \whitebead{3k}
-\end{CD}
-$$
-
-Each arrow of these six diagrams is one line of arithmetic; in the first one,
-for instance, $(6k+5)\lambda = \lfloor (12k+10)/3 \rfloor = 4k+3$ and
-$(4k+3)D = 2k+1$. In all six the loop closes: the left-hand side comes down
-onto the very bead, $w\lambda$, from which the bottom arrow leads up to $w$.
-This is statement 1 for the small diagrams and statement 2 for the tall
-ones. $\quad\Box$
+The proof is a direct computation, with one small and two tall diagrams for
+each of the two cases $w = 3k + 2$ and $w = 3k$: see the
+[appendix](#proof-of-lemma-1).
 
 **Lemma 2 (white beads).** For every white bead $w$ there is a minimal
 recitation to $w$ that ends with an up move. Equivalently,
@@ -582,8 +497,6 @@ Two examples.
 
 > Figure 6: when in doubt, choose the predecessor with the larger lambda exponent. Only the black beads, in the left column, have a choice. Each has two candidates, shown by two arrows of the same color: the solid one points to the winner, the dashed one to the loser. The lambda exponent of a bead is the column it sits in, written at the bottom, so the winner is always the candidate further to the right ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=candidates&label=position&color=none&columns=lambex&arrows=yes&interactive=yes&first=1)).
 
-*Proof.* It has three steps, after some notation and a sketch.
-
 **Notation.** The two candidates are neighbors, and one of them is a multiple
 of $3$:
 
@@ -663,77 +576,8 @@ wins). It remains to compare them.
 When $\nu$ wins, $a$ and $b$ exchange their roles, and so do $c$ and $d$: then
 $a$ and $d$ are the black ones.
 
-**Step 1: the two chains.** *For $0 \leq i \leq e+1$ the beads $a_i$ and $b_i$
-are defined, and*
-
-$$b_i = 2^i\,3^{e+1-i}\,q, \qquad a_i = b_i - 1 .$$
-
-*For $i \leq e$ both are white. Of the last two, $a = 2^{e+1}q - 1$ and
-$b = 2^{e+1}q$, exactly one is black: $b$ if $2^{e+1}q \equiv 1 \pmod 3$,
-and $a$ if $2^{e+1}q \equiv 2 \pmod 3$.*
-
-Indeed $a_0 = 6\boldsymbol{n}-4$ and $b_0 = 6\boldsymbol{n}-3$. For
-$i \leq e$, $b_i = 2^i 3^{e+1-i} q$ is divisible by $3$, so
-$b_i \equiv 0$ and $a_i \equiv 2 \pmod 3$: both are white, and one checks
-$b_i\lambda = \frac{2}{3}b_i = b_{i+1}$ and
-$a_i\lambda = \lfloor \frac{2}{3}(b_i - 1) \rfloor = b_{i+1} - 1 = a_{i+1}$.
-Finally $b_{e+1} = 2^{e+1}q$ is not
-divisible by $3$: if it is $\equiv 1$ then $b_{e+1}$ is black and
-$a_{e+1} \equiv 0$ is white, and if it is $\equiv 2$ then $b_{e+1}$ is white
-and $a_{e+1} \equiv 1$ is black.
-
-The candidate whose chain has just reached a black bead has lambda exponent
-$e+1$, and that bead is its seed; the other candidate has a larger lambda
-exponent. By the rule, the first one is the loser and the second one the
-winner: this is the first and the last claim of part 2.
-
-**Step 2: the seeds.** The loser's seed is the black bead
-$s \in \{a, b\}$, and
-$s \geq 4$ (indeed $s = 1$ would mean $b = 2$, which forces $\boldsymbol{n} = \mathbf{1}$).
-The winner's seed is at
-most $(s \pm 1)\lambda \leq \frac{2}{3}(s+1) < s$. This is the rest of
-part 2.
-
-**Step 3: the heights (parts 3 and 1).** For $1 \le i \le e+1$ we have
-$d_i = b_i/2$ and $c_i = d_i - 1$. The same computation as in Step 1 gives
-$c_i = (\boldsymbol{n}^\bullet-1)\lambda^i$ and $d_i = (\boldsymbol{n}^\bullet+1)\lambda^i$, with $c_i$ and $d_i$ white
-for $i \leq e$.
-So the two ladders drawn above commute. Every bead from which a $\lambda$
-arrow starts is white, so by [Lemma 2](#lemma-2) it
-is one higher than the bead the arrow points to. Reading the rows from right
-to left, and using [Corollary 1](#corollary-1) for the step down to $\boldsymbol{n}^\bullet$,
-
-$$h(\boldsymbol{n}^\bullet) = \min\big(h(a), h(b)\big) + e + 2, \qquad
-  h(\boldsymbol{n}^\bullet-1) = h(c) + e + 1, \qquad h(\boldsymbol{n}^\bullet+1) = h(d) + e + 1. \tag{$\ast$}$$
-
-Modulo $3$ there are only two configurations:
-
-| | $a$ | $b = a+1$ | $c = aD$ | $d = bD = c+1$ |
-|---|---|---|---|---|
-| $\mu$ wins | white | **black** | **black** | white |
-| $\nu$ wins | **black** | white | white | **black** |
-
-We prove parts 3 and 1 by induction on $h(\boldsymbol{n}^\bullet)$. The bead $\mathbf{2}^\bullet = 4$ is
-checked directly ($h(3) = 2$, $h(4) = 5$, $h(5) = 3$, and
-$1\,U^4 D = 4$ with $\sigma(4\mu) = \sigma(8) = 1$). It is the only case in
-which $c = 1$, so from now on $c > 1$.
-
-*Case "$\mu$ wins".* If we had $h(b) < h(a)$, then by $(\ast)$
-$h(b) < h(\boldsymbol{n}^\bullet)$, and the induction hypothesis (part 3) applied to the black bead
-$b$ would give $h(b) \geq h(b-1) = h(a)$, a contradiction. Hence
-$h(\boldsymbol{n}^\bullet) = h(a) + e + 2$, and since $a = \sigma(\boldsymbol{n}^\bullet\mu)U^{\Lambda(\boldsymbol{n}^\bullet\mu)-e-1}$,
-[Lemma 2](#lemma-2) gives part 1. Next, $c = aD$ yields
-$h(\boldsymbol{n}^\bullet-1) = h(c) + e + 1 \leq h(a) + e + 2 = h(\boldsymbol{n}^\bullet)$. Finally $c$ is black with
-$h(c) \leq h(a) + 1 < h(\boldsymbol{n}^\bullet)$, so by induction $h(d) = h(c+1) \leq h(c)$ and
-$h(\boldsymbol{n}^\bullet+1) = h(d) + e + 1 \leq h(\boldsymbol{n}^\bullet)$.
-
-*Case "$\nu$ wins".* Symmetric: if $h(a) < h(b)$, the induction hypothesis on
-the black bead $a$ gives $h(a) \geq h(a+1) = h(b)$, a contradiction; hence
-$h(\boldsymbol{n}^\bullet) = h(b) + e + 2$, which gives part 1. Then $d = bD$ yields
-$h(\boldsymbol{n}^\bullet+1) \leq h(\boldsymbol{n}^\bullet)$, and $d$ is black with $h(d) < h(\boldsymbol{n}^\bullet)$, so
-$h(c) = h(d-1) \leq h(d)$ and $h(\boldsymbol{n}^\bullet-1) \leq h(\boldsymbol{n}^\bullet)$. $\quad\Box$
-
-*Used:* [Lemma 2](#lemma-2) and [Corollary 1](#corollary-1).
+The three steps of the proof, the chains, the seeds and the heights, are
+written out in the [appendix](#proof-of-theorem-1).
 
 #### Computing the height in logarithmic time
 
@@ -838,19 +682,8 @@ two diagrams of [Lemma 1](#lemma-1) are for: whichever way Jane comes down onto 
 bead $w$, they show that $w\lambda$ lies below a bead she has told before,
 and [Lemma 3](#lemma-3) says that she has then told $w\lambda$ too.
 
-*Proof.* By induction on $i$ we prove: (a) $\rho(0), \ldots, \rho(i)$ are
-defined and distinct; (b) the no-gap property holds at all times $j \leq i$.
-Both are clear for $i = 0$.
-
-*Jane can move at time $i$.* Let $n = \rho(i)$. If $n > 1$ and
-$nD \notin T_i$, she moves down to a new bead. Otherwise she wants to move up
-to $nU$, and we must show $nU \notin T_i$. If $nU = \rho(j)$ for some
-$j \le i$, then $j < i$ and, $nU$ being white, (b) at time $j$ gives
-$n = nU\lambda \in T_j$, contradicting (a). So (a) holds at time $i+1$.
-
-*No gap at time $i+1$.* Let $w = \rho(i+1)$ be white and suppose
-$g = w\lambda \notin T_{i+1}$. The last move was not an up move (it would have
-come from $g$), so $\rho(i) \in \{w\mu, w\nu\}$: Jane has just come down onto $w$.
+Suppose then that Jane has just come down onto a white bead $w$, and call
+$g = w\lambda$ the bead that should have been told before.
 
 Here are the two diagrams of [Lemma 1](#lemma-1) again, with $g$ in the
 bottom left corner. Read each as a route from $w$ to $g$: up the right-hand
@@ -880,29 +713,16 @@ the same in both diagrams:
   and on $by$ the move before: a black bead is only ever reached by a down
   move.
 - *The top arrow* is a $\lambda$ that starts from the white bead at the top
-  right, $\hat{w}$ or $by$, which she has told. By the no-gap property (b),
-  which holds up to time $i$, the bead at the top left, $\hat{w}\lambda$ or
+  right, $\hat{w}$ or $by$, which she has told. By the no-gap property,
+  which has held so far, the bead at the top left, $\hat{w}\lambda$ or
   $by\lambda$, has been told as well.
 - *The left-hand side* goes down from that bead to $g$, in one step in the
   first diagram and in two in the second. By [Lemma 3](#lemma-3), once Jane
   has left a bead, the bead below it has been told: so every bead of the
   left-hand side has been told, down to $g$.
 
-In detail:
-
-- If $\rho(i)$ is the white bead $\hat{w}$ (first diagram): by (b),
-  $\hat{w}\lambda \in T_i$, and $\hat{w}\lambda \neq \rho(i)$, so
-  [Lemma 3](#lemma-3) gives $g = \hat{w}\lambda D \in T_i$.
-- If $\rho(i)$ is the black bead $b$ (second diagram): a black bead is never
-  reached by an up move, so $\rho(i-1) = p$ for some $p \in \{b\mu, b\nu\}$,
-  which is white; this is the bead $by$ of the diagram.
-  By (b), $p\lambda \in T_{i-1}$. Applying [Lemma 3](#lemma-3) twice (to $p\lambda$ and
-  then to $p\lambda D$, neither of which is the current bead $p$) gives
-  $g = p\lambda DD \in T_{i-1}$.
-
-Both cases contradict $g \notin T_{i+1}$. $\quad\Box$
-
-*Used:* [Fact 1](#fact-1), [Lemma 1](#lemma-1) and [Lemma 3](#lemma-3).
+So $g$ had been told, and Jane leaves no gap. The proof, an induction on the
+number of moves, is in the [appendix](#proof-of-theorem-2).
 
 ### 8. Theorem 3: Jane's reluctant recitation tells all beads
 
@@ -1012,50 +832,19 @@ $m \leq n/2^k < m+1$ and $\log_2(1 + \frac{1}{m}) < \frac{3}{2m}$. $\quad\Box$
 > stays on beads from $135$ up, and within $0.022$ of the exact steps; from
 > move $3\,000$ on, on beads from $1\,290$ up, and within $0.0011$.
 
-*Proof of Theorem 3, by rotation.* Fix a bead $m$ and suppose that $m$ is never
-told.
-
-*Step 1: Jane never enters the cone of $m$.* By [Lemma 3](#lemma-3), once Jane has left a
-bead $n > 1$, the bead $nD$ has been told. So every bead of
-$\downarrow\!(n)$ is eventually told, for every told bead $n$. Hence no bead of
-the cone of $m$ is ever told.
-
-*Step 2: Jane drifts away (height).* Since $\rho$ is injective, for every $N$ there is a
-time $t_N$ after which all beads told are larger than $N$.
-
-*Step 3: Jane makes infinitely many up moves*, since she never halts ([Theorem
-2](#theorem-2)) and a run of down moves is finite.
-
-*Step 4: rotation, with a deadline.* Since $\log_2 3$ is irrational, so is $\alpha$, and the
-rotation of the circle by $\alpha$ is minimal: there is an integer $J$ such
-that any $J$ consecutive points $\theta_0, \theta_0 + \alpha, \ldots,
-\theta_0 + (J-1)\alpha$ of any orbit contain a point in the middle third of
-the arc $A_m$. Choose $N \ge m$ such that $2J/N < w_m/3$, and look at Jane
-after time $t_N$. Let $n_0$ be her position at some time after $t_N$ and let
-$n_j$ be her position right after her $j$-th subsequent up move. Between
-$n_{j-1}$ and $n_j$ she makes a (possibly empty) run of down moves followed by
-one up move, all the beads involved being larger than $N$. By [Lemma 5](#lemma-5),
-
-$$\theta(n_j) = \theta(n_0) + j\alpha + \delta_j, \qquad
-  |\delta_j| \leq j\Big(\frac{3}{2N} + \frac{1}{2N}\Big) = \frac{2j}{N} .$$
-
-(The same can be said without naming the $n_j$: at every time, Jane's bead
-lies in the cone of the bead $b$ that she reached by her last up move, and
-if she has made $j$ up moves since $n_0$ then
-$\theta(b) = \theta(n_0) + j\alpha + \delta_j$ with the same bound.)
-
-Pick $j < J$ such that $\theta(n_0) + j\alpha$ lies in the middle third of
-$A_m$. Since $|\delta_j| < w_m/3$, the phase $\theta(n_j)$ lies in $A_m$, and
-$n_j > N \geq m$: the told bead $n_j$ belongs to the cone of $m$. This
-contradicts Step 1. $\quad\Box$
+The proof has four steps: Jane never enters the cone of $m$; she drifts away
+(the height); she makes infinitely many up moves; and the rotation brings her
+phase into the arc within a fixed number of up moves (the deadline). They are
+written out in the [appendix](#proof-of-theorem-3-by-rotation).
 
 **Remarks.**
 
-1. This proof uses very little about the reluctant rule: it applies to *any*
+1. The proof by rotation uses very little about the reluctant rule: it applies to *any*
    injective recitation that makes infinitely many up moves and never moves up
    from a bead before the bead below it has been told.
-2. The argument is not effective because of Step 2. Section 11 makes it
-   effective.
+2. The argument is not effective, because of its second step (the height):
+   nothing says when Jane has left the small beads for good. Section 11 makes
+   it effective.
 
 #### A second proof, with integers only
 
@@ -1116,42 +905,18 @@ claim holds for $s$, Steps 1 and 2 give it for $2s$ and for $3s$.
 **Step 4: two smooth numbers in a small ratio.** *There are two smooth
 numbers $P < Q$ with $Q/P < 1 + 1/m$.*
 
-Take the $m + 1$ numbers $3^0, 3^1, \ldots, 3^m$. Divide each $3^i$ by the
-largest power of $2$ that does not exceed it, $2^{e_i}$: the quotient
-$x_i = 3^i/2^{e_i}$ lies in $[1, 2)$. Cut $[1, 2)$ into $m$ pieces of length
-$1/m$. There are $m + 1$ quotients and $m$ pieces, so two of them, $x_i$ and
-$x_j$ with $i < j$, fall in the same piece
-$\big[1 + \tfrac{v}{m},\ 1 + \tfrac{v+1}{m}\big)$.
-
-They are different: $x_i = x_j$ would mean $3^{j-i} = 2^{e_j - e_i}$, and a
-power of $3$ other than $1$ is not a power of $2$. This is the only place
-where the proof uses that fact. Say $x_i < x_j$ (otherwise exchange them).
-Then
-
-$$\frac{x_j}{x_i} \;<\; \frac{1 + \frac{v+1}{m}}{1 + \frac{v}{m}} \;=\; \frac{m + v + 1}{m + v} \;\leq\; 1 + \frac{1}{m},$$
-
-and $P = 3^i\,2^{e_j}$, $Q = 3^j\,2^{e_i}$ are two smooth numbers with
-$Q/P = x_j/x_i$.
+This is the pigeonhole principle, applied to the powers of $3$ divided by
+powers of $2$; it is the only place where the proof uses that a power of $3$
+is not a power of $2$.
 
 **Step 5: the intervals cover every large bead.** *Every bead
 $n \geq mP^P$ lies in $[ms, (m+1)s)$ for some smooth number $s$.*
 
-First, $(Q/P)^P \geq 2$: indeed $Q \geq P + 1$, and
-$(1 + 1/P)^P \geq 1 + P \cdot \frac{1}{P} = 2$.
+Indeed, steps of ratio $Q/P$ lead from one power of $2$ to the next, and
+they are short enough for one of them to land where it should.
 
-Now let $n \geq mP^P$. Doubling $mP^P$ as many times as needed, we find
-$r \geq 0$ with $mP^P\,2^r \leq n < mP^P\,2^{r+1}$. Consider the $P + 1$
-smooth numbers
-
-$$s_k = 2^r\,P^{P-k}\,Q^k \qquad (0 \leq k \leq P),$$
-
-which go from $s_0 = 2^r P^P$ to $s_P = 2^r Q^P \geq 2^{r+1} P^P$ by steps of
-ratio $Q/P$. So $m s_0 \leq n < m s_P$. Let $k$ be the largest index with
-$m s_k \leq n$; then $k < P$ and
-
-$$m s_k \;\leq\; n \;<\; m s_{k+1} \;=\; m s_k \cdot \frac{Q}{P} \;<\; m s_k \Big(1 + \frac{1}{m}\Big) \;=\; (m+1)\,s_k .$$
-
-So $n$ lies in $[m s_k, (m+1) s_k)$.
+The proofs of Steps 4 and 5, which are about smooth numbers only, are in the
+[appendix](#two-facts-about-smooth-numbers).
 
 **The end.** By Steps 3 and 5, no bead $n \geq mP^P$ is ever told. But Jane
 never halts and never tells a bead twice ([Theorem 2](#theorem-2)), so she
@@ -1454,65 +1219,8 @@ very far up has, on her way, entered many different branches of the tree, and
 each of them had to be told all the way down ([Lemma 3](#lemma-3)); with only $t$ beads
 told, there is a limit to that.
 
-The proof of (2) is the most technical passage of the paper. It can be
-skipped: nothing later depends on its details.
-
-*Proof.* (1) Sum the identities of [Lemma 5](#lemma-5) over the first $t$ moves (each down
-move being a run of length $1$):
-
-$$\log_2 \rho(t) = u(t)\,\alpha - (t - u(t)) + E_t, \qquad
-  E_t = \sum_{\text{up}} \varepsilon - \sum_{\text{down}} \varepsilon' .$$
-
-Each up move contributes less than $\frac{1}{2n}$ where $n$ is the bead it
-leaves, and each down move less than $\frac{3}{2m}$ where $m$ is the bead
-it reaches. Since $\rho$ is injective, both sums are bounded by
-$\frac{3}{2}\sum_{n=1}^{t}\frac{1}{n}$, and they have opposite signs. Finally
-$1 + \alpha = \log_2 3$.
-
-(2) Call *depth* of a bead $n$ the integer $\lfloor \log_2 n \rfloor$: a
-down move decreases the depth by exactly $1$ and an up move increases it by
-$0$ or $1$. Let $t$ be a time at which Jane is about to move up, and let $E$
-be the depth of $\rho(t)$. By [Lemma 3](#lemma-3), $T_t$ is then closed under $D$: it is a
-subtree with $t + 1$ nodes.
-
-Fix an integer $K \geq 2$ and let
-$\eta_K = \min_{1 \leq q < K} \lVert q\alpha \rVert > 0$, where
-$\lVert\cdot\rVert$ is the distance to the nearest integer. Let
-$e_K = \lceil \log_2(2K/\eta_K) \rceil$ and
-$d_K = \lceil \log_2(3/\eta_K) \rceil \le e_K$, and assume $E \geq K + e_K$. Put
-$e = E - K$ and consider the last time $s < t$ at which Jane was at depth at
-most $e$. After time $s$ she stays at depth at least $e + 1$, i.e. on beads
-$n \geq 2^{e+1}$, and she makes at least $K - 1$ further up moves before
-time $t$. Let $n_0 = \rho(s+1)$ and let $n_1, \ldots, n_{K-1}$ be her
-positions right after the next $K - 1$ up moves. As in the proof of [Theorem 3](#theorem-3),
-for $0 \le i < j < K$,
-
-$$\theta(n_j) - \theta(n_i) = (j - i)\alpha + \delta, \qquad
-  |\delta| \leq \frac{2(j-i)}{2^{e+1}} \leq \frac{\eta_K}{2},$$
-
-so the phases of $n_0, \ldots, n_{K-1}$ are pairwise at distance at least
-$\eta_K/2$ on the circle. Two beads at depth larger than $d$ whose phases
-differ by at least $2^{-d}/\ln 2$ have distinct ancestors at depth $d$ (their
-"mantissas" $n/2^{\lfloor\log_2 n\rfloor} \in [1,2)$ differ by at least
-$2^{-d}$). Hence for every $d$ with $d_K \leq d \leq e$, the beads
-$n_0, \ldots, n_{K-1}$ have $K$ distinct ancestors at depth $d$, all of which
-belong to $T_t$. Counting, $t + 1 \geq K(E - K - d_K + 1)$, that is,
-
-$$E \leq \frac{t+1}{K} + K + d_K \qquad\text{whenever } E \ge K + e_K. \tag{$\ast\ast$}$$
-
-For fixed $K$ this already gives $\limsup E/t \leq 1/K$, hence $E = o(t)$,
-using nothing but the irrationality of $\alpha$. To get the stated bound, use
-the fact that $\log_2 3$ has a finite irrationality exponent (Baker's theorem;
-see [Theorem 6](#theorem-6) below): $\eta_K \geq cK^{-\beta}$ for some constants $c, \beta > 0$,
-so $d_K, e_K = O(\log K)$, and $(\ast\ast)$ with $K = \lceil\sqrt{t}\,\rceil$
-gives $E \leq 2\sqrt{t} + O(\log t)$. Finally, at a time when Jane is not about
-to move up she is inside a run of down moves, which started just after an up
-move; and an up move increases $\log_2 n$ by at most $1$.
-
-(3) follows from (1) and (2). $\quad\Box$
-
-*Used:* [Theorem 2](#theorem-2), [Lemma 3](#lemma-3), [Lemma 5](#lemma-5), and, for the square root in (2), the
-irrationality exponent of $\log_2 3$ introduced below.
+The proof is in the [appendix](#proof-of-theorem-5). Its part (2) is the most
+technical passage of the paper, and nothing later depends on its details.
 
 The square root in (2) is certainly far from the truth: numerically
 $\rho(t)$ grows polynomially (see [Conjecture B](#conjecture-B)), in which case
@@ -1532,28 +1240,13 @@ $\lVert q\alpha \rVert \geq c\,q^{-\beta}$ for all $q \geq 1$. For every
 $0 < w < 1$, any $J = \lfloor (2/w)^{\beta}/c \rfloor$ consecutive points of an
 orbit of the rotation by $\alpha$ meet every arc of length $w$.
 
-*Proof.* Call $q \ge 1$ a *best approximation* of $\alpha$ when
-$\lVert q\alpha \rVert < \lVert k\alpha \rVert$ for all $1 \le k < q$.
-(The best approximations are the denominators $q_k$ of the convergents of
-$\alpha$; only the property is used here.)
-
-Among the denominators $k < 2/w$, let $k_0$ be one for which
-$\lVert k\alpha \rVert$ is smallest, and let $q$ be the first denominator
-with $\lVert q\alpha \rVert < \lVert k_0\alpha \rVert$. It exists by
-Dirichlet's approximation theorem, it is a best approximation, and
-$q \ge 2/w$.
-
-By the three-distance theorem [Sós58], $q$ consecutive points of an orbit
-cut the circle into arcs of at most three lengths. Because $q\alpha$ is
-closer to $0$ than every $k\alpha$ with $k < q$, only two of them occur,
-and both are at most
-$\lVert k_0\alpha \rVert + \lVert q\alpha \rVert < 2\lVert k_0\alpha \rVert$.
-By Dirichlet's theorem again, some $k < q$ has
-$\lVert k\alpha \rVert \le 1/q$, hence $\lVert k_0\alpha \rVert \le 1/q$:
-the arcs are shorter than $2/q \le w$, so $q$ consecutive points meet
-every arc of length $w$. And
-$q \le 1/\lVert k_0\alpha \rVert \leq k_0^{\beta}/c < (2/w)^{\beta}/c$.
-$\quad\Box$
+*The idea.* Take the first $q$ whose multiple $q\alpha$ comes closer to $0$
+than every $k\alpha$ with $k < 2/w$. By the three-distance theorem [Sós58],
+$q$ consecutive points of an orbit then cut the circle into arcs shorter than
+$w$, so they meet every arc of length $w$. And $q$ cannot be large: the
+multiple that it beats is at distance at least $c\,k^{-\beta}$ from $0$, with
+$k < 2/w$, and $q$ is at most the inverse of that distance. The details are
+in the [appendix](#proof-of-lemma-9).
 
 **Theorem 6.** There is a constant $\kappa$ such that for every bead $m$,
 
@@ -1574,36 +1267,7 @@ $\log_2 3$ comes in: the rotation by $\alpha$ reaches every arc of length $w$
 within a number of steps that is a power of $1/w$, because $\log_2 3$ is not
 too well approximated by fractions.
 
-*Proof.* We rerun the proof of [Theorem 3](#theorem-3) with a clock. Recall that
-$w_m \geq 1/m$. Let $J$ be given by [Lemma 9](#lemma-9) for arcs of length $w_m/3$,
-so $J \leq (6m)^{\beta}/c$, and let $N = 6Jm$, so that $2J/N \leq w_m/3$ and
-$N \ge m$.
-
-*An excursion above $N$ with $J$ up moves reaches $m$.* Suppose that from
-time $t_0$ to time $t$ Jane stays on beads larger than $N$ and makes at least
-$J$ up moves. By Step 4 of the proof of [Theorem 3](#theorem-3), at some time $t' \le t$
-the bead $b$ that she reached by her last up move is in the cone of $m$:
-$m = bD^p$. An up move at most doubles a bead, so $b \le 2^{t'}$ and
-$p \le t'$. By [Lemma 3](#lemma-3), once $b$ is told, $bD$, $bD^2$, $\ldots$ are told
-one move after the other at the latest: $m$ is told by time
-$t' + p \le 2t$.
-
-*Counting.* Let $i = \rho^{-1}(m)$ and $t = \lfloor (i-1)/2 \rfloor$, so
-that $2t < i$. By the above, no excursion above $N$ up to time $t$ contains
-$J$ up moves. Jane is on a bead $\le N$ at most $N$ times, the beads she
-tells being distinct. So her first $t + 1$ moves contain at most
-$(N+1)(J+1)$ up moves: at most $J$ in each of the at most $N + 1$
-excursions, and at most one after each visit below $N$.
-
-Finally, an up move at most doubles the bead and a down move at least
-halves it, so at any time the down moves are at most as many as the up
-moves: $t + 1 \le 2(N+1)(J+1)$. Altogether
-$\rho^{-1}(m) = i \le 2t + 2 \leq 4(N+1)(J+1) \leq 56\,J^2 m
-\leq \kappa\, m^{2\beta + 1} = \kappa\, m^{2\mu_0 - 1}$. The bound on $F$
-follows since the right-hand side is increasing in $m$. $\quad\Box$
-
-*Used:* the proof of [Theorem 3](#theorem-3), [Lemma 9](#lemma-9), and the irrationality exponent of
-$\log_2 3$.
+The proof is in the [appendix](#proof-of-theorem-6).
 
 **Which exponent?** [Theorem 6](#theorem-6) holds for every irrationality exponent
 $\mu_0$ of $\log_2 3$. Three kinds of results give one. The first two are
@@ -1698,7 +1362,7 @@ behaviors, bound the sequence above and below, find another proof that every
 square can be reached, try variants. Part I answers some of them:
 [Proposition 1](#proposition-1) for the bounds and for reachability, [Lemma 2](#lemma-2) and [Theorem 1](#theorem-1) for
 what shortest paths look like. It explains the runs only in part: see
-[Question H](#question-H) in Section 12. The reluctant
+[Question H](#question-H). The reluctant
 recitation is one of the variants; it was suggested by Neal Gersh Tolunsky.
 
 **The sequences.** The heights are [A358838](https://oeis.org/A358838) in
@@ -1743,7 +1407,7 @@ on the sidewalk beyond the puzzle page and the OEIS entries. As far as we
 know, [Theorems 1](#theorem-1) to [6](#theorem-6) are new, and [Theorem 3](#theorem-3) settles the conjecture recorded
 in A359005 and A359008.
 
-### 12. Conjectures and open questions
+### Conjectures and open questions
 
 Eight questions, in the order of the paper, except the last one, which goes
 back to Part I. For the reader who would like to
@@ -1850,6 +1514,440 @@ start at beads $50$, $75$, $113$, $170$, each one up move from the one before,
 and then the family dies. Are the streaks unbounded? Does the longest streak
 below $n$ grow like $\sqrt{n}$, as these numbers suggest?
 
+## Appendix: proofs
+
+The sketches of the main text say why each result holds. Here are the
+detailed proofs that were left out there, in the order of the paper.
+
+### Proof of Proposition 1
+
+*For [Proposition 1](#proposition-1), Section 2.*
+
+*Proof.* Let $n > 1$.
+
+- If $n$ is white, then $n = mU$ with $m = n\lambda = \lfloor 2n/3 \rfloor < n$.
+- If $n$ is black and $n \not\equiv 1 \pmod 9$, then $n = mU^2D$ with
+  $m = n\mu\lambda^2 = \lfloor 8n/9 \rfloor < n$.
+- If $n \equiv 1 \pmod 9$, then $n = mU^2D$ with
+  $m = n\nu\lambda^2 = \lceil 8n/9 \rceil < n$.
+
+In all three cases $h(n) \leq 3 + h(m)$, $m \geq \lfloor 2n/3 \rfloor$ and
+$m - 7 \leq \frac{8}{9}(n-7)$. By induction on $n$, every bead has a finite
+height.
+
+*Upper bound.* We prove a little more: for all $n \geq 8$,
+
+$$h(n) \;\leq\; 4 + 3\log_{9/8}(n-7), \qquad\text{with equality at } n = 8 .$$
+
+The induction starts from the heights of the first eleven beads, found by
+hand:
+
+| $n$ | $1$ | $2$ | $3$ | $4$ | $5$ | $6$ | $7$ | $8$ | $9$ | $10$ | $11$ |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| $h(n)$ | $0$ | $1$ | $2$ | $5$ | $3$ | $6$ | $9$ | $4$ | $7$ | $10$ | $10$ |
+
+- *Beads $8$ to $11$.* For $n = 8$ both sides are $4$. For $n = 9, 10, 11$
+  the height is at most $10$, and the right-hand side is at least
+  $4 + 3\log_{9/8} 2 \approx 21.65$.
+- *Beads from $12$ on.* Then $m \geq \lfloor 2n/3 \rfloor \geq 8$, so the
+  bound holds for $m$, and $m - 7 \leq \frac{8}{9}(n-7)$ says that
+  $\log_{9/8}(m-7) \leq \log_{9/8}(n-7) - 1$. Hence
+  $$h(n) \;\leq\; 3 + h(m) \;\leq\; 3 + 4 + 3\log_{9/8}(m-7) \;\leq\; 4 + 3\log_{9/8}(n-7) .$$
+
+The proposition follows. For $n \geq 8$, replace $n - 7$ by $n$ and
+$\log_{9/8} n$ by $\log_2 n/\log_2(9/8)$. For $2 \leq n \leq 7$ the table gives
+$h(n) \leq 9$, and the bound is at least $4 + 3\log_{9/8} 2 \approx 21.65$.
+
+*Lower bound.* Note that $nU + 1 \leq \frac{3}{2}(n+1)$ and $nD < n$, so a
+recitation of length $h$ starting at $1$ ends at a bead $n$ with
+$n + 1 \leq 2\,(3/2)^h$, that is, $\log_2(n+1) - 1 \leq h \log_2(3/2)$.
+$\quad\Box$
+
+### Proof of Lemma 1
+
+*For [Lemma 1](#lemma-1), Section 3.*
+
+*Proof.* Direct computation. If $w = 3k+2$, then $w\lambda = 2k+1$, the white
+bead is $\hat{w} = w\nu = 6k+5$ and the black bead is $b = w\mu = 6k+4$:
+
+$$
+\begin{CD}
+4k+3 @<\lambda<< \whitebead{6k+5}\\
+@VVDV @AA\nu A\\
+2k+1 @>U>> \whitebead{3k+2}
+\end{CD}
+\qquad
+\begin{CD}
+8k+5 @<\lambda<< \whitebead{12k+8}\\
+@VVDV @AA\mu A\\
+4k+2 @. \blackbead{6k+4}\\
+@VVDV @AA\mu A\\
+2k+1 @>U>> \whitebead{3k+2}
+\end{CD}
+\qquad
+\begin{CD}
+8k+6 @<\lambda<< \whitebead{12k+9}\\
+@VVDV @AA\nu A\\
+4k+3 @. \blackbead{6k+4}\\
+@VVDV @AA\mu A\\
+2k+1 @>U>> \whitebead{3k+2}
+\end{CD}
+$$
+
+If $w = 3k$, then $w\lambda = 2k$, the white bead is $\hat{w} = w\mu = 6k$
+and the black bead is $b = w\nu = 6k+1$:
+
+$$
+\begin{CD}
+4k @<\lambda<< \whitebead{6k}\\
+@VVDV @AA\mu A\\
+2k @>U>> \whitebead{3k}
+\end{CD}
+\qquad
+\begin{CD}
+8k+1 @<\lambda<< \whitebead{12k+2}\\
+@VVDV @AA\mu A\\
+4k @. \blackbead{6k+1}\\
+@VVDV @AA\nu A\\
+2k @>U>> \whitebead{3k}
+\end{CD}
+\qquad
+\begin{CD}
+8k+2 @<\lambda<< \whitebead{12k+3}\\
+@VVDV @AA\nu A\\
+4k+1 @. \blackbead{6k+1}\\
+@VVDV @AA\nu A\\
+2k @>U>> \whitebead{3k}
+\end{CD}
+$$
+
+Each arrow of these six diagrams is one line of arithmetic; in the first one,
+for instance, $(6k+5)\lambda = \lfloor (12k+10)/3 \rfloor = 4k+3$ and
+$(4k+3)D = 2k+1$. In all six the loop closes: the left-hand side comes down
+onto the very bead, $w\lambda$, from which the bottom arrow leads up to $w$.
+This is statement 1 for the small diagrams and statement 2 for the tall
+ones. $\quad\Box$
+
+### Proof of Theorem 1
+
+*For [Theorem 1](#theorem-1), Section 5.*
+
+*Proof.* With the notation and the sketch of Section 5, there are three steps.
+
+**Step 1: the two chains.** *For $0 \leq i \leq e+1$ the beads $a_i$ and $b_i$
+are defined, and*
+
+$$b_i = 2^i\,3^{e+1-i}\,q, \qquad a_i = b_i - 1 .$$
+
+*For $i \leq e$ both are white. Of the last two, $a = 2^{e+1}q - 1$ and
+$b = 2^{e+1}q$, exactly one is black: $b$ if $2^{e+1}q \equiv 1 \pmod 3$,
+and $a$ if $2^{e+1}q \equiv 2 \pmod 3$.*
+
+Indeed $a_0 = 6\boldsymbol{n}-4$ and $b_0 = 6\boldsymbol{n}-3$. For
+$i \leq e$, $b_i = 2^i 3^{e+1-i} q$ is divisible by $3$, so
+$b_i \equiv 0$ and $a_i \equiv 2 \pmod 3$: both are white, and one checks
+$b_i\lambda = \frac{2}{3}b_i = b_{i+1}$ and
+$a_i\lambda = \lfloor \frac{2}{3}(b_i - 1) \rfloor = b_{i+1} - 1 = a_{i+1}$.
+Finally $b_{e+1} = 2^{e+1}q$ is not
+divisible by $3$: if it is $\equiv 1$ then $b_{e+1}$ is black and
+$a_{e+1} \equiv 0$ is white, and if it is $\equiv 2$ then $b_{e+1}$ is white
+and $a_{e+1} \equiv 1$ is black.
+
+The candidate whose chain has just reached a black bead has lambda exponent
+$e+1$, and that bead is its seed; the other candidate has a larger lambda
+exponent. By the rule, the first one is the loser and the second one the
+winner: this is the first and the last claim of part 2.
+
+**Step 2: the seeds.** The loser's seed is the black bead
+$s \in \{a, b\}$, and
+$s \geq 4$ (indeed $s = 1$ would mean $b = 2$, which forces $\boldsymbol{n} = \mathbf{1}$).
+The winner's seed is at
+most $(s \pm 1)\lambda \leq \frac{2}{3}(s+1) < s$. This is the rest of
+part 2.
+
+**Step 3: the heights (parts 3 and 1).** For $1 \le i \le e+1$ we have
+$d_i = b_i/2$ and $c_i = d_i - 1$. The same computation as in Step 1 gives
+$c_i = (\boldsymbol{n}^\bullet-1)\lambda^i$ and $d_i = (\boldsymbol{n}^\bullet+1)\lambda^i$, with $c_i$ and $d_i$ white
+for $i \leq e$.
+So the two ladders drawn above commute. Every bead from which a $\lambda$
+arrow starts is white, so by [Lemma 2](#lemma-2) it
+is one higher than the bead the arrow points to. Reading the rows from right
+to left, and using [Corollary 1](#corollary-1) for the step down to $\boldsymbol{n}^\bullet$,
+
+$$h(\boldsymbol{n}^\bullet) = \min\big(h(a), h(b)\big) + e + 2, \qquad
+  h(\boldsymbol{n}^\bullet-1) = h(c) + e + 1, \qquad h(\boldsymbol{n}^\bullet+1) = h(d) + e + 1. \tag{$\ast$}$$
+
+Modulo $3$ there are only two configurations:
+
+| | $a$ | $b = a+1$ | $c = aD$ | $d = bD = c+1$ |
+|---|---|---|---|---|
+| $\mu$ wins | white | **black** | **black** | white |
+| $\nu$ wins | **black** | white | white | **black** |
+
+We prove parts 3 and 1 by induction on $h(\boldsymbol{n}^\bullet)$. The bead $\mathbf{2}^\bullet = 4$ is
+checked directly ($h(3) = 2$, $h(4) = 5$, $h(5) = 3$, and
+$1\,U^4 D = 4$ with $\sigma(4\mu) = \sigma(8) = 1$). It is the only case in
+which $c = 1$, so from now on $c > 1$.
+
+*Case "$\mu$ wins".* If we had $h(b) < h(a)$, then by $(\ast)$
+$h(b) < h(\boldsymbol{n}^\bullet)$, and the induction hypothesis (part 3) applied to the black bead
+$b$ would give $h(b) \geq h(b-1) = h(a)$, a contradiction. Hence
+$h(\boldsymbol{n}^\bullet) = h(a) + e + 2$, and since $a = \sigma(\boldsymbol{n}^\bullet\mu)U^{\Lambda(\boldsymbol{n}^\bullet\mu)-e-1}$,
+[Lemma 2](#lemma-2) gives part 1. Next, $c = aD$ yields
+$h(\boldsymbol{n}^\bullet-1) = h(c) + e + 1 \leq h(a) + e + 2 = h(\boldsymbol{n}^\bullet)$. Finally $c$ is black with
+$h(c) \leq h(a) + 1 < h(\boldsymbol{n}^\bullet)$, so by induction $h(d) = h(c+1) \leq h(c)$ and
+$h(\boldsymbol{n}^\bullet+1) = h(d) + e + 1 \leq h(\boldsymbol{n}^\bullet)$.
+
+*Case "$\nu$ wins".* Symmetric: if $h(a) < h(b)$, the induction hypothesis on
+the black bead $a$ gives $h(a) \geq h(a+1) = h(b)$, a contradiction; hence
+$h(\boldsymbol{n}^\bullet) = h(b) + e + 2$, which gives part 1. Then $d = bD$ yields
+$h(\boldsymbol{n}^\bullet+1) \leq h(\boldsymbol{n}^\bullet)$, and $d$ is black with $h(d) < h(\boldsymbol{n}^\bullet)$, so
+$h(c) = h(d-1) \leq h(d)$ and $h(\boldsymbol{n}^\bullet-1) \leq h(\boldsymbol{n}^\bullet)$. $\quad\Box$
+
+*Used:* [Lemma 2](#lemma-2) and [Corollary 1](#corollary-1).
+
+### Proof of Theorem 2
+
+*For [Theorem 2](#theorem-2), Section 7.*
+
+*Proof.* By induction on $i$ we prove: (a) $\rho(0), \ldots, \rho(i)$ are
+defined and distinct; (b) the no-gap property holds at all times $j \leq i$.
+Both are clear for $i = 0$.
+
+*Jane can move at time $i$.* Let $n = \rho(i)$. If $n > 1$ and
+$nD \notin T_i$, she moves down to a new bead. Otherwise she wants to move up
+to $nU$, and we must show $nU \notin T_i$. If $nU = \rho(j)$ for some
+$j \le i$, then $j < i$ and, $nU$ being white, (b) at time $j$ gives
+$n = nU\lambda \in T_j$, contradicting (a). So (a) holds at time $i+1$.
+
+*No gap at time $i+1$.* Let $w = \rho(i+1)$ be white and suppose
+$g = w\lambda \notin T_{i+1}$. The last move was not an up move (it would have
+come from $g$), so $\rho(i) \in \{w\mu, w\nu\}$: Jane has just come down onto $w$. With the two
+diagrams of Section 7 and their three reasons:
+
+- If $\rho(i)$ is the white bead $\hat{w}$ (first diagram): by (b),
+  $\hat{w}\lambda \in T_i$, and $\hat{w}\lambda \neq \rho(i)$, so
+  [Lemma 3](#lemma-3) gives $g = \hat{w}\lambda D \in T_i$.
+- If $\rho(i)$ is the black bead $b$ (second diagram): a black bead is never
+  reached by an up move, so $\rho(i-1) = p$ for some $p \in \{b\mu, b\nu\}$,
+  which is white; this is the bead $by$ of the diagram.
+  By (b), $p\lambda \in T_{i-1}$. Applying [Lemma 3](#lemma-3) twice (to $p\lambda$ and
+  then to $p\lambda D$, neither of which is the current bead $p$) gives
+  $g = p\lambda DD \in T_{i-1}$.
+
+Both cases contradict $g \notin T_{i+1}$. $\quad\Box$
+
+*Used:* [Fact 1](#fact-1), [Lemma 1](#lemma-1) and [Lemma 3](#lemma-3).
+
+### Proof of Theorem 3, by rotation
+
+*For [Theorem 3](#theorem-3), Section 8.*
+
+*Proof of Theorem 3, by rotation.* Fix a bead $m$ and suppose that $m$ is never
+told.
+
+*Step 1: Jane never enters the cone of $m$.* By [Lemma 3](#lemma-3), once Jane has left a
+bead $n > 1$, the bead $nD$ has been told. So every bead of
+$\downarrow\!(n)$ is eventually told, for every told bead $n$. Hence no bead of
+the cone of $m$ is ever told.
+
+*Step 2: Jane drifts away (height).* Since $\rho$ is injective, for every $N$ there is a
+time $t_N$ after which all beads told are larger than $N$.
+
+*Step 3: Jane makes infinitely many up moves*, since she never halts ([Theorem
+2](#theorem-2)) and a run of down moves is finite.
+
+*Step 4: rotation, with a deadline.* Since $\log_2 3$ is irrational, so is $\alpha$, and the
+rotation of the circle by $\alpha$ is minimal: there is an integer $J$ such
+that any $J$ consecutive points $\theta_0, \theta_0 + \alpha, \ldots,
+\theta_0 + (J-1)\alpha$ of any orbit contain a point in the middle third of
+the arc $A_m$. Choose $N \ge m$ such that $2J/N < w_m/3$, and look at Jane
+after time $t_N$. Let $n_0$ be her position at some time after $t_N$ and let
+$n_j$ be her position right after her $j$-th subsequent up move. Between
+$n_{j-1}$ and $n_j$ she makes a (possibly empty) run of down moves followed by
+one up move, all the beads involved being larger than $N$. By [Lemma 5](#lemma-5),
+
+$$\theta(n_j) = \theta(n_0) + j\alpha + \delta_j, \qquad
+  |\delta_j| \leq j\Big(\frac{3}{2N} + \frac{1}{2N}\Big) = \frac{2j}{N} .$$
+
+(The same can be said without naming the $n_j$: at every time, Jane's bead
+lies in the cone of the bead $b$ that she reached by her last up move, and
+if she has made $j$ up moves since $n_0$ then
+$\theta(b) = \theta(n_0) + j\alpha + \delta_j$ with the same bound.)
+
+Pick $j < J$ such that $\theta(n_0) + j\alpha$ lies in the middle third of
+$A_m$. Since $|\delta_j| < w_m/3$, the phase $\theta(n_j)$ lies in $A_m$, and
+$n_j > N \geq m$: the told bead $n_j$ belongs to the cone of $m$. This
+contradicts Step 1. $\quad\Box$
+
+### Two facts about smooth numbers
+
+*For the [second proof](#a-second-proof-with-integers-only) of [Theorem 3](#theorem-3), Section 8.*
+
+A number is *smooth* if it is of the form $2^e 3^j$, and $m \geq 1$ is an integer.
+
+**Step 4.** *There are two smooth numbers $P < Q$ with $Q/P < 1 + 1/m$.*
+
+*Proof.* Take the $m + 1$ numbers $3^0, 3^1, \ldots, 3^m$. Divide each $3^i$ by the
+largest power of $2$ that does not exceed it, $2^{e_i}$: the quotient
+$x_i = 3^i/2^{e_i}$ lies in $[1, 2)$. Cut $[1, 2)$ into $m$ pieces of length
+$1/m$. There are $m + 1$ quotients and $m$ pieces, so two of them, $x_i$ and
+$x_j$ with $i < j$, fall in the same piece
+$\big[1 + \tfrac{v}{m},\ 1 + \tfrac{v+1}{m}\big)$.
+
+They are different: $x_i = x_j$ would mean $3^{j-i} = 2^{e_j - e_i}$, and a
+power of $3$ other than $1$ is not a power of $2$. This is the only place
+where the proof uses that fact. Say $x_i < x_j$ (otherwise exchange them).
+Then
+
+$$\frac{x_j}{x_i} \;<\; \frac{1 + \frac{v+1}{m}}{1 + \frac{v}{m}} \;=\; \frac{m + v + 1}{m + v} \;\leq\; 1 + \frac{1}{m},$$
+
+and $P = 3^i\,2^{e_j}$, $Q = 3^j\,2^{e_i}$ are two smooth numbers with
+$Q/P = x_j/x_i$. $\quad\Box$
+
+**Step 5.** *With such $P$ and $Q$, every integer $n \geq mP^P$ lies in
+$[ms, (m+1)s)$ for some smooth number $s$.*
+
+*Proof.* First, $(Q/P)^P \geq 2$: indeed $Q \geq P + 1$, and
+$(1 + 1/P)^P \geq 1 + P \cdot \frac{1}{P} = 2$.
+
+Now let $n \geq mP^P$. Doubling $mP^P$ as many times as needed, we find
+$r \geq 0$ with $mP^P\,2^r \leq n < mP^P\,2^{r+1}$. Consider the $P + 1$
+smooth numbers
+
+$$s_k = 2^r\,P^{P-k}\,Q^k \qquad (0 \leq k \leq P),$$
+
+which go from $s_0 = 2^r P^P$ to $s_P = 2^r Q^P \geq 2^{r+1} P^P$ by steps of
+ratio $Q/P$. So $m s_0 \leq n < m s_P$. Let $k$ be the largest index with
+$m s_k \leq n$; then $k < P$ and
+
+$$m s_k \;\leq\; n \;<\; m s_{k+1} \;=\; m s_k \cdot \frac{Q}{P} \;<\; m s_k \Big(1 + \frac{1}{m}\Big) \;=\; (m+1)\,s_k .$$
+
+So $n$ lies in $[m s_k, (m+1) s_k)$. $\quad\Box$
+
+### Proof of Theorem 5
+
+*For [Theorem 5](#theorem-5), Section 11.*
+
+*Proof.* (1) Sum the identities of [Lemma 5](#lemma-5) over the first $t$ moves (each down
+move being a run of length $1$):
+
+$$\log_2 \rho(t) = u(t)\,\alpha - (t - u(t)) + E_t, \qquad
+  E_t = \sum_{\text{up}} \varepsilon - \sum_{\text{down}} \varepsilon' .$$
+
+Each up move contributes less than $\frac{1}{2n}$ where $n$ is the bead it
+leaves, and each down move less than $\frac{3}{2m}$ where $m$ is the bead
+it reaches. Since $\rho$ is injective, both sums are bounded by
+$\frac{3}{2}\sum_{n=1}^{t}\frac{1}{n}$, and they have opposite signs. Finally
+$1 + \alpha = \log_2 3$.
+
+(2) Call *depth* of a bead $n$ the integer $\lfloor \log_2 n \rfloor$: a
+down move decreases the depth by exactly $1$ and an up move increases it by
+$0$ or $1$. Let $t$ be a time at which Jane is about to move up, and let $E$
+be the depth of $\rho(t)$. By [Lemma 3](#lemma-3), $T_t$ is then closed under $D$: it is a
+subtree with $t + 1$ nodes.
+
+Fix an integer $K \geq 2$ and let
+$\eta_K = \min_{1 \leq q < K} \lVert q\alpha \rVert > 0$, where
+$\lVert\cdot\rVert$ is the distance to the nearest integer. Let
+$e_K = \lceil \log_2(2K/\eta_K) \rceil$ and
+$d_K = \lceil \log_2(3/\eta_K) \rceil \le e_K$, and assume $E \geq K + e_K$. Put
+$e = E - K$ and consider the last time $s < t$ at which Jane was at depth at
+most $e$. After time $s$ she stays at depth at least $e + 1$, i.e. on beads
+$n \geq 2^{e+1}$, and she makes at least $K - 1$ further up moves before
+time $t$. Let $n_0 = \rho(s+1)$ and let $n_1, \ldots, n_{K-1}$ be her
+positions right after the next $K - 1$ up moves. As in the proof of [Theorem 3](#theorem-3),
+for $0 \le i < j < K$,
+
+$$\theta(n_j) - \theta(n_i) = (j - i)\alpha + \delta, \qquad
+  |\delta| \leq \frac{2(j-i)}{2^{e+1}} \leq \frac{\eta_K}{2},$$
+
+so the phases of $n_0, \ldots, n_{K-1}$ are pairwise at distance at least
+$\eta_K/2$ on the circle. Two beads at depth larger than $d$ whose phases
+differ by at least $2^{-d}/\ln 2$ have distinct ancestors at depth $d$ (their
+"mantissas" $n/2^{\lfloor\log_2 n\rfloor} \in [1,2)$ differ by at least
+$2^{-d}$). Hence for every $d$ with $d_K \leq d \leq e$, the beads
+$n_0, \ldots, n_{K-1}$ have $K$ distinct ancestors at depth $d$, all of which
+belong to $T_t$. Counting, $t + 1 \geq K(E - K - d_K + 1)$, that is,
+
+$$E \leq \frac{t+1}{K} + K + d_K \qquad\text{whenever } E \ge K + e_K. \tag{$\ast\ast$}$$
+
+For fixed $K$ this already gives $\limsup E/t \leq 1/K$, hence $E = o(t)$,
+using nothing but the irrationality of $\alpha$. To get the stated bound, use
+the fact that $\log_2 3$ has a finite irrationality exponent (Baker's theorem;
+see [Theorem 6](#theorem-6) below): $\eta_K \geq cK^{-\beta}$ for some constants $c, \beta > 0$,
+so $d_K, e_K = O(\log K)$, and $(\ast\ast)$ with $K = \lceil\sqrt{t}\,\rceil$
+gives $E \leq 2\sqrt{t} + O(\log t)$. Finally, at a time when Jane is not about
+to move up she is inside a run of down moves, which started just after an up
+move; and an up move increases $\log_2 n$ by at most $1$.
+
+(3) follows from (1) and (2). $\quad\Box$
+
+*Used:* [Theorem 2](#theorem-2), [Lemma 3](#lemma-3), [Lemma 5](#lemma-5), and, for the square root in (2), the
+irrationality exponent of $\log_2 3$ introduced below.
+
+### Proof of Lemma 9
+
+*For [Lemma 9](#lemma-9), Section 11.*
+
+*Proof.* Call $q \ge 1$ a *best approximation* of $\alpha$ when
+$\lVert q\alpha \rVert < \lVert k\alpha \rVert$ for all $1 \le k < q$.
+(The best approximations are the denominators $q_k$ of the convergents of
+$\alpha$; only the property is used here.)
+
+Among the denominators $k < 2/w$, let $k_0$ be one for which
+$\lVert k\alpha \rVert$ is smallest, and let $q$ be the first denominator
+with $\lVert q\alpha \rVert < \lVert k_0\alpha \rVert$. It exists by
+Dirichlet's approximation theorem, it is a best approximation, and
+$q \ge 2/w$.
+
+By the three-distance theorem [Sós58], $q$ consecutive points of an orbit
+cut the circle into arcs of at most three lengths. Because $q\alpha$ is
+closer to $0$ than every $k\alpha$ with $k < q$, only two of them occur,
+and both are at most
+$\lVert k_0\alpha \rVert + \lVert q\alpha \rVert < 2\lVert k_0\alpha \rVert$.
+By Dirichlet's theorem again, some $k < q$ has
+$\lVert k\alpha \rVert \le 1/q$, hence $\lVert k_0\alpha \rVert \le 1/q$:
+the arcs are shorter than $2/q \le w$, so $q$ consecutive points meet
+every arc of length $w$. And
+$q \le 1/\lVert k_0\alpha \rVert \leq k_0^{\beta}/c < (2/w)^{\beta}/c$.
+$\quad\Box$
+
+### Proof of Theorem 6
+
+*For [Theorem 6](#theorem-6), Section 11.*
+
+*Proof.* We rerun the proof of [Theorem 3](#theorem-3) with a clock. Recall that
+$w_m \geq 1/m$. Let $J$ be given by [Lemma 9](#lemma-9) for arcs of length $w_m/3$,
+so $J \leq (6m)^{\beta}/c$, and let $N = 6Jm$, so that $2J/N \leq w_m/3$ and
+$N \ge m$.
+
+*An excursion above $N$ with $J$ up moves reaches $m$.* Suppose that from
+time $t_0$ to time $t$ Jane stays on beads larger than $N$ and makes at least
+$J$ up moves. By Step 4 of the proof of [Theorem 3](#theorem-3), at some time $t' \le t$
+the bead $b$ that she reached by her last up move is in the cone of $m$:
+$m = bD^p$. An up move at most doubles a bead, so $b \le 2^{t'}$ and
+$p \le t'$. By [Lemma 3](#lemma-3), once $b$ is told, $bD$, $bD^2$, $\ldots$ are told
+one move after the other at the latest: $m$ is told by time
+$t' + p \le 2t$.
+
+*Counting.* Let $i = \rho^{-1}(m)$ and $t = \lfloor (i-1)/2 \rfloor$, so
+that $2t < i$. By the above, no excursion above $N$ up to time $t$ contains
+$J$ up moves. Jane is on a bead $\le N$ at most $N$ times, the beads she
+tells being distinct. So her first $t + 1$ moves contain at most
+$(N+1)(J+1)$ up moves: at most $J$ in each of the at most $N + 1$
+excursions, and at most one after each visit below $N$.
+
+Finally, an up move at most doubles the bead and a down move at least
+halves it, so at any time the down moves are at most as many as the up
+moves: $t + 1 \le 2(N+1)(J+1)$. Altogether
+$\rho^{-1}(m) = i \le 2t + 2 \leq 4(N+1)(J+1) \leq 56\,J^2 m
+\leq \kappa\, m^{2\beta + 1} = \kappa\, m^{2\mu_0 - 1}$. The bound on $F$
+follows since the right-hand side is increasing in $m$. $\quad\Box$
+
+*Used:* the proof of [Theorem 3](#theorem-3), [Lemma 9](#lemma-9), and the irrationality exponent of
+$\log_2 3$.
+
 ## Checked by computer
 
 The proofs above stand on their own. Still, whatever could be tested was
@@ -1870,7 +1968,7 @@ one command runs all but the long one.
 | The four programs printed in this paper | against the programs above | `check_paper_code.py` |
 | The examples and the numbers quoted in the text | each one | the programs above |
 | Counting the beads from $1$ changed nothing but the numbers (see the history) | $200\,000$ beads, $300\,000$ moves | `check_renumbering.py` |
-| The numbers quoted with the open questions | see Section 12 | `walk.c`, `height_statistics.py` |
+| The numbers quoted with the open questions | see [the open questions](#conjectures-and-open-questions) | `walk.c`, `height_statistics.py` |
 
 [Theorems 4](#theorem-4) and [6](#theorem-6) and the corollaries of [Theorem 4](#theorem-4) are statements about
 infinitely many beads at once, and were not tested as such. One caution about
@@ -1919,7 +2017,7 @@ checks them all.
 | [Corollary 3](#corollary-3): the foraging sequence takes every value infinitely often | `corollary3` |
 
 With this, every theorem, lemma, proposition and corollary of the paper
-is checked in this way. The conjectures and questions of Section 12 are
+is checked in this way. The conjectures and [the open questions](#conjectures-and-open-questions) are
 not: they have no proof to check.
 
 The Lean files are in three directories. The first,

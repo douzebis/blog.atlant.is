@@ -59,8 +59,8 @@ REWORDINGS = [
         "reached from bead $1$. This paper is about two finer questions.",
     ),
     (
-        "**And what is still open.** Plenty; Section 12 has eight questions. A\nfavorite: in the",
-        "**What is still open.** Section 12 has eight questions. For instance: in the",
+        "**And what is still open.** Plenty; the last section has eight questions. A\nfavorite: in the",
+        "**What is still open.** The last section of the coda has eight questions. For instance: in the",
     ),
     (
         "is the easiest to state and the most teasing: is a certain",
