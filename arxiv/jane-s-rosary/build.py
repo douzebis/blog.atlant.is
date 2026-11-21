@@ -87,7 +87,8 @@ KEPT_EPIGRAPH = "Bartleby"
 
 TEASER = (
     "![](images/reluctant-jane-1024x422.png)\n\n"
-    "> Reluctant Jane at work (a detail of Figure 8).\n\n"
+    "> Reluctant Jane at work (a detail of a figure of the first version of this "
+    "paper, in which the beads were counted from $0$).\n\n"
 )
 
 HEADER = r"""

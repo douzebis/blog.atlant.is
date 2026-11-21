@@ -47,6 +47,8 @@
         // P.columns   ['lambex']: write the lambda exponent under each column
         // P.color     ['none', 'position', 'label', 'height', 'reluctant_inv']
         // P.arrows     ['no', 'yes', 'labelled']
+        // P.hide       ['untold']: with a count of moves in P.n, the beads that
+        //              are not told yet are not drawn
         // P.ink        ['down']: with ordering=reluctant, the up moves are
         //              drawn in one plain color and only the down moves
         //              are colored, in the order of the moves
@@ -199,6 +201,10 @@
 
             static nodes(x, y) {
                 let node_id = this.lambexes*x + y
+                if (P.hide == 'untold' && this.n != 0
+                        && this.reluctant_invs[node_id] >= this.n) {
+                    return []
+                }
                 return [{
                     id: '' + node_id,
                     shape: 'circle',

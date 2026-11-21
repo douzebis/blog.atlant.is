@@ -33,7 +33,7 @@ categories:
 
 ![](images/reluctant-jane-1024x422.png)
 
-> Reluctant Jane at work (a detail of Figure 8).
+> Reluctant Jane at work (a detail of a figure of the first version of this paper, in which the beads were counted from $0$).
 
 Jane owns a special rosary. It has a single end and is made of infinitely many
 black and white beads. Starting from the end, the beads are numbered
@@ -823,9 +823,9 @@ except possibly for the path Jane is currently descending.
 is injective, and it never creates a gap in an up-chain: for every $i$ and
 every white bead $w \in T_i$, we have $w\lambda \in T_i$.
 
-[![Figure 9](images/figure-09.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=31&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes&first=1)
+[![Figure 9](images/figure-09.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=32&width=9&height=9&ordering=reluctant&label=position&color=none&ink=down&hide=untold&arrows=labelled&interactive=yes&first=1)
 
-> Figure 9: the same after $31$ moves. The beads told so far, in color, fill every row from the left without leaving a hole: this is the no-gap property of [Theorem 2](#theorem-2) ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=31&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes&first=1)).
+> Figure 9: the beads told after $31$ moves, that is, the set $T_{31}$, drawn as in Figure 8. They fill every row from the left without leaving a hole: this is the no-gap property of [Theorem 2](#theorem-2) ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=32&width=9&height=9&ordering=reluctant&label=position&color=none&ink=down&hide=untold&arrows=labelled&interactive=yes&first=1)).
 
 *The idea.* Jane is stuck if the bead below her and the bead above her have
 both been told. Suppose she stands on $n$, wants to go up, and finds $nU$

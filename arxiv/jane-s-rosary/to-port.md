@@ -263,10 +263,13 @@ These reach the paper by a rebuild; to look at in the PDF.
       t_0.
 - [ ] Figure 8 is redrawn: black and white beads, up moves as gray
       horizontal arrows, down moves as curved arrows colored in the
-      order of the moves. Figure 9 ("the same after 31 moves") still has
-      colored beads, and the picture at the top of the page ("a detail
-      of Figure 8") is still a crop of the old colored figure: both are
-      to be brought in line or their captions changed.
+      order of the moves. Figure 9 is drawn the same way and shows only
+      the beads told after 31 moves (the set T_31). The picture at the
+      top of the page keeps its old look; its caption now says that it
+      comes from the first version of the paper (the paper build removes
+      that picture, and the sentence it looks for follows).
+- [ ] When the figures are renumbered, nothing refers to "a detail of
+      Figure 8" any more.
 
 ## To do later, on the page's side (decided 2026-11-21, not started)
 

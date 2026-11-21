@@ -18,7 +18,7 @@ Used by the paper, with `janestreet.js`:
 | Page | Shows | Parameters |
 |---|---|---|
 | `rosary.html` | the rosary as a row of beads | `n`, `labels`, `arrows`, `below`, `end`, `string`, `colors`, `interactive` |
-| `deconstructed.html` | the rosary as a grid, one up-chain per row | `n`, `width`, `height`, `ordering`, `label`, `color`, `arrows`, `below`, `columns`, `ink`, `interactive` |
+| `deconstructed.html` | the rosary as a grid, one up-chain per row | `n`, `width`, `height`, `ordering`, `label`, `color`, `arrows`, `below`, `columns`, `ink`, `hide`, `interactive` |
 | `height-plot.html` | plot of the heights of beads | `n` |
 | `irrational-log2-3.html` | multiples of log2(3) on the circle | `n`, `interactive` |
 | `onyx-ordering.html` | the tree of the onyx ordering | `n`, `interactive` |
