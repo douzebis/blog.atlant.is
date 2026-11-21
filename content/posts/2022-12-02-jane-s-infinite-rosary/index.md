@@ -644,11 +644,22 @@ every $i \geq 1$. There is no arrow under $a_0$ and $b_0$: one down move from
 either of them leads to $\boldsymbol{n}^\bullet$ itself, which sits between $\boldsymbol{n}^\bullet - 1$ and $\boldsymbol{n}^\bullet + 1$.
 
 So the height of $\boldsymbol{n}^\bullet - 1$ is read off $c$, and that of $\boldsymbol{n}^\bullet + 1$ off $d$, just
-as the height of $\boldsymbol{n}^\bullet$ is read off $a$ and $b$. And $c$ and $d$ are one down
-move from $a$ and $b$, so each is at most one higher. This is what gives
-$h(\boldsymbol{n}^\bullet - 1) \leq h(\boldsymbol{n}^\bullet)$ and $h(\boldsymbol{n}^\bullet + 1) \leq h(\boldsymbol{n}^\bullet)$, with one more use of the
-induction: like $a$ and $b$, the beads $c$ and $d$ are neighbors and exactly
-one of them is black.
+as the height of $\boldsymbol{n}^\bullet$ is read off $a$ (we are still in the case where $\mu$
+wins). It remains to compare them.
+
+- *The neighbor $\boldsymbol{n}^\bullet - 1$ comes for free.* The bead $c$ is one down move from
+  $a$, so $h(c) \leq h(a) + 1$, and this gives $h(\boldsymbol{n}^\bullet - 1) \leq h(\boldsymbol{n}^\bullet)$.
+- *The neighbor $\boldsymbol{n}^\bullet + 1$ needs the induction once more.* The bead $d$ is one
+  down move from $b$, not from $a$, and $b$ may be much higher than $a$: this
+  says nothing. But $d$ is the right-hand neighbor of $c$, and $c$ is black.
+  (Indeed $b = 2d$, neither is a multiple of $3$, and doubling exchanges the
+  remainders $1$ and $2$ modulo $3$: since $b \equiv 1$, we get $d \equiv 2$
+  and $c = d - 1 \equiv 1$.) So part 3, known for the smaller black bead $c$,
+  says that $d$ is not higher than $c$: $h(d) \leq h(c) \leq h(a) + 1$, and
+  this gives $h(\boldsymbol{n}^\bullet + 1) \leq h(\boldsymbol{n}^\bullet)$.
+
+When $\nu$ wins, $a$ and $b$ exchange their roles, and so do $c$ and $d$: then
+$a$ and $d$ are the black ones.
 
 **Step 1: the two chains.** *For $0 \leq i \leq e+1$ the beads $a_i$ and $b_i$
 are defined, and*
