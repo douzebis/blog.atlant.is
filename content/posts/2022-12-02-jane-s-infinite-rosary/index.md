@@ -539,37 +539,67 @@ $\sigma(\boldsymbol{n}^\bullet - 1) \leq 2\boldsymbol{n}-2$ and $\sigma(\boldsym
 
 A minimal recitation can be built backwards, and only black beads leave a
 choice. At a white bead there is nothing to decide: by [Lemma 2](#lemma-2) one goes back
-by $\lambda$. At a black bead $b$ one must come from one of the two beads
-above it, $b\mu$ or $b\nu$ ([Corollary 1](#corollary-1)), and the question is which.
+by $\lambda$. At a black bead $\boldsymbol{n}^\bullet$ one must come from one of the
+two beads above it, $\boldsymbol{n}^\bullet\mu$ or $\boldsymbol{n}^\bullet\nu$
+([Corollary 1](#corollary-1)), and the question is which.
 
-**The answer in one sentence.** *Of the two candidates $b\mu$ and $b\nu$,
-take the one with the larger lambda exponent*, that is, the one whose
-up-chain goes further back before it meets its seed. The two lambda exponents
-are never equal, so the rule always decides, and a look at the base-3
-expansion of one number tells which candidate wins without following the
-chains. Applied at every black bead on the way, the rule gives a minimal
-recitation to any bead, and its length.
+**The answer in one sentence.** *Of the two candidates
+$\boldsymbol{n}^\bullet\mu$ and $\boldsymbol{n}^\bullet\nu$, take the one with the
+larger lambda exponent*, that is, the one whose up-chain goes further back
+before it meets its seed. The two lambda exponents are never equal, so the
+rule always decides. Applied at every black bead on the way, it gives a
+minimal recitation to any bead, and its length.
 
-[Theorem 1](#theorem-1) says this with the bookkeeping that its proof needs. Parts 1 to 3
-compute the two lambda exponents and name the winner; part 5 is the rule;
-part 4 compares the height of a black bead with those of its two neighbors,
-which is what makes the induction work.
+**Where the number $2\boldsymbol{n}-1$ comes from.** The two candidates are
+neighbors, and one of them is a multiple of $3$:
 
-Let $\boldsymbol{n}^\bullet > 1$ be a black bead. Write
+$$\boldsymbol{n}^\bullet = 3\boldsymbol{n} - 2, \qquad
+  \boldsymbol{n}^\bullet\mu = 6\boldsymbol{n} - 4, \qquad
+  \boldsymbol{n}^\bullet\nu = 6\boldsymbol{n} - 3 = 3\,(2\boldsymbol{n} - 1).$$
 
-$$2\boldsymbol{n} - 1 = 3^e q \quad\text{with } 3 \nmid q, \qquad\text{and}\qquad
-  b_i = \Big(\frac{2}{3}\Big)^i (6\boldsymbol{n}-3) = 2^i\,3^{e+1-i}\,q, \quad a_i = b_i - 1
-  \qquad (0 \leq i \leq e+1).$$
+Going back by $\lambda$ multiplies a multiple of $3$ by $2/3$, so it removes
+one factor $3$ at each step. The number of factors $3$ in
+$\boldsymbol{n}^\bullet\nu$ therefore says how long the two candidates can be
+followed back side by side before one of them meets its seed, and this is
+what decides. Hence the exponent $e$ below.
 
-**Theorem 1.** With these notations:
+[Theorem 1](#theorem-1) says this with the bookkeeping that its proof needs. Part 1
+follows the two candidates back along their up-chains; part 2 says where the
+chains part and names the winner; part 3 restates it with seeds; part 5 is
+the rule; part 4 compares the height of a black bead with those of its two
+neighbors, which is what makes the induction work.
 
-1. $a_0 = \boldsymbol{n}^\bullet\mu$, $b_0 = \boldsymbol{n}^\bullet\nu$, and $a_i = \boldsymbol{n}^\bullet\mu\lambda^i$,
-   $b_i = \boldsymbol{n}^\bullet\nu\lambda^i$ for all $i \leq e+1$. For $i \leq e$ both $a_i$ and
-   $b_i$ are white; exactly one of $a_{e+1}$, $b_{e+1}$ is black.
-2. If $2^{e+1}q \equiv 1 \pmod 3$ then $b_{e+1} = 2^{e+1}q$ is black and
-   $\Lambda(\boldsymbol{n}^\bullet\mu) > \Lambda(\boldsymbol{n}^\bullet\nu) = e+1$; we say that *$\mu$ wins*.
-   If $2^{e+1}q \equiv 2 \pmod 3$ then $a_{e+1}$ is black and
-   $\Lambda(\boldsymbol{n}^\bullet\nu) > \Lambda(\boldsymbol{n}^\bullet\mu) = e+1$; we say that *$\nu$ wins*.
+**Theorem 1.** Let $\boldsymbol{n}^\bullet = 3\boldsymbol{n} - 2 > 1$ be a black bead, and
+write
+
+$$2\boldsymbol{n} - 1 = 3^e q \qquad\text{with } 3 \nmid q .$$
+
+1. *The two chains.* Follow the two candidates back, one $\lambda$ at a time:
+   the beads
+
+   $$a_i = \boldsymbol{n}^\bullet\mu\lambda^i \qquad\text{and}\qquad b_i = \boldsymbol{n}^\bullet\nu\lambda^i$$
+
+   are defined for $0 \leq i \leq e+1$, and
+
+   $$b_i = 2^i\,3^{e+1-i}\,q, \qquad a_i = b_i - 1 .$$
+
+   In other words $a_{e+1}, a_e, \ldots, a_0 = \boldsymbol{n}^\bullet\mu$ and
+   $b_{e+1}, b_e, \ldots, b_0 = \boldsymbol{n}^\bullet\nu$ are two runs of up moves,
+   which stay neighbors all the way. For $i \leq e$ both $a_i$ and $b_i$ are
+   white. The runs start at
+
+   $$a_{e+1} = 2^{e+1}q - 1 \qquad\text{and}\qquad b_{e+1} = 2^{e+1}q,$$
+
+   and exactly one of these two beads is black.
+2. *The winner.* Since $3 \nmid q$, the number $2^{e+1}q$ is not a multiple of
+   $3$. Two cases remain.
+
+   - If $2^{e+1}q \equiv 1 \pmod 3$, then $b_{e+1}$ is black and $a_{e+1}$ is
+     white. So $\Lambda(\boldsymbol{n}^\bullet\nu) = e+1 < \Lambda(\boldsymbol{n}^\bullet\mu)$;
+     we say that *$\mu$ wins*.
+   - If $2^{e+1}q \equiv 2 \pmod 3$, then $a_{e+1}$ is black and $b_{e+1}$ is
+     white. So $\Lambda(\boldsymbol{n}^\bullet\mu) = e+1 < \Lambda(\boldsymbol{n}^\bullet\nu)$;
+     we say that *$\nu$ wins*.
 3. In particular $\Lambda(\boldsymbol{n}^\bullet\mu) \neq \Lambda(\boldsymbol{n}^\bullet\nu)$,
    $\sigma(\boldsymbol{n}^\bullet\mu) \neq \sigma(\boldsymbol{n}^\bullet\nu)$, and
    $$\Lambda(\boldsymbol{n}^\bullet\mu) > \Lambda(\boldsymbol{n}^\bullet\nu) \iff \sigma(\boldsymbol{n}^\bullet\mu) < \sigma(\boldsymbol{n}^\bullet\nu).$$
@@ -578,10 +608,12 @@ $$2\boldsymbol{n} - 1 = 3^e q \quad\text{with } 3 \nmid q, \qquad\text{and}\qqua
    Then $h(\boldsymbol{n}^\bullet) = h(\sigma(w)) + \Lambda(w) + 1$: there is a minimal recitation
    to $\boldsymbol{n}^\bullet$ ending in $\sigma(w)\,U^{\Lambda(w)}D$.
 
-The winner is also the candidate with the smaller seed (part 3), and the
-number whose base-3 expansion decides is $2\boldsymbol{n}-1$. Above bead $4$, which is onyx $\mathbf{2}$, for instance, $2\boldsymbol{n} - 1 = 3$,
-so $e = 1$, $q = 1$ and $b_2 = 4$ is black: $\mu$ wins, and indeed
-$4\mu = 8$ has lambda exponent $4$ while $4\nu = 9$ has lambda exponent $2$.
+For instance, take bead $4$, which is onyx $\mathbf{2}$. Its candidates are
+$4\mu = 8$ and $4\nu = 9$, and $2\boldsymbol{n} - 1 = 3$, so $e = 1$ and $q = 1$.
+The two chains are $a_0, a_1, a_2 = 8, 5, 3$ and $b_0, b_1, b_2 = 9, 6, 4$.
+They end at $b_2 = 4 \equiv 1 \pmod 3$, which is black, next to $a_2 = 3$,
+which is white: $\mu$ wins. And indeed $9$ has lambda exponent $2$, while $8$
+goes on back to $2$ and $1$ and has lambda exponent $4$.
 
 [![Figure 7](images/figure-07.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=candidates&label=position&color=none&columns=lambex&arrows=yes&interactive=yes&first=1)
 

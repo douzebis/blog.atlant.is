@@ -221,6 +221,21 @@ These reach the paper by a rebuild; to look at in the PDF.
       parts of Theorem 1. The paragraph "In words: ..." after the
       theorem is reduced to what the opening does not say.
 
+## 2026-11-21: Theorem 1 restated (same content, new wording)
+
+- [ ] The statement of Theorem 1 now carries its own hypotheses ("Let
+      n-bullet = 3n - 2 > 1 ... write 2n - 1 = 3^e q"). Part 1 defines
+      the chains a_i and b_i as the candidates followed back by lambda,
+      gives their formula, says they are two runs of up moves and gives
+      their first beads; part 2 is split in two cases. Parts 3 to 5 are
+      unchanged. Check the layout of the displayed formulas inside the
+      numbered list in the PDF.
+- [ ] Before the theorem: "Where the number 2n - 1 comes from". After
+      it, the example of bead 4 lists the two chains.
+- [ ] This is a rewording of a numbered statement: the page's history
+      (front matter) and `docs/papers/jane-s-rosary/history.md` should
+      record it, with Proposition 1, when this round of reading ends.
+
 ## To do later, on the page's side (decided 2026-11-21, not started)
 
 The numbers of statements, figures and sections stay typed by hand, on
