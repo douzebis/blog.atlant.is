@@ -51,16 +51,12 @@ PAGE = (
 # Passages of the web page that are reworded for the paper: (web, paper).
 REWORDINGS = [
     (
-        "numbered the beads (see the history above):",
-        "numbered the beads:",
-    ),
-    (
         "reached from bead $1$. The fun starts with two finer questions.",
         "reached from bead $1$. This paper is about two finer questions.",
     ),
     (
-        "**And what is still open.** Plenty; Section 12 has seven questions. A\nfavorite: look at",
-        "**What is still open.** Section 12 has seven questions. For instance: look at",
+        "**And what is still open.** Plenty; Section 12 has seven questions. A\nfavorite: in the",
+        "**What is still open.** Section 12 has seven questions. For instance: in the",
     ),
     (
         "is the easiest to state and the most teasing: is a certain",

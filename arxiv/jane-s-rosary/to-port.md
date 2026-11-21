@@ -78,6 +78,23 @@ the PDF.
       comma. If the paper changes the musical picture of the opening,
       this sentence must follow.
 
+## 2026-11-21: second batch of changes to the opening and the reading guide
+
+These reach the paper by a rebuild; to read once in the PDF.
+
+- [ ] The black beads "form a tree" (was "carry a tree of their own").
+      The abstract in `build.py` still says "carry a tree": align or
+      leave.
+- [ ] The paragraph on how Jane Street and the OEIS number squares and
+      slabs is dropped; its rewording is removed from `build.py`. The
+      table keeps the offsets.
+- [ ] The open question quoted in the opening says "in the reluctant
+      recitation"; its rewording in `build.py` follows.
+- [ ] The diagram of the reading guide has no node for Corollary 3 any
+      more: I to II to IV on one row, III under I.
+- [ ] "Part IV is the only place where the paper uses a result that is
+      not elementary, and that it does not prove."
+
 ## To do later, on the page's side (decided 2026-11-21, not started)
 
 The numbers of statements, figures and sections stay typed by hand, on

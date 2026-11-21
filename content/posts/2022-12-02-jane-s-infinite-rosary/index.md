@@ -89,8 +89,8 @@ the octave, however narrow. A bead that she never told would be a stretch that
 she never enters. Section 8 makes this precise, with a circle in place of the
 octave.
 
-Along the way the black beads turn out to carry a tree of their own, the
-*onyx rosary*, in which every black bead has infinitely many children (*Theorem 4*).
+Along the way the black beads turn out to form a tree, the *onyx rosary*, in
+which every black bead has infinitely many children (*Theorem 4*).
 
 **Where this comes from.** The rosary is [Jane Street](https://www.janestreet.com/)'s
 puzzle [Traversing the Infinite Sidewalk](https://www.janestreet.com/numberphile/)
@@ -105,15 +105,10 @@ in disguise, and three entries of the
 | reluctant recitation $\rho$ | the greedy walk | [A359005](https://oeis.org/A359005), plus one |
 | the move at which bead $m$ is told, $\rho^{-1}(m)$ | the inverse mapping of the greedy walk | [A359008](https://oeis.org/A359008), at $m - 1$ |
 
-Jane Street's page labels its squares and does not number them. The OEIS
-entries number the slabs from $0$, as the earlier versions of this paper
-numbered the beads (see the history above): their slab $n - 1$ is our bead
-$n$.
-
 **And what is still open.** Plenty; Section 12 has seven questions. A
-favorite: look at each of Jane's down moves and count the up moves that
-came just before it. After $2^{27}$ moves, the count is exactly one in
-$49.993\%$ of the cases. Is the true proportion one half?
+favorite: in the reluctant recitation, look at each of Jane's down moves and
+count the up moves that came just before it. After $2^{27}$ moves, the count
+is exactly one in $49.993\%$ of the cases. Is the true proportion one half?
 
 ## How to read this paper
 
@@ -123,8 +118,8 @@ order suggests:
 $$
 \begin{CD}
 \textbf{I} @>\text{Lemma 1}>> \textbf{II} @>\text{Theorem 3}>> \textbf{IV}\\
-@V\text{Theorem 1}VV @VV\text{Theorem 3}V\\
-\textbf{III} @>>> \text{Corollary 3}
+@V\text{Theorem 1}VV\\
+\textbf{III}
 \end{CD}
 $$
 
@@ -136,14 +131,14 @@ $$
   Theorem 1: a reader in a hurry to see why reluctant Jane tells every bead
   can read Section 1 and Lemma 1, and jump to Section 6.
 - **Part III, the onyx rosary** (Sections 9 and 10): Theorem 4. It is built
-  on Theorem 1; only its last corollary, on Jane's foraging sequence, uses
+  on Theorem 1; only its last corollary, on Jane's foraging sequence, also uses
   Theorem 3.
 - **Part IV, the pace of the recitation** (Section 11): Theorems 5 and 6. It
   continues Part II and uses neither Theorem 1 nor Part III.
 
-  Part IV is the only place where a fact comes from outside the paper.
-  Everything up to Theorem 3 needs only that $\log_2 3$ is irrational,
-  which is $2^a \neq 3^b$. The clock of Theorem 6, and the square root in
+  Part IV is the only place where the paper uses a result that is not
+  elementary, and that it does not prove. Everything up to Theorem 3 needs
+  only that $\log_2 3$ is irrational, which is $2^a \neq 3^b$. The clock of Theorem 6, and the square root in
   Theorem 5, need more: that fractions cannot approach $\log_2 3$ faster
   than a fixed power of their denominator (a finite *irrationality
   exponent*). This is a theorem, with two sources: the classical measures
