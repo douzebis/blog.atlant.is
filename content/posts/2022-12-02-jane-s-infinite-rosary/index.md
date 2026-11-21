@@ -848,15 +848,48 @@ $n = nU\lambda \in T_j$, contradicting (a). So (a) holds at time $i+1$.
 
 *No gap at time $i+1$.* Let $w = \rho(i+1)$ be white and suppose
 $g = w\lambda \notin T_{i+1}$. The last move was not an up move (it would have
-come from $g$), so $\rho(i) \in \{w\mu, w\nu\}$. We use [Lemma 1](#lemma-1) and its two
-diagrams: Jane arrived at $w$ down the right-hand side, and the left-hand
-side shows that $g$ had been told before.
+come from $g$), so $\rho(i) \in \{w\mu, w\nu\}$: Jane has just come down onto $w$.
 
-- If $\rho(i)$ is the white bead $\hat{w}$: by (b), $\hat{w}\lambda \in T_i$,
-  and $\hat{w}\lambda \neq \rho(i)$, so [Lemma 3](#lemma-3) gives
-  $g = \hat{w}\lambda D \in T_i$.
-- If $\rho(i)$ is the black bead $b$: a black bead is never reached by an up
-  move, so $\rho(i-1) = p$ for some $p \in \{b\mu, b\nu\}$, which is white.
+Here are the two diagrams of [Lemma 1](#lemma-1) again, with $g$ in the
+bottom left corner. Read each as a route from $w$ to $g$: up the right-hand
+side, across the top, down the left-hand side.
+
+$$
+\begin{CD}
+\hat{w}\lambda @<\lambda<< \whitebead{\hat{w}}\\
+@VVDV @AAxA\\
+g @>U>> \whitebead{w}
+\end{CD}
+\qquad\qquad
+\begin{CD}
+by\lambda @<\lambda<< \whitebead{by}\\
+@VVDV @AAyA\\
+by\lambda D @. \blackbead{b}\\
+@VVDV @AAxA\\
+g @>U>> \whitebead{w}
+\end{CD}
+$$
+
+Each side of the route has its own reason for being told:
+
+- *The right-hand side* is where Jane has just been. She came down it to
+  reach $w$, and a black bead is only ever reached by a down move, so if she
+  came from the black bead $b$ she was on a bead $by$ just before.
+- *The top arrow* is a $\lambda$ that starts from a white bead she has told.
+  By the no-gap property (b), which holds up to time $i$, the bead at the top
+  left has been told as well.
+- *The left-hand side* goes down from that bead to $g$. By
+  [Lemma 3](#lemma-3), once Jane has left a bead, the bead below it has been
+  told: so every bead of the left-hand side has been told, down to $g$.
+
+In detail:
+
+- If $\rho(i)$ is the white bead $\hat{w}$ (first diagram): by (b),
+  $\hat{w}\lambda \in T_i$, and $\hat{w}\lambda \neq \rho(i)$, so
+  [Lemma 3](#lemma-3) gives $g = \hat{w}\lambda D \in T_i$.
+- If $\rho(i)$ is the black bead $b$ (second diagram): a black bead is never
+  reached by an up move, so $\rho(i-1) = p$ for some $p \in \{b\mu, b\nu\}$,
+  which is white; this is the bead $by$ of the diagram.
   By (b), $p\lambda \in T_{i-1}$. Applying [Lemma 3](#lemma-3) twice (to $p\lambda$ and
   then to $p\lambda D$, neither of which is the current bead $p$) gives
   $g = p\lambda DD \in T_{i-1}$.
