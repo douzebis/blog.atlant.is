@@ -52,3 +52,18 @@ follow:
 - "reached from bead $1$. The fun starts with two finer questions."
   (the sentence after "Can Jane tell every bead of her rosary?"; its
   wording is under discussion on 2026-11-21).
+
+## To do later, on the page's side (decided 2026-11-21, not started)
+
+The numbers of statements, figures and sections stay typed by hand, on
+the page as in the paper: they are quoted outside the page (Lean files,
+comparison of versions, annex) and must not move silently. Two tools are
+to be written instead of automatic numbering:
+
+- [ ] A build check on the numbers as typed: statements, figures and
+      sections each run 1, 2, 3, ... without gap or repeat, and every
+      "Theorem n", "Lemma n", "Figure n", "Section n" in the text points
+      at something that exists.
+- [ ] A renumbering script, for the day a number must change (most
+      likely a figure, if one is inserted): it shifts the numbers in the
+      page and lists the places outside the page to update.
