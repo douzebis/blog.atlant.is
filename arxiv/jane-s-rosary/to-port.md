@@ -95,6 +95,22 @@ These reach the paper by a rebuild; to read once in the PDF.
 - [ ] "Part IV is the only place where the paper uses a result that is
       not elementary, and that it does not prove."
 
+## 2026-11-21: Section 1, and where onyxes get their name
+
+These reach the paper by a rebuild; to read once in the PDF.
+
+- [ ] Up and Down are defined without domain and codomain; Down says
+      "for n >= 2: there is no down move from bead 1".
+- [ ] "Jane can come down to bead 8 from 16 and from 17" (was "comes
+      down ... or").
+- [ ] Black beads are called onyxes from Section 1 on: "onyx number n is
+      the bead 3n - 2", "a bold number or letter always counts onyxes; a
+      plain one counts all the beads". Section 9 no longer introduces
+      the word, it refers to Section 1. The table of names follows.
+      Check that the paper's abstract and introduction, which say "black
+      beads" and "beads congruent to 1 modulo 3", still read well with
+      it.
+
 ## To do later, on the page's side (decided 2026-11-21, not started)
 
 The numbers of statements, figures and sections stay typed by hand, on
