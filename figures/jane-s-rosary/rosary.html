@@ -32,13 +32,24 @@
             get: (searchParams, prop) => searchParams.get(prop),
         })
         // P.n          Count of nodes to display
-        // P.labels     ['position', 'label', 'height', 'reluctant_inv']
+        // P.labels     ['position', 'label', 'plain', 'height', 'reluctant_inv']
         // P.arrows     ['none', 'up', 'down', 'both', 'to3']
+        // P.below      ['position']: what is written under each bead
+        // P.end        ['open']: the last bead is a bead like the others and
+        //              a dashed piece of string leaves it to the right;
+        //              without it the last bead shows '..'
+        // P.string     ['yes']: draw the string even when there are arrows
         // Without them: positions, no arrows (as the first version of the
-        // post calls this page).
+        // post calls this page).  The earlier versions of the paper link to
+        // this page without the last three parameters and must keep the
+        // figures they describe.
         N = parseInt(P.n)
         const LABELS = P.labels || 'position'
         const ARROWS = P.arrows || 'none'
+        const BELOW = P.below || 'none'
+        const OPEN = P.end == 'open'
+        const STRING = ARROWS == 'none' || P.string == 'yes'
+        const STEP = (BASE - BASE/N/2.2)/N
 
         // Create nodes
         var nodes = new vis.DataSet([])
@@ -54,8 +65,23 @@
                         size: BASE/4/N,
                         color: is_white(i) ? hsl_to_col(0, 0., 50.) : hsl_to_col(0, 0., 90.),
                     },
-                    label: i == N-1 ? '..' : f_label(i, LABELS),
+                    label: i == N-1 && !OPEN ? '..' : f_label(i, LABELS),
                     x: diam/2 + i*(BASE - diam)/N,
+                    y: 0,
+                }
+            ])
+        }
+
+        if (OPEN) {
+            // Where the dashed piece of string ends: a node that is not
+            // seen, so that the view makes room for it.
+            nodes.add([
+                {
+                    id: 'end',
+                    shape: 'dot',
+                    size: 0.01,
+                    color: 'rgba(0, 0, 0, 0)',
+                    x: BASE/N/2.2/2 + (N - 0.15)*STEP,
                     y: 0,
                 }
             ])
@@ -63,11 +89,11 @@
 
         // Create edges
         var edges = new vis.DataSet([])
-        if (ARROWS == 'none') {
+        if (STRING) {
             for (let i = 0; i < N - 1; ++i) {
                 edges.add([
                     {
-                        id: '' + i,
+                        id: 's' + i,
                         from: i,
                         to: i + 1,
                         color: hsl_to_col(0, 0., 50.),
@@ -76,6 +102,23 @@
                     },
                 ])
             }
+        }
+        if (OPEN) {
+            edges.add([
+                {
+                    id: 'send',
+                    from: N - 1,
+                    to: 'end',
+                    color: hsl_to_col(0, 0., 50.),
+                    smooth: false,
+                    dashes: [BASE/250, BASE/250],
+                    width: 1,
+                },
+            ])
+        }
+        // With the last bead a bead like the others, it has arrows too.
+        const LAST = OPEN ? N : N - 1
+        if (ARROWS == 'none') {
         } else if (ARROWS == 'to3') {
             for (let i of [1, 2, 4, 7, 3]) {
                 edges.add([
@@ -98,7 +141,7 @@
             }
         } else {
             if (ARROWS == 'up' || ARROWS == 'both') {
-                for (let i = 0; i < N - 1; ++i) {
+                for (let i = 0; i < LAST; ++i) {
                     edges.add([
                         {
                             id: 'u' + i,
@@ -113,7 +156,7 @@
                 }
             }
             if (ARROWS == 'down' || ARROWS == 'both') {
-                for (let i = 1; i < N - 1; ++i) {
+                for (let i = 1; i < LAST; ++i) {
                     edges.add([
                         {
                             id: 'd' + i,
@@ -148,6 +191,22 @@
       }
       var network = new vis.Network(container, data, options);
       //network.fit()
+
+      // The position of each bead, written under it.
+      if (BELOW == 'position') {
+          network.on('afterDrawing', (ctx) => {
+              const size = BASE/6.5/N
+              ctx.font = size + 'px arial'
+              ctx.fillStyle = THEME.text
+              ctx.textAlign = 'center'
+              ctx.textBaseline = 'top'
+              for (let i = 0; i < N; ++i) {
+                  const box = network.getBoundingBox('' + i)
+                  ctx.fillText('#' + f_label_position(i),
+                      (box.left + box.right)/2, box.bottom + size*0.45)
+              }
+          })
+      }
     </script>
   </body>
 </html>

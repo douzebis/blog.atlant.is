@@ -40,17 +40,17 @@ black and white beads. Starting from the end, the beads are numbered
 $n = 1, 2, 3, \ldots$ and each carries a label $L(n) = 1, 1, 2, 2, 3, 3, \ldots$
 Every third bead, starting with bead $1$, is black; the other beads are white.
 
-[![Figure 1](images/figure-01.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=position&arrows=none&interactive=yes&first=1)
+[![Figure 1](images/figure-01.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=none&below=position&end=open&interactive=yes&first=1)
 
-> Figure 1: the rosary. Each bead shows its position; every third bead is black. Up is to the right, down to the left ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=position&arrows=none&interactive=yes&first=1)).
+> Figure 1: the rosary. Each bead shows its label, with its position underneath; every third bead is black. Up is to the right, down to the left ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=none&below=position&end=open&interactive=yes&first=1)).
 
 Jane tells the beads of her rosary in a special way. She always starts at bead
 $1$. Each time she is done with a bead $n$, she moves on, either *up* to bead
 $n + L(n)$ or *down* to bead $n - L(n)$.
 
-[![Figure 2](images/figure-02.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=both&interactive=yes&first=1)
+[![Figure 2](images/figure-02.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=both&string=yes&end=open&interactive=yes&first=1)
 
-> Figure 2: telling the beads. Each bead shows its label, and its two arrows, one up (to the right) and one down (to the left), reach as many places away as the label says ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=both&interactive=yes&first=1)).
+> Figure 2: telling the beads. Each bead shows its label, and its two arrows, one up (to the right) and one down (to the left), reach as many places away as the label says ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=both&string=yes&end=open&interactive=yes&first=1)).
 
 **Can Jane tell every bead of her rosary?** Yes, and easily: every bead can be
 reached from bead $1$. The fun starts with two finer questions.
@@ -249,9 +249,9 @@ this binary structure (down) and the multiplication by $3/2$ (up).
 
 By definition $h(1) = 0$.
 
-[![Figure 3](images/figure-03.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=to3&interactive=yes&first=1)
+[![Figure 3](images/figure-03.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=to3&string=yes&end=open&interactive=yes&first=1)
 
-> Figure 3: the height of bead $4$ is $5$. Beads show their labels and the arrows are numbered in the order of the moves: four up, then one down onto bead $4$, the fourth from the left ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=label&arrows=to3&interactive=yes&first=1)).
+> Figure 3: the height of bead $4$ is $5$. Beads show their labels and the arrows are numbered in the order of the moves: four up, then one down onto bead $4$, the fourth from the left ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=to3&string=yes&end=open&interactive=yes&first=1)).
 
 **Proposition 1.** Every bead has a finite height. Moreover, for all $n \geq 2$,
 
