@@ -51,12 +51,6 @@ PAGE = (
 # Passages of the web page that are reworded for the paper: (web, paper).
 REWORDINGS = [
     (
-        "Theorem 3 was a conjecture in the first version of this paper (see the history\n"
-        "above), and it is",
-        "Theorem 3 was a conjecture in the first version of this paper (January 2023;\n"
-        "see the versions at the end), and it is",
-    ),
-    (
         "numbered the beads (see the history above):",
         "numbered the beads:",
     ),

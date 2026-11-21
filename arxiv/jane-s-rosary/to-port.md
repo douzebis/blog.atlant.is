@@ -11,7 +11,7 @@ changes of the page reach it at the next build. This file lists what a
 build does not settle by itself: things to check in the PDF, and choices
 that are specific to a paper. Remove an entry once it is dealt with.
 
-The PDF was last built before the first entry below.
+None of the entries below has been read in the PDF yet.
 
 ## 2026-11-21: Figures 1, 2 and 3 redrawn
 
@@ -50,8 +50,26 @@ of these sentences changes on the page, its entry in `build.py` must
 follow:
 
 - "reached from bead $1$. The fun starts with two finer questions."
-  (the sentence after "Can Jane tell every bead of her rosary?"; its
-  wording is under discussion on 2026-11-21).
+  (the sentence after "Can Jane tell every bead of her rosary?").
+
+## 2026-11-21: changes to the opening
+
+These reach the paper by a rebuild; listed so that they are read once in
+the PDF.
+
+- [ ] "Yes, by a short induction (Proposition 1)" replaces "Yes, and
+      easily".
+- [ ] "She looks no further than one bead ahead." is dropped.
+- [ ] Theorem 3 is no longer in bold in the list of results.
+- [ ] The sentence "Theorem 3 was a conjecture in the first version of
+      this paper ..." is dropped from the opening, and its rewording is
+      removed from `build.py`. The fact stays in the history (the list
+      of versions at the end of the paper) and under the statement of
+      Theorem 3 in Section 8.
+- [ ] The paragraph "Why it works, in one breath" is now "Why she tells
+      every bead, in one breath" and says how the circle is made. Decide
+      whether the paper keeps "in one breath" or takes a more sober
+      title for it.
 
 ## To do later, on the page's side (decided 2026-11-21, not started)
 

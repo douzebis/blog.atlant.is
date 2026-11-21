@@ -74,21 +74,24 @@ corner, with told beads both below and above, or from leaving some bead behind
 forever. Neither happens:
 
 - *Theorem 2*: she never gets stuck;
-- **Theorem 3: she tells every bead, exactly once**;
+- *Theorem 3*: she tells every bead, exactly once;
 - *Theorem 5*: in the long run she moves up with frequency exactly
   $\log_3 2 \approx 0.6309$, a little less than two moves out of three;
 - *Theorem 6*: bead $m$ gets its turn after at most polynomially many moves.
 
-Theorem 3 was a conjecture in the first version of this paper (see the history
-above), and it is the conjecture recorded in the OEIS entries below.
-
-**Why it works, in one breath.** A down move halves the position of the bead
-(rounding down), and an up move multiplies it by $3/2$ (rounding up). So
-Jane's rule plays the powers of $2$ against the powers of $3$, and because no
-power of $2$ is a power of $3$, that is, because $\log_2 3$ is irrational, she cannot fall into a routine: on a
-logarithmic scale each up move turns her around a circle by very nearly the
-same irrational angle, down moves do not turn her at all, and such a rotation
-sooner or later visits every arc of the circle. Section 8 makes this precise.
+**Why she tells every bead, in one breath.** A down move halves the position
+of the bead (rounding down), and an up move multiplies it by $3/2$ (rounding
+up). So Jane's rule plays the powers of $2$ against the powers of $3$. To
+watch the game, forget how far along the rosary Jane is and keep only where
+she stands between one power of $2$ and the next: put bead $n$ on a circle, at
+the fractional part of $\log_2 n$, so that doubling a position goes exactly
+once around the circle and lands on the same point. On this circle a down move
+hardly moves her, and each up move turns her by very nearly the same angle,
+$\log_2(3/2)$ of a full turn. No power of $2$ is a power of $3$, that is,
+$\log_2 3$ is irrational: the turns never close up, Jane cannot fall into a
+routine, and sooner or later she visits every arc of the circle. A bead that
+she never told would be an arc that she never enters. Section 8 makes this
+precise.
 
 Along the way the black beads turn out to carry a tree of their own, the
 *onyx rosary*, in which every black bead has infinitely many children (*Theorem 4*).
