@@ -350,6 +350,14 @@ These reach the paper by a rebuild; to look at in the PDF.
       comparison: explicit (Rhin, H >= 2), computable but not written
       down (Rhin, Wu and Wang, large H), not computable (Jha).
 
+## 2026-11-21, Figure 10 annotated
+
+- Figure 10 (phase strips): in the first strip the first four exact steps
+  are labeled alpha, 2 alpha, 3 alpha, 4 alpha, and the full circles carry
+  Jane's beads (beads sharing a phase share a label: "5, 20, 80"). The
+  first strip is 12 units taller. The caption has one more sentence. The
+  picture is redrawn by `research/jane-s-rosary/draw_figures.py`.
+
 ## To do later, on the page's side (decided 2026-11-21, not started)
 
 - [x] (done on 2026-11-22, except Part III, which waits for the

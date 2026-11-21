@@ -163,6 +163,8 @@ def tree_figure(colors: dict[str, str]) -> str:
 # The three moments of Figure 10: the move from which Jane is followed.
 PHASE_STARTS = (0, 300, 3000)
 PHASE_UP_MOVES = 20
+PHASE_LABELED_STEPS = 4
+PHASE_LABEL_ROOM = 12
 
 
 def phase_stretch(beads: list[int], start: int) -> tuple[list[float], list[float], int]:
@@ -179,6 +181,17 @@ def phase_stretch(beads: list[int], start: int) -> tuple[list[float], list[float
             real.append(math.log2(beads[time + 1]) % 1)
         time += 1
     return exact, real, min(beads[start : time + 1])
+
+
+def phase_landings(beads: list[int], start: int) -> list[int]:
+    """The beads on which the up moves of `phase_stretch` land."""
+    landings: list[int] = []
+    time = start
+    while len(landings) < PHASE_UP_MOVES:
+        if beads[time + 1] == up(beads[time]):
+            landings.append(beads[time + 1])
+        time += 1
+    return landings
 
 
 def phase_figure(colors: dict[str, str]) -> str:
@@ -206,7 +219,8 @@ def phase_figure(colors: dict[str, str]) -> str:
     ]
     for index, start in enumerate(PHASE_STARTS):
         exact, real, lowest = phase_stretch(beads, start)
-        y0 = top + index * panel
+        # The first strip carries labels, and is a little taller.
+        y0 = top + index * panel + (PHASE_LABEL_ROOM if index else 0)
         y_exact, y_real = y0 + 30, y0 + 62
         title = (
             "from the start"
@@ -252,7 +266,29 @@ def phase_figure(colors: dict[str, str]) -> str:
             body.append(
                 f'<circle cx="{x(b):.1f}" cy="{y_real}" r="4.5" fill="{colors["accent"]}"/>'
             )
-    axis = top + len(PHASE_STARTS) * panel + 6
+        if start == 0:
+            # The first exact steps are multiples of alpha, not beads.
+            for k, a in enumerate(exact[:PHASE_LABELED_STEPS], start=1):
+                name = "α" if k == 1 else f"{k}α"
+                body.append(
+                    f'<text x="{x(a):.1f}" y="{y_exact - 10}" text-anchor="middle" '
+                    f'font-size="11" {FONT} font-style="italic" fill="{colors["text"]}">'
+                    f"{name}</text>"
+                )
+            # Jane's beads; those that differ by a power of 2 share a phase.
+            sharing: dict[int, list[int]] = {}
+            for bead in phase_landings(beads, start):
+                odd = bead
+                while odd % 2 == 0:
+                    odd //= 2
+                sharing.setdefault(odd, []).append(bead)
+            for odd, group in sharing.items():
+                body.append(
+                    f'<text x="{x(math.log2(odd) % 1):.1f}" y="{y_real + 18}" '
+                    f'text-anchor="middle" font-size="11" {FONT} fill="{colors["text"]}">'
+                    f"{', '.join(str(bead) for bead in group)}</text>"
+                )
+    axis = top + len(PHASE_STARTS) * panel + PHASE_LABEL_ROOM + 6
     body.append(
         f'<line x1="{left}" y1="{axis}" x2="{left + span}" y2="{axis}" '
         f'stroke="{colors["muted"]}" stroke-width="1"/>'

@@ -830,7 +830,10 @@ $m \leq n/2^k < m+1$ and $\log_2(1 + \frac{1}{m}) < \frac{3}{2m}$. $\quad\Box$
 > Figure 9). At the start the beads are small, and Jane's phase is carried
 > away from the exact steps, by up to $0.43$ of a turn. From move $300$ on she
 > stays on beads from $135$ up, and within $0.022$ of the exact steps; from
-> move $3\,000$ on, on beads from $1\,290$ up, and within $0.0011$.
+> move $3\,000$ on, on beads from $1\,290$ up, and within $0.0011$. In the
+> first strip the first four exact steps are marked $\alpha$ to $4\alpha$, and
+> each full circle carries the bead Jane is on; beads that differ by a power
+> of $2$ share a phase.
 
 The proof has four steps: Jane never enters the cone of $m$; she drifts away
 (the height); she makes infinitely many up moves; and the rotation brings her
