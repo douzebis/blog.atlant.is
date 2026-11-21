@@ -37,6 +37,7 @@ error if one fails.
 | Theorem 2 (never stuck), Theorem 3 (frontier) | `walk.c` | `cc -O2 -o walk walk.c -lm && ./walk 27` | 2^27 moves; every bead up to 10,801,813 told |
 | Lemma 4 (binary prefixes) | `check_reluctant.py` | same as above | beads below 5,000 |
 | Lemma 5 (phases) | `check_reluctant.py` | same | beads below 20,000 |
+| The numbers in the caption of Figure 11 (smallest bead and largest blur of its three stretches) | `check_reluctant.py` | same | three stretches of 20 up moves |
 | Theorem 5 (1) | `check_reluctant.py` | same | 300,000 moves |
 | Lemma 9 (the fact on convergents it rests on) | `check_reluctant.py` | same | 8 denominators |
 | Proposition 2 | `check_onyx.py` | `python check_onyx.py` | onyxes below 20,000 |

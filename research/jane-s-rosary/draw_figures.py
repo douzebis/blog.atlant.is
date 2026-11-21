@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-"""Draw the two figures of the paper that are not interactive.
+"""Draw the three figures of the paper that are not interactive.
 
 usage: python draw_figures.py OUTDIR
 
@@ -10,6 +10,9 @@ Writes, each in a light and a dark variant (NAME.svg and NAME-dark.svg):
 
 - figure-10: the binary tree of the rosary drawn with the phase as
   abscissa, the cone of bead 4, and what up moves do to the phase
+  (Section 8);
+- figure-11: Jane's phase after each of twenty up moves, against the
+  exact steps of the rotation, at three moments of her recitation
   (Section 8);
 - figure-13: the numerical data of Section 11, read from
   results/walk-27.log: F(t) log2(t) / t and u(t) - t log_3 2 against
@@ -22,7 +25,7 @@ import math
 import pathlib
 import sys
 
-from rosary import down, is_black, up
+from rosary import down, is_black, reluctant_recitation, up
 
 THEMES = {
     "": {
@@ -157,6 +160,119 @@ def tree_figure(colors: dict[str, str]) -> str:
     return svg(width, height + 8, body, colors)
 
 
+# The three moments of Figure 11: the move from which Jane is followed.
+PHASE_STARTS = (0, 300, 3000)
+PHASE_UP_MOVES = 20
+
+
+def phase_stretch(beads: list[int], start: int) -> tuple[list[float], list[float], int]:
+    """Jane followed from move `start` for PHASE_UP_MOVES up moves: the exact
+    steps of the rotation, her phase after each up move, and the smallest
+    bead she is on meanwhile."""
+    alpha = math.log2(3 / 2)
+    origin = math.log2(beads[start]) % 1
+    exact, real = [], []
+    time = start
+    while len(real) < PHASE_UP_MOVES:
+        if beads[time + 1] == up(beads[time]):
+            exact.append((origin + (len(real) + 1) * alpha) % 1)
+            real.append(math.log2(beads[time + 1]) % 1)
+        time += 1
+    return exact, real, min(beads[start : time + 1])
+
+
+def phase_figure(colors: dict[str, str]) -> str:
+    """Three strips on the axis of phases of Figure 10."""
+    width, left, right = 720, 50, 30
+    span = width - left - right
+    top, panel, gap = 44, 86, 40
+    beads = reluctant_recitation(max(PHASE_STARTS) + 400)
+    arc = math.log2(5 / 4)
+
+    def x(phase: float) -> float:
+        return left + phase * span
+
+    body = [
+        f'<circle cx="{left + 6}" cy="20" r="4.5" fill="none" stroke="{colors["text"]}" '
+        f'stroke-width="1.2"/>',
+        f'<text x="{left + 18}" y="24.5" font-size="13" {FONT} fill="{colors["text"]}">'
+        f"the exact steps of the rotation</text>",
+        f'<circle cx="{left + 250}" cy="20" r="4.5" fill="{colors["accent"]}"/>',
+        f'<text x="{left + 262}" y="24.5" font-size="13" {FONT} fill="{colors["text"]}">'
+        f"Jane's phase after each up move</text>",
+        f'<rect x="{left + 500}" y="12" width="22" height="16" rx="4" fill="{colors["cone"]}"/>',
+        f'<text x="{left + 530}" y="24.5" font-size="13" {FONT} fill="{colors["text"]}">'
+        f"the arc of bead 4</text>",
+    ]
+    for index, start in enumerate(PHASE_STARTS):
+        exact, real, lowest = phase_stretch(beads, start)
+        y0 = top + index * panel
+        y_exact, y_real = y0 + 30, y0 + 62
+        title = (
+            "from the start"
+            if start == 0
+            else f"from move {start} on (no bead below {lowest})"
+        )
+        body.append(
+            f'<rect x="{x(0):.1f}" y="{y_exact - 13}" width="{arc * span:.1f}" '
+            f'height="{y_real - y_exact + 26}" rx="6" fill="{colors["cone"]}"/>'
+        )
+        body.append(
+            f'<text x="{left}" y="{y0 + 8}" font-size="13" {FONT} font-style="italic" '
+            f'fill="{colors["text"]}">{title}</text>'
+        )
+        for a, b in zip(exact, real):
+            # The shortest way round the circle from the exact step to
+            # Jane's phase; it may go through the ends of the strip.
+            shift = (b - a + 0.5) % 1 - 0.5
+            segments = [(a, a + shift)]
+            if a + shift < 0:
+                segments = [(a, 0.0), (1.0, a + shift + 1)]
+            elif a + shift > 1:
+                segments = [(a, 1.0), (0.0, a + shift - 1)]
+            for (p, q), (ya, yb) in zip(
+                segments,
+                [(y_exact, y_real)]
+                if len(segments) == 1
+                else [
+                    (y_exact, (y_exact + y_real) / 2),
+                    ((y_exact + y_real) / 2, y_real),
+                ],
+            ):
+                body.append(
+                    f'<line x1="{x(p):.1f}" y1="{ya:.1f}" x2="{x(q):.1f}" y2="{yb:.1f}" '
+                    f'stroke="{colors["muted"]}" stroke-width="0.8"/>'
+                )
+        for a in exact:
+            body.append(
+                f'<circle cx="{x(a):.1f}" cy="{y_exact}" r="4.5" fill="{colors["background"]}" '
+                f'stroke="{colors["text"]}" stroke-width="1.2"/>'
+            )
+        for b in real:
+            body.append(
+                f'<circle cx="{x(b):.1f}" cy="{y_real}" r="4.5" fill="{colors["accent"]}"/>'
+            )
+    axis = top + len(PHASE_STARTS) * panel + 6
+    body.append(
+        f'<line x1="{left}" y1="{axis}" x2="{left + span}" y2="{axis}" '
+        f'stroke="{colors["muted"]}" stroke-width="1"/>'
+    )
+    for tick in (0, 0.25, 0.5, 0.75, 1):
+        body.append(
+            f'<line x1="{x(tick):.1f}" y1="{axis - 4}" x2="{x(tick):.1f}" y2="{axis + 4}" '
+            f'stroke="{colors["muted"]}" stroke-width="1"/>'
+        )
+        body.append(
+            f'<text x="{x(tick):.1f}" y="{axis + 20}" text-anchor="middle" font-size="13" '
+            f'{FONT} fill="{colors["muted"]}">{tick:g}</text>'
+        )
+    body.append(
+        f'<text x="{left + span / 2:.1f}" y="{axis + 38}" text-anchor="middle" font-size="13" '
+        f'{FONT} font-style="italic" fill="{colors["muted"]}">phase</text>'
+    )
+    return svg(width, axis + gap + 8, body, colors)
+
+
 def read_walk(log: pathlib.Path) -> list[tuple[int, float, float]]:
     """(log2 t, F(t) log2(t) / t, u(t) - t log_3 2) for t = 2^10, ..., 2^27."""
     rows = []
@@ -262,8 +378,9 @@ def main() -> int:
         return 1
     for suffix, colors in THEMES.items():
         (out / f"figure-10{suffix}.svg").write_text(tree_figure(colors))
+        (out / f"figure-11{suffix}.svg").write_text(phase_figure(colors))
         (out / f"figure-13{suffix}.svg").write_text(data_figure(colors, rows))
-    print(f"wrote 4 files in {out}")
+    print(f"wrote 6 files in {out}")
     return 0
 
 

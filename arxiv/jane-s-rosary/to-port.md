@@ -293,10 +293,13 @@ These reach the paper by a rebuild; to look at in the PDF.
       answers for the paper). It is still a draft, and carries one item
       to confirm before submission: the author's reading of the Lean
       statements.
-- [ ] Figure 11 (the big circle) is to be replaced by a thin strip on
-      the phase axis of Figure 10, with the exact multiples of alpha and
-      Jane's actual phases after each up move (agreed in principle on
-      2026-11-21, not drawn).
+- [ ] Figure 11 is no longer the big circle: it is three strips on the
+      phase axis of Figure 10, with the exact steps of alpha and Jane's
+      real phase after each of twenty up moves, from the start, from
+      move 300 and from move 3000. It is drawn by
+      `research/jane-s-rosary/draw_figures.py` (an SVG, no live version)
+      and the numbers of its caption are checked by
+      `check_reluctant.py`. Check its width and the thin lines in print.
 
 ## To do later, on the page's side (decided 2026-11-21, not started)
 

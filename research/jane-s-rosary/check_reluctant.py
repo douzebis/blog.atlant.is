@@ -31,6 +31,7 @@ import argparse
 import math
 import sys
 
+from draw_figures import PHASE_STARTS, phase_stretch
 from rosary import down, is_black, lam, reluctant_recitation, up
 
 
@@ -137,6 +138,21 @@ def main() -> int:
             if not -1e-12 <= epsilon < 3 / (2 * m):
                 phases = False
     results.append(report("Lemma 5: phases, both parts, n < 20000", phases))
+
+    # The numbers in the caption of Figure 11: the smallest bead of each
+    # stretch, and how far Jane's phase gets from the exact rotation.
+    walk = reluctant_recitation(max(PHASE_STARTS) + 400)
+    figure = []
+    for start in PHASE_STARTS:
+        exact, real, lowest = phase_stretch(walk, start)
+        blur = max(abs((b - a + 0.5) % 1 - 0.5) for a, b in zip(exact, real))
+        figure.append((start, lowest, round(blur, 4)))
+    results.append(
+        report(
+            "Figure 11: lowest bead and largest blur of the three stretches",
+            figure == [(0, 1, 0.433), (300, 135, 0.0216), (3000, 1290, 0.0011)],
+        )
+    )
 
     # Denominators of the convergents of alpha.
     denominators = []

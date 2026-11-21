@@ -929,13 +929,14 @@ the one that Part IV builds on; then with integers only.
    very nearly: the phase turns by $\alpha = \log_2(3/2)$ ([Lemma 5](#lemma-5)).
 4. Now Jane makes infinitely many up moves. So her phase goes round the
    circle in steps of $\alpha$, and $\alpha$ is irrational: the steps never
-   close up, and they come close to every point of the circle (Figure 11).
+   close up, and they come close to every point of the circle (the open
+   circles of Figure 11).
    Sooner or later the phase falls in the arc of $m$: Jane is in the cone,
    which she was supposed to avoid.
 
 This is the argument. It is not yet a proof, because of the words "hardly"
 and "very nearly" in point 3: every move blurs the phase a little, by about
-$1/n$, and the blur adds up. Over the whole recitation nothing keeps it
+$1/n$, and the blur adds up (the slanted lines of Figure 11). Over the whole recitation nothing keeps it
 bounded. Two things deal with it, and they do real work:
 
 - *A deadline.* It is not enough that the exact steps of $\alpha$ reach the
@@ -997,9 +998,17 @@ $$\alpha = \log_2\frac{3}{2} = \log_2 3 - 1 .$$
 $\log_2(1 + \frac{1}{3n}) < \frac{1}{2n}$. (2) By [Lemma 4](#lemma-4),
 $m \leq n/2^k < m+1$ and $\log_2(1 + \frac{1}{m}) < \frac{3}{2m}$. $\quad\Box$
 
-[![Figure 11](images/figure-11.png)](https://blog.atlant.is/figures/jane-s-rosary/irrational-log2-3.html?n=40&interactive=yes)
+![Figure 11](images/figure-11.svg)
 
-> Figure 11: the first $40$ multiples of $\log_2 3$ on a circle of length $1$, which are also those of $\alpha$. No two of them coincide, and the gaps between them keep shrinking ([live version](https://blog.atlant.is/figures/jane-s-rosary/irrational-log2-3.html?n=40&interactive=yes)).
+> Figure 11: Jane's phase against the exact rotation, at three moments of her
+> recitation. Each strip follows her for twenty up moves. The open circles are
+> the exact steps of $\alpha$ from where she starts, the full ones her real
+> phase after each up move, and a line joins the two. The exact steps spread
+> over the whole circle, and some fall in the arc of bead $4$ (shaded, as in
+> Figure 10). At the start the beads are small, and Jane's phase is carried
+> away from the exact steps, by up to $0.43$ of a turn. From move $300$ on she
+> stays on beads from $135$ up, and within $0.022$ of the exact steps; from
+> move $3\,000$ on, on beads from $1\,290$ up, and within $0.0011$.
 
 *Proof of Theorem 3, by rotation.* Fix a bead $m$ and suppose that $m$ is never
 told.
