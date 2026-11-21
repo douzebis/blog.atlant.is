@@ -149,7 +149,7 @@ def main() -> int:
         )
     )
 
-    # The numbers in the caption of Figure 11: the smallest bead of each
+    # The numbers in the caption of Figure 10: the smallest bead of each
     # stretch, and how far Jane's phase gets from the exact rotation.
     walk = reluctant_recitation(max(PHASE_STARTS) + 400)
     figure = []
@@ -159,7 +159,7 @@ def main() -> int:
         figure.append((start, lowest, round(blur, 4)))
     results.append(
         report(
-            "Figure 11: lowest bead and largest blur of the three stretches",
+            "Figure 10: lowest bead and largest blur of the three stretches",
             figure == [(0, 1, 0.433), (300, 135, 0.0216), (3000, 1290, 0.0011)],
         )
     )

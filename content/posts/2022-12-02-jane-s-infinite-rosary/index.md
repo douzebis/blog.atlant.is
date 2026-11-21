@@ -8,6 +8,7 @@ date: "2022-12-02"
 revised: "2026-11-20"
 language: "en"
 math: true
+toc: true
 description: "Jane tells the beads of an infinite rosary by moving up or down by the label of the bead she is on. We describe the shortest ways to each bead and compute their length in logarithmic time. We then prove that reluctant Jane, who moves down whenever she can, tells every bead exactly once, and that she moves up with frequency log 2 / log 3."
 compare: "compare/jane-s-infinite-rosary"
 history:
@@ -521,9 +522,9 @@ $$\gamma(n) = \big(\boldsymbol{k},\ \Lambda(n)\big) \quad\text{where}\quad \sigm
 is a bijection between $\mathbb{N}^*$ and $\mathbb{N}^*\times\mathbb{N}$. For
 instance $\gamma(8) = (\mathbf{1}, 4)$ and $\gamma(9) = (\mathbf{2}, 2)$.
 
-[![Figure 6](images/figure-06.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic_back&label=position&color=none&below=height&arrows=yes&interactive=yes&first=1)
+[![Figure 5](images/figure-05.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic_back&label=position&color=none&below=height&arrows=yes&interactive=yes&first=1)
 
-> Figure 6: the rosary deconstructed. Each row is an up-chain and starts from a black bead, on the left: an up move is a step to the right, and $\lambda$ is a step to the left. Each bead shows its position, with its height underneath ($h = \ldots$): bead $8$ sits in the bottom row, four steps from its seed $1$, and its height is $4$. Each arrow leads from a bead back to the one before it on a shortest recitation: a white bead points one step to the left ([Lemma 2](#lemma-2)), a black bead to one of the two beads above it in the binary tree ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic_back&label=position&color=none&below=height&arrows=yes&interactive=yes&first=1)).
+> Figure 5: the rosary deconstructed. Each row is an up-chain and starts from a black bead, on the left: an up move is a step to the right, and $\lambda$ is a step to the left. Each bead shows its position, with its height underneath ($h = \ldots$): bead $8$ sits in the bottom row, four steps from its seed $1$, and its height is $4$. Each arrow leads from a bead back to the one before it on a shortest recitation: a white bead points one step to the left ([Lemma 2](#lemma-2)), a black bead to one of the two beads above it in the binary tree ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic_back&label=position&color=none&below=height&arrows=yes&interactive=yes&first=1)).
 
 The up-chain of bead $1$ reads $1, 2, 3, 5, 8, 12, 18, 27, 41,
 \ldots$ ([A061419](https://oeis.org/A061419)); every up-chain grows
@@ -577,9 +578,9 @@ Two examples.
   theorem names one candidate that always works, it does not say that the
   other never does.
 
-[![Figure 7](images/figure-07.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=candidates&label=position&color=none&columns=lambex&arrows=yes&interactive=yes&first=1)
+[![Figure 6](images/figure-06.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=candidates&label=position&color=none&columns=lambex&arrows=yes&interactive=yes&first=1)
 
-> Figure 7: when in doubt, choose the predecessor with the larger lambda exponent. Only the black beads, in the left column, have a choice. Each has two candidates, shown by two arrows of the same color: the solid one points to the winner, the dashed one to the loser. The lambda exponent of a bead is the column it sits in, written at the bottom, so the winner is always the candidate further to the right ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=candidates&label=position&color=none&columns=lambex&arrows=yes&interactive=yes&first=1)).
+> Figure 6: when in doubt, choose the predecessor with the larger lambda exponent. Only the black beads, in the left column, have a choice. Each has two candidates, shown by two arrows of the same color: the solid one points to the winner, the dashed one to the loser. The lambda exponent of a bead is the column it sits in, written at the bottom, so the winner is always the candidate further to the right ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=candidates&label=position&color=none&columns=lambex&arrows=yes&interactive=yes&first=1)).
 
 *Proof.* It has three steps, after some notation and a sketch.
 
@@ -785,9 +786,9 @@ instance $\rho(0), \rho(1), \ldots = 1, 2, 3, 5, 8, 4, 6, 9, 14, 7, 11, 17, 26,
 13, \ldots$, so $\rho(5) = 4$ and $\rho(12) = 26$. Time is counted from $0$:
 $\rho(i)$ comes after $i$ moves.
 
-[![Figure 8](images/figure-08.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=reluctant&label=position&color=none&ink=down&arrows=labelled&interactive=yes&first=1)
+[![Figure 7](images/figure-07.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=reluctant&label=position&color=none&ink=down&arrows=labelled&interactive=yes&first=1)
 
-> Figure 8: Jane's reluctant recitation on the deconstructed rosary. Each arrow carries the number of the move. An up move is a step to the right, drawn in gray; a down move jumps to another row, and these curved arrows are colored in the order of the moves, from red to green ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=reluctant&label=position&color=none&ink=down&arrows=labelled&interactive=yes&first=1)).
+> Figure 7: Jane's reluctant recitation on the deconstructed rosary. Each arrow carries the number of the move. An up move is a step to the right, drawn in gray; a down move jumps to another row, and these curved arrows are colored in the order of the moves, from red to green ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=reluctant&label=position&color=none&ink=down&arrows=labelled&interactive=yes&first=1)).
 
 ```python
 def rho(i: int) -> int:
@@ -824,9 +825,9 @@ except possibly for the path Jane is currently descending.
 is injective, and it never creates a gap in an up-chain: for every $i$ and
 every white bead $w \in T_i$, we have $w\lambda \in T_i$.
 
-[![Figure 9](images/figure-09.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=32&width=9&height=9&ordering=reluctant&label=position&color=none&ink=down&hide=untold&arrows=labelled&interactive=yes&first=1)
+[![Figure 8](images/figure-08.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=32&width=9&height=9&ordering=reluctant&label=position&color=none&ink=down&hide=untold&arrows=labelled&interactive=yes&first=1)
 
-> Figure 9: the beads told after $31$ moves, that is, the set $T_{31}$, drawn as in Figure 8. They fill every row from the left without leaving a hole: this is the no-gap property of [Theorem 2](#theorem-2) ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=32&width=9&height=9&ordering=reluctant&label=position&color=none&ink=down&hide=untold&arrows=labelled&interactive=yes&first=1)).
+> Figure 8: the beads told after $31$ moves, that is, the set $T_{31}$, drawn as in Figure 7. They fill every row from the left without leaving a hole: this is the no-gap property of [Theorem 2](#theorem-2) ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=32&width=9&height=9&ordering=reluctant&label=position&color=none&ink=down&hide=untold&arrows=labelled&interactive=yes&first=1)).
 
 *The idea.* Jane is stuck if the bead below her and the bead above her have
 both been told. Suppose she stands on $n$, wants to go up, and finds $nU$
@@ -931,13 +932,13 @@ the one that Part IV builds on; then with integers only.
 4. Now Jane makes infinitely many up moves. So her phase goes round the
    circle in steps of $\alpha$, and $\alpha$ is irrational: the steps never
    close up, and they come close to every point of the circle (the open
-   circles of Figure 11).
+   circles of Figure 10).
    Sooner or later the phase falls in the arc of $m$: Jane is in the cone,
    which she was supposed to avoid.
 
 This is the argument. It is not yet a proof, because of the words "hardly"
 and "very nearly" in point 3: every move blurs the phase a little, by about
-$1/n$, and the blur adds up (the slanted lines of Figure 11). Over the whole recitation nothing keeps it
+$1/n$, and the blur adds up (the slanted lines of Figure 10). Over the whole recitation nothing keeps it
 bounded. Two things deal with it, and they do real work:
 
 - *A deadline.* It is not enough that the exact steps of $\alpha$ reach the
@@ -970,9 +971,9 @@ bead, the bead below it has been told. The phase forgets how high a bead is
 in the tree and remembers only where it stands within its level: bead $8$,
 the first of its level, has phase $0$.
 
-![Figure 10](images/figure-10.svg)
+![Figure 9](images/figure-09.svg)
 
-> Figure 10: the binary tree of the rosary, each bead placed above its phase;
+> Figure 9: the binary tree of the rosary, each bead placed above its phase;
 > the root, bead $1$, is at the bottom. The cone of bead $4$ is the shaded
 > strip. A down move follows a gray line to the parent, which is straight
 > below, or nearly so as soon as the beads are large. An up move (the arrows,
@@ -999,14 +1000,14 @@ $$\alpha = \log_2\frac{3}{2} = \log_2 3 - 1 .$$
 $\log_2(1 + \frac{1}{3n}) < \frac{1}{2n}$. (2) By [Lemma 4](#lemma-4),
 $m \leq n/2^k < m+1$ and $\log_2(1 + \frac{1}{m}) < \frac{3}{2m}$. $\quad\Box$
 
-![Figure 11](images/figure-11.svg)
+![Figure 10](images/figure-10.svg)
 
-> Figure 11: Jane's phase against the exact rotation, at three moments of her
+> Figure 10: Jane's phase against the exact rotation, at three moments of her
 > recitation. Each strip follows her for twenty up moves. The open circles are
 > the exact steps of $\alpha$ from where she starts, the full ones her real
 > phase after each up move, and a line joins the two. The exact steps spread
 > over the whole circle, and some fall in the arc of bead $4$ (shaded, as in
-> Figure 10). At the start the beads are small, and Jane's phase is carried
+> Figure 9). At the start the beads are small, and Jane's phase is carried
 > away from the exact steps, by up to $0.43$ of a turn. From move $300$ on she
 > stays on beads from $135$ up, and within $0.022$ of the exact steps; from
 > move $3\,000$ on, on beads from $1\,290$ up, and within $0.0011$.
@@ -1252,9 +1253,9 @@ $3\boldsymbol{\pi}(\boldsymbol{n}) - 2 = \sigma(w) \leq \frac{1}{3}(8\boldsymbol
 
 (The bound is attained: $\boldsymbol{\pi}(\mathbf{10}) = \mathbf{9}$.)
 
-[![Figure 12](images/figure-12.png)](https://blog.atlant.is/figures/jane-s-rosary/onyx-ordering.html?n=1000&interactive=yes&first=1 "live")
+[![Figure 11](images/figure-11.png)](https://blog.atlant.is/figures/jane-s-rosary/onyx-ordering.html?n=1000&interactive=yes&first=1 "live")
 
-> Figure 12: the onyx tree on the first $70$ onyxes, with its root, onyx $\mathbf{1}$, at the bottom. Each onyx hangs from its onyx predecessor. Onyx $\mathbf{1}$ already has six children here ($\mathbf{2}$, $\mathbf{5}$, $\mathbf{11}$, $\mathbf{16}$, $\mathbf{24}$ and $\mathbf{53}$), and [Theorem 4](#theorem-4) says that more will keep coming, for every onyx. Click the picture for the tree on $1\,000$ onyxes ([live version](https://blog.atlant.is/figures/jane-s-rosary/onyx-ordering.html?n=1000&interactive=yes&first=1)).
+> Figure 11: the onyx tree on the first $70$ onyxes, with its root, onyx $\mathbf{1}$, at the bottom. Each onyx hangs from its onyx predecessor. Onyx $\mathbf{1}$ already has six children here ($\mathbf{2}$, $\mathbf{5}$, $\mathbf{11}$, $\mathbf{16}$, $\mathbf{24}$ and $\mathbf{53}$), and [Theorem 4](#theorem-4) says that more will keep coming, for every onyx. Click the picture for the tree on $1\,000$ onyxes ([live version](https://blog.atlant.is/figures/jane-s-rosary/onyx-ordering.html?n=1000&interactive=yes&first=1)).
 
 We say that $\boldsymbol{n}$ **covers** $\boldsymbol{m}$ when $\boldsymbol{\pi}(\boldsymbol{n}) = \boldsymbol{m}$.
 
@@ -1664,12 +1665,12 @@ truth seems to be $\rho^{-1}(m) \approx m\log m$ ([Conjecture A](#conjecture-A))
 The first $2^{27}$ moves of the reluctant recitation were run by computer.
 Within these moves Jane tells every bead up to $10\,801\,813$, and the
 proportion of her up moves agrees with $\log_3 2 = 0.6309297\ldots$ to six
-decimal places. Figure 13 shows two of the quantities measured; all of them
+decimal places. Figure 12 shows two of the quantities measured; all of them
 are in the [table of the appendix](#appendix-numerical-data).
 
-![Figure 13](images/figure-13.svg)
+![Figure 12](images/figure-12.svg)
 
-> Figure 13: two columns of the table of the appendix, for every power of two
+> Figure 12: two columns of the table of the appendix, for every power of two
 > from $2^{10}$
 > to $2^{27}$. On the left, $F(t)\log_2 t / t$ wanders between $2$ and $3$
 > without drifting: the frontier advances like $t/\log t$ ([Conjecture A](#conjecture-A)). On
@@ -1771,7 +1772,7 @@ seem to occupy $\Theta(\log t)$ further levels, each only partially.
 constant $C$ and all $t \ge 2$ (numerically
 $\max_{i \le t}\rho(i) \leq t^{3/2}$ for $t = 2^5, \ldots, 2^{27}$). By
 [Theorem 5](#theorem-5) this would give $u(t) = t\log_3 2 + O(\log t)$, in agreement with
-Figure 13.
+Figure 12.
 
 **Question C (runs).** Among Jane's first $t$ down moves, let $p_r(t)$ be the
 proportion of those that are preceded by exactly $r$ consecutive up moves. Do

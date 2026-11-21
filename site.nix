@@ -115,6 +115,7 @@ pkgs.stdenvNoCC.mkDerivation {
     python3 tools/check_site.py --base-url ${lib.escapeShellArg baseURL} public
     node tools/check_math.cjs vendor/node_modules data/mathjax.json public
     python3 tools/check_latex.py content
+    python3 tools/check_numbers.py content
     python3 tools/check_frozen.py docs/papers/frozen-versions.sha256
     runHook postBuild
   '';

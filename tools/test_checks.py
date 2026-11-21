@@ -465,5 +465,173 @@ class LinkStatements(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
 
 
+NUMBERED = """---
+title: "t"
+math: true
+---
+
+## Part I. First
+
+### 1. One
+
+**Theorem 1.** A claim, see Figure 1 and Section 2, in Part I.
+
+![Figure 1](images/figure-01.png)
+
+> Figure 1: a picture.
+
+### 2. Two
+
+**Lemma 1 (name).** Another, by parts 1 and 2 of the theorem. Part 2 is easy.
+
+**Conjecture A (first).** One. $\\text{Figure 9}$ is not a reference.
+
+**Question B.** Two?
+
+![Figure 2](images/figure-02.png)
+
+> Figure 2: another picture.
+"""
+
+
+class CheckNumbers(unittest.TestCase):
+    def run_check(self, text: str) -> subprocess.CompletedProcess[str]:
+        with tempfile.TemporaryDirectory() as name:
+            post = pathlib.Path(name) / "posts" / "paper"
+            post.mkdir(parents=True)
+            (post / "index.md").write_text(text)
+            return subprocess.run(
+                [sys.executable, str(TOOLS / "check_numbers.py"), name],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+
+    def test_consistent_numbers_pass(self) -> None:
+        result = self.run_check(NUMBERED)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("1 posts, 0 errors", result.stdout)
+
+    def test_gap_in_the_figures_fails(self) -> None:
+        text = NUMBERED.replace("![Figure 2]", "![Figure 3]").replace(
+            "> Figure 2:", "> Figure 3:"
+        )
+        result = self.run_check(text)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("Figure 3 found where Figure 2 was expected", result.stderr)
+
+    def test_figure_without_caption_fails(self) -> None:
+        result = self.run_check(NUMBERED.replace("> Figure 2: another", "> Another"))
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("Figure 2 is not followed by its caption", result.stderr)
+
+    def test_repeated_statement_number_fails(self) -> None:
+        result = self.run_check(NUMBERED + "\n**Theorem 1.** Again.\n")
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("Theorem 1 found where Theorem 2 was expected", result.stderr)
+
+    def test_skipped_letter_fails(self) -> None:
+        result = self.run_check(NUMBERED.replace("**Question B.**", "**Question C.**"))
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("C found where", result.stderr)
+
+    def test_skipped_section_fails(self) -> None:
+        result = self.run_check(NUMBERED.replace("### 2. Two", "### 3. Two"))
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("Section 3 found where Section 2 was expected", result.stderr)
+
+    def test_reference_to_a_missing_figure_or_section_fails(self) -> None:
+        result = self.run_check(NUMBERED + "\nSee Figures 1 and 5, and Section 7.\n")
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("a reference to Figure 5", result.stderr)
+        self.assertIn("a reference to Section 7", result.stderr)
+
+    def test_reference_to_a_missing_part_fails(self) -> None:
+        result = self.run_check(NUMBERED + "\nSee Part II.\n")
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("a reference to Part II", result.stderr)
+
+    def test_the_papers_of_the_site_pass(self) -> None:
+        result = subprocess.run(
+            [sys.executable, str(TOOLS / "check_numbers.py"), str(REPO / "content")],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+
+class RenumberFigures(unittest.TestCase):
+    def test_figures_files_and_list_are_renumbered(self) -> None:
+        with tempfile.TemporaryDirectory() as name:
+            post = pathlib.Path(name) / "paper"
+            (post / "images").mkdir(parents=True)
+            text = (
+                "See Figure 2, Figures 2 and 3, and Figure\n10.\n\n"
+                "![Figure 2](images/figure-02.png)\n\n> Figure 2: two.\n\n"
+                "![Figure 3](images/figure-03.svg)\n\n> Figure 3: three.\n\n"
+                "![Figure 10](images/figure-10.png)\n\n> Figure 10: ten.\n"
+            )
+            (post / "index.md").write_text(text)
+            for picture in (
+                "figure-02.png",
+                "figure-02-dark.png",
+                "figure-03.svg",
+                "figure-10.png",
+            ):
+                (post / "images" / picture).write_text(picture)
+            capture = pathlib.Path(name) / "list.tsv"
+            capture.write_text("2\ta\t2\n10\tb\t2")
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(TOOLS / "renumber_figures.py"),
+                    str(post),
+                    "2=1",
+                    "3=2",
+                    "10=3",
+                    "--capture-list",
+                    str(capture),
+                ],
+                capture_output=True,
+                text=True,
+                check=False,
+                cwd=name,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            changed = (post / "index.md").read_text()
+            self.assertIn("See Figure 1, Figures 1 and 2, and Figure\n3.", changed)
+            self.assertIn("![Figure 3](images/figure-03.png)", changed)
+            self.assertIn("> Figure 2: three.", changed)
+            names = sorted(p.name for p in (post / "images").iterdir())
+            self.assertEqual(
+                names,
+                [
+                    "figure-01-dark.png",
+                    "figure-01.png",
+                    "figure-02.svg",
+                    "figure-03.png",
+                ],
+            )
+            self.assertEqual(
+                (post / "images" / "figure-03.png").read_text(), "figure-10.png"
+            )
+            self.assertEqual(capture.read_text(), "1\ta\t2\n3\tb\t2")
+
+    def test_unknown_figure_is_refused(self) -> None:
+        with tempfile.TemporaryDirectory() as name:
+            post = pathlib.Path(name) / "paper"
+            (post / "images").mkdir(parents=True)
+            (post / "index.md").write_text("![Figure 1](images/figure-01.png)\n")
+            result = subprocess.run(
+                [sys.executable, str(TOOLS / "renumber_figures.py"), str(post), "4=2"],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(result.returncode, 1)
+            self.assertIn("no Figure 4", result.stderr)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -51,6 +51,19 @@
       </p>
     </noscript>
     {{- end }}
+    {{- if .Params.toc }}
+    {{- /* The table of contents: folded above the text on a narrow screen,
+           open in the left margin on a wide one (assets/css/main.css). */ -}}
+    <details class="toc">
+      <summary>{{ if eq $lang "fr" }}Sommaire{{ else }}Contents{{ end }}</summary>
+      {{ .TableOfContents }}
+    </details>
+    <script>
+      if (window.matchMedia("(min-width: 1400px)").matches) {
+        document.querySelector("details.toc").open = true;
+      }
+    </script>
+    {{- end }}
     {{ partial "statement-anchors.html" .Content }}
   </article>
   {{- if strings.Contains .Content "data-live" }}{{ partial "live.html" . }}{{ end }}

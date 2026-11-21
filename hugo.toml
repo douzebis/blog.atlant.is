@@ -24,6 +24,12 @@ disableKinds = ["taxonomy", "term"]
   block = [['$$', '$$'], ['\[', '\]']]
   inline = [['$', '$'], ['\(', '\)']]
 
+[markup.tableOfContents]
+  # The table of contents of a page that asks for one (`toc: true`): its
+  # parts and its sections.
+  startLevel = 2
+  endLevel = 3
+
 [markup.highlight]
   # Colors come from assets/css/syntax.css, which has a light and a dark set.
   noClasses = false

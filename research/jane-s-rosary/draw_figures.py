@@ -8,13 +8,13 @@ usage: python draw_figures.py OUTDIR
 
 Writes, each in a light and a dark variant (NAME.svg and NAME-dark.svg):
 
-- figure-10: the binary tree of the rosary drawn with the phase as
+- figure-09: the binary tree of the rosary drawn with the phase as
   abscissa, the cone of bead 4, and what up moves do to the phase
   (Section 8);
-- figure-11: Jane's phase after each of twenty up moves, against the
+- figure-10: Jane's phase after each of twenty up moves, against the
   exact steps of the rotation, at three moments of her recitation
   (Section 8);
-- figure-13: the numerical data of Section 11, read from
+- figure-12: the numerical data of Section 11, read from
   results/walk-27.log: F(t) log2(t) / t and u(t) - t log_3 2 against
   log2 t.
 
@@ -160,7 +160,7 @@ def tree_figure(colors: dict[str, str]) -> str:
     return svg(width, height + 8, body, colors)
 
 
-# The three moments of Figure 11: the move from which Jane is followed.
+# The three moments of Figure 10: the move from which Jane is followed.
 PHASE_STARTS = (0, 300, 3000)
 PHASE_UP_MOVES = 20
 
@@ -182,7 +182,7 @@ def phase_stretch(beads: list[int], start: int) -> tuple[list[float], list[float
 
 
 def phase_figure(colors: dict[str, str]) -> str:
-    """Three strips on the axis of phases of Figure 10."""
+    """Three strips on the axis of phases of Figure 9."""
     width, left, right = 720, 50, 30
     span = width - left - right
     top, panel, gap = 44, 86, 40
@@ -377,9 +377,9 @@ def main() -> int:
         print(f"expected 18 lines of data, found {len(rows)}")
         return 1
     for suffix, colors in THEMES.items():
-        (out / f"figure-10{suffix}.svg").write_text(tree_figure(colors))
-        (out / f"figure-11{suffix}.svg").write_text(phase_figure(colors))
-        (out / f"figure-13{suffix}.svg").write_text(data_figure(colors, rows))
+        (out / f"figure-09{suffix}.svg").write_text(tree_figure(colors))
+        (out / f"figure-10{suffix}.svg").write_text(phase_figure(colors))
+        (out / f"figure-12{suffix}.svg").write_text(data_figure(colors, rows))
     print(f"wrote 6 files in {out}")
     return 0
 

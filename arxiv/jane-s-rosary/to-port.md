@@ -192,7 +192,8 @@ These reach the paper by a rebuild; to look at in the PDF.
       bead, the position underneath, arrows from a bead back to its
       predecessor. Its caption now also says what the deconstructed
       rosary is.
-- [ ] **Figure 5 is removed and the figures are not renumbered yet**: the
+- [x] (done later the same day, see the to-do list at the end)
+      **Figure 5 is removed and the figures are not renumbered yet**: the
       page goes from Figure 4 to Figure 6, and `build.py` makes the paper
       keep the page's numbers (it sets the figure counter at the gap).
       Before any submission, renumber Figures 6 to 13 as 5 to 12: in the
@@ -344,10 +345,22 @@ to be written instead of automatic numbering:
       --check` (run by the tests) fails if a reference is not a link or
       names a statement that does not exist, and the site check fails on
       a link without a target. Figures and sections are not covered yet.
-- [ ] A build check on the numbers as typed: statements, figures and
-      sections each run 1, 2, 3, ... without gap or repeat, and every
-      "Theorem n", "Lemma n", "Figure n", "Section n" in the text points
-      at something that exists.
-- [ ] A renumbering script, for the day a number must change (most
-      likely a figure, if one is inserted): it shifts the numbers in the
-      page and lists the places outside the page to update.
+- [x] A build check on the numbers as typed: `tools/check_numbers.py`,
+      run by the site build. Statements of each kind, figures (with
+      their captions), sections and parts each run in order without gap
+      or repeat, and every "Figure n", "Section n" and "Part N" in the
+      text points at something that exists.
+- [x] A renumbering script: `tools/renumber_figures.py`. It renumbers
+      the figures in the text, renames the pictures, updates the capture
+      list and lists the files outside the paper to look at by hand.
+- [x] **Figures renumbered on 2026-11-21 (evening)**: after the removal
+      of the old Figure 5, Figures 6 to 13 became 5 to 12, with the tool
+      above. The entries of this file written earlier that day use the
+      old numbers: old 6, 7, 8, 9 (deconstructed rosary, candidates,
+      reluctant recitation, told beads) are now 5, 6, 7, 8; old 10 (the
+      tree and the cone) is 9; old 11 (phases) is 10; old 12 (onyx tree)
+      is 11; old 13 (numerical data) is 12. The paper build no longer
+      sets the figure counter by hand.
+- [x] A table of contents on the page (`toc: true` in the front matter):
+      folded above the text on a narrow screen, in the left margin on a
+      wide one. It is a feature of the web page only.
