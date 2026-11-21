@@ -281,18 +281,29 @@ These reach the paper by a rebuild; to look at in the PDF.
       clashed with the sets T_i).
 - [ ] The sentence on the January 2023 conjecture under the statement of
       Theorem 3 is removed; the history keeps the fact.
-- [ ] New section "Appendix: proofs", before "Checked by computer". It
-      holds the second proof of Theorem 3, with integers only, written
-      out in five steps. The paragraph in "Checked by a proof assistant"
-      that sketched it now points there. Check where this appendix lands
-      in the paper and how its headings are numbered.
+- [ ] Section 8 has two proofs: "Proof of Theorem 3, by rotation", then
+      a subsection "A second proof, with integers only", written out in
+      five steps. The paragraph in "Checked by a proof assistant" that
+      sketched the second proof points to it. (For a few hours it sat in
+      an "Appendix: proofs"; that section is gone again until the
+      detailed proofs move, see the to-do list.) This settles the
+      question "which proof of Theorem 3 leads": the rotation.
+- [ ] `declaration.md` is rewritten around the author's own wording (a
+      collaboration; what the 2023 text had; what was done in 2026; who
+      answers for the paper). It is still a draft, and carries one item
+      to confirm before submission: the author's reading of the Lean
+      statements.
+- [ ] Figure 11 (the big circle) is to be replaced by a thin strip on
+      the phase axis of Figure 10, with the exact multiples of alpha and
+      Jane's actual phases after each up move (agreed in principle on
+      2026-11-21, not drawn).
 
 ## To do later, on the page's side (decided 2026-11-21, not started)
 
 - [ ] **Move detailed proofs to the appendix** (decided 2026-11-21, not
       started). The sketches ("The idea") are the entertaining part and
       stay in the main text; the detailed proofs, which are needed but
-      slow the reading, move to "Appendix: proofs". Candidates: the
+      slow the reading, move to a new "Appendix: proofs". Candidates: the
       proof of Proposition 1; the six computations of Lemma 1; Steps 1
       to 3 of Theorem 1; the induction of Theorem 2; Steps 1 to 4 of
       Theorem 3; the proofs around Theorem 4 (Lemmas 6 to 8); the proofs
