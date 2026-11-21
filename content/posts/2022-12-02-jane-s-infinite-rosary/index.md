@@ -52,7 +52,8 @@ $n + L(n)$ or *down* to bead $n - L(n)$.
 
 > Figure 2: telling the beads. Each bead shows its label, and its two arrows, one up (to the right) and one down (to the left), reach as many places away as the label says. The color of an arrow tells its length, and the arrows that leave the picture fade out ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=both&colors=label&string=yes&end=open&interactive=yes&first=1)).
 
-**Can Jane tell every bead of her rosary?** Yes, and easily: every bead can be
+**Can Jane tell every bead of her rosary?** Yes, by a short induction
+(Proposition 1): every bead can be
 reached from bead $1$. The fun starts with two finer questions.
 
 **How fast?** The least number of moves needed to reach bead $n$ is its
