@@ -543,13 +543,12 @@ by $\lambda$. At a black bead $\boldsymbol{n}^\bullet$ one must come from one of
 two beads above it, $\boldsymbol{n}^\bullet\mu$ or $\boldsymbol{n}^\bullet\nu$
 ([Corollary 1](#corollary-1)), and the question is which.
 
-**Theorem 1.** Let $\boldsymbol{n}^\bullet = 3\boldsymbol{n} - 2 > 1$ be a black bead. At least one of
-the two beads above it, $\boldsymbol{n}^\bullet\mu$ and $\boldsymbol{n}^\bullet\nu$, is the step before $\boldsymbol{n}^\bullet$ on
-a minimal recitation: the bead $w$ given by the following rule. We call $w$
-the *winner* and the other one the *loser*, and say that *$\mu$ wins* or that
-*$\nu$ wins*. Write $2\boldsymbol{n} - 1 = 3^e q$ with $3 \nmid q$; then
-$$w = \boldsymbol{n}^\bullet\mu \ \text{ if } 2^{e+1}q \equiv 1 \pmod 3, \qquad\qquad w = \boldsymbol{n}^\bullet\nu \ \text{ if } 2^{e+1}q \equiv 2 \pmod 3 .$$
-Moreover:
+**Theorem 1.** Let $\boldsymbol{n}^\bullet = 3\boldsymbol{n} - 2 > 1$ be a black bead, and write
+$2\boldsymbol{n} - 1 = 3^e q$ with $3 \nmid q$. Some minimal recitation to
+$\boldsymbol{n}^\bullet$ comes down from the bead
+$$w = \begin{cases} \boldsymbol{n}^\bullet\mu & \text{if } 2^{e+1}q \equiv 1 \pmod 3,\\ \boldsymbol{n}^\bullet\nu & \text{if } 2^{e+1}q \equiv 2 \pmod 3. \end{cases}$$
+We call $w$ the *winner* and the other bead above $\boldsymbol{n}^\bullet$ the *loser*, and say
+that *$\mu$ wins* or that *$\nu$ wins*. Moreover:
 
 1. $h(\boldsymbol{n}^\bullet) = h(w) + 1 = h(\sigma(w)) + \Lambda(w) + 1$: there is a minimal
    recitation to $\boldsymbol{n}^\bullet$ ending in $\sigma(w)\,U^{\Lambda(w)}D$.
