@@ -11,3 +11,7 @@
 /vendor/
 __pycache__/
 .ruff_cache/
+
+# Papers and notes kept for private reading (not ours to publish).
+/private-reading/
+/*.pdf

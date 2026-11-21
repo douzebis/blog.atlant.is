@@ -142,7 +142,8 @@ $$
   [Theorem 5](#theorem-5), need more: that fractions cannot approach $\log_2 3$ faster
   than a fixed power of their denominator (a finite *irrationality
   exponent*). This is a theorem, with two sources: the classical measures
-  of Baker and Rhin, and a bound formalized in Lean by R. K. Jha in 2026.
+  of Baker, of Rhin, and of Wu and Wang, and a bound formalized in Lean by
+  R. K. Jha in 2026.
   Section 11 states its results for any such exponent and then says what
   each source gives ("Which exponent?", after [Theorem 6](#theorem-6)).
 - **Coda**: the rosary's relatives (the sidewalk, the powers of $3/2$, the
@@ -1175,10 +1176,12 @@ part rests on [Theorem 1](#theorem-1).
 
 ### 9. Interlude: for a few names more
 
-> **Colonel Mortimer**: What's going on, boy?
-> **Monco**: Nothing, old man. My count didn't come out right. One was missing.
+> **Colonel Mortimer**: Any trouble, boy?
+> **Monco**: No, old man. Thought I was having trouble with my adding. One was
+> missing. It's all right now.
 >
-> Sergio Leone, *For a Few Dollars More* (1965)
+> Sergio Leone, *For a Few Dollars More* (1965); "one was missing" is from the
+> Italian version, *Ne mancava uno*
 
 Bold is for the onyx rosary, which lives on the black beads only: the
 names of its maps are bold, like the numbers that count the onyxes since
@@ -1519,7 +1522,8 @@ $u(t) = t\log_3 2 + O(\log t)$.
 Let $\mu_0$ be an *irrationality exponent* of $\log_2 3$: a real number such
 that $|\log_2 3 - p/q| \geq c\,q^{-\mu_0}$ for some $c > 0$ and all integers
 $p$ and $q \ge 1$. Baker's theory of linear forms in logarithms [Ba75] shows
-that such a $\mu_0$ exists; Rhin's measure [Rh87] gives $\mu_0 \leq 8.616$.
+that such a $\mu_0$ exists; Rhin [Rh87] gives $\mu_0 = 8.616$, and Wu and
+Wang [WW14] every $\mu_0 > 5.1163051$ (see "Which exponent?" below).
 
 **Lemma 9 (covering time of a rotation).** Let $\beta = \mu_0 - 1$, so that
 $\lVert q\alpha \rVert \geq c\,q^{-\beta}$ for all $q \geq 1$. For every
@@ -1602,9 +1606,16 @@ $\log_2 3$.
 **Which exponent?** [Theorem 6](#theorem-6) holds for every irrationality exponent
 $\mu_0$ of $\log_2 3$. Two sources give one.
 
-- *The classical measures.* Baker's theorem gives a finite $\mu_0$, and
-  Rhin's measure [Rh87] gives $\mu_0 \le 8.616$: the exponent
-  $2\mu_0 - 1$ of [Theorem 6](#theorem-6) is at most $16.24$.
+- *The classical measures.* Baker's theorem gives a finite $\mu_0$. The
+  sharper results are lower bounds for $|u_0 + u_1 \log 2 + u_2 \log 3|$ in
+  terms of $H = \max(|u_1|, |u_2|)$, for integers $u_0$, $u_1$, $u_2$ and $H$
+  large: Rhin [Rh87] proved that it is at least $H^{-7.616}$, and Wu and Wang
+  [WW14] that it is at least $H^{-4.1163051 - \varepsilon}$ for every
+  $\varepsilon > 0$. Taking $u_0 = 0$, $u_1 = -p$ and $u_2 = q$, and dividing
+  by $q \log 2$, this bounds $|\log_2 3 - p/q|$ from below: Rhin's result
+  gives $\mu_0 = 8.616$, and Wu and Wang's gives every $\mu_0 > 5.1163051$.
+  With the latter, the exponent $2\mu_0 - 1$ of [Theorem 6](#theorem-6) can be
+  taken to be $9.24$.
 - *A formalized bound.* In October 2026, R. K. Jha [Jh26] announced that
   every $\mu_0 > 3$ is an irrationality exponent of $\log_2 3$: for every
   $\varepsilon > 0$, $|\log_2 3 - p/q| \ge q^{-(3+\varepsilon)}$ for all
@@ -1975,8 +1986,7 @@ machine. The record of what was done, and of what was not, is in
 This paper grew out of a blog post that the author wrote alone in 2022 and
 revised in January 2023. That text introduced the rosary, the reluctant
 recitation and the onyx rosary. It stated what are now [Theorems 1](#theorem-1), [2](#theorem-2) and [4](#theorem-4),
-with proofs that were complete in some places, and it left as a conjecture
-that the reluctant recitation tells every bead.
+and it left as a conjecture that the reluctant recitation tells every bead.
 
 The present version was written in November 2026 by the author in
 collaboration with Claude, an AI system made by Anthropic. The collaboration
@@ -2079,3 +2089,6 @@ number of up moves among them; $\log_3 2 = 0.6309297\ldots$
   Math. 71, Birkhäuser (1987), 155–164.
 - [Sós58] V. T. Sós, *On the distribution mod 1 of the sequence $n\alpha$*,
   Ann. Univ. Sci. Budapest. Eötvös Sect. Math. 1 (1958), 127–134.
+- [WW14] Q. Wu and L. Wang, *On the irrationality measure of $\log 3$*,
+  J. Number Theory 142 (2014), 264–273,
+  [doi:10.1016/j.jnt.2014.03.007](https://doi.org/10.1016/j.jnt.2014.03.007).

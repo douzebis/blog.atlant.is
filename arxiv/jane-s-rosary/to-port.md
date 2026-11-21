@@ -304,6 +304,20 @@ These reach the paper by a rebuild; to look at in the PDF.
       and the numbers of its caption are checked by
       `check_reluctant.py`. Check its width and the thin lines in print.
 
+## 2026-11-21: sources for the irrationality exponent, and small things
+
+- [ ] "Which exponent?" now quotes Rhin's and Wu and Wang's results as
+      bounds on the linear form u0 + u1 log 2 + u2 log 3, both read at
+      the source, with the one-line deduction for log2 3: 8.616 and
+      5.1163051. The exponent of Theorem 6 is at most 9.24 (was 16.24).
+      New reference [WW14]. Check the paper's abstract and introduction
+      for any number that should follow.
+- [ ] The epigraph of Section 9 is the English version of the film, with
+      one line of the Italian version added and said to be so. (The
+      paper drops this epigraph.)
+- [ ] The declaration no longer says that the 2023 proofs were complete
+      "in some places".
+
 ## To do later, on the page's side (decided 2026-11-21, not started)
 
 - [ ] **Move detailed proofs to the appendix** (decided 2026-11-21, not

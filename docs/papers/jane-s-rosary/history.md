@@ -454,6 +454,23 @@ Sources checked on 2026-11-20:
   the same bound for log 3 / log 2. We could not read their paper
   (publisher's page refused), so the paper keeps Rhin's value for
   log 3 / log 2 and does not quote 5.1163051.
+- Read on 2026-11-21, from copies supplied by the author (not kept in
+  the repository):
+  - Rhin's paper. Its Proposition (page 160) is about the linear form
+    Lambda = u0 + u1 log 2 + u2 log 3, with H = max(|u1|, |u2|): equation
+    (7) says |Lambda| >= H^(-13.3) for all H >= 2, and equation (8) says
+    |Lambda| >= H^(-7.616) for H >= H0, effectively computable. With
+    u0 = 0 this bounds |log 3 / log 2 - p/q| from below by a constant
+    times q^(-8.616): the 8.616 quoted through Spiegelhofer is confirmed
+    at the source, and it is a statement about log 3 / log 2 as much as
+    about log 3.
+  - Wu and Wang's paper. Its Theorem 1 is of the same shape:
+    |p + q1 log 2 + q2 log 3| >= H^(-4.1163051 - eps) for H >= H0(eps),
+    effectively computable; its Corollary 1 is mu(log 3) <= 5.1163051.
+    The same remark (take p = 0) gives 5.1163051 for log 3 / log 2, as
+    Jha's manuscript says. The paper now quotes both values, with this
+    one-line deduction, and the exponent of Theorem 6 becomes at most
+    9.24 instead of 16.24.
 - [OAI26]: at commit adc7f124 of github.com/openai/math (the commit Jha's
   sources are copied from), the directory
   `preprints/The-irrationality-exponent-of-pi-is-2-September-24-2026`
