@@ -827,8 +827,9 @@ $m \leq n/2^k < m+1$ and $\log_2(1 + \frac{1}{m}) < \frac{3}{2m}$. $\quad\Box$
 > the exact rotation, restarted from Jane's phase at the beginning of each
 > strip: that phase plus $\alpha$, plus $2\alpha$, and so on. The full
 > circles are her real phase after each up move, and a line joins the two. The exact steps spread
-> over the whole circle, and some fall in the arc of bead $4$ (shaded, as in
-> Figure 9). At the start the beads are small, and Jane's phase is carried
+> over the whole circle, and some fall between the two ends of the arc of
+> bead $4$ (dashed lines). The arc itself is shaded on Jane's row, as in
+> Figure 9. At the start the beads are small, and Jane's phase is carried
 > away from the exact steps, by up to $0.43$ of a turn. From move $300$ on she
 > stays on beads from $135$ up, and within $0.022$ of the exact steps; from
 > move $3\,000$ on, on beads from $1\,290$ up, and within $0.0011$. In the

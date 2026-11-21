@@ -227,10 +227,18 @@ def phase_figure(colors: dict[str, str]) -> str:
             if start == 0
             else f"twenty up moves from move {start} (no bead below {lowest})"
         )
+        # The arc is a set of beads: it is shaded on Jane's row only, and
+        # dashed lines carry its two ends up to the row of the exact steps.
         body.append(
-            f'<rect x="{x(0):.1f}" y="{y_exact - 13}" width="{arc * span:.1f}" '
-            f'height="{y_real - y_exact + 26}" rx="6" fill="{colors["cone"]}"/>'
+            f'<rect x="{x(0):.1f}" y="{y_real - 13}" width="{arc * span:.1f}" '
+            f'height="26" rx="6" fill="{colors["cone"]}"/>'
         )
+        for end in (0.0, arc):
+            body.append(
+                f'<line x1="{x(end):.1f}" y1="{y_exact - 13}" x2="{x(end):.1f}" '
+                f'y2="{y_real - 13}" stroke="{colors["muted"]}" stroke-width="1" '
+                f'stroke-dasharray="3 3"/>'
+            )
         body.append(
             f'<text x="{left}" y="{y0 + 8}" font-size="13" {FONT} font-style="italic" '
             f'fill="{colors["text"]}">{title}</text>'
