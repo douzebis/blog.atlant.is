@@ -54,6 +54,9 @@ const THEME = (() => {
 
 // -- Pretty printing ----------------------------------------------------------
 
+// Colors that tell arrows apart, readable on both backgrounds.
+const ARROW_PALETTE = ['#e03131', '#f08c00', '#2f9e44', '#1c7ed6', '#9c36b5']
+
 // Colors
 function hsl_to_col(h, s, l) {
     const hDecimal = l / 100

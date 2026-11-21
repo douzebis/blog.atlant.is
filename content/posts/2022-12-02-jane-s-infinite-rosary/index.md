@@ -40,17 +40,17 @@ black and white beads. Starting from the end, the beads are numbered
 $n = 1, 2, 3, \ldots$ and each carries a label $L(n) = 1, 1, 2, 2, 3, 3, \ldots$
 Every third bead, starting with bead $1$, is black; the other beads are white.
 
-[![Figure 1](images/figure-01.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=none&below=position&end=open&interactive=yes&first=1)
+[![Figure 1](images/figure-01.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=position&arrows=none&below=label&end=open&interactive=yes&first=1)
 
-> Figure 1: the rosary. Each bead shows its label, with its position underneath; every third bead is black. Up is to the right, down to the left ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=none&below=position&end=open&interactive=yes&first=1)).
+> Figure 1: the rosary. Each bead shows its position, with its label underneath ($L = 1, 1, 2, 2, \ldots$); every third bead is black. Up is to the right, down to the left ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=position&arrows=none&below=label&end=open&interactive=yes&first=1)).
 
 Jane tells the beads of her rosary in a special way. She always starts at bead
 $1$. Each time she is done with a bead $n$, she moves on, either *up* to bead
 $n + L(n)$ or *down* to bead $n - L(n)$.
 
-[![Figure 2](images/figure-02.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=both&colors=label&string=yes&end=open&interactive=yes&first=1)
+[![Figure 2](images/figure-02.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=position&arrows=both&colors=label&string=yes&end=open&interactive=yes&first=1)
 
-> Figure 2: telling the beads. Each bead shows its label, and its two arrows, one up (to the right) and one down (to the left), reach as many places away as the label says. The color of an arrow tells its length, and the arrows that leave the picture fade out ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=both&colors=label&string=yes&end=open&interactive=yes&first=1)).
+> Figure 2: telling the beads. Each bead shows its position. Its two arrows, one up (to the right) and one down (to the left), reach as many places away as its label says. The color of an arrow tells its length, and the arrows that leave the picture fade out ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=position&arrows=both&colors=label&string=yes&end=open&interactive=yes&first=1)).
 
 **Can Jane tell every bead of her rosary?** Yes, by a short induction
 ([Proposition 1](#proposition-1)): every bead can be
@@ -246,9 +246,9 @@ structure (down) and the multiplication by $3/2$ (up).
 
 By definition $h(1) = 0$.
 
-[![Figure 3](images/figure-03.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=to3&colors=label&below=position&string=yes&end=open&interactive=yes&first=1)
+[![Figure 3](images/figure-03.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=position&arrows=to3&colors=label&below=label&string=yes&end=open&interactive=yes&first=1)
 
-> Figure 3: the height of bead $4$ is $5$. Beads show their labels, with their positions underneath. The arrows are those of Figure 2, dimmed except for the five moves of a shortest recitation, which are numbered in order: four up, then one down onto bead $4$ ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=to3&colors=label&below=position&string=yes&end=open&interactive=yes&first=1)).
+> Figure 3: the height of bead $4$ is $5$. Beads show their positions, with their labels underneath. The arrows are those of Figure 2, dimmed except for the five moves of a shortest recitation, which are numbered in order: four up, then one down onto bead $4$ ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=position&arrows=to3&colors=label&below=label&string=yes&end=open&interactive=yes&first=1)).
 
 **Proposition 1.** Every bead has a finite height. Moreover, for all $n \geq 2$,
 
@@ -520,9 +520,9 @@ $$\gamma(n) = \big(\boldsymbol{k},\ \Lambda(n)\big) \quad\text{where}\quad \sigm
 is a bijection between $\mathbb{N}^*$ and $\mathbb{N}^*\times\mathbb{N}$. For
 instance $\gamma(8) = (\mathbf{1}, 4)$ and $\gamma(9) = (\mathbf{2}, 2)$.
 
-[![Figure 6](images/figure-06.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic_back&label=plain_height&color=none&below=position&arrows=yes&interactive=yes&first=1)
+[![Figure 6](images/figure-06.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic_back&label=position&color=none&below=height&arrows=yes&interactive=yes&first=1)
 
-> Figure 6: the rosary deconstructed. Each row is an up-chain and starts from a black bead, on the left: an up move is a step to the right, and $\lambda$ is a step to the left. Each bead shows its height, with its position underneath: bead $8$ sits in the bottom row, four steps from its seed $1$, and its height is $4$. Each arrow leads from a bead back to the one before it on a shortest recitation: a white bead points one step to the left ([Lemma 2](#lemma-2)), a black bead to one of the two beads above it in the binary tree ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic_back&label=plain_height&color=none&below=position&arrows=yes&interactive=yes&first=1)).
+> Figure 6: the rosary deconstructed. Each row is an up-chain and starts from a black bead, on the left: an up move is a step to the right, and $\lambda$ is a step to the left. Each bead shows its position, with its height underneath ($h = \ldots$): bead $8$ sits in the bottom row, four steps from its seed $1$, and its height is $4$. Each arrow leads from a bead back to the one before it on a shortest recitation: a white bead points one step to the left ([Lemma 2](#lemma-2)), a black bead to one of the two beads above it in the binary tree ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic_back&label=position&color=none&below=height&arrows=yes&interactive=yes&first=1)).
 
 The up-chain of bead $1$ reads $1, 2, 3, 5, 8, 12, 18, 27, 41,
 \ldots$ ([A061419](https://oeis.org/A061419)); every up-chain grows
@@ -536,6 +536,24 @@ $\boldsymbol{n}^\bullet > 1$ have small seeds:
 $\sigma(\boldsymbol{n}^\bullet - 1) \leq 2\boldsymbol{n}-2$ and $\sigma(\boldsymbol{n}^\bullet + 1) \leq 2\boldsymbol{n}-1$.
 
 ### 5. Theorem 1: minimal recitations ending in a black bead
+
+A minimal recitation can be built backwards, and only black beads leave a
+choice. At a white bead there is nothing to decide: by [Lemma 2](#lemma-2) one goes back
+by $\lambda$. At a black bead $b$ one must come from one of the two beads
+above it, $b\mu$ or $b\nu$ ([Corollary 1](#corollary-1)), and the question is which.
+
+**The answer in one sentence.** *Of the two candidates $b\mu$ and $b\nu$,
+take the one with the larger lambda exponent*, that is, the one whose
+up-chain goes further back before it meets its seed. The two lambda exponents
+are never equal, so the rule always decides, and a look at the base-3
+expansion of one number tells which candidate wins without following the
+chains. Applied at every black bead on the way, the rule gives a minimal
+recitation to any bead, and its length.
+
+[Theorem 1](#theorem-1) says this with the bookkeeping that its proof needs. Parts 1 to 3
+compute the two lambda exponents and name the winner; part 5 is the rule;
+part 4 compares the height of a black bead with those of its two neighbors,
+which is what makes the induction work.
 
 Let $\boldsymbol{n}^\bullet > 1$ be a black bead. Write
 
@@ -560,16 +578,14 @@ $$2\boldsymbol{n} - 1 = 3^e q \quad\text{with } 3 \nmid q, \qquad\text{and}\qqua
    Then $h(\boldsymbol{n}^\bullet) = h(\sigma(w)) + \Lambda(w) + 1$: there is a minimal recitation
    to $\boldsymbol{n}^\bullet$ ending in $\sigma(w)\,U^{\Lambda(w)}D$.
 
-In words: of the two beads $\boldsymbol{n}^\bullet\mu$ and $\boldsymbol{n}^\bullet\nu$ above a black bead, *the one
-with the larger lambda exponent, equivalently the smaller seed, lies on a minimal
-recitation*; and which one it is can be read off the base-3 expansion of
-$2\boldsymbol{n}-1$. Above bead $4$, which is onyx $\mathbf{2}$, for instance, $2\boldsymbol{n} - 1 = 3$,
+The winner is also the candidate with the smaller seed (part 3), and the
+number whose base-3 expansion decides is $2\boldsymbol{n}-1$. Above bead $4$, which is onyx $\mathbf{2}$, for instance, $2\boldsymbol{n} - 1 = 3$,
 so $e = 1$, $q = 1$ and $b_2 = 4$ is black: $\mu$ wins, and indeed
 $4\mu = 8$ has lambda exponent $4$ while $4\nu = 9$ has lambda exponent $2$.
 
-[![Figure 7](images/figure-07.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=back&label=position&color=position&arrows=yes&interactive=yes&first=1)
+[![Figure 7](images/figure-07.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=candidates&label=position&color=none&columns=lambex&arrows=yes&interactive=yes&first=1)
 
-> Figure 7: when in doubt, choose the predecessor with the larger lambda exponent. Each arrow points to where a shortest recitation comes from. White beads point one step to the left. A black bead, in the left column, has two candidates: the solid arrow points to the winner, the dashed one to the loser, and the winner is always the one further to the right in its row ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=back&label=position&color=position&arrows=yes&interactive=yes&first=1)).
+> Figure 7: when in doubt, choose the predecessor with the larger lambda exponent. Only the black beads, in the left column, have a choice. Each has two candidates, shown by two arrows of the same color: the solid one points to the winner, the dashed one to the loser. The lambda exponent of a bead is the column it sits in, written at the bottom, so the winner is always the candidate further to the right ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=candidates&label=position&color=none&columns=lambex&arrows=yes&interactive=yes&first=1)).
 
 *The idea.* Follow the two candidates $a_0 = \boldsymbol{n}^\bullet\mu$ and $b_0 = \boldsymbol{n}^\bullet\nu$
 backwards along their up-chains. They are neighbors, and they stay neighbors,

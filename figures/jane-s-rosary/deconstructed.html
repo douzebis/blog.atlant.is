@@ -34,12 +34,17 @@
         // P.n          Count of nodes to display (0 means all)
         // P.width      Count of seeds
         // P.height     Count of lambdex
-        // P.ordering   ['none', 'up_n_down', 'height', 'canonic', 'canonic_back', 'back', 'reluctant']
+        // P.ordering   ['none', 'up_n_down', 'height', 'canonic', 'canonic_back', 'back', 'candidates', 'reluctant']
+        //              'candidates' shows the choice of the black beads
+        //              only: a solid arrow to the winner, a dashed one to
+        //              the loser, in a color of their own for each bead
         //              'canonic_back' is 'canonic' with each arrow turned
         //              round, from a bead to the one before it, in one plain
         //              color
         // P.label     ['none', 'position', 'label', 'height', 'plain_height', 'reluctant_inv']
-        // P.below     ['position']: what is written under each bead
+        // P.below     ['position', 'height']: what is written under each bead,
+        //              as '#3' for a position and 'h=2' for a height
+        // P.columns   ['lambex']: write the lambda exponent under each column
         // P.color     ['none', 'position', 'label', 'height', 'reluctant_inv']
         // P.arrows     ['no', 'yes', 'labelled']
         let wid = parseInt(P.width)
@@ -287,6 +292,28 @@
                             width: ARROW_REF/this.side/1.6,
                         }]
                     }
+                    case 'candidates': {
+                        if (node == 0 || y != 0) return []
+                        const winner = back(node)
+                        const loser = winner == mu(node) ? nu(node) : mu(node)
+                        const color = ARROW_PALETTE[x%ARROW_PALETTE.length]
+                        const found = []
+                        for (const [target, wins] of [[winner, true], [loser, false]]) {
+                            const target_id = this.positions.findIndex(e => e == target)
+                            if (target_id < 0) continue
+                            found.push({
+                                id: node_id*this.side**2 + target_id,
+                                from: node_id,
+                                to: target_id,
+                                arrows: {to: {enabled: true, scaleFactor: 0.25}},
+                                color: color,
+                                smooth: {enabled: true, type: wins ? 'curvedCCW' : 'curvedCW', roundness: 0.25},
+                                width: ARROW_REF/this.side/1.6,
+                                dashes: !wins,
+                            })
+                        }
+                        return found
+                    }
                     case 'back': {
                         if (node == 0) return []
                         if (this.n != 0 && height(node_id) >= this.n) return []
@@ -398,8 +425,24 @@
       }
       var network = new vis.Network(container, data, options);
 
-      // The position of each bead, written under it.
-      if (P.below == 'position') {
+      // The lambda exponent of the beads of a column, written under it.
+      if (P.columns == 'lambex') {
+          network.on('afterDrawing', (ctx) => {
+              const size = FONT_REF/Do.side/1.5
+              ctx.font = size + 'px arial'
+              ctx.fillStyle = THEME.text
+              ctx.textAlign = 'center'
+              ctx.textBaseline = 'top'
+              for (let y = 0; y < hei; ++y) {
+                  const box = network.getBoundingBox('' + y)
+                  ctx.fillText('\u039B=' + y,
+                      (box.left + box.right)/2, box.bottom + size*0.6)
+              }
+          })
+      }
+
+      // The position or the height of each bead, written under it.
+      if (P.below == 'position' || P.below == 'height') {
           network.on('afterDrawing', (ctx) => {
               const size = FONT_REF/Do.side/1.7
               ctx.font = size + 'px arial'
@@ -408,7 +451,9 @@
               ctx.textBaseline = 'top'
               for (let id = 0; id < wid*hei; ++id) {
                   const box = network.getBoundingBox('' + id)
-                  ctx.fillText('#' + f_label_position(Do.positions[id]),
+                  ctx.fillText(
+                      P.below == 'height' ? 'h=' + Do.heights[id]
+                          : '#' + f_label_position(Do.positions[id]),
                       (box.left + box.right)/2, box.bottom + size*0.3)
               }
           })

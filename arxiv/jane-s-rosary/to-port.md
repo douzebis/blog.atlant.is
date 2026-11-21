@@ -202,6 +202,25 @@ These reach the paper by a rebuild; to look at in the PDF.
       and then take the counter trick out of `build.py`. This is the
       first use for the renumbering script listed below.
 
+## 2026-11-21: one convention for the figures; Section 5 introduced
+
+These reach the paper by a rebuild; to look at in the PDF.
+
+- [ ] In every figure of beads the number in a bead is its position.
+      Another quantity goes underneath with its letter: `L=2` (label) in
+      Figures 1 and 3, `h=4` (height) in Figure 6. This reverses the
+      change made earlier the same day (labels in the beads, `#n`
+      underneath). Figures 8 and 9 already showed positions; they keep
+      their colors for now.
+- [ ] Figure 7 is redrawn: black and white beads, only the two arrows of
+      each black bead (solid to the winner, dashed to the loser, one
+      color per bead), and the lambda exponent written under each
+      column. Check that the five colors survive in print.
+- [ ] Section 5 opens with why black beads are the only ones with a
+      choice, "the answer in one sentence", and a guide to the five
+      parts of Theorem 1. The paragraph "In words: ..." after the
+      theorem is reduced to what the opening does not say.
+
 ## To do later, on the page's side (decided 2026-11-21, not started)
 
 The numbers of statements, figures and sections stay typed by hand, on

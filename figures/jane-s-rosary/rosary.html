@@ -34,7 +34,8 @@
         // P.n          Count of nodes to display
         // P.labels     ['position', 'label', 'plain', 'height', 'reluctant_inv']
         // P.arrows     ['none', 'up', 'down', 'both', 'to3']
-        // P.below      ['position']: what is written under each bead
+        // P.below      ['position', 'label']: what is written under each bead,
+        //              as '#3' for a position and 'L=2' for a label
         // P.end        ['open']: the last bead is a bead like the others and
         //              a dashed piece of string leaves it to the right;
         //              without it the last bead shows '..'
@@ -283,8 +284,8 @@
           })
       }
 
-      // The position of each bead, written under it.
-      if (BELOW == 'position') {
+      // The position or the label of each bead, written under it.
+      if (BELOW == 'position' || BELOW == 'label') {
           network.on('afterDrawing', (ctx) => {
               const size = BASE/6.5/N
               ctx.font = size + 'px arial'
@@ -293,7 +294,8 @@
               ctx.textBaseline = 'top'
               for (let i = 0; i < N; ++i) {
                   const box = network.getBoundingBox('' + i)
-                  ctx.fillText('#' + f_label_position(i),
+                  ctx.fillText(
+                      BELOW == 'label' ? 'L=' + label(i) : '#' + f_label_position(i),
                       (box.left + box.right)/2, box.bottom + size*0.45)
               }
           })
