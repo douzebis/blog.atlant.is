@@ -39,6 +39,12 @@
         //              a dashed piece of string leaves it to the right;
         //              without it the last bead shows '..'
         // P.string     ['yes']: draw the string even when there are arrows
+        // P.colors     ['label', 'direction']: the color of an arrow says
+        //              how long it is, or which way it goes; every arrow of
+        //              every bead is drawn, those that leave the picture
+        //              fade out, and with arrows=to3 those that are not
+        //              on the shortest recitation are dimmed.  Without it
+        //              the color follows the bead the arrow leaves.
         // Without them: positions, no arrows (as the first version of the
         // post calls this page).  The earlier versions of the paper link to
         // this page without the last three parameters and must keep the
@@ -49,7 +55,13 @@
         const BELOW = P.below || 'none'
         const OPEN = P.end == 'open'
         const STRING = ARROWS == 'none' || P.string == 'yes'
+        const COLORS = P.colors || 'bead'
         const STEP = (BASE - BASE/N/2.2)/N
+        const PALETTE = ['#e03131', '#f08c00', '#2f9e44', '#1c7ed6', '#9c36b5']
+        function arrow_color(i, way) {
+            if (COLORS == 'direction') return way == 'u' ? PALETTE[0] : PALETTE[3]
+            return PALETTE[(label(i) - 1)%PALETTE.length]
+        }
 
         // Create nodes
         var nodes = new vis.DataSet([])
@@ -103,7 +115,9 @@
                 ])
             }
         }
-        if (OPEN) {
+        // With arrows that fade out, the dashed piece is drawn later, on
+        // top of what hides them.
+        if (OPEN && COLORS == 'bead') {
             edges.add([
                 {
                     id: 'send',
@@ -119,6 +133,53 @@
         // With the last bead a bead like the others, it has arrows too.
         const LAST = OPEN ? N : N - 1
         if (ARROWS == 'none') {
+        } else if (COLORS != 'bead') {
+            // The moves of the shortest recitation to bead 3 (counted
+            // from 0), with their numbers.
+            const told = {}
+            if (ARROWS == 'to3') {
+                for (let i of [1, 2, 4, 7, 3]) {
+                    told[(back(i) < i ? 'u' : 'd') + back(i)] = height(i)
+                }
+            }
+            const arrows = []
+            for (let i = 0; i < N; ++i) {
+                if (ARROWS != 'down') arrows.push(['u', i, up(i)])
+                if (ARROWS != 'up' && i > 0) arrows.push(['d', i, down(i)])
+            }
+            // The dimmed arrows first, so that the others are drawn on them.
+            const dimmed = ([way, i, to]) => ARROWS == 'to3' && !(way + i in told)
+            arrows.sort((a, b) => dimmed(b) - dimmed(a))
+            for (let [way, i, to] of arrows) {
+                if (to >= N && nodes.get('' + to) == null) {
+                    // A bead beyond the picture: not seen, it is only
+                    // there for the arrow to aim at.
+                    nodes.add([
+                        {
+                            id: '' + to,
+                            shape: 'dot',
+                            size: BASE/N/3.6,
+                            color: 'rgba(0, 0, 0, 0)',
+                            x: BASE/N/2.2/2 + to*STEP,
+                            y: 0,
+                        }
+                    ])
+                }
+                const edge = {
+                    id: way + i,
+                    from: i,
+                    to: to,
+                    arrows: {to: {enabled: true, scaleFactor: 0.2}},
+                    color: {color: arrow_color(i, way), opacity: dimmed([way, i, to]) ? 0.3 : 1},
+                    smooth: {enabled: true, type: 'curvedCW'},
+                    width: dimmed([way, i, to]) ? 1.5 : 2,
+                }
+                if (way + i in told) {
+                    edge.label = '' + told[way + i]
+                    edge.font = {size: BASE/8/N, vadjust: -BASE/8/N}
+                }
+                edges.add([edge])
+            }
         } else if (ARROWS == 'to3') {
             for (let i of [1, 2, 4, 7, 3]) {
                 edges.add([
@@ -191,6 +252,36 @@
       }
       var network = new vis.Network(container, data, options);
       //network.fit()
+
+      // The view is that of the beads: the arrows that leave the picture
+      // fade into the background to the right of the last bead.
+      if (COLORS != 'bead') {
+          const seen = []
+          for (let i = 0; i < N; ++i) seen.push('' + i)
+          if (OPEN) seen.push('end')
+          network.fit({nodes: seen})
+          network.on('afterDrawing', (ctx) => {
+              const box = network.getBoundingBox('' + (N - 1))
+              const from = box.right + 0.03*STEP
+              const to = box.right + 0.36*STEP
+              const fade = ctx.createLinearGradient(from, 0, to, 0)
+              fade.addColorStop(0, THEME.background + '00')
+              fade.addColorStop(1, THEME.background)
+              ctx.fillStyle = fade
+              ctx.fillRect(from, -2*BASE, 4*BASE, 4*BASE)
+              if (OPEN) {
+                  const y = (box.top + box.bottom)/2
+                  ctx.strokeStyle = hsl_to_col(0, 0., 50.)
+                  ctx.lineWidth = 1
+                  ctx.setLineDash([BASE/250, BASE/250])
+                  ctx.beginPath()
+                  ctx.moveTo(box.right, y)
+                  ctx.lineTo(network.getPositions(['end']).end.x, y)
+                  ctx.stroke()
+                  ctx.setLineDash([])
+              }
+          })
+      }
 
       // The position of each bead, written under it.
       if (BELOW == 'position') {

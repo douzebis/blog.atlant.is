@@ -48,9 +48,9 @@ Jane tells the beads of her rosary in a special way. She always starts at bead
 $1$. Each time she is done with a bead $n$, she moves on, either *up* to bead
 $n + L(n)$ or *down* to bead $n - L(n)$.
 
-[![Figure 2](images/figure-02.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=both&string=yes&end=open&interactive=yes&first=1)
+[![Figure 2](images/figure-02.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=both&colors=label&string=yes&end=open&interactive=yes&first=1)
 
-> Figure 2: telling the beads. Each bead shows its label, and its two arrows, one up (to the right) and one down (to the left), reach as many places away as the label says ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=both&string=yes&end=open&interactive=yes&first=1)).
+> Figure 2: telling the beads. Each bead shows its label, and its two arrows, one up (to the right) and one down (to the left), reach as many places away as the label says. The color of an arrow tells its length, and the arrows that leave the picture fade out ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=both&colors=label&string=yes&end=open&interactive=yes&first=1)).
 
 **Can Jane tell every bead of her rosary?** Yes, and easily: every bead can be
 reached from bead $1$. The fun starts with two finer questions.
@@ -249,9 +249,9 @@ this binary structure (down) and the multiplication by $3/2$ (up).
 
 By definition $h(1) = 0$.
 
-[![Figure 3](images/figure-03.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=to3&string=yes&end=open&interactive=yes&first=1)
+[![Figure 3](images/figure-03.png)](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=to3&colors=label&below=position&string=yes&end=open&interactive=yes&first=1)
 
-> Figure 3: the height of bead $4$ is $5$. Beads show their labels and the arrows are numbered in the order of the moves: four up, then one down onto bead $4$, the fourth from the left ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=to3&string=yes&end=open&interactive=yes&first=1)).
+> Figure 3: the height of bead $4$ is $5$. Beads show their labels, with their positions underneath. The arrows are those of Figure 2, dimmed except for the five moves of a shortest recitation, which are numbered in order: four up, then one down onto bead $4$ ([live version](https://blog.atlant.is/figures/jane-s-rosary/rosary.html?n=10&labels=plain&arrows=to3&colors=label&below=position&string=yes&end=open&interactive=yes&first=1)).
 
 **Proposition 1.** Every bead has a finite height. Moreover, for all $n \geq 2$,
 
