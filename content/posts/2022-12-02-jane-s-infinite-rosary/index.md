@@ -328,7 +328,7 @@ def height(n: int) -> int:
 
 [![Figure 4](images/figure-04.png)](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000&first=1 "live")
 
-> Figure 4: the heights of the first $10\,000$ beads, with positions on a logarithmic scale. Look at the horizontal dashes: long runs of neighboring beads share the same height[[does the paper have more to say about this observation?]]. Click the picture to explore it ([live version](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000&first=1)).
+> Figure 4: the heights of the first $10\,000$ beads, with positions on a logarithmic scale. Look at the horizontal dashes: long runs of neighboring beads share the same height. Click the picture to explore it ([live version](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000&first=1)).
 
 ### 3. Minimal recitations
 
@@ -341,12 +341,22 @@ observation about the beads sitting "above" a white bead.
 2. The other one, call it $b$, is black. Both $b\mu$ and $b\nu$ are white, and
    $b\mu\lambda DD = b\nu\lambda DD = w\lambda$.
 
-**How to read the diagrams.** All the diagrams of this paper are read in the
-same way. An arrow carries the name of a move ($U$, $D$) or of a move run
-backwards ($\lambda$, $\mu$, $\nu$), and leads from a bead to the bead that
-this name gives. A diagram *commutes* when two routes that follow its arrows
-from one bead to another always arrive at the same bead; when the arrows go
-round in a loop, this means that the loop closes.
+**How to read the diagrams.** All the diagrams of beads in this paper are
+read in the same way.
+
+- An arrow carries the name of a move ($U$, $D$) or of a move run backwards
+  ($\lambda$, $\mu$, $\nu$), and leads from a bead to the bead that this name
+  gives.
+- Larger beads are to the right and to the top: along a row the beads grow
+  from left to right, and along a column from bottom to top. So $U$ points
+  to the right, $\lambda$ to the left, $D$ downwards, $\mu$ and $\nu$
+  upwards.
+- A small mark under a bead gives its color when it is known: $\bullet$ for
+  a black bead, $\circ$ for a white one. A bead without a mark can be of
+  either color.
+- A diagram *commutes* when two routes that follow its arrows from one bead
+  to another always arrive at the same bead; when the arrows go round in a
+  loop, this means that the loop closes.
 
 Both statements of Lemma 1 say that a loop closes. Start from $w$, in the
 bottom right corner: go up the right-hand side, across the top, and down the
@@ -357,17 +367,17 @@ $\mu$ or $\nu$:
 
 $$
 \begin{CD}
-\hat{w}\lambda @<\lambda<< \hat{w}\\
+\hat{w}\lambda @<\lambda<< \underset{\textstyle\circ}{\hat{w}}\\
 @VVDV @AAxA\\
-w\lambda @>U>> w
+w\lambda @>U>> \underset{\textstyle\circ}{w}
 \end{CD}
 \qquad\qquad
 \begin{CD}
-by\lambda @<\lambda<< by\\
+by\lambda @<\lambda<< \underset{\textstyle\circ}{by}\\
 @VVDV @AAyA\\
-by\lambda D @. b\\
+by\lambda D @. \underset{\textstyle\bullet}{b}\\
 @VVDV @AAxA\\
-w\lambda @>U>> w
+w\lambda @>U>> \underset{\textstyle\circ}{w}
 \end{CD}
 $$
 
@@ -376,25 +386,25 @@ bead is $\hat{w} = w\nu = 6k+5$ and the black bead is $b = w\mu = 6k+4$:
 
 $$
 \begin{CD}
-4k+3 @<\lambda<< 6k+5\\
+4k+3 @<\lambda<< \underset{\textstyle\circ}{6k+5}\\
 @VVDV @AA\nu A\\
-2k+1 @>U>> 3k+2
+2k+1 @>U>> \underset{\textstyle\circ}{3k+2}
 \end{CD}
 \qquad
 \begin{CD}
-8k+5 @<\lambda<< 12k+8\\
+8k+5 @<\lambda<< \underset{\textstyle\circ}{12k+8}\\
 @VVDV @AA\mu A\\
-4k+2 @. 6k+4\\
+4k+2 @. \underset{\textstyle\bullet}{6k+4}\\
 @VVDV @AA\mu A\\
-2k+1 @>U>> 3k+2
+2k+1 @>U>> \underset{\textstyle\circ}{3k+2}
 \end{CD}
 \qquad
 \begin{CD}
-8k+6 @<\lambda<< 12k+9\\
+8k+6 @<\lambda<< \underset{\textstyle\circ}{12k+9}\\
 @VVDV @AA\nu A\\
-4k+3 @. 6k+4\\
+4k+3 @. \underset{\textstyle\bullet}{6k+4}\\
 @VVDV @AA\mu A\\
-2k+1 @>U>> 3k+2
+2k+1 @>U>> \underset{\textstyle\circ}{3k+2}
 \end{CD}
 $$
 
@@ -403,25 +413,25 @@ and the black bead is $b = w\nu = 6k+1$:
 
 $$
 \begin{CD}
-4k @<\lambda<< 6k\\
+4k @<\lambda<< \underset{\textstyle\circ}{6k}\\
 @VVDV @AA\mu A\\
-2k @>U>> 3k
+2k @>U>> \underset{\textstyle\circ}{3k}
 \end{CD}
 \qquad
 \begin{CD}
-8k+1 @<\lambda<< 12k+2\\
+8k+1 @<\lambda<< \underset{\textstyle\circ}{12k+2}\\
 @VVDV @AA\mu A\\
-4k @. 6k+1\\
+4k @. \underset{\textstyle\bullet}{6k+1}\\
 @VVDV @AA\nu A\\
-2k @>U>> 3k
+2k @>U>> \underset{\textstyle\circ}{3k}
 \end{CD}
 \qquad
 \begin{CD}
-8k+2 @<\lambda<< 12k+3\\
+8k+2 @<\lambda<< \underset{\textstyle\circ}{12k+3}\\
 @VVDV @AA\nu A\\
-4k+1 @. 6k+1\\
+4k+1 @. \underset{\textstyle\bullet}{6k+1}\\
 @VVDV @AA\nu A\\
-2k @>U>> 3k
+2k @>U>> \underset{\textstyle\circ}{3k}
 \end{CD}
 $$
 
@@ -436,7 +446,7 @@ ones. $\quad\Box$
 recitation to $w$ that ends with an up move. Equivalently,
 $h(w) = h(w\lambda) + 1$.
 
-*Proof.* By strong induction on $h = h(w)$. Take a minimal recitation
+*Proof.* By induction on $h = h(w)$. Take a minimal recitation
 $\mathcal{R}$ to $w$ and assume that it ends with a down move, from a bead
 $p \in \{w\mu, w\nu\}$ of height $h - 1$. We exhibit a recitation to
 $w\lambda$ of length at most $h - 1$; appending one up move then gives a
@@ -461,15 +471,15 @@ For $b = \boldsymbol{n}^\bullet$ the two candidates are:
 
 $$
 \begin{CD}
-4\boldsymbol{n}-3 @<\lambda<< 6\boldsymbol{n}-4\\
+4\boldsymbol{n}-3 @<\lambda<< \underset{\textstyle\circ}{6\boldsymbol{n}-4}\\
 @. @AA\mu A\\
-{} @. \boldsymbol{n}^\bullet
+{} @. \underset{\textstyle\bullet}{\boldsymbol{n}^\bullet}
 \end{CD}
 \qquad\qquad
 \begin{CD}
-4\boldsymbol{n}-2 @<\lambda<< 6\boldsymbol{n}-3\\
+4\boldsymbol{n}-2 @<\lambda<< \underset{\textstyle\circ}{6\boldsymbol{n}-3}\\
 @. @AA\nu A\\
-{} @. \boldsymbol{n}^\bullet
+{} @. \underset{\textstyle\bullet}{\boldsymbol{n}^\bullet}
 \end{CD}
 $$
 
@@ -576,22 +586,22 @@ neighbors of our black bead, $\boldsymbol{n}^\bullet - 1$ and $\boldsymbol{n}^\b
 
 $$
 \begin{CD}
-\boldsymbol{n}^\bullet @<D<< a_0 @>\lambda>> a_1 @>\lambda>> \cdots @>\lambda>> a\\
-@. @. @VVDV @. @VVDV\\
-{} @. \boldsymbol{n}^\bullet-1 @>\lambda>> c_1 @>\lambda>> \cdots @>\lambda>> c
+a @<\lambda<< \cdots @<\lambda<< a_1 @<\lambda<< \underset{\textstyle\circ}{a_0 = \boldsymbol{n}^\bullet\mu}\\
+@VVDV @. @VVDV @.\\
+c @<\lambda<< \cdots @<\lambda<< c_1 @<\lambda<< \underset{\textstyle\circ}{\boldsymbol{n}^\bullet-1}
 \end{CD}
 $$
 
 $$
 \begin{CD}
-\boldsymbol{n}^\bullet @<D<< b_0 @>\lambda>> b_1 @>\lambda>> \cdots @>\lambda>> b\\
-@. @. @VVDV @. @VVDV\\
-{} @. \boldsymbol{n}^\bullet+1 @>\lambda>> d_1 @>\lambda>> \cdots @>\lambda>> d
+b @<\lambda<< \cdots @<\lambda<< b_1 @<\lambda<< \underset{\textstyle\circ}{b_0 = \boldsymbol{n}^\bullet\nu}\\
+@VVDV @. @VVDV @.\\
+d @<\lambda<< \cdots @<\lambda<< d_1 @<\lambda<< \underset{\textstyle\circ}{\boldsymbol{n}^\bullet+1}
 \end{CD}
 $$
 
 By Lemma 2, walking along a row costs one move per arrow. So the heights of
-$\boldsymbol{n}^\bullet$, $\boldsymbol{n}^\bullet - 1$ and $\boldsymbol{n}^\bullet + 1$ are read off the four beads at the right-hand
+$\boldsymbol{n}^\bullet$, $\boldsymbol{n}^\bullet - 1$ and $\boldsymbol{n}^\bullet + 1$ are read off the four beads at the left-hand
 ends, $a$, $b$, $c = c_{e+1}$ and $d = d_{e+1}$. Exactly two of these four are
 black, and comparing them comes down to statement (4) for a smaller black
 bead: this is the induction.
@@ -631,7 +641,7 @@ Modulo $3$ there are only two configurations:
 | $\mu$ wins | white | **black** | **black** | white |
 | $\nu$ wins | **black** | white | white | **black** |
 
-We prove (4) and (5) by strong induction on $h(\boldsymbol{n}^\bullet)$. The bead $\mathbf{2}^\bullet = 4$ is
+We prove (4) and (5) by induction on $h(\boldsymbol{n}^\bullet)$. The bead $\mathbf{2}^\bullet = 4$ is
 checked directly ($h(3) = 2$, $h(4) = 5$, $h(5) = 3$, and
 $1\,U^4 D = 4$ with $\sigma(4\mu) = \sigma(8) = 1$). It is the only case in
 which $c = 1$, so from now on $c > 1$.

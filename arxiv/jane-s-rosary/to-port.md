@@ -147,6 +147,25 @@ These reach the paper by a rebuild; to read once in the PDF.
 - [ ] The abstract and introduction in `build.py`: check that nothing
       there quotes the old form of Proposition 1 or a constant per ln n.
 
+## 2026-11-21: diagrams of beads
+
+These reach the paper by a rebuild; to look at in the PDF.
+
+- [ ] "How to read the diagrams" is now a list of four rules: arrows,
+      larger beads to the right and to the top, a mark under a bead for
+      its color (a bullet for black, a small circle for white), and what
+      "commutes" means.
+- [ ] The marks are written `\underset{\textstyle\bullet}{...}` and
+      `\underset{\textstyle\circ}{...}`. Check their size in the PDF,
+      and that the bullet under the onyx notation (n with a raised
+      bullet) is not confusing in print.
+- [ ] The two diagrams in the sketch of Theorem 1 are mirrored (lambda
+      now points left, as in Lemma 1) and no longer show the bead
+      n-bullet itself: the right-hand ends are a_0 = n mu over n - 1,
+      and b_0 = n nu over n + 1. The sentence after them says "left-hand
+      ends".
+- [ ] "By induction" replaces "by strong induction" (Lemma 2, Theorem 1).
+
 ## To do later, on the page's side (decided 2026-11-21, not started)
 
 The numbers of statements, figures and sections stay typed by hand, on
