@@ -76,13 +76,18 @@ def tree_figure(colors: dict[str, str]) -> str:
         return left + (math.log2(bead) - depth) * span, bottom - depth * row
 
     body = []
-    # The cone of bead 4: a strip of phases, from its depth upward.
+    # The cone of bead 4: a strip of phases, from its depth upward.  The
+    # phases of the cone are those from bead 4 (included) to bead 5 (not
+    # included), so the strip is shifted to the left by a little more than
+    # the radius of a bead: it holds the discs of beads 4, 8, 16 and stays
+    # clear of those of beads 5, 10, 20.
+    margin = 14
     cone_left = left + (math.log2(cone_bead) - depth_of_cone) * span
     cone_right = left + (math.log2(cone_bead + 1) - depth_of_cone) * span
     top = bottom - 5 * row - 16
     strip_bottom = bottom - depth_of_cone * row + 18
     body.append(
-        f'<rect x="{cone_left - 14:.1f}" y="{top}" width="{cone_right - cone_left + 14:.1f}" '
+        f'<rect x="{cone_left - margin:.1f}" y="{top}" width="{cone_right - cone_left:.1f}" '
         f'height="{strip_bottom - top}" rx="8" fill="{colors["cone"]}"/>'
     )
     # Down moves: each bead joined to its parent.
@@ -146,7 +151,7 @@ def tree_figure(colors: dict[str, str]) -> str:
         f'{FONT} font-style="italic" fill="{colors["muted"]}">phase</text>'
     )
     body.append(
-        f'<text x="{(cone_left + cone_right) / 2 - 7:.1f}" y="{top - 8}" text-anchor="middle" '
+        f'<text x="{(cone_left + cone_right) / 2 - margin:.1f}" y="{top - 8}" text-anchor="middle" '
         f'font-size="13" {FONT} font-style="italic" fill="{colors["text"]}">cone of bead 4</text>'
     )
     return svg(width, height + 8, body, colors)

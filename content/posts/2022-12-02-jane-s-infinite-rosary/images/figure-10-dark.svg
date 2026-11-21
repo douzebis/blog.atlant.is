@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="720" height="408" viewBox="0 0 720 408">
 <rect width="720" height="408" fill="#191918"/>
-<rect x="36.0" y="54" width="220.0" height="190" rx="8" fill="#5a4520"/>
+<rect x="36.0" y="54" width="206.0" height="190" rx="8" fill="#5a4520"/>
 <line x1="50.0" y1="278.0" x2="50.0" y2="330.0" stroke="#3c3c38" stroke-width="1"/>
 <line x1="424.4" y1="278.0" x2="50.0" y2="330.0" stroke="#3c3c38" stroke-width="1"/>
 <line x1="50.0" y1="226.0" x2="50.0" y2="278.0" stroke="#3c3c38" stroke-width="1"/>
@@ -176,5 +176,5 @@
 <line x1="690.0" y1="360" x2="690.0" y2="368" stroke="#a0a098" stroke-width="1"/>
 <text x="690.0" y="384" text-anchor="middle" font-size="13" font-family="Charter, Georgia, serif" fill="#a0a098">1</text>
 <text x="370.0" y="402" text-anchor="middle" font-size="13" font-family="Charter, Georgia, serif" font-style="italic" fill="#a0a098">phase</text>
-<text x="146.0" y="46" text-anchor="middle" font-size="13" font-family="Charter, Georgia, serif" font-style="italic" fill="#e4e4de">cone of bead 4</text>
+<text x="139.0" y="46" text-anchor="middle" font-size="13" font-family="Charter, Georgia, serif" font-style="italic" fill="#e4e4de">cone of bead 4</text>
 </svg>
