@@ -907,11 +907,10 @@ Both cases contradict $g \notin T_{i+1}$. $\quad\Box$
 **Theorem 3.** $\rho$ is a permutation of $\mathbb{N}^*$: the reluctant
 recitation tells every bead exactly once.
 
-(The January 2023 version of this paper stated this as a conjecture, checked
-by computer for the first $7\,884\,654$ beads.)
-
-That Jane tells no bead twice is [Theorem 2](#theorem-2). What remains is that she leaves
-no bead out.
+Jane tells no bead twice. For a down move this is her rule: she only moves
+down to a bead that has not been told. For an up move it is [Theorem
+2](#theorem-2): when she has to move up, the bead above is always a new one.
+What remains is that she leaves no bead out.
 
 *The idea.* Suppose some bead $m$ is never told.
 
@@ -926,14 +925,26 @@ no bead out.
 3. A down move erases the last binary digit of $n$ and leaves the leading
    ones alone: the phase hardly moves. An up move multiplies $n$ by $3/2$, or
    very nearly: the phase turns by $\alpha = \log_2(3/2)$ ([Lemma 5](#lemma-5)).
-4. So Jane's phase goes round the circle in steps of $\alpha$, and $\alpha$ is
-   irrational: the steps never close up, and they visit every arc (Figure
-   11). Sooner or later the phase falls in the arc of $m$: Jane is in the
-   cone, which she was supposed to avoid.
+4. Now Jane makes infinitely many up moves. So her phase goes round the
+   circle in steps of $\alpha$, and $\alpha$ is irrational: the steps never
+   close up, and they come close to every point of the circle (Figure 11).
+   Sooner or later the phase falls in the arc of $m$: Jane is in the cone,
+   which she was supposed to avoid.
 
-The "hardly" and "very nearly" hide errors of size about $1/n$. They do no
-harm once Jane is far up, and she does go far up, for want of fresh beads
-lower down.
+This is the argument. It is not yet a proof, because of the words "hardly"
+and "very nearly" in point 3: every move blurs the phase a little, by about
+$1/n$, and the blur adds up. Over the whole recitation nothing keeps it
+bounded. Two things deal with it, and they do real work:
+
+- *A deadline.* It is not enough that the exact steps of $\alpha$ reach the
+  arc sooner or later: by then the blur could have carried Jane's phase
+  anywhere. An irrational rotation gives more: a number $J$ such that any $J$
+  steps in a row, from any starting point, put a point in the middle of the
+  arc. So the blur has only $J$ up moves in which to add up.
+- *Height.* Over those $J$ up moves the blur must stay smaller than the arc.
+  It does if Jane is far enough up the rosary, since each move blurs by about
+  $1/n$. And Jane does get far up and stay there: she never tells a bead
+  twice, so she runs out of beads below any given $N$.
 
 **Lemma 4 (binary prefixes).** $\downarrow\!(n)$ consists of the beads $m$ whose
 binary expansion is a prefix of that of $n$:
@@ -995,18 +1006,18 @@ bead $n > 1$, the bead $nD$ has been told. So every bead of
 $\downarrow\!(n)$ is eventually told, for every told bead $n$. Hence no bead of
 the cone of $m$ is ever told.
 
-*Step 2: Jane drifts away.* Since $\rho$ is injective, for every $N$ there is a
-time $T_N$ after which all beads told are larger than $N$.
+*Step 2: Jane drifts away (height).* Since $\rho$ is injective, for every $N$ there is a
+time $t_N$ after which all beads told are larger than $N$.
 
 *Step 3: Jane makes infinitely many up moves*, since she never halts ([Theorem
 2](#theorem-2)) and a run of down moves is finite.
 
-*Step 4: rotation.* Since $\log_2 3$ is irrational, so is $\alpha$, and the
+*Step 4: rotation, with a deadline.* Since $\log_2 3$ is irrational, so is $\alpha$, and the
 rotation of the circle by $\alpha$ is minimal: there is an integer $J$ such
 that any $J$ consecutive points $\theta_0, \theta_0 + \alpha, \ldots,
 \theta_0 + (J-1)\alpha$ of any orbit contain a point in the middle third of
 the arc $A_m$. Choose $N \ge m$ such that $2J/N < w_m/3$, and look at Jane
-after time $T_N$. Let $n_0$ be her position at some time after $T_N$ and let
+after time $t_N$. Let $n_0$ be her position at some time after $t_N$ and let
 $n_j$ be her position right after her $j$-th subsequent up move. Between
 $n_{j-1}$ and $n_j$ she makes a (possibly empty) run of down moves followed by
 one up move, all the beads involved being larger than $N$. By [Lemma 5](#lemma-5),
@@ -1681,6 +1692,119 @@ start at beads $50$, $75$, $113$, $170$, each one up move from the one before,
 and then the family dies. Are the streaks unbounded? Does the longest streak
 below $n$ grow like $\sqrt{n}$, as these numbers suggest?
 
+## Appendix: proofs
+
+This appendix is for proofs that would slow the main text down. For now it
+holds one.
+
+### Theorem 3 without logarithms
+
+Here is a second proof that Jane tells every bead. It was found while the
+first one was being prepared for the proof assistant, and it uses integers
+only: no logarithm, no circle, and no rounding error to keep under control.
+In exchange it says nothing about *when* a bead is told, which is what
+Section 11 extracts from the proof of Section 8.
+
+Throughout, an *interval* $[A, C)$ is the set of beads $n$ with
+$A \leq n < C$, and a number is *smooth* if it is of the form $2^e 3^j$.
+The proof uses [Fact 1](#fact-1), [Lemma 3](#lemma-3) and [Theorem
+2](#theorem-2), and nothing from Section 8.
+
+*The idea.* Suppose that bead $m$ is never told. The beads above it in the
+binary tree, $2m$ and $2m+1$, are never told either, and neither are the
+beads above those: an interval of beads that are never told can be doubled.
+The no-gap property shows that it can be tripled as well. So the intervals
+$[ms, (m+1)s)$ are never told, for every smooth $s$. Smooth numbers become
+so crowded that these intervals overlap and cover every large bead. But Jane
+tells arbitrarily large beads.
+
+*Proof.* Suppose that some bead $m \geq 1$ is never told.
+
+**Step 1: doubling.** *If no bead of $[A, C)$ is ever told, with $A \geq 1$,
+then no bead of $[2A, 2C)$ is ever told.*
+
+Let $n$ be a bead of $[2A, 2C)$, and suppose that it is told. Then $n \geq 2$,
+and Jane leaves $n$ at the next move, since she never halts ([Theorem
+2](#theorem-2)). By [Lemma 3](#lemma-3), once she has left $n$, the bead
+$nD = \lfloor n/2 \rfloor$ has been told. But $A \leq \lfloor n/2 \rfloor < C$:
+a contradiction.
+
+**Step 2: tripling.** *If no bead of $[A, C)$ is ever told, with $A \geq 1$,
+then no bead of $[3A, 3C)$ is ever told.*
+
+By Step 1, applied once and then twice, no bead of $[2A, 2C)$ and no bead of
+$[4A, 4C)$ is ever told. Let $n$ be a bead of $[3A, 3C)$, and suppose that it
+is told.
+
+- If $n$ is white, the no-gap property ([Theorem 2](#theorem-2)) says that
+  $n\lambda = \lfloor 2n/3 \rfloor$ has been told. From $3A \leq n < 3C$ we
+  get $2A \leq 2n/3 < 2C$, and since $2A$ and $2C$ are integers,
+  $2A \leq \lfloor 2n/3 \rfloor < 2C$: a contradiction.
+- If $n$ is black, then $n > 1$, and Jane reached $n$ by a down move, from
+  $p = 2n$ or from $p = 2n + 1$ ([Fact 1](#fact-1)). This bead $p$ is white
+  and told, so $p\lambda = \lfloor 2p/3 \rfloor$ has been told, by the no-gap
+  property again. From $3A \leq n \leq 3C - 1$ we get
+  $4A \leq 4n/3 \leq 2p/3 \leq (4n+2)/3 \leq 4C - 2/3$, hence
+  $4A \leq \lfloor 2p/3 \rfloor < 4C$: a contradiction.
+
+**Step 3: all the smooth multiples.** *For every smooth number $s$, no bead of
+$[ms, (m+1)s)$ is ever told.*
+
+For $s = 1$ the interval is $\{m\}$, which is our assumption. And if the
+claim holds for $s$, Steps 1 and 2 give it for $2s$ and for $3s$.
+
+**Step 4: two smooth numbers in a small ratio.** *There are two smooth
+numbers $P < Q$ with $Q/P < 1 + 1/m$.*
+
+Take the $m + 1$ numbers $3^0, 3^1, \ldots, 3^m$. Divide each $3^i$ by the
+largest power of $2$ that does not exceed it, $2^{e_i}$: the quotient
+$x_i = 3^i/2^{e_i}$ lies in $[1, 2)$. Cut $[1, 2)$ into $m$ pieces of length
+$1/m$. There are $m + 1$ quotients and $m$ pieces, so two of them, $x_i$ and
+$x_j$ with $i < j$, fall in the same piece
+$\big[1 + \tfrac{v}{m},\ 1 + \tfrac{v+1}{m}\big)$.
+
+They are different: $x_i = x_j$ would mean $3^{j-i} = 2^{e_j - e_i}$, and a
+power of $3$ other than $1$ is not a power of $2$. This is the only place
+where the proof uses that fact. Say $x_i < x_j$ (otherwise exchange them).
+Then
+
+$$\frac{x_j}{x_i} \;<\; \frac{1 + \frac{v+1}{m}}{1 + \frac{v}{m}} \;=\; \frac{m + v + 1}{m + v} \;\leq\; 1 + \frac{1}{m},$$
+
+and $P = 3^i\,2^{e_j}$, $Q = 3^j\,2^{e_i}$ are two smooth numbers with
+$Q/P = x_j/x_i$.
+
+**Step 5: the intervals cover every large bead.** *Every bead
+$n \geq mP^P$ lies in $[ms, (m+1)s)$ for some smooth number $s$.*
+
+First, $(Q/P)^P \geq 2$: indeed $Q \geq P + 1$, and
+$(1 + 1/P)^P \geq 1 + P \cdot \frac{1}{P} = 2$.
+
+Now let $n \geq mP^P$. Doubling $mP^P$ as many times as needed, we find
+$r \geq 0$ with $mP^P\,2^r \leq n < mP^P\,2^{r+1}$. Consider the $P + 1$
+smooth numbers
+
+$$s_k = 2^r\,P^{P-k}\,Q^k \qquad (0 \leq k \leq P),$$
+
+which go from $s_0 = 2^r P^P$ to $s_P = 2^r Q^P \geq 2^{r+1} P^P$ by steps of
+ratio $Q/P$. So $m s_0 \leq n < m s_P$. Let $k$ be the largest index with
+$m s_k \leq n$; then $k < P$ and
+
+$$m s_k \;\leq\; n \;<\; m s_{k+1} \;=\; m s_k \cdot \frac{Q}{P} \;<\; m s_k \Big(1 + \frac{1}{m}\Big) \;=\; (m+1)\,s_k .$$
+
+So $n$ lies in $[m s_k, (m+1) s_k)$.
+
+**The end.** By Steps 3 and 5, no bead $n \geq mP^P$ is ever told. But Jane
+never halts and never tells a bead twice ([Theorem 2](#theorem-2)), so she
+tells infinitely many beads, and some of them are larger than $mP^P$. This
+contradiction shows that $m$ is told. $\quad\Box$
+
+*Used:* [Fact 1](#fact-1), [Lemma 3](#lemma-3) and [Theorem 2](#theorem-2).
+
+Compared with the proof of Section 8, the circle has become the pieces of
+$[1, 2)$ of Step 4, and "the phases come close to every point" has become
+"the smooth numbers have small ratios". The intervals of Step 3 are exact,
+which is why nothing has to be estimated.
+
 ## Checked by computer
 
 The proofs above stand on their own. Still, whatever could be tested was
@@ -1735,7 +1859,7 @@ checks them all.
 | [Theorem 2](#theorem-2): never stuck, no bead told twice, no gap | `theorem2_fresh`, `theorem2_injective`, `theorem2_no_gap` |
 | [Lemmas 4](#lemma-4) and [5](#lemma-5) | `lemma5_up`, `lemma5_down` |
 | **[Theorem 3](#theorem-3)**: every bead is told, exactly once, by the proof of Section 8 | `theorem3_by_rotation` |
-| [Theorem 3](#theorem-3) again, by the proof sketched below | `theorem3`, `theorem3_permutation` |
+| [Theorem 3](#theorem-3) again, by the proof of the [appendix](#appendix-proofs) | `theorem3`, `theorem3_permutation` |
 | [Theorem 5](#theorem-5), part 1 | `theorem5_part1` |
 | [Theorem 5](#theorem-5), part 2 without the square root: $\lfloor \log_2 \rho(t) \rfloor = o(t)$ | `depth_bound_up`, `depth_sublinear` |
 | [Theorem 5](#theorem-5), parts 2 and 3, with the irrationality exponent as a hypothesis | `theorem5_part2`, `theorem5_part3` |
@@ -1785,30 +1909,9 @@ Where the checked proofs differ from the text:
   $t \ge 2$, with explicit constants in place of the $O$'s.
 
 **Theorem 3 without logarithms.** Lean also checked a second proof of
-[Theorem 3](#theorem-3), found while preparing the first. It uses integers only. Suppose that bead $m$
-is never told.
-
-1. If no bead of an interval $[A, C)$ is ever told, then no bead of
-   $[2A, 2C)$ is, and no bead of $[3A, 3C)$ either. For $[2A, 2C)$ this is
-   [Lemma 3](#lemma-3): a told bead $n$ has $nD$ told. For $[3A, 3C)$ it is the no-gap
-   property of [Theorem 2](#theorem-2): a told white bead $n$ there has $n\lambda$ told,
-   in $[2A, 2C)$; and a told black bead $n$ there was reached by a down
-   move from $n\mu$ or $n\nu$, a told white bead whose $\lambda$ lies in
-   $[4A, 4C)$.
-2. Starting from $[m, m+1)$: no bead of $[ms, (m+1)s)$ is ever told, for
-   every $s$ of the form $2^e 3^j$.
-3. Among such numbers there are two, $P < Q$, with $Q/P < 1 + 1/m$ (by the
-   pigeonhole principle; this is where $2^a \neq 3^b$ comes in). Going
-   from $2^r P^k$ to $2^r Q^k$ by steps of ratio $Q/P$, one step $s$ has
-   $ms \le n < (m+1)s$, for every large $n$: the intervals of step 2 cover
-   all large integers.
-4. But Jane tells arbitrarily large beads, since she never tells a bead
-   twice. Contradiction.
-
-The intervals of step 2 are exact, so there is no rounding error to
-control and no phase to follow. On the other hand this proof says nothing
-about when a bead is told, which is what Section 11 extracts from the
-proof of Section 8. One thing Lean
+[Theorem 3](#theorem-3), found while preparing the first. It uses integers
+only: no logarithm, no circle, no rounding error to control. It is written
+out in the [appendix](#appendix-proofs). One thing Lean
 cannot check is that a statement written in Lean says what the paper says;
 that is for a reader to judge, and the guide shows how the statements read.
 

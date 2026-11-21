@@ -271,7 +271,35 @@ These reach the paper by a rebuild; to look at in the PDF.
 - [ ] When the figures are renumbered, nothing refers to "a detail of
       Figure 8" any more.
 
+## 2026-11-21: Theorem 3, its sketch and its second proof
+
+- [ ] "The idea" of Theorem 3 now ends by naming the two things that
+      turn the argument into a proof: a deadline (a number J of up moves
+      within which the arc is reached) and height (Jane stays above any
+      N in the end). Steps 2 and 4 of the proof carry these names.
+- [ ] The time after which Jane stays above N is t_N (it was T_N, which
+      clashed with the sets T_i).
+- [ ] The sentence on the January 2023 conjecture under the statement of
+      Theorem 3 is removed; the history keeps the fact.
+- [ ] New section "Appendix: proofs", before "Checked by computer". It
+      holds the second proof of Theorem 3, with integers only, written
+      out in five steps. The paragraph in "Checked by a proof assistant"
+      that sketched it now points there. Check where this appendix lands
+      in the paper and how its headings are numbered.
+
 ## To do later, on the page's side (decided 2026-11-21, not started)
+
+- [ ] **Move detailed proofs to the appendix** (decided 2026-11-21, not
+      started). The sketches ("The idea") are the entertaining part and
+      stay in the main text; the detailed proofs, which are needed but
+      slow the reading, move to "Appendix: proofs". Candidates: the
+      proof of Proposition 1; the six computations of Lemma 1; Steps 1
+      to 3 of Theorem 1; the induction of Theorem 2; Steps 1 to 4 of
+      Theorem 3; the proofs around Theorem 4 (Lemmas 6 to 8); the proofs
+      of Theorems 5 and 6 and of Lemma 9. Each statement keeps its
+      number and its place; a link leads from it to its proof, and back.
+      The links to statements, the paper build and the comparison of
+      statements must follow.
 
 The numbers of statements, figures and sections stay typed by hand, on
 the page as in the paper: they are quoted outside the page (Lean files,
