@@ -111,6 +111,12 @@ These reach the paper by a rebuild; to read once in the PDF.
       beads" and "beads congruent to 1 modulo 3", still read well with
       it.
 
+- [ ] Section 1 no longer says "inverse branches" (now: lambda undoes an
+      up move, mu and nu are the two ways to undo a down move), nor
+      "heap order" (now: numbered level by level, children 2n and
+      2n + 1), and no longer cites Odlyzko and Wilf there: [OW91] is
+      cited in Section 4, where its result is used, in the coda and in
+      the paper's related-work paragraph.
 - [ ] Naming rule fixed on 2026-11-21, to keep in any text written for
       the paper only (abstract, introduction, related work): "a black
       bead", without a number, states a color; with a plain number write

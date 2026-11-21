@@ -205,8 +205,8 @@ The bullet is one more map written after its argument. A bold number or
 letter always counts onyxes; a plain one counts all the beads.
 
 $U$, $\lambda$, $\mu$, $\nu$ are strictly increasing and $D$ is non-decreasing.
-That $\lambda$, $\mu$, $\nu$ are the inverse branches of $U$ and $D$ is the
-content of:
+That $\lambda$ undoes an up move, and that $\mu$ and $\nu$ are the two ways to
+undo a down move, is the content of:
 
 **Fact 1.**
 
@@ -233,13 +233,14 @@ Three more names, for sequences of moves:
   by Lemma 2 below).
 
 **The binary tree.** A down move is $n \mapsto \lfloor n/2 \rfloor$: *the
-rosary is the infinite binary tree in heap order*. Moving down means moving
-to the parent, i.e. erasing the last binary digit of $n$, and $n\mu$,
-$n\nu$ are the two children of $n$. Bead $8$ is $1000$ in binary: its parent is bead
-$4$ and its children are beads $16$ and $17$. Moving up is the map
-$n \mapsto \lceil 3n/2 \rceil$ studied by Odlyzko and Wilf in connection with
-the Josephus problem [OW91]. Most of what follows is an interplay between
-this binary structure (down) and the multiplication by $3/2$ (up).
+rosary is the infinite binary tree*, with bead $1$ at the root and the beads
+numbered level by level, from left to right, so that the two children of bead
+$n$ are $n\mu = 2n$ and $n\nu = 2n + 1$. Moving down means moving to the
+parent, i.e. erasing the last binary digit of $n$. Bead $8$ is $1000$ in
+binary: its parent is bead $4$ and its children are beads $16$ and $17$.
+Moving up multiplies the position by $3/2$, rounding up. Most of what follows
+is an interplay between this binary structure (down) and the multiplication
+by $3/2$ (up).
 
 ### 2. The height of a bead
 
