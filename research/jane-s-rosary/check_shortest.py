@@ -19,9 +19,9 @@ Checked for all beads below N unless said otherwise:
 - Theorem 1, parts 2 to 5, for every black bead 3k - 2 < N with k >= 2;
 - the remark after the definition of seeds: for such a black bead b,
   sigma(b - 1) <= 2k - 2 and sigma(b + 1) <= 2k - 1;
-- Proposition 1 (its two bounds on the height) and the linear bound of the
-  remark after it, for all beads from 2 to 10^6, with the logarithmic
-  algorithm;
+- Proposition 1 (its two bounds on the height), the sharper bound of its
+  proof, and the linear bound that the paper stated until November 2026,
+  for all beads from 2 to 10^6, with the logarithmic algorithm;
 - the examples of Part I (bead 8, its neighbor 9, the black bead 4).
 """
 
@@ -256,18 +256,28 @@ def main() -> int:
             ),
         ),
         report(
-            "after Proposition 1: h(n) <= (4n - 1)/3 for 2 <= n <= 10^6, "
+            "not in the paper any more: h(n) <= (4n - 1)/3 for 2 <= n <= 10^6, "
             "with equality exactly at 4 and 7",
             all(3 * heights[n] <= 4 * n - 1 for n in beads_checked)
             and [n for n in beads_checked if 3 * heights[n] == 4 * n - 1] == [4, 7],
         ),
         report(
-            "Proposition 1: h(n) <= 12 + 3 ln n / ln(9/8) for 2 <= n <= 10^6",
-            all(heights[n] <= 12 + 3 * math.log(n) / log98 for n in beads_checked),
+            "Proposition 1: h(n) <= 4 + 3 log2 n / log2(9/8) for 2 <= n <= 10^6",
+            all(heights[n] <= 4 + 3 * math.log(n) / log98 for n in beads_checked),
         ),
         report(
-            "after Proposition 1: the heights of the black beads 4 to 19",
-            [heights[n] for n in (4, 7, 10, 13, 16, 19)] == [5, 9, 10, 8, 11, 14],
+            "proof of Proposition 1: h(n) <= 4 + 3 log_{9/8}(n - 7) "
+            "for 8 <= n <= 10^6, with equality exactly at 8",
+            all(
+                heights[n] <= 4 + 3 * math.log(n - 7) / log98 + 1e-9
+                for n in range(8, million + 1)
+            )
+            and [
+                n
+                for n in range(8, million + 1)
+                if abs(heights[n] - 4 - 3 * math.log(n - 7) / log98) < 1e-9
+            ]
+            == [8],
         ),
         report(
             "h(1), h(2), ... = 0, 1, 2, 5, 3, 6, 9, 4, 7, 10, 10",

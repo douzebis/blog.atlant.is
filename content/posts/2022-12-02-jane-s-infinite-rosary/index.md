@@ -252,7 +252,7 @@ By definition $h(1) = 0$.
 
 **Proposition 1.** Every bead has a finite height. Moreover, for all $n \geq 2$,
 
-$$\frac{\log_2(n+1) - 1}{\log_2(3/2)} \;\leq\; h(n) \;\leq\; 12 + \frac{3\,\log_2 n}{\log_2(9/8)},$$
+$$\frac{\log_2(n+1) - 1}{\log_2(3/2)} \;\leq\; h(n) \;\leq\; 4 + \frac{3\,\log_2 n}{\log_2(9/8)},$$
 
 where $1/\log_2(3/2) \approx 1.710$ and $3/\log_2(9/8) \approx 17.65$.
 
@@ -264,25 +264,32 @@ where $1/\log_2(3/2) \approx 1.710$ and $3/\log_2(9/8) \approx 17.65$.
 - If $n \equiv 1 \pmod 9$, then $n = mU^2D$ with
   $m = n\nu\lambda^2 = \lceil 8n/9 \rceil < n$.
 
-In all three cases $h(n) \leq 3 + h(m)$ and $m - 7 \leq \frac{8}{9}(n-7)$. By
-induction on $n$, every bead has a finite height.
+In all three cases $h(n) \leq 3 + h(m)$, $m \geq \lfloor 2n/3 \rfloor$ and
+$m - 7 \leq \frac{8}{9}(n-7)$. By induction on $n$, every bead has a finite
+height.
 
-*Upper bound.* Let $n \geq 8$, and repeat the step, from $n$ to $m$, from $m$
-to its own $m$, and so on, as long as the bead is at least $8$. After $k$
-steps the bead is at most $7 + (8/9)^k(n-7)$, which is less than $8$ as soon
-as $k > \log_{9/8}(n-7)$. So at most $1 + \log_{9/8}(n-7)$ steps, of at most
-three moves each, lead from $n$ down to one of the beads $1$ to $7$, whose
-heights are found by hand:
+*Upper bound.* We prove a little more: for all $n \geq 8$,
 
-| $n$ | $1$ | $2$ | $3$ | $4$ | $5$ | $6$ | $7$ |
-|---|---|---|---|---|---|---|---|
-| $h(n)$ | $0$ | $1$ | $2$ | $5$ | $3$ | $6$ | $9$ |
+$$h(n) \;\leq\; 4 + 3\log_{9/8}(n-7), \qquad\text{with equality at } n = 8 .$$
 
-They are at most $9$, so
+The induction starts from the heights of the first eleven beads, found by
+hand:
 
-$$h(n) \;\leq\; 3\big(1 + \log_{9/8}(n-7)\big) + 9 \;\leq\; 12 + 3\log_{9/8} n = 12 + \frac{3\log_2 n}{\log_2(9/8)} .$$
+| $n$ | $1$ | $2$ | $3$ | $4$ | $5$ | $6$ | $7$ | $8$ | $9$ | $10$ | $11$ |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| $h(n)$ | $0$ | $1$ | $2$ | $5$ | $3$ | $6$ | $9$ | $4$ | $7$ | $10$ | $10$ |
 
-For $2 \leq n \leq 7$ the table gives $h(n) \leq 9$, which is less than $12$.
+- *Beads $8$ to $11$.* For $n = 8$ both sides are $4$. For $n = 9, 10, 11$
+  the height is at most $10$, and the right-hand side is at least
+  $4 + 3\log_{9/8} 2 \approx 21.65$.
+- *Beads from $12$ on.* Then $m \geq \lfloor 2n/3 \rfloor \geq 8$, so the
+  bound holds for $m$, and $m - 7 \leq \frac{8}{9}(n-7)$ says that
+  $\log_{9/8}(m-7) \leq \log_{9/8}(n-7) - 1$. Hence
+  $$h(n) \;\leq\; 3 + h(m) \;\leq\; 3 + 4 + 3\log_{9/8}(m-7) \;\leq\; 4 + 3\log_{9/8}(n-7) .$$
+
+The proposition follows. For $n \geq 8$, replace $n - 7$ by $n$ and
+$\log_{9/8} n$ by $\log_2 n/\log_2(9/8)$. For $2 \leq n \leq 7$ the table gives
+$h(n) \leq 9$, and the bound is at least $4 + 3\log_{9/8} 2 \approx 21.65$.
 
 *Lower bound.* Note that $nU + 1 \leq \frac{3}{2}(n+1)$ and $nD < n$, so a
 recitation of length $h$ starting at $1$ ends at a bead $n$ with
@@ -295,14 +302,6 @@ asymptotically attained along the recitation that only moves up, so
 $\liminf h(n)/\log_2 n = 1/\log_2(3/2) \approx 1.710$. See Section 12 for what
 $h(n)/\log_2 n$ does for a typical $n$, and for how far the upper bound is
 from what is observed.
-
-**Remark (small beads).** For small beads a linear bound is sharper:
-$h(n) \leq (4n-1)/3$ for every bead $n$, with equality at beads $4$ and $7$.
-It is the smaller of the two bounds up to $n = 96$. The proof is the same
-induction: the step keeps the bound for a white bead, and for a black bead as
-soon as $n - m \geq 3$, that is, from $n = 22$ on; the black beads $4$, $7$,
-$10$, $13$, $16$ and $19$ are checked by hand (their heights are $5$, $9$,
-$10$, $8$, $11$ and $14$).
 
 #### Computing the height by exploration
 
@@ -329,7 +328,7 @@ def height(n: int) -> int:
 
 [![Figure 4](images/figure-04.png)](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000&first=1 "live")
 
-> Figure 4: the heights of the first $10\,000$ beads, with positions on a logarithmic scale. Look at the horizontal dashes: long runs of neighboring beads share the same height. Click the picture to explore it ([live version](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000&first=1)).
+> Figure 4: the heights of the first $10\,000$ beads, with positions on a logarithmic scale. Look at the horizontal dashes: long runs of neighboring beads share the same height[[does the paper have more to say about this observation?]]. Click the picture to explore it ([live version](https://blog.atlant.is/figures/jane-s-rosary/height-plot.html?n=10000&first=1)).
 
 ### 3. Minimal recitations
 
@@ -1577,7 +1576,7 @@ checks them all.
 | Statement | In Lean |
 |---|---|
 | Fact 1 | file `Fact1.lean` |
-| Proposition 1, and the linear bound of the remark after it | `exists_reach`, `height_upper`, `height_lower`, `height_log` |
+| Proposition 1 | `exists_reach`, `height_lower`, `height_log` |
 | Lemma 1 | `lemma1` |
 | Lemma 2, Corollary 1 | `lemma2`, `corollary1` |
 | Section 4: every bead is $\sigma(n)U^{\Lambda(n)}$, in one way only | `seed_spec`, `seed_upPow` |

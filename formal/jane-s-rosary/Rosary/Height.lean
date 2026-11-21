@@ -215,7 +215,9 @@ theorem height_down_le (n : Nat) (hn : 2 ≤ n) : height (down n) ≤ height n +
 
 /-! ## Proposition 1 -/
 
-/-- **Proposition 1, upper bound**: `h(n) ≤ (4n - 1)/3`. -/
+/-- A linear upper bound: `h(n) ≤ (4n - 1)/3`.  The paper stated it in
+Proposition 1 until November 2026; it now states the logarithmic bound only
+(`height_log`, in the second project). -/
 theorem height_upper (n : Nat) (hn : 1 ≤ n) : 3 * height n + 1 ≤ 4 * n := by
   obtain ⟨k, hk, hb⟩ := exists_reach n hn
   have := height_le hk

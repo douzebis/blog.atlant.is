@@ -130,11 +130,14 @@ These reach the paper by a rebuild; to read once in the PDF.
 These reach the paper by a rebuild; to read once in the PDF.
 
 - [ ] Proposition 1 states two bounds, in base 2: the lower bound and
-      12 + 3 log2 n / log2(9/8). The linear bound (4n - 1)/3 is now a
-      remark after the proof ("Remark (small beads)").
-- [ ] The proof says where the recursion stops (beads 1 to 7, with a
-      table of their heights) and where the 12 comes from (3 + 9). Check
-      how the small table sits inside the proof in the PDF.
+      4 + 3 log2 n / log2(9/8) (the constant was 12). The linear bound
+      (4n - 1)/3 is no longer in the paper at all (it stays proved in
+      Lean as `height_upper`, and checked by `check_shortest.py`).
+- [ ] The proof shows h(n) <= 4 + 3 log_{9/8}(n - 7) for n >= 8, with
+      equality at 8, starting from a table of the heights of beads 1 to
+      11. Check how the table and the displayed chain of inequalities
+      sit inside the proof in the PDF. The Lean proof (`height_log`,
+      `RosaryReal/Prop1.lean`) was changed to match.
 - [ ] The sentence "Numerically, h(n) <= 1 + ..." is gone; tightness is
       addressed in Question E of Section 12.
 - [ ] Heights are measured against log2 n everywhere (Section 2,

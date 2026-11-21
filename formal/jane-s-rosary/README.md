@@ -22,7 +22,7 @@ This page is written for a reader who has never used a proof assistant.
 | Fact 1, part 1 | `up_odd`, `up_even`, `up_injective`, `up_white`, `lam_up`, `up_lam`, `black_not_up` | [`Rosary/Fact1.lean`](Rosary/Fact1.lean) |
 | Fact 1, part 2 | `down_eq_iff`, `mu_even`, `nu_odd`, `mu_down`, `nu_down` | [`Rosary/Fact1.lean`](Rosary/Fact1.lean) |
 | Recitation, height | `Reach`, `height`, `height_spec` | [`Rosary/Height.lean`](Rosary/Height.lean) |
-| Proposition 1: every bead has a height; $h(n) \le (4n-1)/3$; $\log_{3/2}\frac{n+1}{2} \le h(n)$ | `exists_reach`, `height_upper`, `height_lower` | [`Rosary/Height.lean`](Rosary/Height.lean) |
+| Proposition 1: every bead has a height; the lower bound $\log_{3/2}\frac{n+1}{2} \le h(n)$. Also a linear bound $h(n) \le (4n-1)/3$, which the paper no longer states | `exists_reach`, `height_lower`, `height_upper` | [`Rosary/Height.lean`](Rosary/Height.lean) |
 | Lemma 1 (commutation) | `lemma1` | [`Rosary/Lemma1.lean`](Rosary/Lemma1.lean) |
 | Lemma 2 (white beads) | `lemma2` | [`Rosary/Lemma2.lean`](Rosary/Lemma2.lean) |
 | Corollary 1 (black beads) | `corollary1`, `white_above_black` | [`Rosary/Lemma2.lean`](Rosary/Lemma2.lean) |
