@@ -1313,7 +1313,9 @@ for $|\log_2 3 - p/q|$.
   $\kappa\, m^{5 + 2\varepsilon}$ moves**, for every $\varepsilon > 0$,
   and this version of [Theorem 6](#theorem-6) is checked by Lean from end to end. The
   same holds for parts 2 and 3 of [Theorem 5](#theorem-5), which need a finite
-  irrationality exponent too.
+  irrationality exponent too. Here the constant $\kappa$ is not effective:
+  the proof shows that the bound on $\log_2 3$ holds from some denominator
+  on, and gives no way to compute which one.
 
   The bound on $\log_2 3$ is Jha's result, not ours. It is recent and, to
   our knowledge, has not been reviewed by specialists; we have not read

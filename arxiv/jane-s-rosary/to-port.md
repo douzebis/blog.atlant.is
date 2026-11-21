@@ -345,6 +345,11 @@ These reach the paper by a rebuild; to look at in the PDF.
       is natural in a paper), and where its appendix goes relative to
       the sections on verification.
 
+- [ ] (2026-11-22) "Which exponent?" says that with Jha's bound the
+      constant of Theorem 6 is not effective, which completes the
+      comparison: explicit (Rhin, H >= 2), computable but not written
+      down (Rhin, Wu and Wang, large H), not computable (Jha).
+
 ## To do later, on the page's side (decided 2026-11-21, not started)
 
 - [x] (done on 2026-11-22, except Part III, which waits for the
