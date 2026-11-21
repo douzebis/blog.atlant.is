@@ -870,17 +870,21 @@ g @>U>> \whitebead{w}
 \end{CD}
 $$
 
-Each side of the route has its own reason for being told:
+Each side of the route has its own reason for being told, and the reasons are
+the same in both diagrams:
 
-- *The right-hand side* is where Jane has just been. She came down it to
-  reach $w$, and a black bead is only ever reached by a down move, so if she
-  came from the black bead $b$ she was on a bead $by$ just before.
-- *The top arrow* is a $\lambda$ that starts from a white bead she has told.
-  By the no-gap property (b), which holds up to time $i$, the bead at the top
-  left has been told as well.
-- *The left-hand side* goes down from that bead to $g$. By
-  [Lemma 3](#lemma-3), once Jane has left a bead, the bead below it has been
-  told: so every bead of the left-hand side has been told, down to $g$.
+- *The right-hand side* is where Jane has just been. In the first diagram she
+  was on $\hat{w}$ one move ago. In the second she was on $b$ one move ago,
+  and on $by$ the move before: a black bead is only ever reached by a down
+  move.
+- *The top arrow* is a $\lambda$ that starts from the white bead at the top
+  right, $\hat{w}$ or $by$, which she has told. By the no-gap property (b),
+  which holds up to time $i$, the bead at the top left, $\hat{w}\lambda$ or
+  $by\lambda$, has been told as well.
+- *The left-hand side* goes down from that bead to $g$, in one step in the
+  first diagram and in two in the second. By [Lemma 3](#lemma-3), once Jane
+  has left a bead, the bead below it has been told: so every bead of the
+  left-hand side has been told, down to $g$.
 
 In detail:
 
