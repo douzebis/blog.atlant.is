@@ -2,7 +2,6 @@
 2	jane-s-rosary/rosary.html?n=10&labels=plain&arrows=both&colors=label&string=yes&end=open&interactive=yes&first=1	2
 3	jane-s-rosary/rosary.html?n=10&labels=plain&arrows=to3&colors=label&below=position&string=yes&end=open&interactive=yes&first=1	2
 4	jane-s-rosary/height-plot.html?n=10000&first=1	2
-5	jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=none&label=position&color=none&arrows=none&interactive=yes&first=1	2
 6	jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic_back&label=plain_height&color=none&below=position&arrows=yes&interactive=yes&first=1	2
 7	jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=back&label=position&color=position&arrows=yes&interactive=yes&first=1	2
 8	jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=reluctant&label=position&color=reluctant_inv&arrows=labelled&interactive=yes&first=1	2

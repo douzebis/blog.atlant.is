@@ -190,8 +190,17 @@ These reach the paper by a rebuild; to look at in the PDF.
       only.
 - [ ] Figure 6 is redrawn: black and white beads, the height in the
       bead, the position underneath, arrows from a bead back to its
-      predecessor. Whether Figure 5 stays is undecided; removing it
-      renumbers Figures 6 to 13.
+      predecessor. Its caption now also says what the deconstructed
+      rosary is.
+- [ ] **Figure 5 is removed and the figures are not renumbered yet**: the
+      page goes from Figure 4 to Figure 6, and `build.py` makes the paper
+      keep the page's numbers (it sets the figure counter at the gap).
+      Before any submission, renumber Figures 6 to 13 as 5 to 12: in the
+      text and captions of the page, the names of the pictures
+      (`images/figure-NN*`), `tools/capture-figures/jane-s-rosary.tsv`,
+      the teaser ("a detail of Figure 8", also quoted in `build.py`),
+      and then take the counter trick out of `build.py`. This is the
+      first use for the renumbering script listed below.
 
 ## To do later, on the page's side (decided 2026-11-21, not started)
 

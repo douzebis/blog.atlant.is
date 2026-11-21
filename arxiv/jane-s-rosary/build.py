@@ -330,9 +330,15 @@ def adapt_figures(body: str, images: set[str]) -> str:
             i += 1
             continue
         number, name = int(match.group(1)), match.group(2)
-        if number != expected:
+        if number < expected:
             fail(f"figure {number} found where figure {expected} was expected")
-        expected += 1
+        if number > expected:
+            # A figure of the page was removed and the others keep their
+            # numbers for the time being: the paper follows the page.
+            out.extend(
+                ["```{=latex}", f"\\setcounter{{figure}}{{{number - 1}}}", "```", ""]
+            )
+        expected = number + 1
         i += 1
         while i < len(lines) and lines[i] == "":
             i += 1

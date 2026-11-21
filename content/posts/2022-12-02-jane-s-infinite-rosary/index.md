@@ -520,13 +520,9 @@ $$\gamma(n) = \big(\boldsymbol{k},\ \Lambda(n)\big) \quad\text{where}\quad \sigm
 is a bijection between $\mathbb{N}^*$ and $\mathbb{N}^*\times\mathbb{N}$. For
 instance $\gamma(8) = (\mathbf{1}, 4)$ and $\gamma(9) = (\mathbf{2}, 2)$.
 
-[![Figure 5](images/figure-05.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=none&label=position&color=none&arrows=none&interactive=yes&first=1)
-
-> Figure 5: the rosary deconstructed. Each row is an up-chain and starts from a black bead, on the left: an up move is a step to the right, and $\lambda$ is a step to the left. Bead $8$ sits in the bottom row, four steps from its seed $1$ ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=none&label=position&color=none&arrows=none&interactive=yes&first=1)).
-
 [![Figure 6](images/figure-06.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic_back&label=plain_height&color=none&below=position&arrows=yes&interactive=yes&first=1)
 
-> Figure 6: the same, with the height written in each bead and the position underneath. Each arrow leads from a bead back to the one before it on a shortest recitation: a white bead points one step to the left ([Lemma 2](#lemma-2)), a black bead to one of the two beads above it in the binary tree ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic_back&label=plain_height&color=none&below=position&arrows=yes&interactive=yes&first=1)).
+> Figure 6: the rosary deconstructed. Each row is an up-chain and starts from a black bead, on the left: an up move is a step to the right, and $\lambda$ is a step to the left. Each bead shows its height, with its position underneath: bead $8$ sits in the bottom row, four steps from its seed $1$, and its height is $4$. Each arrow leads from a bead back to the one before it on a shortest recitation: a white bead points one step to the left ([Lemma 2](#lemma-2)), a black bead to one of the two beads above it in the binary tree ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=canonic_back&label=plain_height&color=none&below=position&arrows=yes&interactive=yes&first=1)).
 
 The up-chain of bead $1$ reads $1, 2, 3, 5, 8, 12, 18, 27, 41,
 \ldots$ ([A061419](https://oeis.org/A061419)); every up-chain grows
@@ -538,7 +534,6 @@ this is in [OW91], with $K \approx 1.6222$.
 $\sigma(n) \leq n\lambda$ for white $n$, the two neighbors of a black bead
 $\boldsymbol{n}^\bullet > 1$ have small seeds:
 $\sigma(\boldsymbol{n}^\bullet - 1) \leq 2\boldsymbol{n}-2$ and $\sigma(\boldsymbol{n}^\bullet + 1) \leq 2\boldsymbol{n}-1$.
-(This was "Conjecture 3" in the very first version of this paper.)
 
 ### 5. Theorem 1: minimal recitations ending in a black bead
 
