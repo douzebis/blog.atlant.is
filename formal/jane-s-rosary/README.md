@@ -27,10 +27,10 @@ This page is written for a reader who has never used a proof assistant.
 | Lemma 2 (white beads) | `lemma2` | [`Rosary/Lemma2.lean`](Rosary/Lemma2.lean) |
 | Corollary 1 (black beads) | `corollary1`, `white_above_black` | [`Rosary/Lemma2.lean`](Rosary/Lemma2.lean) |
 | Seed, lambex; the up-chains of the black beads partition the rosary | `seed`, `lambex`, `seed_spec`, `seed_upPow`, `height_seed` | [`Rosary/Seed.lean`](Rosary/Seed.lean) |
-| Theorem 1, parts 1 and 2 | `theorem1_part1`, `theorem1_part2` | [`Rosary/Theorem1.lean`](Rosary/Theorem1.lean) |
-| Theorem 1, part 3 | `theorem1_part3` | [`Rosary/Theorem1.lean`](Rosary/Theorem1.lean) |
-| Theorem 1, part 4 | `theorem1_part4` | [`Rosary/Theorem1.lean`](Rosary/Theorem1.lean) |
-| Theorem 1, part 5 | `theorem1_part5_mu`, `theorem1_part5_nu` | [`Rosary/Theorem1.lean`](Rosary/Theorem1.lean) |
+| Theorem 1: the two chains of its proof (Step 1), the rule, and the loser's lambda exponent. The Lean names keep the numbering the parts had until 21 November 2026 | `theorem1_part1`, `theorem1_part2` | [`Rosary/Theorem1.lean`](Rosary/Theorem1.lean) |
+| Theorem 1, part 2 (lambda exponents and seeds) | `theorem1_part3` | [`Rosary/Theorem1.lean`](Rosary/Theorem1.lean) |
+| Theorem 1, part 3 (neighbors) | `theorem1_part4` | [`Rosary/Theorem1.lean`](Rosary/Theorem1.lean) |
+| Theorem 1, part 1 (the winner is on a minimal recitation) | `theorem1_part5_mu`, `theorem1_part5_nu` | [`Rosary/Theorem1.lean`](Rosary/Theorem1.lean) |
 | The program "height in logarithmic time" computes the height | `heightFast`, `height_eq_heightFast` | [`Rosary/Fast.lean`](Rosary/Fast.lean) |
 | The reluctant recitation | `told`, `rho`, `rho_succ`, `rho_move`, `mem_told` | [`Rosary/Reluctant.lean`](Rosary/Reluctant.lean) |
 | Lemma 3 (down-closure) | `lemma3` | [`Rosary/Reluctant.lean`](Rosary/Reluctant.lean) |

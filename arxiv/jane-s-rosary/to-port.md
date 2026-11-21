@@ -236,6 +236,26 @@ These reach the paper by a rebuild; to look at in the PDF.
       (front matter) and `docs/papers/jane-s-rosary/history.md` should
       record it, with Proposition 1, when this round of reading ends.
 
+## 2026-11-21: Theorem 1 made compact (supersedes the entry above)
+
+- [ ] The statement of Theorem 1 now holds only its conclusions: at
+      least one of the two beads above a black bead is the step before
+      it on a minimal recitation, the winner, given by a rule on
+      2n - 1 = 3^e q; then part 1 (heights), part 2 (lambda exponents
+      and seeds, the loser's is e + 1), part 3 (neighbors). The chains
+      a_i, b_i are no longer in the statement: they are Step 1 of the
+      proof.
+- [ ] Old parts to new: 1 -> Step 1 of the proof; 2 -> the rule and
+      part 2; 3 -> part 2; 4 -> part 3; 5 -> part 1. Lean keeps the old
+      numbers in its theorem names (`theorem1_part1` ...), with the
+      correspondence written in `Rosary/Theorem1.lean` and the READMEs.
+- [ ] After the statement: what 2n - 1 is, and two examples (beads 4 and
+      10; at bead 10 both candidates work). Then Figure 7, then the
+      proof: notation, the idea with its two diagrams (which now show a
+      down arrow under the dots), Steps 1 to 3.
+- [ ] In the PDF, check that the whole statement, with its displayed
+      rule and its three parts, sits inside one theorem environment.
+
 ## To do later, on the page's side (decided 2026-11-21, not started)
 
 The numbers of statements, figures and sections stay typed by hand, on

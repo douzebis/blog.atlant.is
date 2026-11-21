@@ -543,97 +543,76 @@ by $\lambda$. At a black bead $\boldsymbol{n}^\bullet$ one must come from one of
 two beads above it, $\boldsymbol{n}^\bullet\mu$ or $\boldsymbol{n}^\bullet\nu$
 ([Corollary 1](#corollary-1)), and the question is which.
 
-**The answer in one sentence.** *Of the two candidates
-$\boldsymbol{n}^\bullet\mu$ and $\boldsymbol{n}^\bullet\nu$, take the one with the
-larger lambda exponent*, that is, the one whose up-chain goes further back
-before it meets its seed. The two lambda exponents are never equal, so the
-rule always decides. Applied at every black bead on the way, it gives a
-minimal recitation to any bead, and its length.
+**Theorem 1.** Let $\boldsymbol{n}^\bullet = 3\boldsymbol{n} - 2 > 1$ be a black bead. At least one of
+the two beads above it, $\boldsymbol{n}^\bullet\mu$ and $\boldsymbol{n}^\bullet\nu$, is the step before $\boldsymbol{n}^\bullet$ on
+a minimal recitation: the bead $w$ given by the following rule. We call $w$
+the *winner* and the other one the *loser*, and say that *$\mu$ wins* or that
+*$\nu$ wins*. Write $2\boldsymbol{n} - 1 = 3^e q$ with $3 \nmid q$; then
+$$w = \boldsymbol{n}^\bullet\mu \ \text{ if } 2^{e+1}q \equiv 1 \pmod 3, \qquad\qquad w = \boldsymbol{n}^\bullet\nu \ \text{ if } 2^{e+1}q \equiv 2 \pmod 3 .$$
+Moreover:
 
-**Where the number $2\boldsymbol{n}-1$ comes from.** The two candidates are
-neighbors, and one of them is a multiple of $3$:
+1. $h(\boldsymbol{n}^\bullet) = h(w) + 1 = h(\sigma(w)) + \Lambda(w) + 1$: there is a minimal
+   recitation to $\boldsymbol{n}^\bullet$ ending in $\sigma(w)\,U^{\Lambda(w)}D$.
+2. The winner is the one with the larger lambda exponent, and the one with
+   the smaller seed. The loser has lambda exponent $e + 1$.
+3. $h(\boldsymbol{n}^\bullet) \geq h(\boldsymbol{n}^\bullet-1)$ and $h(\boldsymbol{n}^\bullet) \geq h(\boldsymbol{n}^\bullet+1)$.
 
-$$\boldsymbol{n}^\bullet = 3\boldsymbol{n} - 2, \qquad
-  \boldsymbol{n}^\bullet\mu = 6\boldsymbol{n} - 4, \qquad
-  \boldsymbol{n}^\bullet\nu = 6\boldsymbol{n} - 3 = 3\,(2\boldsymbol{n} - 1).$$
+The number $2\boldsymbol{n} - 1$ is the bead $\boldsymbol{n}^\bullet\nu$ divided by $3$, since
+$\boldsymbol{n}^\bullet\nu = 6\boldsymbol{n} - 3$; so the rule only asks how many factors $3$ that
+bead has, and what is left once they are removed. Lambda exponents are the
+device behind the rule (part 2), and they are how one remembers it: *the
+winner is the candidate whose up-chain goes further back before it meets its
+seed*. Part 3 compares a black bead with its two neighbors; it is what makes
+the induction work.
 
-Going back by $\lambda$ multiplies a multiple of $3$ by $2/3$, so it removes
-one factor $3$ at each step. The number of factors $3$ in
-$\boldsymbol{n}^\bullet\nu$ therefore says how long the two candidates can be
-followed back side by side before one of them meets its seed, and this is
-what decides. Hence the exponent $e$ below.
+Two examples.
 
-[Theorem 1](#theorem-1) says this with the bookkeeping that its proof needs. Part 1
-follows the two candidates back along their up-chains; part 2 says where the
-chains part and names the winner; part 3 restates it with seeds; part 5 is
-the rule; part 4 compares the height of a black bead with those of its two
-neighbors, which is what makes the induction work.
-
-**Theorem 1.** Let $\boldsymbol{n}^\bullet = 3\boldsymbol{n} - 2 > 1$ be a black bead, and
-write
-
-$$2\boldsymbol{n} - 1 = 3^e q \qquad\text{with } 3 \nmid q .$$
-
-1. *The two chains.* Follow the two candidates back, one $\lambda$ at a time:
-   the beads
-
-   $$a_i = \boldsymbol{n}^\bullet\mu\lambda^i \qquad\text{and}\qquad b_i = \boldsymbol{n}^\bullet\nu\lambda^i$$
-
-   are defined for $0 \leq i \leq e+1$, and
-
-   $$b_i = 2^i\,3^{e+1-i}\,q, \qquad a_i = b_i - 1 .$$
-
-   In other words $a_{e+1}, a_e, \ldots, a_0 = \boldsymbol{n}^\bullet\mu$ and
-   $b_{e+1}, b_e, \ldots, b_0 = \boldsymbol{n}^\bullet\nu$ are two runs of up moves,
-   which stay neighbors all the way. For $i \leq e$ both $a_i$ and $b_i$ are
-   white. The runs start at
-
-   $$a_{e+1} = 2^{e+1}q - 1 \qquad\text{and}\qquad b_{e+1} = 2^{e+1}q,$$
-
-   and exactly one of these two beads is black.
-2. *The winner.* Since $3 \nmid q$, the number $2^{e+1}q$ is not a multiple of
-   $3$. Two cases remain.
-
-   - If $2^{e+1}q \equiv 1 \pmod 3$, then $b_{e+1}$ is black and $a_{e+1}$ is
-     white. So $\Lambda(\boldsymbol{n}^\bullet\nu) = e+1 < \Lambda(\boldsymbol{n}^\bullet\mu)$;
-     we say that *$\mu$ wins*.
-   - If $2^{e+1}q \equiv 2 \pmod 3$, then $a_{e+1}$ is black and $b_{e+1}$ is
-     white. So $\Lambda(\boldsymbol{n}^\bullet\mu) = e+1 < \Lambda(\boldsymbol{n}^\bullet\nu)$;
-     we say that *$\nu$ wins*.
-3. In particular $\Lambda(\boldsymbol{n}^\bullet\mu) \neq \Lambda(\boldsymbol{n}^\bullet\nu)$,
-   $\sigma(\boldsymbol{n}^\bullet\mu) \neq \sigma(\boldsymbol{n}^\bullet\nu)$, and
-   $$\Lambda(\boldsymbol{n}^\bullet\mu) > \Lambda(\boldsymbol{n}^\bullet\nu) \iff \sigma(\boldsymbol{n}^\bullet\mu) < \sigma(\boldsymbol{n}^\bullet\nu).$$
-4. $h(\boldsymbol{n}^\bullet) \geq h(\boldsymbol{n}^\bullet-1)$ and $h(\boldsymbol{n}^\bullet) \geq h(\boldsymbol{n}^\bullet+1)$.
-5. Let $w$ be the winner ($w = \boldsymbol{n}^\bullet\mu$ if $\mu$ wins, $w = \boldsymbol{n}^\bullet\nu$ if $\nu$ wins).
-   Then $h(\boldsymbol{n}^\bullet) = h(\sigma(w)) + \Lambda(w) + 1$: there is a minimal recitation
-   to $\boldsymbol{n}^\bullet$ ending in $\sigma(w)\,U^{\Lambda(w)}D$.
-
-For instance, take bead $4$, which is onyx $\mathbf{2}$. Its candidates are
-$4\mu = 8$ and $4\nu = 9$, and $2\boldsymbol{n} - 1 = 3$, so $e = 1$ and $q = 1$.
-The two chains are $a_0, a_1, a_2 = 8, 5, 3$ and $b_0, b_1, b_2 = 9, 6, 4$.
-They end at $b_2 = 4 \equiv 1 \pmod 3$, which is black, next to $a_2 = 3$,
-which is white: $\mu$ wins. And indeed $9$ has lambda exponent $2$, while $8$
-goes on back to $2$ and $1$ and has lambda exponent $4$.
+- Bead $4$ is onyx $\mathbf{2}$, and $2\boldsymbol{n} - 1 = 3$, so $e = 1$,
+  $q = 1$ and $2^{e+1}q = 4 \equiv 1$: $\mu$ wins, $w = 4\mu = 8$. Indeed
+  $h(4) = h(8) + 1 = 5$. The winner $8$ has lambda exponent $4$ and seed $1$;
+  the loser $9$ has lambda exponent $2 = e + 1$ and seed $4$.
+- Bead $10$ is onyx $\mathbf{4}$, and $2\boldsymbol{n} - 1 = 7$, so $e = 0$,
+  $q = 7$ and $2^{e+1}q = 14 \equiv 2$: $\nu$ wins, $w = 10\nu = 21$. Indeed
+  $h(10) = h(21) + 1 = 10$. Here the loser $20$ has height $9$ as well: the
+  theorem names one candidate that always works, it does not say that the
+  other never does.
 
 [![Figure 7](images/figure-07.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=candidates&label=position&color=none&columns=lambex&arrows=yes&interactive=yes&first=1)
 
 > Figure 7: when in doubt, choose the predecessor with the larger lambda exponent. Only the black beads, in the left column, have a choice. Each has two candidates, shown by two arrows of the same color: the solid one points to the winner, the dashed one to the loser. The lambda exponent of a bead is the column it sits in, written at the bottom, so the winner is always the candidate further to the right ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=0&width=9&height=9&ordering=candidates&label=position&color=none&columns=lambex&arrows=yes&interactive=yes&first=1)).
 
-*The idea.* Follow the two candidates $a_0 = \boldsymbol{n}^\bullet\mu$ and $b_0 = \boldsymbol{n}^\bullet\nu$
-backwards along their up-chains. They are neighbors, and they stay neighbors,
-$b_i = a_i + 1$, for $e + 1$ steps back. All the beads met on the way are
-white, except one of the last two, $a = a_{e+1}$ and $b = b_{e+1}$: that one
-is a seed, and the other candidate goes on further back. This is (1), (2)
-and (3), and it is plain arithmetic modulo $3$.
+*Proof.* It has three steps, after some notation and a sketch.
 
-For the heights, look one row down. The beads $c_i = a_iD$ and $d_i = b_iD$
-below the two candidates' chains turn out to be the chains of the two
-neighbors of our black bead, $\boldsymbol{n}^\bullet - 1$ and $\boldsymbol{n}^\bullet + 1$:
+**Notation.** The two candidates are neighbors, and one of them is a multiple
+of $3$:
+
+$$\boldsymbol{n}^\bullet\mu = 6\boldsymbol{n} - 4, \qquad \boldsymbol{n}^\bullet\nu = 6\boldsymbol{n} - 3 = 3\,(2\boldsymbol{n} - 1) = 3^{e+1}q .$$
+
+Follow them back, one $\lambda$ at a time, and look one row down as well:
+
+$$a_i = \boldsymbol{n}^\bullet\mu\lambda^i, \qquad b_i = \boldsymbol{n}^\bullet\nu\lambda^i, \qquad c_i = a_iD, \qquad d_i = b_iD,$$
+
+for as long as these beads are defined ($\lambda$ applies to white beads
+only). So $a_0 = \boldsymbol{n}^\bullet\mu$ and $b_0 = \boldsymbol{n}^\bullet\nu$ are the two candidates, and each
+$a_i$ is one up move below $a_{i-1}$. Write $a, b, c, d$ for
+$a_{e+1}, b_{e+1}, c_{e+1}, d_{e+1}$.
+
+**The idea.** Going back by $\lambda$ multiplies a multiple of $3$ by $2/3$:
+it removes one factor $3$. So the chain of $b_0 = 3^{e+1}q$ can be followed
+for $e + 1$ steps, and the chain of its neighbor $a_0$ stays next to it,
+$b_i = a_i + 1$. All the beads met on the way are white, except one of the
+last two, $a$ and $b$: that one is a seed, and the other candidate goes on
+further back. This is the rule and part 2, and it is plain arithmetic
+modulo $3$.
+
+For the heights, look one row down. The beads $c_i$ and $d_i$ below the two
+candidates' chains turn out to be the chains of the two neighbors of our
+black bead, $\boldsymbol{n}^\bullet - 1$ and $\boldsymbol{n}^\bullet + 1$:
 
 $$
 \begin{CD}
 a @<\lambda<< \cdots @<\lambda<< a_1 @<\lambda<< \whitebead{a_0 = \boldsymbol{n}^\bullet\mu}\\
-@VVDV @. @VVDV @.\\
+@VVDV @VVDV @VVDV @.\\
 c @<\lambda<< \cdots @<\lambda<< c_1 @<\lambda<< \whitebead{\boldsymbol{n}^\bullet-1}
 \end{CD}
 $$
@@ -641,18 +620,31 @@ $$
 $$
 \begin{CD}
 b @<\lambda<< \cdots @<\lambda<< b_1 @<\lambda<< \whitebead{b_0 = \boldsymbol{n}^\bullet\nu}\\
-@VVDV @. @VVDV @.\\
+@VVDV @VVDV @VVDV @.\\
 d @<\lambda<< \cdots @<\lambda<< d_1 @<\lambda<< \whitebead{\boldsymbol{n}^\bullet+1}
 \end{CD}
 $$
 
-By [Lemma 2](#lemma-2), walking along a row costs one move per arrow. So the heights of
-$\boldsymbol{n}^\bullet$, $\boldsymbol{n}^\bullet - 1$ and $\boldsymbol{n}^\bullet + 1$ are read off the four beads at the left-hand
-ends, $a$, $b$, $c = c_{e+1}$ and $d = d_{e+1}$. Exactly two of these four are
-black, and comparing them comes down to statement (4) for a smaller black
-bead: this is the induction.
+A down move leads from each $a_i$ to $c_i$, and from each $b_i$ to $d_i$, for
+every $i \geq 1$. There is no arrow under $a_0$ and $b_0$: one down move from
+either of them leads to $\boldsymbol{n}^\bullet$ itself, which sits between $\boldsymbol{n}^\bullet - 1$ and $\boldsymbol{n}^\bullet + 1$.
 
-*Proof.* **(1) and (2).** We have $a_0 = 6\boldsymbol{n}-4$ and $b_0 = 6\boldsymbol{n}-3$. For
+By [Lemma 2](#lemma-2), walking along a row costs one move per arrow. So the
+heights of $\boldsymbol{n}^\bullet$, $\boldsymbol{n}^\bullet - 1$ and $\boldsymbol{n}^\bullet + 1$ are read off the four beads at the
+left-hand ends, $a$, $b$, $c$ and $d$. Exactly two of these four are black,
+and comparing them comes down to part 3 for a smaller black bead: this is the
+induction.
+
+**Step 1: the two chains.** *For $0 \leq i \leq e+1$ the beads $a_i$ and $b_i$
+are defined, and*
+
+$$b_i = 2^i\,3^{e+1-i}\,q, \qquad a_i = b_i - 1 .$$
+
+*For $i \leq e$ both are white. Of the last two, $a = 2^{e+1}q - 1$ and
+$b = 2^{e+1}q$, exactly one is black: $b$ if $2^{e+1}q \equiv 1 \pmod 3$,
+and $a$ if $2^{e+1}q \equiv 2 \pmod 3$.*
+
+Indeed $a_0 = 6\boldsymbol{n}-4$ and $b_0 = 6\boldsymbol{n}-3$. For
 $i \leq e$, $b_i = 2^i 3^{e+1-i} q$ is divisible by $3$, so
 $b_i \equiv 0$ and $a_i \equiv 2 \pmod 3$: both are white, and one checks
 $b_i\lambda = \frac{2}{3}b_i = b_{i+1}$ and
@@ -660,18 +652,24 @@ $a_i\lambda = \lfloor \frac{2}{3}(b_i - 1) \rfloor = b_{i+1} - 1 = a_{i+1}$.
 Finally $b_{e+1} = 2^{e+1}q$ is not
 divisible by $3$: if it is $\equiv 1$ then $b_{e+1}$ is black and
 $a_{e+1} \equiv 0$ is white, and if it is $\equiv 2$ then $b_{e+1}$ is white
-and $a_{e+1} \equiv 1$ is black. The lambda exponent of the bead that turned black is
-$e+1$; the other one is larger.
+and $a_{e+1} \equiv 1$ is black.
 
-**(3).** The loser's seed is the black bead $s \in \{a_{e+1}, b_{e+1}\}$, and
-$s \geq 4$ (indeed $s = 1$ would mean $b_{e+1} = 2$, which forces $\boldsymbol{n} = \mathbf{1}$).
+The candidate whose chain has just reached a black bead has lambda exponent
+$e+1$, and that bead is its seed; the other candidate has a larger lambda
+exponent. By the rule, the first one is the loser and the second one the
+winner: this is the first and the last claim of part 2.
+
+**Step 2: the seeds.** The loser's seed is the black bead
+$s \in \{a, b\}$, and
+$s \geq 4$ (indeed $s = 1$ would mean $b = 2$, which forces $\boldsymbol{n} = \mathbf{1}$).
 The winner's seed is at
-most $(s \pm 1)\lambda \leq \frac{2}{3}(s+1) < s$.
+most $(s \pm 1)\lambda \leq \frac{2}{3}(s+1) < s$. This is the rest of
+part 2.
 
-**(4) and (5).** For $1 \le i \le e+1$ put $d_i = b_iD = b_i/2$ and
-$c_i = a_iD = d_i - 1$. The same computation as above gives
+**Step 3: the heights (parts 3 and 1).** For $1 \le i \le e+1$ we have
+$d_i = b_i/2$ and $c_i = d_i - 1$. The same computation as in Step 1 gives
 $c_i = (\boldsymbol{n}^\bullet-1)\lambda^i$ and $d_i = (\boldsymbol{n}^\bullet+1)\lambda^i$, with $c_i$ and $d_i$ white
-for $i \leq e$. Write $a, b, c, d$ for $a_{e+1}, b_{e+1}, c_{e+1}, d_{e+1}$.
+for $i \leq e$.
 So the two ladders drawn above commute. Every bead from which a $\lambda$
 arrow starts is white, so by [Lemma 2](#lemma-2) it
 is one higher than the bead the arrow points to. Reading the rows from right
@@ -687,23 +685,23 @@ Modulo $3$ there are only two configurations:
 | $\mu$ wins | white | **black** | **black** | white |
 | $\nu$ wins | **black** | white | white | **black** |
 
-We prove (4) and (5) by induction on $h(\boldsymbol{n}^\bullet)$. The bead $\mathbf{2}^\bullet = 4$ is
+We prove parts 3 and 1 by induction on $h(\boldsymbol{n}^\bullet)$. The bead $\mathbf{2}^\bullet = 4$ is
 checked directly ($h(3) = 2$, $h(4) = 5$, $h(5) = 3$, and
 $1\,U^4 D = 4$ with $\sigma(4\mu) = \sigma(8) = 1$). It is the only case in
 which $c = 1$, so from now on $c > 1$.
 
 *Case "$\mu$ wins".* If we had $h(b) < h(a)$, then by $(\ast)$
-$h(b) < h(\boldsymbol{n}^\bullet)$, and the induction hypothesis (4) applied to the black bead
+$h(b) < h(\boldsymbol{n}^\bullet)$, and the induction hypothesis (part 3) applied to the black bead
 $b$ would give $h(b) \geq h(b-1) = h(a)$, a contradiction. Hence
 $h(\boldsymbol{n}^\bullet) = h(a) + e + 2$, and since $a = \sigma(\boldsymbol{n}^\bullet\mu)U^{\Lambda(\boldsymbol{n}^\bullet\mu)-e-1}$,
-[Lemma 2](#lemma-2) gives (5). Next, $c = aD$ yields
+[Lemma 2](#lemma-2) gives part 1. Next, $c = aD$ yields
 $h(\boldsymbol{n}^\bullet-1) = h(c) + e + 1 \leq h(a) + e + 2 = h(\boldsymbol{n}^\bullet)$. Finally $c$ is black with
 $h(c) \leq h(a) + 1 < h(\boldsymbol{n}^\bullet)$, so by induction $h(d) = h(c+1) \leq h(c)$ and
 $h(\boldsymbol{n}^\bullet+1) = h(d) + e + 1 \leq h(\boldsymbol{n}^\bullet)$.
 
 *Case "$\nu$ wins".* Symmetric: if $h(a) < h(b)$, the induction hypothesis on
 the black bead $a$ gives $h(a) \geq h(a+1) = h(b)$, a contradiction; hence
-$h(\boldsymbol{n}^\bullet) = h(b) + e + 2$, which gives (5). Then $d = bD$ yields
+$h(\boldsymbol{n}^\bullet) = h(b) + e + 2$, which gives part 1. Then $d = bD$ yields
 $h(\boldsymbol{n}^\bullet+1) \leq h(\boldsymbol{n}^\bullet)$, and $d$ is black with $h(d) < h(\boldsymbol{n}^\bullet)$, so
 $h(c) = h(d-1) \leq h(d)$ and $h(\boldsymbol{n}^\bullet-1) \leq h(\boldsymbol{n}^\bullet)$. $\quad\Box$
 
@@ -1599,7 +1597,7 @@ Part I explains how a streak grows. By [Lemma 2](#lemma-2), $h(nU) = h(n) + 1$ f
 bead $n$. So one up move carries a streak of $L$ beads onto $L$ consecutive
 white beads, which again share the same height and are spread over about
 $3L/2$ positions: streaks breed longer streaks, one step up. Only the black
-beads in between can break the new streak, and by [Theorem 1](#theorem-1) (part 4) a black
+beads in between can break the new streak, and by [Theorem 1](#theorem-1) (part 3) a black
 bead is never lower than its two neighbors. What Part I does not say is how
 often a black bead falls in line with them.
 
@@ -1630,7 +1628,7 @@ one command runs all but the long one.
 |---|---|---|
 | The two ways of computing the height agree | beads below $60\,000$ | `check_shortest.py` |
 | [Proposition 1](#proposition-1); the record streaks quoted in [Question H](#question-H) | beads up to $10^6$ | `check_shortest.py` |
-| [Fact 1](#fact-1), [Lemma 1](#lemma-1) (its six diagrams), [Lemma 2](#lemma-2), [Corollary 1](#corollary-1), [Theorem 1](#theorem-1) (parts 1 to 5) | beads below $60\,000$ | `check_shortest.py` |
+| [Fact 1](#fact-1), [Lemma 1](#lemma-1) (its six diagrams), [Lemma 2](#lemma-2), [Corollary 1](#corollary-1), [Theorem 1](#theorem-1) (the rule, parts 1 to 3, and the chains of its proof) | beads below $60\,000$ | `check_shortest.py` |
 | [Theorem 2](#theorem-2): never stuck, no bead told twice, no gap | $300\,000$ moves | `check_reluctant.py` |
 | [Theorem 2](#theorem-2): never stuck. [Theorem 3](#theorem-3): all beads up to $10\,801\,813$ told | $2^{27}$ moves | `walk.c` |
 | [Lemmas 4](#lemma-4) and [5](#lemma-5) | beads below $5\,000$ and $20\,000$ | `check_reluctant.py` |
@@ -1667,7 +1665,7 @@ checks them all.
 | [Lemma 1](#lemma-1) | `lemma1` |
 | [Lemma 2](#lemma-2), [Corollary 1](#corollary-1) | `lemma2`, `corollary1` |
 | Section 4: every bead is $\sigma(n)U^{\Lambda(n)}$, in one way only | `seed_spec`, `seed_upPow` |
-| [Theorem 1](#theorem-1), parts 1 to 5 | `theorem1_part1` to `theorem1_part5_nu` |
+| [Theorem 1](#theorem-1): the chains of its proof and the rule (`part1`, `part2`), part 2 (`part3`), part 3 (`part4`), part 1 (`part5`); the Lean names keep an earlier numbering of the parts | `theorem1_part1` to `theorem1_part5_nu` |
 | The program "height in logarithmic time" computes the height | `height_eq_heightFast` |
 | [Lemma 3](#lemma-3) | `lemma3` |
 | [Theorem 2](#theorem-2): never stuck, no bead told twice, no gap | `theorem2_fresh`, `theorem2_injective`, `theorem2_no_gap` |

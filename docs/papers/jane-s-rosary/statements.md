@@ -22,7 +22,7 @@ As of 2026-11-18 (the current version, beads counted from 1, spec 0003):
 | Lemma 1 | 3. Minimal recitations | `check_shortest.py` | the six diagrams of the proof, k below 5,000 |
 | Lemma 2 | 3. Minimal recitations | `check_shortest.py` | beads below 60,000 |
 | Corollary 1 | 3. Minimal recitations | `check_shortest.py` | beads below 60,000 |
-| Theorem 1 | 5. Theorem 1: minimal recitations ending in a black bead | `check_shortest.py` | parts 2 to 5, black beads below 60,000; part 1 and the chains of the proof, onyxes below 3,000 |
+| Theorem 1 | 5. Theorem 1: minimal recitations ending in a black bead | `check_shortest.py` | the rule and parts 1 to 3, black beads below 60,000; the chains of the proof, onyxes below 3,000 |
 | Lemma 3 | 6. Jane's reluctant recitation | — | immediate from the definition |
 | Theorem 2 | 7. Theorem 2: Jane's reluctant recitation never halts | `check_reluctant.py`, `walk.c` | 300,000 moves; never stuck on 2^27 moves |
 | Theorem 3 | 8. Theorem 3: Jane's reluctant recitation tells all beads | `walk.c` | every bead up to 10,801,813 told after 2^27 moves (an instance, not a check of the theorem) |

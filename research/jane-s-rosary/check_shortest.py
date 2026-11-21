@@ -16,7 +16,8 @@ Checked for all beads below N unless said otherwise:
 - the two computations of the height agree;
 - Lemma 2: h(w) = h(w lambda) + 1 for a white bead w;
 - Corollary 1: h(b) = 1 + min(h(b mu), h(b nu)) for a black bead b > 1;
-- Theorem 1, parts 2 to 5, for every black bead 3k - 2 < N with k >= 2;
+- Theorem 1 (its rule and its parts 1 to 3), for every black bead
+  3k - 2 < N with k >= 2;
 - the remark after the definition of seeds: for such a black bead b,
   sigma(b - 1) <= 2k - 2 and sigma(b + 1) <= 2k - 1;
 - Proposition 1 (its two bounds on the height), the sharper bound of its
@@ -134,11 +135,13 @@ def main() -> int:
         ):
             remark = False
     results += [
-        report("Theorem 1 (2): the winner is read off 2k - 1 = 3^e q", closed_form),
-        report("Theorem 1 (3): different lambexes and seeds", lambexes),
-        report("Theorem 1 (3): larger lambex if and only if smaller seed", seeds),
-        report("Theorem 1 (4): h(b) >= h(b - 1) and h(b) >= h(b + 1)", neighbors),
-        report("Theorem 1 (5): h(b) = h(seed of winner) + its lambex + 1", winner),
+        report(
+            "Theorem 1, the rule: the winner is read off 2k - 1 = 3^e q", closed_form
+        ),
+        report("Theorem 1 (2): different lambexes and seeds", lambexes),
+        report("Theorem 1 (2): larger lambex if and only if smaller seed", seeds),
+        report("Theorem 1 (3): h(b) >= h(b - 1) and h(b) >= h(b + 1)", neighbors),
+        report("Theorem 1 (1): h(b) = h(seed of winner) + its lambex + 1", winner),
         report("Remark: sigma(b - 1) <= 2k - 2 and sigma(b + 1) <= 2k - 1", remark),
     ]
 

@@ -11,6 +11,17 @@ The paper writes the black bead as `𝐧•`, with `2𝐧 - 1 = 3^e q`.  Parts 3
 4 and 5 do not mention `e` and `q`, and are stated here for a black bead
 `B ≥ 4` directly.  Parts 1 and 2, at the end of the file, are stated with
 `𝐧`, `e` and `q` as in the paper.
+
+The parts are numbered here as the paper numbered them until 21 November
+2026.  The paper has since moved the chains into the proof and reordered
+the rest.  From the numbers used here to the paper's:
+
+* part 1 (the two chains `a_i`, `b_i`): Step 1 of the proof;
+* part 2 (who wins, from `2^(e+1) q` modulo 3): the rule in the head of the
+  statement, and "the loser has lambda exponent `e + 1`" in its part 2;
+* part 3 (different lambda exponents and seeds): its part 2;
+* part 4 (a black bead is at least as high as its neighbors): its part 3;
+* part 5 (the winner is on a minimal recitation): its part 1.
 -/
 
 namespace Rosary

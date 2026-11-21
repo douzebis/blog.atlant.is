@@ -30,7 +30,7 @@ error if one fails.
 | Proposition 1 (bounds on the height, the cases of its proof) | `check_shortest.py` | same | beads up to 10^6 |
 | Question H (the record streaks of equal heights it quotes) | `check_shortest.py` | same | beads up to 10^6 |
 | Fact 1, the six diagrams of Lemma 1, Lemma 2, Corollary 1 | `check_shortest.py` | same | beads below 60,000 |
-| Theorem 1, parts 1 to 5, and the chains of its proof | `check_shortest.py` | same | black beads below 60,000 |
+| Theorem 1 (its rule, parts 1 to 3) and the chains of its proof | `check_shortest.py` | same | black beads below 60,000 |
 | Remark on seeds of neighbors of black beads | `check_shortest.py` | same | black beads below 60,000 |
 | First beads of the reluctant recitation, examples of Part II | `check_reluctant.py` | `python check_reluctant.py` | 14 beads |
 | Theorem 2 (never stuck, injective, no gap) | `check_reluctant.py` | same | 300,000 moves |
