@@ -195,8 +195,9 @@ from.
   a down move leads to $n$. Jane can come down to bead $8$ from $8\mu = 16$
   and from $8\nu = 17$.
 
-Black beads (*onyxes*) are also counted among themselves, and this count is
-written in bold: onyx number $\boldsymbol{n}$ is the bead
+Black beads are also counted among themselves. Counted this way, a black bead
+is called an *onyx* and its number is written in bold: onyx $\boldsymbol{n}$ is
+the bead
 
 $$\boldsymbol{n}^\bullet = 3\boldsymbol{n} - 2, \qquad\text{so that}\quad \mathbf{1}^\bullet = 1,\quad \mathbf{2}^\bullet = 4,\quad \mathbf{3}^\bullet = 7 .$$
 
@@ -472,7 +473,7 @@ only moves up. This takes four names; bead $8$ is the example again.
   $\sigma(n) = n\lambda^{\Lambda(n)}$, which is where the name comes from.
   Going back from bead $8$ by $\lambda$ gives $5, 3, 2, 1$, and $1$ is black:
   $\sigma(8) = 1$ and $\Lambda(8) = 4$. Its neighbor $9$ goes back to $6$ and
-  then to the black bead $4$: $\sigma(9) = 4$ and $\Lambda(9) = 2$.
+  then to $4$, which is black: $\sigma(9) = 4$ and $\Lambda(9) = 2$.
 
 By Fact 1, the up-chains of the black beads partition the rosary,
 $\mathbb{N}^* = \biguplus_{\boldsymbol{n}} \uparrow\!(\boldsymbol{n}^\bullet)$. So a bead is known
@@ -529,7 +530,7 @@ $$2\boldsymbol{n} - 1 = 3^e q \quad\text{with } 3 \nmid q, \qquad\text{and}\qqua
 In words: of the two beads $\boldsymbol{n}^\bullet\mu$ and $\boldsymbol{n}^\bullet\nu$ above a black bead, *the one
 with the larger lambdex, equivalently the smaller seed, lies on a minimal
 recitation*; and which one it is can be read off the base-3 expansion of
-$2\boldsymbol{n}-1$. Above the black bead $4 = \mathbf{2}^\bullet$, for instance, $2\boldsymbol{n} - 1 = 3$,
+$2\boldsymbol{n}-1$. Above bead $4$, which is onyx $\mathbf{2}$, for instance, $2\boldsymbol{n} - 1 = 3$,
 so $e = 1$, $q = 1$ and $b_2 = 4$ is black: $\mu$ wins, and indeed
 $4\mu = 8$ has lambdex $4$ while $4\nu = 9$ has lambdex $2$.
 
@@ -904,21 +905,22 @@ part rests on Theorem 1.
 
 Bold is for the onyx rosary, which lives on the black beads only: the
 names of its maps are bold, like the numbers that count the onyxes since
-Section 1. The example is the black bead $4$, reached through our
-bead $8$.
+Section 1. The example is bead $4$, which is onyx $\mathbf{2}$, reached
+through our bead $8$.
 
 - **Canonical recitation** $C(n)$ to a bead $n$: the recitation
   $1 = a_0, a_1, \ldots, a_{h(n)} = n$ defined backwards by
   $a_{i-1} = a_i\lambda$ if $a_i$ is white, and $a_{i-1} =$ the winner among
   $a_i\mu$, $a_i\nu$ (the one with the larger lambdex) if $a_i$ is black. By
-  Lemma 2 and Theorem 1 it is a minimal recitation to $n$. For the black
+  Lemma 2 and Theorem 1 it is a minimal recitation to $n$. For the (black)
   bead $4$ the candidates are $4\mu = 8$, with lambdex $4$, and $4\nu = 9$,
   with lambdex $2$: bead $8$ wins, and
   $C(4) = 1, 2, 3, 5, 8, 4$.
 - **Onyx rosary**: the rosary obtained by removing all white beads. Its
   beads are the onyxes of Section 1: onyx $\boldsymbol{n}$ is bead
   $\boldsymbol{n}^\bullet$. So a black bead has two numbers: its place among
-  all the beads, written plain, and its rank among the onyxes, written bold. The onyxes $\mathbf{1}$, $\mathbf{2}$,
+  all the beads, written plain, and its rank among the onyxes, written
+  bold. The onyxes $\mathbf{1}$, $\mathbf{2}$,
   $\mathbf{3}$, $\mathbf{4}$ are the beads $1$, $4$, $7$, $10$.
 - **Onyx predecessor**: $\boldsymbol{\pi}(\boldsymbol{n})$ is the onyx met just
   before onyx $\boldsymbol{n}$ on the canonical recitation. For instance the
@@ -1684,7 +1686,7 @@ machine. The record of what was done, and of what was not, is in
 | Name | Notation | In short | Defined in |
 |---|---|---|---|
 | bead; black, white | $n$ | a positive integer; black if $n \equiv 1 \pmod 3$ | [Section 1](#1-prelude-names) |
-| onyx number $\boldsymbol{n}$ | $\boldsymbol{n}^\bullet$ | a black bead, counted among the black beads: the bead $3\boldsymbol{n} - 2$; bold numbers and letters count onyxes | [Section 1](#1-prelude-names) |
+| onyx | $\boldsymbol{n}$, $\boldsymbol{n}^\bullet$ | a black bead, as counted among the black beads, that is, as a bead of the onyx rosary: onyx $\boldsymbol{n}$ is the bead $\boldsymbol{n}^\bullet = 3\boldsymbol{n} - 2$; bold numbers and letters count onyxes | [Section 1](#1-prelude-names) |
 | label | $L(n)$ | $\lceil n/2 \rceil$, the length of Jane's step at $n$ | [Section 1](#1-prelude-names) |
 | up, down | $nU$, $nD$ | $n + L(n) = \lceil 3n/2 \rceil$ and $n - L(n) = \lfloor n/2 \rfloor$ | [Section 1](#1-prelude-names) |
 | lambda | $n\lambda$ | the bead from which up leads to the white bead $n$ | [Section 1](#1-prelude-names) |

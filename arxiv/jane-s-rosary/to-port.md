@@ -111,6 +111,14 @@ These reach the paper by a rebuild; to read once in the PDF.
       beads" and "beads congruent to 1 modulo 3", still read well with
       it.
 
+- [ ] Naming rule fixed on 2026-11-21, to keep in any text written for
+      the paper only (abstract, introduction, related work): "a black
+      bead", without a number, states a color; with a plain number write
+      "bead 4", "bead 4, which is black" or "the (black) bead 4"; the
+      rank among the black beads is always "onyx **n**", never "black
+      bead number n". An onyx is a black bead seen as a bead of the onyx
+      rosary.
+
 ## To do later, on the page's side (decided 2026-11-21, not started)
 
 The numbers of statements, figures and sections stay typed by hand, on
