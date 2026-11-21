@@ -306,12 +306,15 @@ These reach the paper by a rebuild; to look at in the PDF.
 
 ## 2026-11-21: sources for the irrationality exponent, and small things
 
-- [ ] "Which exponent?" now quotes Rhin's and Wu and Wang's results as
-      bounds on the linear form u0 + u1 log 2 + u2 log 3, both read at
-      the source, with the one-line deduction for log2 3: 8.616 and
-      5.1163051. The exponent of Theorem 6 is at most 9.24 (was 16.24).
-      New reference [WW14]. Check the paper's abstract and introduction
-      for any number that should follow.
+- [ ] "Which exponent?" is rewritten around three kinds of results, all
+      read at the source: Rhin's explicit bound (H >= 2), which gives
+      mu0 = 14.3 with c = 10^-4 and an explicit Theorem 6 (every bead m
+      within 3 10^30 m^27.6 moves); the smaller exponents for large H
+      (Rhin 8.616, Wu and Wang 5.1163051, exponent 9.24 in Theorem 6);
+      and Jha's formalized bound, now with links to his preprint and
+      sources and to OpenAI's. New reference [WW14]. Check the paper's
+      abstract and introduction for any number that should follow, and
+      how the links print.
 - [ ] The epigraph of Section 9 is the English version of the film, with
       one line of the Italian version added and said to be so. (The
       paper drops this epigraph.)

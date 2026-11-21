@@ -471,6 +471,11 @@ Sources checked on 2026-11-20:
     Jha's manuscript says. The paper now quotes both values, with this
     one-line deduction, and the exponent of Theorem 6 becomes at most
     9.24 instead of 16.24.
+- Later on 2026-11-21, at the author's request, the paper leads with
+  Rhin's equation (7), which needs no "H large": it gives
+  |log2 3 - p/q| >= 10^-4 q^-14.3 for all p and q >= 1, hence an explicit
+  Theorem 6: every bead m is told within 3 10^30 m^27.6 moves. The two
+  constants are checked by `check_reluctant.py`.
 - [OAI26]: at commit adc7f124 of github.com/openai/math (the commit Jha's
   sources are copied from), the directory
   `preprints/The-irrationality-exponent-of-pi-is-2-September-24-2026`

@@ -139,6 +139,16 @@ def main() -> int:
                 phases = False
     results.append(report("Lemma 5: phases, both parts, n < 20000", phases))
 
+    # "Which exponent?": the two constants drawn from Rhin's explicit bound.
+    results.append(
+        report(
+            "Which exponent: 2^-13.3 / ln 2 > 10^-4 and 56 6^26.6 10^8 < 3 10^30",
+            2**-13.3 / math.log(2) > 1e-4
+            and 56 * 6**26.6 * 1e8 < 3e30
+            and math.log2(3) - 0.415 > 1,
+        )
+    )
+
     # The numbers in the caption of Figure 11: the smallest bead of each
     # stretch, and how far Jane's phase gets from the exact rotation.
     walk = reluctant_recitation(max(PHASE_STARTS) + 400)

@@ -141,7 +141,7 @@ $$
   only that $\log_2 3$ is irrational, which is $2^a \neq 3^b$. The clock of [Theorem 6](#theorem-6), and the square root in
   [Theorem 5](#theorem-5), need more: that fractions cannot approach $\log_2 3$ faster
   than a fixed power of their denominator (a finite *irrationality
-  exponent*). This is a theorem, with two sources: the classical measures
+  exponent*). This is a theorem, with two kinds of sources: the classical measures
   of Baker, of Rhin, and of Wu and Wang, and a bound formalized in Lean by
   R. K. Jha in 2026.
   Section 11 states its results for any such exponent and then says what
@@ -1522,8 +1522,9 @@ $u(t) = t\log_3 2 + O(\log t)$.
 Let $\mu_0$ be an *irrationality exponent* of $\log_2 3$: a real number such
 that $|\log_2 3 - p/q| \geq c\,q^{-\mu_0}$ for some $c > 0$ and all integers
 $p$ and $q \ge 1$. Baker's theory of linear forms in logarithms [Ba75] shows
-that such a $\mu_0$ exists; Rhin [Rh87] gives $\mu_0 = 8.616$, and Wu and
-Wang [WW14] every $\mu_0 > 5.1163051$ (see "Which exponent?" below).
+that such a $\mu_0$ exists; Rhin [Rh87] gives one explicitly, $\mu_0 = 14.3$
+with $c = 10^{-4}$, and smaller exponents are known (see "Which exponent?"
+below).
 
 **Lemma 9 (covering time of a rotation).** Let $\beta = \mu_0 - 1$, so that
 $\lVert q\alpha \rVert \geq c\,q^{-\beta}$ for all $q \geq 1$. For every
@@ -1604,24 +1605,46 @@ follows since the right-hand side is increasing in $m$. $\quad\Box$
 $\log_2 3$.
 
 **Which exponent?** [Theorem 6](#theorem-6) holds for every irrationality exponent
-$\mu_0$ of $\log_2 3$. Two sources give one.
+$\mu_0$ of $\log_2 3$. Three kinds of results give one. The first two are
+lower bounds for a linear form in $\log 2$ and $\log 3$,
 
-- *The classical measures.* Baker's theorem gives a finite $\mu_0$. The
-  sharper results are lower bounds for $|u_0 + u_1 \log 2 + u_2 \log 3|$ in
-  terms of $H = \max(|u_1|, |u_2|)$, for integers $u_0$, $u_1$, $u_2$ and $H$
-  large: Rhin [Rh87] proved that it is at least $H^{-7.616}$, and Wu and Wang
-  [WW14] that it is at least $H^{-4.1163051 - \varepsilon}$ for every
-  $\varepsilon > 0$. Taking $u_0 = 0$, $u_1 = -p$ and $u_2 = q$, and dividing
-  by $q \log 2$, this bounds $|\log_2 3 - p/q|$ from below: Rhin's result
-  gives $\mu_0 = 8.616$, and Wu and Wang's gives every $\mu_0 > 5.1163051$.
-  With the latter, the exponent $2\mu_0 - 1$ of [Theorem 6](#theorem-6) can be
-  taken to be $9.24$.
+$$\Lambda = u_0 + u_1 \log 2 + u_2 \log 3, \qquad H = \max(|u_1|, |u_2|),$$
+
+with integers $u_0$, $u_1$, $u_2$. Taking $u_0 = 0$, $u_1 = -p$ and
+$u_2 = q$, and dividing by $q \log 2$, such a bound becomes a lower bound
+for $|\log_2 3 - p/q|$.
+
+- *An explicit bound.* Rhin [Rh87] proved that $|\Lambda| \geq H^{-13.3}$ as
+  soon as $H \geq 2$, with no other condition. It follows that
+
+  $$\Big|\log_2 3 - \frac{p}{q}\Big| \;\geq\; \frac{10^{-4}}{q^{14.3}} \qquad\text{for all integers } p \text{ and } q \geq 1 .$$
+
+  (If the left-hand side is less than $0.415$, then $p < 2q$ and $q \geq 2$,
+  so $2 \leq H < 2q$ and
+  $|\log_2 3 - p/q| \geq (2q)^{-13.3}/(q \log 2) > 10^{-4}\,q^{-14.3}$.) So
+  $\mu_0 = 14.3$ with $c = 10^{-4}$, and the proof above gives the constant:
+  $\kappa = 56 \cdot 6^{2\beta}/c^2 < 3 \cdot 10^{30}$. **Every bead $m$ is
+  told within $3 \cdot 10^{30}\, m^{27.6}$ moves**, and nothing in this
+  statement is left to "large enough".
+- *Smaller exponents, for large $H$.* In the same paper Rhin proved
+  $|\Lambda| \geq H^{-7.616}$ for $H \geq H_0$, and Wu and Wang [WW14] proved
+  $|\Lambda| \geq H^{-4.1163051 - \varepsilon}$ for $H \geq H_0(\varepsilon)$,
+  for every $\varepsilon > 0$; in both cases the threshold can be computed
+  but is not written down. They give $\mu_0 = 8.616$, and every
+  $\mu_0 > 5.1163051$: the exponent $2\mu_0 - 1$ of [Theorem
+  6](#theorem-6) can be taken to be $9.24$, with a constant $\kappa$ that is
+  not explicit.
 - *A formalized bound.* In October 2026, R. K. Jha [Jh26] announced that
   every $\mu_0 > 3$ is an irrationality exponent of $\log_2 3$: for every
   $\varepsilon > 0$, $|\log_2 3 - p/q| \ge q^{-(3+\varepsilon)}$ for all
-  large $q$. The proof is written in Lean and uses the Lean library that
-  comes with OpenAI's preprint on the irrationality exponent of $\pi$
-  [OAI26]. With it, **every bead $m$ is told within
+  large $q$ ([his preprint](https://doi.org/10.5281/zenodo.23256301), [his
+  Lean sources](https://github.com/rohitkrjha/log23-measure)). The proof is
+  written in Lean and uses the Lean library that comes with OpenAI's
+  preprint on the irrationality exponent of $\pi$ [OAI26] ([the
+  preprint](https://github.com/openai/math/tree/adc7f124/preprints/The-irrationality-exponent-of-pi-is-2-September-24-2026),
+  [its Lean sources](https://github.com/openai/math/tree/adc7f124/lean/OAI/NumberTheory/PiExponent), in [OpenAI's
+  repository](https://github.com/openai/math)). With it, **every bead $m$
+  is told within
   $\kappa\, m^{5 + 2\varepsilon}$ moves**, for every $\varepsilon > 0$,
   and this version of [Theorem 6](#theorem-6) is checked by Lean from end to end. The
   same holds for parts 2 and 3 of [Theorem 5](#theorem-5), which need a finite
@@ -1633,7 +1656,7 @@ $\mu_0$ of $\log_2 3$. Two sources give one.
   through Lean's kernel; the [annex](#annex-the-machine-checks) says
   exactly how.
 
-Either way this is a proof of concept rather than a sharp estimate: the
+In every case this is a proof of concept rather than a sharp estimate: the
 truth seems to be $\rho^{-1}(m) \approx m\log m$ ([Conjecture A](#conjecture-A)).
 
 #### Numerical data
