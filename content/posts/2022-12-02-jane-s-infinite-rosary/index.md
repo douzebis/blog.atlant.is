@@ -64,8 +64,8 @@ into a program that computes the height of bead $n$ in about $\log n$ steps,
 without searching.
 
 **What if Jane is reluctant?** Suppose she always moves down, unless the bead
-below has already been told, in which case, and only then, she moves up. She
-looks no further than one bead ahead. Her recitation starts
+below has already been told, in which case, and only then, she moves up. Her
+recitation starts
 
 $$1,\ 2,\ 3,\ 5,\ 8,\ 4,\ 6,\ 9,\ 14,\ 7,\ 11,\ 17,\ 26,\ 13,\ \ldots$$
 
