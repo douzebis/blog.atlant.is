@@ -353,10 +353,15 @@ These reach the paper by a rebuild; to look at in the PDF.
 ## 2026-11-21, Figure 10 annotated
 
 - Figure 10 (phase strips): in the first strip the first four exact steps
-  are labeled alpha, 2 alpha, 3 alpha, 4 alpha, and the full circles carry
+  are labeled with multiples of alpha, and the full circles carry
   Jane's beads (beads sharing a phase share a label: "5, 20, 80"). The
   first strip is 12 units taller. The caption has one more sentence. The
   picture is redrawn by `research/jane-s-rosary/draw_figures.py`.
+- Later the same day: twelve steps labeled instead of four; the strips are
+  titled "twenty up moves from the start", "twenty up moves from move 300
+  (no bead below 135)", and so on; the caption says that the exact rotation
+  restarts from Jane's phase at the beginning of each strip (the total
+  error since bead 1 does not go to zero, and nothing claims it does).
 
 ## To do later, on the page's side (decided 2026-11-21, not started)
 

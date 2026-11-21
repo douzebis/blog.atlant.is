@@ -163,7 +163,7 @@ def tree_figure(colors: dict[str, str]) -> str:
 # The three moments of Figure 10: the move from which Jane is followed.
 PHASE_STARTS = (0, 300, 3000)
 PHASE_UP_MOVES = 20
-PHASE_LABELED_STEPS = 4
+PHASE_LABELED_STEPS = 12
 PHASE_LABEL_ROOM = 12
 
 
@@ -223,9 +223,9 @@ def phase_figure(colors: dict[str, str]) -> str:
         y0 = top + index * panel + (PHASE_LABEL_ROOM if index else 0)
         y_exact, y_real = y0 + 30, y0 + 62
         title = (
-            "from the start"
+            "twenty up moves from the start"
             if start == 0
-            else f"from move {start} on (no bead below {lowest})"
+            else f"twenty up moves from move {start} (no bead below {lowest})"
         )
         body.append(
             f'<rect x="{x(0):.1f}" y="{y_exact - 13}" width="{arc * span:.1f}" '

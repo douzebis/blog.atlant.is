@@ -824,14 +824,15 @@ $m \leq n/2^k < m+1$ and $\log_2(1 + \frac{1}{m}) < \frac{3}{2m}$. $\quad\Box$
 
 > Figure 10: Jane's phase against the exact rotation, at three moments of her
 > recitation. Each strip follows her for twenty up moves. The open circles are
-> the exact steps of $\alpha$ from where she starts, the full ones her real
-> phase after each up move, and a line joins the two. The exact steps spread
+> the exact rotation, restarted from Jane's phase at the beginning of each
+> strip: that phase plus $\alpha$, plus $2\alpha$, and so on. The full
+> circles are her real phase after each up move, and a line joins the two. The exact steps spread
 > over the whole circle, and some fall in the arc of bead $4$ (shaded, as in
 > Figure 9). At the start the beads are small, and Jane's phase is carried
 > away from the exact steps, by up to $0.43$ of a turn. From move $300$ on she
 > stays on beads from $135$ up, and within $0.022$ of the exact steps; from
 > move $3\,000$ on, on beads from $1\,290$ up, and within $0.0011$. In the
-> first strip the first four exact steps are marked $\alpha$ to $4\alpha$, and
+> first strip the first twelve exact steps are marked $\alpha$ to $12\alpha$, and
 > each full circle carries the bead Jane is on; beads that differ by a power
 > of $2$ share a phase.
 
