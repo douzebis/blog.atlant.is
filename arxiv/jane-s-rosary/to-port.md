@@ -362,8 +362,9 @@ These reach the paper by a rebuild; to look at in the PDF.
   (no bead below 135)", and so on; the caption says that the exact rotation
   restarts from Jane's phase at the beginning of each strip (the total
   error since bead 1 does not go to zero, and nothing claims it does).
-- Later again: the arc of bead 4 is shaded on Jane's row only; two dashed
-  lines carry its ends up to the row of the exact steps. Caption adjusted.
+- Later again: the arc of bead 4 is shaded on Jane's row only, with
+  nothing on the row of the exact steps (they are not beads). Caption
+  adjusted.
 
 ## To do later, on the page's side (decided 2026-11-21, not started)
 
