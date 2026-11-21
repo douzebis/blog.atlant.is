@@ -596,7 +596,10 @@ only). So $a_0 = \boldsymbol{n}^\bullet\mu$ and $b_0 = \boldsymbol{n}^\bullet\nu
 $a_i$ is one up move below $a_{i-1}$. Write $a, b, c, d$ for
 $a_{e+1}, b_{e+1}, c_{e+1}, d_{e+1}$.
 
-**The idea.** Going back by $\lambda$ multiplies a multiple of $3$ by $2/3$:
+**The idea.** It has three moments.
+
+*Where the two chains part (the rule and part 2).* Going back by $\lambda$
+multiplies a multiple of $3$ by $2/3$:
 it removes one factor $3$. So the chain of $b_0 = 3^{e+1}q$ can be followed
 for $e + 1$ steps, and the chain of its neighbor $a_0$ stays next to it,
 $b_i = a_i + 1$. All the beads met on the way are white, except one of the
@@ -604,9 +607,21 @@ last two, $a$ and $b$: that one is a seed, and the other candidate goes on
 further back. This is the rule and part 2, and it is plain arithmetic
 modulo $3$.
 
-For the heights, look one row down. The beads $c_i$ and $d_i$ below the two
-candidates' chains turn out to be the chains of the two neighbors of our
-black bead, $\boldsymbol{n}^\bullet - 1$ and $\boldsymbol{n}^\bullet + 1$:
+*Why the winner works (part 1).* By [Lemma 2](#lemma-2), walking along a
+chain costs one move per step. So the height of $\boldsymbol{n}^\bullet$ is $e + 2$ plus the
+smaller of $h(a)$ and $h(b)$, and the question is which of $a$ and $b$ is the
+lower one. They are neighbors, and one of them is black: say $b$, the case
+where $\mu$ wins. Suppose that part 3 is already known for the black bead
+$b$, which is smaller than $\boldsymbol{n}^\bullet$: a black bead is never lower than its
+neighbors, so $h(a) \leq h(b)$. The minimum is on the side of $a$, that is,
+on the winner's chain.
+
+*Why a row below (part 3).* This argument uses part 3 for a smaller black
+bead. So part 3 has to be proved along with part 1, for $\boldsymbol{n}^\bullet$ itself: we also
+need the heights of its two neighbors, $\boldsymbol{n}^\bullet - 1$ and $\boldsymbol{n}^\bullet + 1$. Both are white,
+so their heights are read along their own chains, going back by $\lambda$.
+Now these two chains are exactly the beads one row below ours: $c_i = a_iD$
+is the chain of $\boldsymbol{n}^\bullet - 1$, and $d_i = b_iD$ is the chain of $\boldsymbol{n}^\bullet + 1$.
 
 $$
 \begin{CD}
@@ -628,11 +643,12 @@ A down move leads from each $a_i$ to $c_i$, and from each $b_i$ to $d_i$, for
 every $i \geq 1$. There is no arrow under $a_0$ and $b_0$: one down move from
 either of them leads to $\boldsymbol{n}^\bullet$ itself, which sits between $\boldsymbol{n}^\bullet - 1$ and $\boldsymbol{n}^\bullet + 1$.
 
-By [Lemma 2](#lemma-2), walking along a row costs one move per arrow. So the
-heights of $\boldsymbol{n}^\bullet$, $\boldsymbol{n}^\bullet - 1$ and $\boldsymbol{n}^\bullet + 1$ are read off the four beads at the
-left-hand ends, $a$, $b$, $c$ and $d$. Exactly two of these four are black,
-and comparing them comes down to part 3 for a smaller black bead: this is the
-induction.
+So the height of $\boldsymbol{n}^\bullet - 1$ is read off $c$, and that of $\boldsymbol{n}^\bullet + 1$ off $d$, just
+as the height of $\boldsymbol{n}^\bullet$ is read off $a$ and $b$. And $c$ and $d$ are one down
+move from $a$ and $b$, so each is at most one higher. This is what gives
+$h(\boldsymbol{n}^\bullet - 1) \leq h(\boldsymbol{n}^\bullet)$ and $h(\boldsymbol{n}^\bullet + 1) \leq h(\boldsymbol{n}^\bullet)$, with one more use of the
+induction: like $a$ and $b$, the beads $c$ and $d$ are neighbors and exactly
+one of them is black.
 
 **Step 1: the two chains.** *For $0 \leq i \leq e+1$ the beads $a_i$ and $b_i$
 are defined, and*
