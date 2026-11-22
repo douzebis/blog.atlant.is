@@ -92,7 +92,7 @@ example : pi 10 = 9 := by decide
 example : [2, 5, 11, 16].map pi = [1, 1, 1, 1] ∧ [3, 4, 6].map pi = [2, 2, 2] := by
   decide
 
-/-- The table of addresses: `𝛕(𝟏) = ()`, `𝛕(𝟐) = (1)`, …, `𝛕(𝟏𝟏) = (3)`. -/
+/-- The table of addresses: `v(𝟏) = ()`, `v(𝟐) = (1)`, …, `v(𝟏𝟏) = (3)`. -/
 example : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map address
     = [[], [1], [1, 1], [1, 2], [2], [1, 3], [1, 1, 1], [2, 1], [2, 1, 1], [2, 1, 1, 1], [3]] := by
   decide

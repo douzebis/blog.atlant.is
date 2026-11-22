@@ -494,3 +494,11 @@ parts 2 and 3 of Theorem 5 are checked by Lean too; every theorem, lemma,
 proposition and corollary of the paper now is. No error was found. The
 paper's section on the proof assistant says where the checked proof of
 Theorem 5, part 2, has cruder constants than the text.
+
+2026-11-22: two letters change, at the author's request. The address of
+an onyx is written v(n), not bold tau(n): it is not an onyx, and v is a
+usual letter for an Ulam-Harris label; the text now names the Ulam-Harris
+labeling [Ha63] and the Gorn address [Go67]. The exponent of Lemma 9,
+mu_0 - 1, is written tau instead of beta, as in "Diophantine of type
+tau". The Lean identifiers are unchanged (`address`); only comments of
+`Address.lean` and `Examples.lean` follow.

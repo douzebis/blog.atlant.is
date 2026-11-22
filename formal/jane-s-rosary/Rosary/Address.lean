@@ -9,7 +9,7 @@ import Rosary.Onyx
 
 Order the covers of each onyx increasingly and number them from 1.  The
 rank `𝛊(𝐧)` of an onyx `𝐧 ≥ 2` is its number among the covers of `𝛑(𝐧)`,
-and its address `𝛕(𝐧)` is the list of the ranks met on the way from the
+and its address `v(𝐧)` (here `address`) is the list of the ranks met on the way from the
 root, onyx 1, to `𝐧`.  Corollary 2: the address is a bijection from the
 onyxes onto the finite sequences of positive integers, and `𝐦 ≼ 𝐧` if and
 only if the address of `𝐦` is a prefix of the address of `𝐧`.
@@ -33,7 +33,7 @@ def addressRevAux : Nat → Nat → List Nat
 /-- The address read from the onyx back to the root. -/
 def addressRev (n : Nat) : List Nat := addressRevAux n n
 
-/-- **Address**: `𝛕(𝐧)`, read from the root. -/
+/-- **Address**: `v(𝐧)` in the paper, read from the root. -/
 def address (n : Nat) : List Nat := (addressRev n).reverse
 
 /-- **Onyx ordering**: `Below m n` is `𝐦 ≼ 𝐧`: `𝐦` is `𝐧` or one of its

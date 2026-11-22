@@ -33,7 +33,7 @@ As of 2026-11-18 (the current version, beads counted from 1, spec 0003):
 | Lemma 7 | Theorem 4: every onyx has infinitely many covers | `check_onyx.py` | beads below 20,000 |
 | Lemma 8 | Theorem 4: every onyx has infinitely many covers | `check_onyx.py` | the computation it rests on, a below 3,000 |
 | Theorem 4 | Theorem 4: every onyx has infinitely many covers | — | not checked |
-| Corollary 2 | Corollary: the address of an onyx | `check_onyx.py` | the table tau(1..11) only |
+| Corollary 2 | Corollary: the address of an onyx | `check_onyx.py` | the table v(1..11) only |
 | Corollary 3 | Jane's foraging sequence | `check_onyx.py` | the 24 values quoted only |
 | Theorem 5 | Theorem 5: Jane moves up with frequency … | `check_reluctant.py`, `walk.c` | part 1 on 300,000 moves; u(t)/t on 2^27 moves |
 | Lemma 9 | Theorem 6: bead … is told in polynomial time | `check_reluctant.py` | the fact on convergents, 8 denominators |

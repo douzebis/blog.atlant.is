@@ -1049,16 +1049,20 @@ of $\mathbf{1}$ are $\mathbf{2}, \mathbf{5}, \mathbf{11}, \mathbf{16}, \mathbf{2
 $\mathbf{3}, \mathbf{4}, \mathbf{6}, \mathbf{41}, \mathbf{92}, \ldots$, and those of $\mathbf{5}$ are
 $\mathbf{8}, \mathbf{12}, \mathbf{26}, \mathbf{39}, \ldots$).
 
-The **address** $\boldsymbol{\tau}(\boldsymbol{n})$ of an onyx $\boldsymbol{n}$ tells where it
+The **address** $v(\boldsymbol{n})$ of an onyx $\boldsymbol{n}$ tells where it
 sits in the tree, read from the root (earlier versions called it the
 canonical onyx mapping and wrote it $C$):
 
-$$\boldsymbol{\tau}(\boldsymbol{n}) = \Big(\boldsymbol{\iota}\big(\boldsymbol{\pi}^{\boldsymbol{h}(\boldsymbol{n})-1}(\boldsymbol{n})\big),\ \ldots,\ \boldsymbol{\iota}\big(\boldsymbol{\pi}(\boldsymbol{n})\big),\ \boldsymbol{\iota}(\boldsymbol{n})\Big) \in (\mathbb{N}^*)^{<\omega}.$$
+$$v(\boldsymbol{n}) = \Big(\boldsymbol{\iota}\big(\boldsymbol{\pi}^{\boldsymbol{h}(\boldsymbol{n})-1}(\boldsymbol{n})\big),\ \ldots,\ \boldsymbol{\iota}\big(\boldsymbol{\pi}(\boldsymbol{n})\big),\ \boldsymbol{\iota}(\boldsymbol{n})\Big) \in (\mathbb{N}^*)^{<\omega}.$$
 
-**Corollary 2.** $\boldsymbol{\tau}$ is a bijection from the onyxes onto the set
+Naming the nodes of a tree by finite sequences of integers is classical:
+it is the Ulam–Harris labeling of probability theory [Ha63] and the Gorn
+address of computer science [Go67].
+
+**Corollary 2.** $v$ is a bijection from the onyxes onto the set
 $(\mathbb{N}^*)^{<\omega}$ of finite sequences of positive integers, and
-$\boldsymbol{m} \boldsymbol{\preceq} \boldsymbol{n}$ if and only if $\boldsymbol{\tau}(\boldsymbol{m})$ is a prefix of
-$\boldsymbol{\tau}(\boldsymbol{n})$. In other words, the onyx ordering is isomorphic to the full
+$\boldsymbol{m} \boldsymbol{\preceq} \boldsymbol{n}$ if and only if $v(\boldsymbol{m})$ is a prefix of
+$v(\boldsymbol{n})$. In other words, the onyx ordering is isomorphic to the full
 infinitely branching tree.
 
 *Proof.* Injectivity and the prefix property hold in any rooted tree;
@@ -1066,7 +1070,7 @@ surjectivity is [Theorem 4](#theorem-4). $\quad\Box$
 
 | $\boldsymbol{n}$ | $\mathbf{1}$ | $\mathbf{2}$ | $\mathbf{3}$ | $\mathbf{4}$ | $\mathbf{5}$ | $\mathbf{6}$ | $\mathbf{7}$ | $\mathbf{8}$ | $\mathbf{9}$ | $\mathbf{10}$ | $\mathbf{11}$ |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| $\boldsymbol{\tau}(\boldsymbol{n})$ | $()$ | $(1)$ | $(1,1)$ | $(1,2)$ | $(2)$ | $(1,3)$ | $(1,1,1)$ | $(2,1)$ | $(2,1,1)$ | $(2,1,1,1)$ | $(3)$ |
+| $v(\boldsymbol{n})$ | $()$ | $(1)$ | $(1,1)$ | $(1,2)$ | $(2)$ | $(1,3)$ | $(1,1,1)$ | $(2,1)$ | $(2,1,1)$ | $(2,1,1,1)$ | $(3)$ |
 
 #### Jane's foraging sequence
 
@@ -1177,21 +1181,21 @@ Recall that $\alpha = \log_2 3 - 1$, and write $\lVert x \rVert$ for the
 distance from $x$ to the nearest integer. Multiplied by $q$, the inequality
 above says that $\lVert q\alpha \rVert \geq c\,q^{-(\mu_0 - 1)}$.
 
-**Lemma 9 (covering time of a rotation).** Let $\beta = \mu_0 - 1$, so that
-$\lVert q\alpha \rVert \geq c\,q^{-\beta}$ for all $q \geq 1$. For every
-$0 < w < 1$, any $J = \lfloor (2/w)^{\beta}/c \rfloor$ consecutive points of an
+**Lemma 9 (covering time of a rotation).** Let $\tau = \mu_0 - 1$, so that
+$\lVert q\alpha \rVert \geq c\,q^{-\tau}$ for all $q \geq 1$. For every
+$0 < w < 1$, any $J = \lfloor (2/w)^{\tau}/c \rfloor$ consecutive points of an
 orbit of the rotation by $\alpha$ meet every arc of length $w$.
 
 *The idea.* Take the first $q$ whose multiple $q\alpha$ comes closer to $0$
 than every $k\alpha$ with $k < 2/w$. By the three-distance theorem [Sós58],
 $q$ consecutive points of an orbit then cut the circle into arcs shorter than
 $w$, so they meet every arc of length $w$. And $q$ cannot be large: the
-multiple that it beats is at distance at least $c\,k^{-\beta}$ from $0$, with
+multiple that it beats is at distance at least $c\,k^{-\tau}$ from $0$, with
 $k < 2/w$, and $q$ is at most the inverse of that distance. The details are
 in the [appendix](#proof-of-lemma-9).
 
 The lemma is explicit, and far from sharp. With Rhin's exponent
-($\beta = 13.3$ and $c = 10^{-4}$), here is the $J$ that it gives, next to
+($\tau = 13.3$ and $c = 10^{-4}$), here is the $J$ that it gives, next to
 the smallest $J$ that works, found by trying. The first length is that of
 the arc of bead $4$.
 
@@ -1247,7 +1251,7 @@ for $|\log_2 3 - p/q|$.
   so $2 \leq H < 2q$ and
   $|\log_2 3 - p/q| \geq (2q)^{-13.3}/(q \log 2) > 10^{-4}\,q^{-14.3}$.) So
   $\mu_0 = 14.3$ with $c = 10^{-4}$, and the proof above gives the constant:
-  $\kappa = 56 \cdot 6^{2\beta}/c^2 < 3 \cdot 10^{30}$. **Every bead $m$ is
+  $\kappa = 56 \cdot 6^{2\tau}/c^2 < 3 \cdot 10^{30}$. **Every bead $m$ is
   told within $3 \cdot 10^{30}\, m^{27.6}$ moves**, and nothing in this
   statement is left to "large enough".
 - *Smaller exponents, for large $H$.* In the same paper Rhin proved
@@ -1942,7 +1946,7 @@ $$E \leq \frac{t+1}{K} + K + e_K \qquad\text{whenever } E \ge K + f_K. \tag{$\as
 For fixed $K$ this already gives $\limsup E/t \leq 1/K$, hence $E = o(t)$,
 using nothing but the irrationality of $\alpha$. To get the stated bound, use
 the fact that $\log_2 3$ has a finite irrationality exponent (Baker's theorem;
-see Section 11): $\eta_K \geq cK^{-\beta}$ for some constants $c, \beta > 0$,
+see Section 11): $\eta_K \geq cK^{-\tau}$ for some constants $c, \tau > 0$,
 so $e_K, f_K = O(\log K)$, and $(\ast\ast)$ with $K = \lceil\sqrt{t}\,\rceil$
 gives $E \leq 2\sqrt{t} + O(\log t)$. Finally, at a time when Jane is not about
 to move up she is inside a run of down moves, which started just after an up
@@ -1977,7 +1981,7 @@ By Dirichlet's theorem again, some $k < q$ has
 $\lVert k\alpha \rVert \le 1/q$, hence $\lVert k_0\alpha \rVert \le 1/q$:
 the arcs are shorter than $2/q \le w$, so $q$ consecutive points meet
 every arc of length $w$. And
-$q \le 1/\lVert k_0\alpha \rVert \leq k_0^{\beta}/c < (2/w)^{\beta}/c$.
+$q \le 1/\lVert k_0\alpha \rVert \leq k_0^{\tau}/c < (2/w)^{\tau}/c$.
 $\quad\Box$
 
 ### Proof of Theorem 6
@@ -1986,7 +1990,7 @@ $\quad\Box$
 
 *Proof.* We rerun the proof of [Theorem 3](#theorem-3) with a clock. Recall that
 $w_m \geq 1/m$. Let $J$ be given by [Lemma 9](#lemma-9) for arcs of length $w_m/3$,
-so $J \leq (6m)^{\beta}/c$, and let $N = 6Jm$, so that $2J/N \leq w_m/3$ and
+so $J \leq (6m)^{\tau}/c$, and let $N = 6Jm$, so that $2J/N \leq w_m/3$ and
 $N \ge m$.
 
 *An excursion above $N$ with $J$ up moves reaches $m$.* Suppose that from
@@ -2009,7 +2013,7 @@ Finally, an up move at most doubles the bead and a down move at least
 halves it, so at any time the down moves are at most as many as the up
 moves: $t + 1 \le 2(N+1)(J+1)$. Altogether
 $\rho^{-1}(m) = i \le 2t + 2 \leq 4(N+1)(J+1) \leq 56\,J^2 m
-\leq \kappa\, m^{2\beta + 1} = \kappa\, m^{2\mu_0 - 1}$. The bound on $F$
+\leq \kappa\, m^{2\tau + 1} = \kappa\, m^{2\mu_0 - 1}$. The bound on $F$
 follows since the right-hand side is increasing in $m$. $\quad\Box$
 
 *Used:* the proof of [Theorem 3](#theorem-3), [Lemma 9](#lemma-9), and the irrationality exponent of
@@ -2032,7 +2036,7 @@ one command runs all but the long one.
 | [Lemmas 4](#lemma-4) and [5](#lemma-5) | beads below $5\,000$ and $20\,000$ | `check_reluctant.py` |
 | [Theorem 5](#theorem-5), part 1 | $300\,000$ moves | `check_reluctant.py` |
 | The table that follows [Lemma 9](#lemma-9) | four lengths of arc | `check_reluctant.py` |
-| [Proposition 2](#proposition-2), [Lemmas 6](#lemma-6) and [7](#lemma-7), the computation behind [Lemma 8](#lemma-8), the table of $\boldsymbol{\tau}(\boldsymbol{n})$ | onyxes below $20\,000$ | `check_onyx.py` |
+| [Proposition 2](#proposition-2), [Lemmas 6](#lemma-6) and [7](#lemma-7), the computation behind [Lemma 8](#lemma-8), the table of $v(\boldsymbol{n})$ | onyxes below $20\,000$ | `check_onyx.py` |
 | The four programs printed in this paper | against the programs above | `check_paper_code.py` |
 | The examples and the numbers quoted in the text | each one | the programs above |
 | Counting the beads from $1$ changed nothing but the numbers (see the history) | $200\,000$ beads, $300\,000$ moves | `check_renumbering.py` |
@@ -2108,7 +2112,7 @@ Where the checked proofs differ from the text:
   mathematics rests.
 - **[Lemma 9](#lemma-9)** is checked by the proof printed above, and also by a
   shorter one, without the three-distance theorem, which gives
-  $(4/w)^\beta/c + 1$.
+  $(4/w)^{\tau}/c + 1$.
 - **[Theorem 6](#theorem-6).** The checked proof follows the text with cruder
   constants: $w_m \ge 1/(2m)$ and a slightly larger $N$. Only $\kappa$
   changes.
@@ -2223,7 +2227,7 @@ Lean statements and the text, rest on the usual reading.
 | canonical recitation | $C(n)$ | the minimal recitation that always takes the winner | [Section 9](#9-interlude-for-a-few-names-more) |
 | onyx rosary | | the rosary of the onyxes alone, the white beads removed | [Section 9](#9-interlude-for-a-few-names-more) |
 | onyx predecessor, ordering, height | $\boldsymbol{\pi}(\boldsymbol{n})$, $\boldsymbol{\preceq}$, $\boldsymbol{h}(\boldsymbol{n})$ | the previous onyx on the canonical recitation; the order and the height it defines | [Section 9](#9-interlude-for-a-few-names-more) |
-| cover, rank, address | $\boldsymbol{\iota}(\boldsymbol{n})$, $\boldsymbol{\tau}(\boldsymbol{n})$ | $\boldsymbol{n}$ covers $\boldsymbol{\pi}(\boldsymbol{n})$; its rank among the covers; its address in the onyx tree | [Section 10](#10-janes-onyx-rosary) |
+| cover, rank, address | $\boldsymbol{\iota}(\boldsymbol{n})$, $v(\boldsymbol{n})$ | $\boldsymbol{n}$ covers $\boldsymbol{\pi}(\boldsymbol{n})$; its rank among the covers; its address in the onyx tree | [Section 10](#10-janes-onyx-rosary) |
 | foraging sequence | $\boldsymbol{\Phi}(i)$ | the onyxes whose up-chains Jane visits, in order | [Section 10](#10-janes-onyx-rosary) |
 | up moves, frontier | $u(t)$, $F(t)$ | the number of up moves among the first $t$; the smallest bead not yet told | [Section 11](#11-how-reluctant-is-jane) |
 | irrationality exponent | $\mu_0$ | how badly $\log_2 3$ is approximated by fractions | [Section 11](#11-how-reluctant-is-jane) |
@@ -2254,6 +2258,10 @@ number of up moves among them; $\log_3 2 = 0.6309297\ldots$
 - [Ca12] X. Caruso, *Application des fractions continues à la construction des
   gammes musicales*, Revue des Mathématiques de l'Enseignement Supérieur
   123, no. 1 (2012).
+- [Go67] S. Gorn, *Explicit definitions and linguistic dominoes*, in
+  *Systems and Computer Science* (J. Hart and S. Takasu, eds.), University
+  of Toronto Press, 1967, 77–115.
+- [Ha63] T. E. Harris, *The Theory of Branching Processes*, Springer, 1963.
 - [Jh26] R. K. Jha, *Rational approximation to $\log_2 3$*, preprint with
   Lean sources (2026),
   [doi:10.5281/zenodo.23256301](https://doi.org/10.5281/zenodo.23256301),

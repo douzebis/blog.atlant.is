@@ -12,7 +12,7 @@ Checked:
 - Proposition 2: pi(n) <= (8n + 1)/9 < n for every onyx 2 <= n < 20000,
   with equality at n = 10;
 - the examples of the paper: the canonical recitations to beads 4 and 10,
-  the covers quoted, the addresses tau(1), ..., tau(11) and iota(39) = 4;
+  the covers quoted, the addresses v(1), ..., v(11) and iota(39) = 4;
 - Lemma 6 (parity) and Lemma 7 (parity changes) for all beads below 20000;
 - the computation behind Lemma 8: for a >= 3, the beads a U^i and
   (a + 1) U^i stay neighbors for exactly 1 + v2(a + 1) values of i, and
@@ -112,7 +112,7 @@ def main() -> int:
 
     results.append(
         report(
-            "tau(1..11) as in the table of the paper",
+            "v(1..11) as in the table of the paper",
             [canonical(n) for n in range(1, 12)]
             == [
                 (),
