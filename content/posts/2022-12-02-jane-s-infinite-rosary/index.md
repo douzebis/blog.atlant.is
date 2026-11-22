@@ -1187,8 +1187,8 @@ $\lVert q\alpha \rVert \geq c\,q^{-\tau}$ for all $q \geq 1$. For every
 $0 < w < 1$, any $J = \lfloor (2/w)^{\tau}/c \rfloor$ consecutive points of an
 orbit of the rotation by $\alpha$ meet every arc of length $w$.
 
-*The idea.* Take the first $q$ whose multiple $q\alpha$ comes closer to $0$
-than every $k\alpha$ with $k < 2/w$. By the three-distance theorem [Sós58],
+*The idea.* Take the first $q \geq 1$ whose multiple $q\alpha$ comes closer
+to $0$ on the circle than every $k\alpha$ with $1 \leq k < 2/w$. By the three-distance theorem [Sós58],
 $q$ consecutive points of an orbit then cut the circle into arcs shorter than
 $w$, so they meet every arc of length $w$. And $q$ cannot be large: the
 multiple that it beats is at distance at least $c\,k^{-\tau}$ from $0$, with
