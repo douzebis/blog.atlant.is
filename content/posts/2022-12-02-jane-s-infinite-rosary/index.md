@@ -820,6 +820,11 @@ $$\alpha = \log_2\frac{3}{2} = \log_2 3 - 1 .$$
 $\log_2(1 + \frac{1}{3n}) < \frac{1}{2n}$. (2) By [Lemma 4](#lemma-4),
 $m \leq n/2^k < m+1$ and $\log_2(1 + \frac{1}{m}) < \frac{3}{2m}$. $\quad\Box$
 
+The two items differ on purpose. A run of down moves costs a single
+rounding, whatever its length, because $nD^k = \lfloor n/2^k \rfloor$. Up
+moves have no such formula: each one rounds a bead that is already rounded,
+and their errors add up.
+
 ![Figure 10](images/figure-10.svg)
 
 > Figure 10: Jane's phase against the exact rotation, at three moments of her
