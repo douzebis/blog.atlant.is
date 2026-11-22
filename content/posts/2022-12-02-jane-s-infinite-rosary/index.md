@@ -922,8 +922,12 @@ is not a power of $2$.
 **Step 5: the intervals cover every large bead.** *Every bead
 $n \geq mP^P$ lies in $[ms, (m+1)s)$ for some smooth number $s$.*
 
-Indeed, steps of ratio $Q/P$ lead from one power of $2$ to the next, and
-they are short enough for one of them to land where it should.
+The interval $[ms, (m+1)s)$ ends at $ms\,(1 + 1/m)$. So if a smooth number
+$s'$ is larger than $s$ in the ratio $Q/P$, its interval starts before the
+interval of $s$ ends, and the two leave no hole between them. A chain of $P$
+such steps, from $2^r P^P$ to $2^r Q^P$, at least doubles: its intervals
+cover everything from $m\,2^r P^P$ to $m\,2^{r+1} P^P$. Taking
+$r = 0, 1, 2, \ldots$ covers every bead from $mP^P$ on.
 
 The proofs of Steps 4 and 5, which are about smooth numbers only, are in the
 [appendix](#two-facts-about-smooth-numbers).
@@ -1862,7 +1866,12 @@ $Q/P = x_j/x_i$. $\quad\Box$
 **Step 5.** *With such $P$ and $Q$, every integer $n \geq mP^P$ lies in
 $[ms, (m+1)s)$ for some smooth number $s$.*
 
-*Proof.* First, $(Q/P)^P \geq 2$: indeed $Q \geq P + 1$, and
+*Proof.* The interval of $s$ ends at $ms\,(1 + 1/m)$, and $Q/P < 1 + 1/m$:
+so the interval of a smooth number $s' = s\,Q/P$ starts before the interval
+of $s$ ends. We build a chain of such steps that stays in the integers and
+is long enough to double.
+
+First, $(Q/P)^P \geq 2$: indeed $Q \geq P + 1$, and
 $(1 + 1/P)^P \geq 1 + P \cdot \frac{1}{P} = 2$.
 
 Now let $n \geq mP^P$. Doubling $mP^P$ as many times as needed, we find
@@ -1872,7 +1881,8 @@ smooth numbers
 $$s_k = 2^r\,P^{P-k}\,Q^k \qquad (0 \leq k \leq P),$$
 
 which go from $s_0 = 2^r P^P$ to $s_P = 2^r Q^P \geq 2^{r+1} P^P$ by steps of
-ratio $Q/P$. So $m s_0 \leq n < m s_P$. Let $k$ be the largest index with
+ratio $Q/P$: each step spends one of the $P$ factors $P$ of $s_0$, which is
+why every $s_k$ is an integer. So $m s_0 \leq n < m s_P$. Let $k$ be the largest index with
 $m s_k \leq n$; then $k < P$ and
 
 $$m s_k \;\leq\; n \;<\; m s_{k+1} \;=\; m s_k \cdot \frac{Q}{P} \;<\; m s_k \Big(1 + \frac{1}{m}\Big) \;=\; (m+1)\,s_k .$$
