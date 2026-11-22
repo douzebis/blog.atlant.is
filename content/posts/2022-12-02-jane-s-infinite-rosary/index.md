@@ -1184,16 +1184,26 @@ above says that $\lVert q\alpha \rVert \geq c\,q^{-(\mu_0 - 1)}$.
 
 **Lemma 9 (covering time of a rotation).** Let $\tau = \mu_0 - 1$, so that
 $\lVert q\alpha \rVert \geq c\,q^{-\tau}$ for all $q \geq 1$. For every
-$0 < w < 1$, any $J = \lfloor (2/w)^{\tau}/c \rfloor$ consecutive points of an
-orbit of the rotation by $\alpha$ meet every arc of length $w$.
+$0 < w < 1$ and every starting point $\theta_0$, the
+$J = \lfloor (2/w)^{\tau}/c \rfloor$ consecutive points
+$\theta_0,\ \theta_0 + \alpha,\ \ldots,\ \theta_0 + (J-1)\alpha$ of the
+rotation by $\alpha$ meet every arc of length $w$.
 
-*The idea.* Take the first $q \geq 1$ whose multiple $q\alpha$ comes closer
-to $0$ on the circle than every $k\alpha$ with $1 \leq k < 2/w$. By the three-distance theorem [Sós58],
-$q$ consecutive points of an orbit then cut the circle into arcs shorter than
-$w$, so they meet every arc of length $w$. And $q$ cannot be large: the
-multiple that it beats is at distance at least $c\,k^{-\tau}$ from $0$, with
-$k < 2/w$, and $q$ is at most the inverse of that distance. The details are
-in the [appendix](#proof-of-lemma-9).
+*The idea.* The points are consecutive in time, and the question is where
+they sit on the circle. The three-distance theorem [Sós58] links the two:
+the gaps between neighbors on the circle are given by the two multiples of
+$\alpha$ closest to $0$, one on each side.
+
+Take the first $q \geq 1$ whose multiple $q\alpha$ comes closer to $0$ on
+the circle than every $k\alpha$ with $1 \leq k < 2/w$ (there is one, since
+$\alpha$ is irrational). Let $d$ be the distance from $0$ of the closest of
+the earlier multiples, and $e < d$ that of $q\alpha$. Among $q$ points
+consecutive in time, the gaps then have two lengths only, $d$ and $d + e$.
+Now $d \leq 1/q$, because two of the $q$ points are within $1/q$ of each
+other, and $q \geq 2/w$: every gap is shorter than $2d \leq w$, so an arc
+of length $w$ cannot fit between two neighbors. And $q$ cannot be large:
+$d \geq c\,k^{-\tau}$ for some $k < 2/w$, and $q \leq 1/d$. The details
+are in the [appendix](#proof-of-lemma-9).
 
 The lemma is explicit, and far from sharp. With Rhin's exponent
 ($\tau = 13.3$ and $c = 10^{-4}$), here is the $J$ that it gives, next to
