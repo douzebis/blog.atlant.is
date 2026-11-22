@@ -13,6 +13,12 @@ nix-build arxiv/jane-s-rosary 2>&1 | tee /tmp/rosary-arxiv-build.log
 gives `result/paper.pdf` and `result/arxiv-source.tar.gz` (what arXiv asks
 for: `paper.tex` and the figures).
 
+The build fails if the page has changed in a way the paper does not take:
+a passage that `build.py` rewords is gone, a table has no widths, a line is
+overfull, a reference is undefined. The `paper` job of
+`.github/workflows/pages.yml` runs it at each push. It does not judge where
+the figures land: that still takes reading the pages.
+
 The text is not kept twice. `build.py` reads the source of the web page
 (`content/posts/2022-12-02-jane-s-infinite-rosary/index.md`) and gives it
 the form of a paper:

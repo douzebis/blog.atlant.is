@@ -42,6 +42,26 @@ jobs:
         with:
           path: public
 
+  # The arXiv version, built from the same source as the page.  The build
+  # fails if the text no longer fits the paper: a passage that build.py
+  # rewords has moved, a table has no widths, a line is overfull.  A separate
+  # job: a failure here does not keep the site from being published.
+  paper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+      - name: Build the paper
+        run: |
+          nix-build arxiv/jane-s-rosary -o paper-result \
+            2>&1 | tee /tmp/rosary-paper-build.log
+      - uses: actions/upload-artifact@v7
+        with:
+          name: rosary-paper
+          path: |
+            paper-result/paper.pdf
+            paper-result/arxiv-source.tar.gz
+
   # The proofs checked by Lean (docs/invariants/0004).  A separate job: a
   # failure here does not keep the site from being published.
   formal:

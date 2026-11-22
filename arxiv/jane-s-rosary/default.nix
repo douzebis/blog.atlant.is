@@ -6,6 +6,9 @@
 #
 # The result holds paper.pdf, and arxiv-source.tar.gz with what arXiv needs
 # (paper.tex and the figures).
+#
+# The build fails if a line is overfull or a reference is undefined, and the
+# `paper` job of .github/workflows/pages.yml runs it at each push.
 {
   pkgs ? import ../../nix/nixpkgs.nix,
 }:
@@ -34,7 +37,13 @@ pkgs.runCommand "jane-s-rosary-arxiv"
       pdflatex -interaction=nonstopmode -halt-on-error paper.tex > pdflatex.log \
         || { tail -40 pdflatex.log; exit 1; }
     done
-    grep -c "Overfull" pdflatex.log || true
+    # A line that sticks out of the page, or a reference that leads nowhere,
+    # stops the build: the page changed in a way the paper does not take.
+    if grep -E "Overfull|undefined" pdflatex.log; then
+      echo "paper: the lines above must be fixed"
+      exit 1
+    fi
+    echo "paper: no overfull line, no undefined reference"
     mkdir $out
     cp paper.pdf $out/
     rm -f paper.aux paper.log paper.out pdflatex.log paper.pdf
