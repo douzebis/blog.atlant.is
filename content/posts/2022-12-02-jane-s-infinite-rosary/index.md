@@ -1983,17 +1983,36 @@ with $\lVert q\alpha \rVert < \lVert k_0\alpha \rVert$. It exists by
 Dirichlet's approximation theorem, it is a best approximation, and
 $q \ge 2/w$.
 
-By the three-distance theorem [Sós58], $q$ consecutive points of an orbit
-cut the circle into arcs of at most three lengths. Because $q\alpha$ is
-closer to $0$ than every $k\alpha$ with $k < q$, only two of them occur,
-and both are at most
-$\lVert k_0\alpha \rVert + \lVert q\alpha \rVert < 2\lVert k_0\alpha \rVert$.
+Now take $q$ points consecutive in time, $\theta_0 + j\alpha$ for
+$0 \le j < q$. Turning the circle, we may suppose that $\theta_0 = 0$. The
+three-distance theorem, in the form given by Sós (the first theorem of
+[Sós58]), says where these points sit on the circle. Let $a\alpha$ and $b\alpha$, with
+$1 \le a, b < q$, be the multiples closest to $0$ on each side. Then every
+gap between two neighbors has length $\lVert a\alpha \rVert$, or
+$\lVert b\alpha \rVert$, or the sum of the two; and the sum does not occur
+when $a + b = q$.
+
+Here the two neighbors of $0$ are known. Write
+$d = \lVert k_0\alpha \rVert$ and $e = \lVert q\alpha \rVert < d$.
+
+- On one side the closest multiple is $k_0\alpha$, at distance $d$: no
+  $k\alpha$ with $k < q$ is closer to $0$.
+- The multiple $q\alpha$ is on the other side. Otherwise
+  $(q - k_0)\alpha$ would be at distance $d - e < d$ from $0$.
+- So $(q - k_0)\alpha$ is on that other side, at distance $d + e$, and it
+  is the closest one there. Indeed, a multiple $j\alpha$ with $j < q$ at a
+  distance $f < d + e$ on that side would put $(q - j)\alpha$ at distance
+  $f - e < d$ from $0$.
+
+So $a = k_0$ and $b = q - k_0$, and $a + b = q$: the gaps have two lengths
+only, $d$ and $d + e$, both less than $2d$.
+
 By Dirichlet's theorem again, some $k < q$ has
-$\lVert k\alpha \rVert \le 1/q$, hence $\lVert k_0\alpha \rVert \le 1/q$:
-the arcs are shorter than $2/q \le w$, so $q$ consecutive points meet
-every arc of length $w$. And
-$q \le 1/\lVert k_0\alpha \rVert \leq k_0^{\tau}/c < (2/w)^{\tau}/c$.
-$\quad\Box$
+$\lVert k\alpha \rVert \le 1/q$, hence $d \le 1/q$: the gaps are shorter
+than $2/q \le w$. An arc of length $w$ cannot fit between two neighbors,
+so the $q$ points meet every arc of length $w$. And
+$q \le 1/d \leq k_0^{\tau}/c < (2/w)^{\tau}/c$, so that $q \le J$: any $J$
+points consecutive in time contain $q$ such points. $\quad\Box$
 
 ### Proof of Theorem 6
 
