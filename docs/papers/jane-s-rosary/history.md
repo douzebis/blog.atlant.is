@@ -504,3 +504,11 @@ tau". The Lean identifiers are unchanged (`address`); only comments of
 `Address.lean` and `Examples.lean` follow.
 The rank iota(n) loses its bold for the same reason: a rank is a plain
 number.
+The two references were read: Harris defines the labels in Chapter VI,
+Section 2.1 (Definition 2.1, page 123: "a finite sequence of positive
+integers", the j-th child of the i-th child being <ij>); Gorn's AFIPS
+paper (pages 213-224) uses tree addresses with the root written * and
+children counted from 0. Its footnote says that the same work appears as
+"Explicit Definitions and Linguistic Dominoes" in the proceedings of a
+1965 conference at the University of Western Ontario; we cite the paper
+we read.

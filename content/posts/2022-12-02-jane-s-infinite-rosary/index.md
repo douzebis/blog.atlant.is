@@ -1056,8 +1056,9 @@ canonical onyx mapping and wrote it $C$):
 $$v(\boldsymbol{n}) = \Big(\iota\big(\boldsymbol{\pi}^{\boldsymbol{h}(\boldsymbol{n})-1}(\boldsymbol{n})\big),\ \ldots,\ \iota\big(\boldsymbol{\pi}(\boldsymbol{n})\big),\ \iota(\boldsymbol{n})\Big) \in (\mathbb{N}^*)^{<\omega}.$$
 
 Naming the nodes of a tree by finite sequences of integers is classical:
-it is the Ulam–Harris labeling of probability theory [Ha63] and the Gorn
-address of computer science [Go67].
+it is the Ulam–Harris labeling of probability theory [Ha63, Chapter VI,
+Section 2] and, with ranks counted from $0$, the Gorn address of computer
+science [Go67].
 
 **Corollary 2.** $v$ is a bijection from the onyxes onto the set
 $(\mathbb{N}^*)^{<\omega}$ of finite sequences of positive integers, and
@@ -2258,10 +2259,11 @@ number of up moves among them; $\log_3 2 = 0.6309297\ldots$
 - [Ca12] X. Caruso, *Application des fractions continues à la construction des
   gammes musicales*, Revue des Mathématiques de l'Enseignement Supérieur
   123, no. 1 (2012).
-- [Go67] S. Gorn, *Explicit definitions and linguistic dominoes*, in
-  *Systems and Computer Science* (J. Hart and S. Takasu, eds.), University
-  of Toronto Press, 1967, 77–115.
-- [Ha63] T. E. Harris, *The Theory of Branching Processes*, Springer, 1963.
+- [Go67] S. Gorn, *Handling the growth by definition of mechanical
+  languages*, Proceedings of the AFIPS Spring Joint Computer Conference
+  (1967), 213–224.
+- [Ha63] T. E. Harris, *The Theory of Branching Processes*, Die Grundlehren
+  der mathematischen Wissenschaften 119, Springer, 1963.
 - [Jh26] R. K. Jha, *Rational approximation to $\log_2 3$*, preprint with
   Lean sources (2026),
   [doi:10.5281/zenodo.23256301](https://doi.org/10.5281/zenodo.23256301),
