@@ -1435,7 +1435,7 @@ pick one:
 largest index $\max_{m' \le m}\rho^{-1}(m')$ is of order $m\log m$. Numerically
 $F(t)\log_2 t / t$ stays between $1.9$ and $3.1$ for
 $2^{10} \leq t \leq 2^{27}$. In the binary tree picture: at time $t$ the told
-beads fill the tree completely up to depth $\log_2 F(t)$, and above that they
+beads fill the tree completely up to level $\log_2 F(t)$, and above that they
 seem to occupy $\Theta(\log t)$ further levels, each only partially.
 
 **Conjecture B (Jane does not wander far).** $\rho(t) \leq t^{C}$ for some
@@ -1889,42 +1889,42 @@ it reaches. Since $\rho$ is injective, both sums are bounded by
 $\frac{3}{2}\sum_{n=1}^{t}\frac{1}{n}$, and they have opposite signs. Finally
 $1 + \alpha = \log_2 3$.
 
-(2) Call *depth* of a bead $n$ the integer $\lfloor \log_2 n \rfloor$: a
-down move decreases the depth by exactly $1$ and an up move increases it by
-$0$ or $1$. Let $t$ be a time at which Jane is about to move up, and let $E$
-be the depth of $\rho(t)$. By [Lemma 3](#lemma-3), $T_t$ is then closed under $D$: it is a
+(2) Call *octave* of a bead $n$ the integer $\lfloor \log_2 n \rfloor$, its
+level in the binary tree: a down move lowers the octave by exactly $1$ and an
+up move raises it by $0$ or $1$. Let $t$ be a time at which Jane is about to
+move up, and let $E$ be the octave of $\rho(t)$. By [Lemma 3](#lemma-3), $T_t$ is then closed under $D$: it is a
 subtree with $t + 1$ nodes.
 
 Fix an integer $K \geq 2$ and let
 $\eta_K = \min_{1 \leq q < K} \lVert q\alpha \rVert > 0$, where
 $\lVert\cdot\rVert$ is the distance to the nearest integer. Let
-$e_K = \lceil \log_2(2K/\eta_K) \rceil$ and
-$d_K = \lceil \log_2(3/\eta_K) \rceil \le e_K$, and assume $E \geq K + e_K$. Put
-$e = E - K$ and consider the last time $s < t$ at which Jane was at depth at
-most $e$. After time $s$ she stays at depth at least $e + 1$, i.e. on beads
-$n \geq 2^{e+1}$, and she makes at least $K - 1$ further up moves before
+$f_K = \lceil \log_2(2K/\eta_K) \rceil$ and
+$e_K = \lceil \log_2(3/\eta_K) \rceil \le f_K$, and assume $E \geq K + f_K$.
+Consider the last time $s < t$ at which Jane was in octave $E - K$ or lower.
+After time $s$ she stays in octave $E - K + 1$ or higher, i.e. on beads
+$n \geq 2^{E-K+1}$, and she makes at least $K - 1$ further up moves before
 time $t$. Let $n_0 = \rho(s+1)$ and let $n_1, \ldots, n_{K-1}$ be her
 positions right after the next $K - 1$ up moves. As in the proof of [Theorem 3](#theorem-3),
 for $0 \le i < j < K$,
 
 $$\theta(n_j) - \theta(n_i) = (j - i)\alpha + \delta, \qquad
-  |\delta| \leq \frac{2(j-i)}{2^{e+1}} \leq \frac{\eta_K}{2},$$
+  |\delta| \leq \frac{2(j-i)}{2^{E-K+1}} \leq \frac{\eta_K}{2},$$
 
 so the phases of $n_0, \ldots, n_{K-1}$ are pairwise at distance at least
-$\eta_K/2$ on the circle. Two beads at depth larger than $d$ whose phases
-differ by at least $2^{-d}/\ln 2$ have distinct ancestors at depth $d$ (their
+$\eta_K/2$ on the circle. Two beads in octaves above $e$ whose phases
+differ by at least $2^{-e}/\ln 2$ have distinct ancestors in octave $e$ (their
 "mantissas" $n/2^{\lfloor\log_2 n\rfloor} \in [1,2)$ differ by at least
-$2^{-d}$). Hence for every $d$ with $d_K \leq d \leq e$, the beads
-$n_0, \ldots, n_{K-1}$ have $K$ distinct ancestors at depth $d$, all of which
-belong to $T_t$. Counting, $t + 1 \geq K(E - K - d_K + 1)$, that is,
+$2^{-e}$). Hence for every octave $e$ with $e_K \leq e \leq E - K$, the beads
+$n_0, \ldots, n_{K-1}$ have $K$ distinct ancestors in octave $e$, all of which
+belong to $T_t$. Counting, $t + 1 \geq K(E - K - e_K + 1)$, that is,
 
-$$E \leq \frac{t+1}{K} + K + d_K \qquad\text{whenever } E \ge K + e_K. \tag{$\ast\ast$}$$
+$$E \leq \frac{t+1}{K} + K + e_K \qquad\text{whenever } E \ge K + f_K. \tag{$\ast\ast$}$$
 
 For fixed $K$ this already gives $\limsup E/t \leq 1/K$, hence $E = o(t)$,
 using nothing but the irrationality of $\alpha$. To get the stated bound, use
 the fact that $\log_2 3$ has a finite irrationality exponent (Baker's theorem;
 see Section 11): $\eta_K \geq cK^{-\beta}$ for some constants $c, \beta > 0$,
-so $d_K, e_K = O(\log K)$, and $(\ast\ast)$ with $K = \lceil\sqrt{t}\,\rceil$
+so $e_K, f_K = O(\log K)$, and $(\ast\ast)$ with $K = \lceil\sqrt{t}\,\rceil$
 gives $E \leq 2\sqrt{t} + O(\log t)$. Finally, at a time when Jane is not about
 to move up she is inside a run of down moves, which started just after an up
 move; and an up move increases $\log_2 n$ by at most $1$.
@@ -2093,9 +2093,9 @@ Where the checked proofs differ from the text:
   constants: $w_m \ge 1/(2m)$ and a slightly larger $N$. Only $\kappa$
   changes.
 - **[Theorem 5](#theorem-5), part 2.** The checked inequality is
-  $K(E - 1 - K - D) \le t + 1$ for every time $t$, where $E$ is the depth
-  of $\rho(t)$ and $2^D \ge 16K/\eta_K$; the text has
-  $E \le (t+1)/K + K + d_K$ with $2^{d_K} \ge 3/\eta_K$. The argument is
+  $K(E - 1 - K - D) \le t + 1$ for every time $t$, where $E$ is the octave
+  of $\rho(t)$ (the Lean sources say depth) and $2^D \ge 16K/\eta_K$; the text has
+  $E \le (t+1)/K + K + e_K$ with $2^{e_K} \ge 3/\eta_K$. The argument is
   the same; the constants are cruder. Parts 2 and 3 are stated for
   $t \ge 2$, with explicit constants in place of the $O$'s.
 
@@ -2198,6 +2198,7 @@ Lean statements and the text, rest on the usual reading.
 | reluctant recitation | $\rho(i)$, $T_i$ | Jane's $i$-th bead when she moves down whenever she can; the beads told so far | [Section 6](#6-janes-reluctant-recitation) |
 | cone | | bead $m$ and the beads above it in the binary tree | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |
 | phase | $\theta(n)$ | $\log_2 n$ modulo $1$ | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |
+| octave | | $\lfloor \log_2 n \rfloor$, the level of bead $n$ in the binary tree | [Proof of Theorem 5](#proof-of-theorem-5) |
 | the angle | $\alpha$ | $\log_2(3/2)$, by which an up move turns the phase | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |
 | canonical recitation | $C(n)$ | the minimal recitation that always takes the winner | [Section 9](#9-interlude-for-a-few-names-more) |
 | onyx rosary | | the rosary of the onyxes alone, the white beads removed | [Section 9](#9-interlude-for-a-few-names-more) |

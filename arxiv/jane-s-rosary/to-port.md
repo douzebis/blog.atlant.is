@@ -371,6 +371,14 @@ These reach the paper by a rebuild; to look at in the PDF.
 - The sum of the rounding errors in part (1) is called R_t, not E_t: the
   letter E is the depth of Jane's bead in part (2). One sentence added:
   "Here R_t collects the rounding errors."
+- Part (2): "depth" is renamed "octave" (floor(log2 n), the level of the
+  bead in the binary tree), to keep it apart from the height. Letters: E
+  stays the octave of Jane's bead; a generic lower octave is e (was d);
+  the lowest octave that counts is e_K (was d_K); the margin is f_K (was
+  e_K); the threshold E - K is written out (was e). The annex paragraph on
+  the checked inequality says "octave (the Lean sources say depth)" and
+  e_K. Conjecture A says "up to level" instead of "up to depth". The table
+  of names has a row "octave". Lean identifiers are unchanged.
 
 ## To do later, on the page's side (decided 2026-11-21, not started)
 
