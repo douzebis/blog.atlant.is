@@ -1880,10 +1880,10 @@ So $n$ lies in $[m s_k, (m+1) s_k)$. $\quad\Box$
 *Proof.* (1) Sum the identities of [Lemma 5](#lemma-5) over the first $t$ moves (each down
 move being a run of length $1$):
 
-$$\log_2 \rho(t) = u(t)\,\alpha - (t - u(t)) + E_t, \qquad
-  E_t = \sum_{\text{up}} \varepsilon - \sum_{\text{down}} \varepsilon' .$$
+$$\log_2 \rho(t) = u(t)\,\alpha - (t - u(t)) + R_t, \qquad
+  R_t = \sum_{\text{up}} \varepsilon - \sum_{\text{down}} \varepsilon' .$$
 
-Each up move contributes less than $\frac{1}{2n}$ where $n$ is the bead it
+Here $R_t$ collects the rounding errors. Each up move contributes less than $\frac{1}{2n}$ where $n$ is the bead it
 leaves, and each down move less than $\frac{3}{2m}$ where $m$ is the bead
 it reaches. Since $\rho$ is injective, both sums are bounded by
 $\frac{3}{2}\sum_{n=1}^{t}\frac{1}{n}$, and they have opposite signs. Finally

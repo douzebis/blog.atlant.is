@@ -366,6 +366,12 @@ These reach the paper by a rebuild; to look at in the PDF.
   nothing on the row of the exact steps (they are not beads). Caption
   adjusted.
 
+## 2026-11-22, proof of Theorem 5
+
+- The sum of the rounding errors in part (1) is called R_t, not E_t: the
+  letter E is the depth of Jane's bead in part (2). One sentence added:
+  "Here R_t collects the rounding errors."
+
 ## To do later, on the page's side (decided 2026-11-21, not started)
 
 - [x] (done on 2026-11-22, except Part III, which waits for the
