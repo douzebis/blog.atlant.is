@@ -97,7 +97,7 @@ example : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map address
     = [[], [1], [1, 1], [1, 2], [2], [1, 3], [1, 1, 1], [2, 1], [2, 1, 1], [2, 1, 1, 1], [3]] := by
   decide
 
-/-- `𝛊(𝟑𝟗) = 4`: onyx 39 is the fourth cover of onyx 5. -/
+/-- `ι(𝟑𝟗) = 4`: onyx 39 is the fourth cover of onyx 5. -/
 example : pi 39 = 5 ∧ rank 39 = 4 := by decide
 
 /-- Lemma 8, the example: `↑(256) ∩ (↑(22) + 1)`.  The chain of 22 reaches

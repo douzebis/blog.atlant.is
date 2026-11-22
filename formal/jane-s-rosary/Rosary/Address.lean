@@ -8,7 +8,7 @@ import Rosary.Onyx
 # Corollary 2: the address of an onyx
 
 Order the covers of each onyx increasingly and number them from 1.  The
-rank `𝛊(𝐧)` of an onyx `𝐧 ≥ 2` is its number among the covers of `𝛑(𝐧)`,
+rank `ι(𝐧)` of an onyx `𝐧 ≥ 2` is its number among the covers of `𝛑(𝐧)`,
 and its address `v(𝐧)` (here `address`) is the list of the ranks met on the way from the
 root, onyx 1, to `𝐧`.  Corollary 2: the address is a bijection from the
 onyxes onto the finite sequences of positive integers, and `𝐦 ≼ 𝐧` if and
@@ -22,7 +22,7 @@ def coverCount (m : Nat) : Nat → Nat
   | 0 => 0
   | N + 1 => coverCount m N + (if 2 ≤ N + 1 ∧ pi (N + 1) = m then 1 else 0)
 
-/-- **Rank**: `𝛊(𝐧)`, the number of `𝐧` among the covers of `𝛑(𝐧)`. -/
+/-- **Rank**: `ι(𝐧)`, the number of `𝐧` among the covers of `𝛑(𝐧)`. -/
 def rank (n : Nat) : Nat := coverCount (pi n) n
 
 /-- The ranks from `n` back to the root, at most `fuel` of them. -/

@@ -1041,10 +1041,10 @@ $\boldsymbol{n}$ covering $\boldsymbol{m}$. $\quad\Box$
 
 Order the covers of each onyx increasingly and number them from $1$: let
 $\boldsymbol{s}_{\boldsymbol{n}}(k)$ be the $k$-th cover of $\boldsymbol{n}$, and for
-$\boldsymbol{n} \geq \mathbf{2}$ let $\boldsymbol{\iota}(\boldsymbol{n})$ be the rank of $\boldsymbol{n}$ among the
+$\boldsymbol{n} \geq \mathbf{2}$ let $\iota(\boldsymbol{n})$ be the rank of $\boldsymbol{n}$ among the
 covers of $\boldsymbol{\pi}(\boldsymbol{n})$. Ranks are plain numbers, not onyxes.
 For instance $\boldsymbol{s}_{\mathbf{1}}(3) = \mathbf{11}$,
-$\boldsymbol{s}_{\mathbf{2}}(3) = \mathbf{6}$ and $\boldsymbol{\iota}(\mathbf{39}) = 4$ (the covers
+$\boldsymbol{s}_{\mathbf{2}}(3) = \mathbf{6}$ and $\iota(\mathbf{39}) = 4$ (the covers
 of $\mathbf{1}$ are $\mathbf{2}, \mathbf{5}, \mathbf{11}, \mathbf{16}, \mathbf{24}, \mathbf{53}, \ldots$, those of $\mathbf{2}$ are
 $\mathbf{3}, \mathbf{4}, \mathbf{6}, \mathbf{41}, \mathbf{92}, \ldots$, and those of $\mathbf{5}$ are
 $\mathbf{8}, \mathbf{12}, \mathbf{26}, \mathbf{39}, \ldots$).
@@ -1053,7 +1053,7 @@ The **address** $v(\boldsymbol{n})$ of an onyx $\boldsymbol{n}$ tells where it
 sits in the tree, read from the root (earlier versions called it the
 canonical onyx mapping and wrote it $C$):
 
-$$v(\boldsymbol{n}) = \Big(\boldsymbol{\iota}\big(\boldsymbol{\pi}^{\boldsymbol{h}(\boldsymbol{n})-1}(\boldsymbol{n})\big),\ \ldots,\ \boldsymbol{\iota}\big(\boldsymbol{\pi}(\boldsymbol{n})\big),\ \boldsymbol{\iota}(\boldsymbol{n})\Big) \in (\mathbb{N}^*)^{<\omega}.$$
+$$v(\boldsymbol{n}) = \Big(\iota\big(\boldsymbol{\pi}^{\boldsymbol{h}(\boldsymbol{n})-1}(\boldsymbol{n})\big),\ \ldots,\ \iota\big(\boldsymbol{\pi}(\boldsymbol{n})\big),\ \iota(\boldsymbol{n})\Big) \in (\mathbb{N}^*)^{<\omega}.$$
 
 Naming the nodes of a tree by finite sequences of integers is classical:
 it is the Ulam–Harris labeling of probability theory [Ha63] and the Gorn
@@ -2227,7 +2227,7 @@ Lean statements and the text, rest on the usual reading.
 | canonical recitation | $C(n)$ | the minimal recitation that always takes the winner | [Section 9](#9-interlude-for-a-few-names-more) |
 | onyx rosary | | the rosary of the onyxes alone, the white beads removed | [Section 9](#9-interlude-for-a-few-names-more) |
 | onyx predecessor, ordering, height | $\boldsymbol{\pi}(\boldsymbol{n})$, $\boldsymbol{\preceq}$, $\boldsymbol{h}(\boldsymbol{n})$ | the previous onyx on the canonical recitation; the order and the height it defines | [Section 9](#9-interlude-for-a-few-names-more) |
-| cover, rank, address | $\boldsymbol{\iota}(\boldsymbol{n})$, $v(\boldsymbol{n})$ | $\boldsymbol{n}$ covers $\boldsymbol{\pi}(\boldsymbol{n})$; its rank among the covers; its address in the onyx tree | [Section 10](#10-janes-onyx-rosary) |
+| cover, rank, address | $\iota(\boldsymbol{n})$, $v(\boldsymbol{n})$ | $\boldsymbol{n}$ covers $\boldsymbol{\pi}(\boldsymbol{n})$; its rank among the covers; its address in the onyx tree | [Section 10](#10-janes-onyx-rosary) |
 | foraging sequence | $\boldsymbol{\Phi}(i)$ | the onyxes whose up-chains Jane visits, in order | [Section 10](#10-janes-onyx-rosary) |
 | up moves, frontier | $u(t)$, $F(t)$ | the number of up moves among the first $t$; the smallest bead not yet told | [Section 11](#11-how-reluctant-is-jane) |
 | irrationality exponent | $\mu_0$ | how badly $\log_2 3$ is approximated by fractions | [Section 11](#11-how-reluctant-is-jane) |

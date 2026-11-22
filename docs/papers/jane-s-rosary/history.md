@@ -502,3 +502,5 @@ labeling [Ha63] and the Gorn address [Go67]. The exponent of Lemma 9,
 mu_0 - 1, is written tau instead of beta, as in "Diophantine of type
 tau". The Lean identifiers are unchanged (`address`); only comments of
 `Address.lean` and `Examples.lean` follow.
+The rank iota(n) loses its bold for the same reason: a rank is a plain
+number.
