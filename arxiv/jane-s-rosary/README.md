@@ -22,9 +22,11 @@ the form of a paper:
 - numbered parts and sections, a table of contents;
 - theorems, lemmas and proofs as LaTeX environments, with the numbers of
   the web page;
-- a subtitle; three section titles and three sentences reworded in a
-  more sober voice; of the six quotations under the headings, only
-  Bartleby's is kept;
+- a subtitle; three section titles and six sentences reworded for a
+  paper; of the six quotations under the headings, only Bartleby's is
+  kept;
+- tables a size smaller, with column widths of their own where pandoc's
+  guess does not fit; nearly square pictures narrower than the page;
 - the figures with their captions; the links to the interactive figures,
   and the wording that only makes sense on the web, are removed;
 - the history of the page as a list of versions. The declaration on the use
@@ -33,5 +35,8 @@ the form of a paper:
 
 `build.py` stops with an error when a passage it adapts is no longer in
 the page, so a change of the page cannot silently leave the paper behind.
+
+`to-port.md` keeps what a build does not settle: the choices left to the
+author and the rules for the text written for the paper only.
 
 Proposed arXiv categories: math.CO (primary), math.NT, math.DS.

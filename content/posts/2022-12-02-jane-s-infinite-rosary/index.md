@@ -2202,7 +2202,7 @@ Lean statements and the text, rest on the usual reading.
 | the angle | $\alpha$ | $\log_2(3/2)$, by which an up move turns the phase | [Section 8](#8-theorem-3-janes-reluctant-recitation-tells-all-beads) |
 | canonical recitation | $C(n)$ | the minimal recitation that always takes the winner | [Section 9](#9-interlude-for-a-few-names-more) |
 | onyx rosary | | the rosary of the onyxes alone, the white beads removed | [Section 9](#9-interlude-for-a-few-names-more) |
-| onyx predecessor, ordering, height | $\boldsymbol{\pi}(\boldsymbol{n})$, $\boldsymbol{\preceq}$, $\boldsymbol{h}(\boldsymbol{n})$ | the previous onyx on the canonical recitation; the order and the depth it defines | [Section 9](#9-interlude-for-a-few-names-more) |
+| onyx predecessor, ordering, height | $\boldsymbol{\pi}(\boldsymbol{n})$, $\boldsymbol{\preceq}$, $\boldsymbol{h}(\boldsymbol{n})$ | the previous onyx on the canonical recitation; the order and the height it defines | [Section 9](#9-interlude-for-a-few-names-more) |
 | cover, rank, address | $\boldsymbol{\iota}(\boldsymbol{n})$, $\boldsymbol{\tau}(\boldsymbol{n})$ | $\boldsymbol{n}$ covers $\boldsymbol{\pi}(\boldsymbol{n})$; its rank among the covers; its address in the onyx tree | [Section 10](#10-janes-onyx-rosary) |
 | foraging sequence | $\boldsymbol{\Phi}(i)$ | the onyxes whose up-chains Jane visits, in order | [Section 10](#10-janes-onyx-rosary) |
 | up moves, frontier | $u(t)$, $F(t)$ | the number of up moves among the first $t$; the smallest bead not yet told | [Section 11](#11-how-reluctant-is-jane) |

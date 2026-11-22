@@ -19,6 +19,7 @@ Needs `pandoc` and `rsvg-convert` on the PATH.
 import pathlib
 import re
 import shutil
+import struct
 import subprocess
 import sys
 
@@ -34,7 +35,7 @@ not been told yet, and up otherwise. We prove that it never gets stuck,
 that it tells every bead exactly once, as conjectured in an earlier
 version of this paper, that Jane moves up with frequency $\\log 2/\\log 3$, and that
 bead $m$ is told after at most polynomially many moves. Along the way the
-beads congruent to $1$ modulo $3$ are shown to carry a tree in which every
+beads congruent to $1$ modulo $3$ are shown to form a tree in which every
 node has infinitely many children. The main results have been formalized
 and checked in the Lean proof assistant.
 
@@ -95,6 +96,20 @@ TEASER = (
     "paper, in which the beads were counted from $0$).\n\n"
 )
 
+# Tables whose columns need other widths than pandoc's guess: the start of
+# the header line -> the relative widths of the columns.
+TABLE_WIDTHS = {
+    "| $\\boldsymbol{n}$ | $\\mathbf{1}$ |": [9, 4, 5, 7, 7, 5, 7, 9, 7, 9, 11, 5],
+    "| Project | Run | Log | SHA-256 of the log |": [24, 14, 30, 22],
+    "| Name | Notation | In short | Defined in |": [22, 20, 40, 18],
+    "| $t$ | $F(t)$ | $t/F(t)$ |": [8, 13, 10, 16, 12, 17, 20],
+}
+
+# A picture taller than this share of its width is not given the full
+# width of the page.
+TALL = 0.7
+TALL_WIDTH = "72%"
+
 HEADER = r"""
 \usepackage{amscd}
 \usepackage{amsthm}
@@ -107,6 +122,14 @@ HEADER = r"""
 \newcommand{\blackbead}[1]{\underset{\textstyle\blackmark}{#1}}
 \newcommand{\whitebead}[1]{\underset{\textstyle\whitemark}{#1}}
 \floatplacement{figure}{htbp}
+% A large figure shares its page with text instead of standing alone.
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.85}
+% Tables are set a size smaller: several hold long names of files.
+\usepackage{etoolbox}
+\AtBeginEnvironment{longtable}{\small}
 \renewcommand{\arraystretch}{1.15}
 % Statements keep the numbers of the web page: the label is given by hand.
 \newcommand{\stmtname}{}
@@ -234,7 +257,12 @@ def adapt_statements(body: str) -> str:
             if name.split()[1].isalpha():
                 label = name.split()[0].lower() + "-" + name.split()[1]
             head += f"\\phantomsection\\label{{{label}}}\\hypertarget{{{label}}}{{}}"
-            out.append(raw(head) + " " + line[start.end() :])
+            rest = line[start.end() :]
+            if not rest.strip():
+                # The statement starts with a list: without this its first
+                # item would sit on the line of the head.
+                head += "\\leavevmode"
+            out.append(raw(head) + " " + rest)
             inside = True
         elif (
             inside
@@ -320,7 +348,44 @@ def caption_text(lines: list[str], number: int) -> str:
     return text[0].upper() + text[1:]
 
 
-def adapt_figures(body: str, images: set[str]) -> str:
+def shape(picture: pathlib.Path) -> float:
+    """The height of a picture divided by its width."""
+    if picture.suffix == ".png":
+        width, height = struct.unpack(">II", picture.read_bytes()[16:24])
+        return height / width
+    size = re.search(
+        r'<svg[^>]* width="([0-9.]+)" height="([0-9.]+)"', picture.read_text()
+    )
+    if size is None:
+        fail(f"no size in {picture}")
+        raise AssertionError
+    return float(size.group(2)) / float(size.group(1))
+
+
+def adapt_tables(body: str) -> str:
+    """Give the tables of TABLE_WIDTHS their column widths, and let the
+    long hexadecimal sums break."""
+    lines = body.split("\n")
+    found: set[str] = set()
+    for i, line in enumerate(lines):
+        for start, widths in TABLE_WIDTHS.items():
+            if line.startswith(start):
+                rule = lines[i + 1]
+                if rule.count("|") != len(widths) + 1 or set(rule) - set("|-: "):
+                    fail(f"the table {start!r} does not have {len(widths)} columns")
+                lines[i + 1] = "|" + "|".join("-" * (3 * w) for w in widths) + "|"
+                found.add(start)
+    if found != set(TABLE_WIDTHS):
+        fail(f"tables not found: {sorted(set(TABLE_WIDTHS) - found)}")
+    body = "\n".join(lines)
+    return re.sub(
+        r"`([0-9a-f]{64})`",
+        lambda m: " ".join(f"`{m.group(1)[k : k + 16]}`" for k in range(0, 64, 16)),
+        body,
+    )
+
+
+def adapt_figures(body: str, images: set[str], folder: pathlib.Path) -> str:
     """Replace each picture and its caption (a quotation below it) by a
     figure with that caption."""
     lines = body.split("\n")
@@ -349,8 +414,9 @@ def adapt_figures(body: str, images: set[str]) -> str:
             fail(f"figure {number} has no caption")
         images.add(name)
         target = name[:-4] + ".pdf" if name.endswith(".svg") else name
+        width = TALL_WIDTH if shape(folder / name) > TALL else "100%"
         out.append(
-            f"![{caption_text(quoted, number)}]({target}){{#fig-{number} width=100%}}"
+            f"![{caption_text(quoted, number)}]({target}){{#fig-{number} width={width}}}"
         )
         out.append("")
     return "\n".join(out)
@@ -381,7 +447,8 @@ def main() -> int:
     body = body.replace(opening, "## Introduction\n\n" + opening)
     body = body.replace(still_open, related + still_open)
     images: set[str] = set()
-    body = adapt_figures(body, images)
+    body = adapt_figures(body, images, post / "images")
+    body = adapt_tables(body)
     body = drop_epigraphs(body)
     body = adapt_statements(body)
     body = adapt_proofs(body)
