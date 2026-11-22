@@ -1110,12 +1110,11 @@ def Phi(n: int) -> int:
 
 ## Part IV. The pace of the recitation
 
-> **Scavenger**: Where'd you come from? What are you doing out here?
+> **Scavenger**: Where'd you come from?
 > **Killy**: From below. Over 5,000 floors below.
-> **Scavenger**: Five thousand floors. That can't be right! It doesn't even go
-> down that far.
+> **Scavenger**: That can't be right! It doesn't even go down that far.
 >
-> Tsutomu Nihei, *Blame!* (freely translated)
+> Tsutomu Nihei, *Blame!*
 
 *Section 11.* [Theorem 3](#theorem-3) says that every bead gets its turn; this part says
 how Jane spends her time ([Theorem 5](#theorem-5)) and how long a bead may have to wait
