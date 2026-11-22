@@ -512,3 +512,13 @@ children counted from 0. Its footnote says that the same work appears as
 "Explicit Definitions and Linguistic Dominoes" in the proceedings of a
 1965 conference at the University of Western Ontario; we cite the paper
 we read.
+
+2026-11-22, later: [Sós58] was read, in the scan of volume 1 of the
+Annales that the journal serves (annalesm.elte.hu/annales01-1958, pages
+127-134). Its Theorem I gives the order of the points n alpha, n <= N, on
+the circle from the two multiples "adjacent to 0" on opposite sides,
+k_1 and k_N: the next point after k_i is k_i + k_1, or k_i - k_N, or
+k_i - (k_N - k_1) when N - k_1 < k_i < k_N. So every gap is the distance
+from 0 of one of the two, or their sum, and the sum does not occur when
+k_1 + k_N = N + 1. This is the form that the idea and the proof of
+Lemma 9 use, with N = q - 1.
