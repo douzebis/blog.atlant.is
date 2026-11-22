@@ -140,6 +140,11 @@ cd formal/jane-s-rosary
 lake build
 ```
 
+If Lean is installed through `elan` instead (as editors' Lean plugins
+expect), the file `lean-toolchain` tells it which version to use here. It
+names the version that `nix/nixpkgs.nix` provides, and must follow it when
+that one changes.
+
 `lake` is Lean's build tool. An editor with the Lean extension (VS Code has
 one) shows, at each line of a proof, what is known and what remains to be
 proved; this is by far the best way to learn to read proofs. Small pieces
