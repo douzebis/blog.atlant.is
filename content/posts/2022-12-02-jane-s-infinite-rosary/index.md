@@ -1166,9 +1166,9 @@ $u(t) = t\log_3 2 + O(\log t)$.
 
 #### Theorem 6: bead $m$ is told in polynomial time
 
-Let $\mu_0$ be an *irrationality exponent* of $\log_2 3$: a real number such
-that $|\log_2 3 - p/q| \geq c\,q^{-\mu_0}$ for some $c > 0$ and all integers
-$p$ and $q \ge 1$. Baker's theory of linear forms in logarithms [Ba75] shows
+Let $\mu_0$ be an *irrationality exponent* of $\log_2 3$: a real number for
+which there is a constant $c > 0$ such that
+$|\log_2 3 - p/q| \geq c\,q^{-\mu_0}$ for all integers $p$ and $q \ge 1$. Baker's theory of linear forms in logarithms [Ba75] shows
 that such a $\mu_0$ exists; Rhin [Rh87] gives one explicitly, $\mu_0 = 14.3$
 with $c = 10^{-4}$, and smaller exponents are known (see "Which exponent?"
 below).
