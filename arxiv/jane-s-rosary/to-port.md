@@ -33,6 +33,14 @@ What was changed for the paper alone, in `build.py`:
   of its own;
 - the abstract says that the black beads "form a tree", as the page does.
 
+## 2026-11-22, Figure 8
+
+- Figure 8 shows the two moves that cross the edge of the picture (21,
+  from bead 80 up to bead 40, and 23, from bead 60 back to bead 30) as
+  arrows that fade out; the caption says that beads 40 and 60 belong to
+  T_31 and sit outside the picture. New parameter `stubs=yes` of
+  `figures/jane-s-rosary/deconstructed.html`. Read in the PDF.
+
 ## Left to the author
 
 - [ ] **Colors.** Several captions lean on color (Figure 2: "the color of

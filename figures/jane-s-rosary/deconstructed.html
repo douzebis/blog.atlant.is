@@ -52,6 +52,10 @@
         // P.ink        ['down']: with ordering=reluctant, the up moves are
         //              drawn in one plain color and only the down moves
         //              are colored, in the order of the moves
+        // P.stubs      ['yes']: with ordering=reluctant and a count of moves
+        //              in P.n, a move that leaves the picture, or comes
+        //              back into it, is drawn as a short arrow that fades
+        //              out on the side of the bead that is not shown
         let wid = parseInt(P.width)
         let hei = parseInt(P.height)
         let sym = P.sym == 'yes' ? true : false
@@ -454,6 +458,89 @@
                   const box = network.getBoundingBox('' + y)
                   ctx.fillText('\u039B=' + y,
                       (box.left + box.right)/2, box.bottom + size*0.6)
+              }
+          })
+      }
+
+      // The moves with one end outside the picture, as fading stubs.
+      if (P.stubs == 'yes' && P.ordering == 'reluctant' && Do.n != 0) {
+          // Jane's beads, counted from 0 as everywhere in this file.
+          const told = [0, 1]
+          const seen = new Map([[0, 0], [1, 1]])
+          for (let i = 2, b = 1; i < Do.n; ++i) {
+              const l = 1 + (b - b%2)/2
+              b = seen.has(b - l) ? b + l : b - l
+              seen.set(b, i)
+              told.push(b)
+          }
+          const step = WIDTH_REF/(Do.side + 1)
+          // Where a bead sits, or would sit if the picture were larger.
+          const cell = (b) => {
+              const [s, l] = seed_n_lambex(b)
+              const x = s/3, y = l
+              return {
+                  inside: x < wid && y < hei,
+                  id: Do.lambexes*x + y,
+                  x: (y + 1)*step,
+                  y: (Do.side - x)*step,
+              }
+          }
+          network.on('afterDrawing', (ctx) => {
+              for (let i = 1; i < told.length; ++i) {
+                  const from = cell(told[i - 1]), to = cell(told[i])
+                  if (from.inside == to.inside) continue
+                  const shown = from.inside ? from : to
+                  const other = from.inside ? to : from
+                  const box = network.getBoundingBox('' + shown.id)
+                  const radius = (box.right - box.left)/2
+                  const length = Math.hypot(other.x - shown.x, other.y - shown.y)
+                  const ux = (other.x - shown.x)/length
+                  const uy = (other.y - shown.y)/length
+                  // From the rim of the bead that is shown to a little
+                  // more than one step away.
+                  const x0 = shown.x + ux*radius, y0 = shown.y + uy*radius
+                  const x1 = shown.x + ux*(radius + 1.25*step)
+                  const y1 = shown.y + uy*(radius + 1.25*step)
+                  const up_move = told[i] == up(told[i - 1])
+                  const rank = Do.reluctant_invs.reduce(
+                      (c, e) => e < i ? c + 1 : c, 0)
+                  const color = up_move || P.ink != 'down' ? THEME.line
+                      : hsl_to_col(rank*300/Do.side**2, 85, 45)
+                  const fade = ctx.createLinearGradient(x0, y0, x1, y1)
+                  fade.addColorStop(0, color)
+                  fade.addColorStop(1, THEME.background)
+                  ctx.save()
+                  ctx.strokeStyle = fade
+                  ctx.lineWidth = ARROW_REF/Do.side
+                  ctx.beginPath()
+                  ctx.moveTo(x0, y0)
+                  ctx.lineTo(x1, y1)
+                  ctx.stroke()
+                  if (!from.inside) {
+                      // The move arrives: its head is on the bead shown.
+                      const size = 1.4*ARROW_REF/Do.side + 1.5
+                      ctx.fillStyle = color
+                      ctx.beginPath()
+                      ctx.moveTo(x0, y0)
+                      ctx.lineTo(x0 + ux*size*1.8 - uy*size*0.6,
+                                 y0 + uy*size*1.8 + ux*size*0.6)
+                      ctx.lineTo(x0 + ux*size*1.8 + uy*size*0.6,
+                                 y0 + uy*size*1.8 - ux*size*0.6)
+                      ctx.closePath()
+                      ctx.fill()
+                  }
+                  if (Do.arrows != 'yes') {
+                      ctx.font = ARROW_LABEL_REF/Do.side + 'px arial'
+                      ctx.fillStyle = THEME.text
+                      ctx.textAlign = 'center'
+                      ctx.textBaseline = 'middle'
+                      const along = radius + 0.45*step
+                      const aside = 0.8*ARROW_LABEL_REF/Do.side
+                      ctx.fillText('' + i,
+                          shown.x + ux*along - uy*aside,
+                          shown.y + uy*along + ux*aside)
+                  }
+                  ctx.restore()
               }
           })
       }

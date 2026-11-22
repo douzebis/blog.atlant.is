@@ -669,9 +669,9 @@ except possibly for the path Jane is currently descending.
 is injective, and it never creates a gap in an up-chain: for every $i$ and
 every white bead $w \in T_i$, we have $w\lambda \in T_i$.
 
-[![Figure 8](images/figure-08.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=32&width=9&height=9&ordering=reluctant&label=position&color=none&ink=down&hide=untold&arrows=labelled&interactive=yes&first=1)
+[![Figure 8](images/figure-08.png)](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=32&width=9&height=9&ordering=reluctant&label=position&color=none&ink=down&hide=untold&stubs=yes&arrows=labelled&interactive=yes&first=1)
 
-> Figure 8: the beads told after $31$ moves, that is, the set $T_{31}$, drawn as in Figure 7. They fill every row from the left without leaving a hole: this is the no-gap property of [Theorem 2](#theorem-2) ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=32&width=9&height=9&ordering=reluctant&label=position&color=none&ink=down&hide=untold&arrows=labelled&interactive=yes&first=1)).
+> Figure 8: the beads told after $31$ moves, that is, the set $T_{31}$, drawn as in Figure 7. They fill every row from the left without leaving a hole: this is the no-gap property of [Theorem 2](#theorem-2). Two of them are outside the picture: beads $40$ and $60$, told at moves $21$ and $22$, start a row of their own higher up. The two arrows that fade out are move $21$, which leaves bead $80$ for bead $40$, and move $23$, which comes back from bead $60$ to bead $30$ ([live version](https://blog.atlant.is/figures/jane-s-rosary/deconstructed.html?n=32&width=9&height=9&ordering=reluctant&label=position&color=none&ink=down&hide=untold&stubs=yes&arrows=labelled&interactive=yes&first=1)).
 
 *The idea.* Jane is stuck if the bead below her and the bead above her have
 both been told. Suppose she stands on $n$, wants to go up, and finds $nU$
