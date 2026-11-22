@@ -867,9 +867,10 @@ The proof uses [Fact 1](#fact-1), [Lemma 3](#lemma-3) and [Theorem
 2](#theorem-2), and neither the phase nor [Lemmas 4](#lemma-4) and
 [5](#lemma-5).
 
-*The idea.* Suppose that bead $m$ is never told. The beads above it in the
-binary tree, $2m$ and $2m+1$, are never told either, and neither are the
-beads above those: an interval of beads that are never told can be doubled.
+*The idea.* Suppose that bead $m$ is never told. Then neither $2m$ nor
+$2m+1$ is ever told: if Jane told one of them, she would have told $m$ by
+the time she left it ([Lemma 3](#lemma-3)). The same holds for a whole
+interval of beads that are never told: it can be doubled.
 The no-gap property shows that it can be tripled as well. So the intervals
 $[ms, (m+1)s)$ are never told, for every smooth $s$. Smooth numbers become
 so crowded that these intervals overlap and cover every large bead. But Jane
