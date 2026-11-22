@@ -922,12 +922,9 @@ is not a power of $2$.
 **Step 5: the intervals cover every large bead.** *Every bead
 $n \geq mP^P$ lies in $[ms, (m+1)s)$ for some smooth number $s$.*
 
-The interval $[ms, (m+1)s)$ ends at $ms\,(1 + 1/m)$. So if a smooth number
-$s'$ is larger than $s$ in the ratio $Q/P$, its interval starts before the
-interval of $s$ ends, and the two leave no hole between them. A chain of $P$
-such steps, from $2^r P^P$ to $2^r Q^P$, at least doubles: its intervals
-cover everything from $m\,2^r P^P$ to $m\,2^{r+1} P^P$. Taking
-$r = 0, 1, 2, \ldots$ covers every bead from $mP^P$ on.
+Two intervals whose smooth numbers are in the ratio $Q/P$ overlap, since
+the first one ends at $ms\,(1 + 1/m)$. Chains of smooth numbers in that
+ratio then cover every large bead.
 
 The proofs of Steps 4 and 5, which are about smooth numbers only, are in the
 [appendix](#two-facts-about-smooth-numbers).
