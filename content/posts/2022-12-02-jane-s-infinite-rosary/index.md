@@ -1190,6 +1190,23 @@ multiple that it beats is at distance at least $c\,k^{-\beta}$ from $0$, with
 $k < 2/w$, and $q$ is at most the inverse of that distance. The details are
 in the [appendix](#proof-of-lemma-9).
 
+The lemma is explicit, and far from sharp. With Rhin's exponent
+($\beta = 13.3$ and $c = 10^{-4}$), here is the $J$ that it gives, next to
+the smallest $J$ that works, found by trying. The first length is that of
+the arc of bead $4$.
+
+| Length $w$ of the arc | $J$ given by the lemma | Smallest $J$ that works |
+|---|---|---|
+| $0.32$ | $3.6 \cdot 10^{14}$ | $5$ |
+| $0.1$ | $2.0 \cdot 10^{21}$ | $12$ |
+| $0.01$ | $4.0 \cdot 10^{34}$ | $253$ |
+| $0.001$ | $8.0 \cdot 10^{47}$ | $6\,291$ |
+
+In this range the smallest $J$ is a few times $1/w$, and the lemma gives
+the power $13.3$ of $2/w$. The smaller exponents quoted below lower that
+power to $4.12$ and to $2 + \varepsilon$, but they give no number to put in
+the table, because their constant $c$ is not known.
+
 **Theorem 6.** There is a constant $\kappa$ such that for every bead $m$,
 
 $$\rho^{-1}(m) \leq \kappa\,m^{2\mu_0 - 1},
@@ -2014,6 +2031,7 @@ one command runs all but the long one.
 | [Theorem 2](#theorem-2): never stuck. [Theorem 3](#theorem-3): all beads up to $10\,801\,813$ told | $2^{27}$ moves | `walk.c` |
 | [Lemmas 4](#lemma-4) and [5](#lemma-5) | beads below $5\,000$ and $20\,000$ | `check_reluctant.py` |
 | [Theorem 5](#theorem-5), part 1 | $300\,000$ moves | `check_reluctant.py` |
+| The table that follows [Lemma 9](#lemma-9) | four lengths of arc | `check_reluctant.py` |
 | [Proposition 2](#proposition-2), [Lemmas 6](#lemma-6) and [7](#lemma-7), the computation behind [Lemma 8](#lemma-8), the table of $\boldsymbol{\tau}(\boldsymbol{n})$ | onyxes below $20\,000$ | `check_onyx.py` |
 | The four programs printed in this paper | against the programs above | `check_paper_code.py` |
 | The examples and the numbers quoted in the text | each one | the programs above |

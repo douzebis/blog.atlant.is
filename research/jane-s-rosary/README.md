@@ -40,6 +40,7 @@ error if one fails.
 | The numbers in the caption of Figure 10 (smallest bead and largest blur of its three stretches) | `check_reluctant.py` | same | three stretches of 20 up moves |
 | Theorem 5 (1) | `check_reluctant.py` | same | 300,000 moves |
 | Lemma 9 (the fact on convergents it rests on) | `check_reluctant.py` | same | 8 denominators |
+| The table that follows Lemma 9 (the J of the lemma with Rhin's exponent, and the smallest J that works) | `check_reluctant.py` | same | four lengths of arc |
 | Proposition 2 | `check_onyx.py` | `python check_onyx.py` | onyxes below 20,000 |
 | Examples of Part III, covers quoted, table of tau(n), the value iota(39) | `check_onyx.py` | same | as printed in the paper |
 | Lemmas 6 and 7 | `check_onyx.py` | same | beads below 20,000 |

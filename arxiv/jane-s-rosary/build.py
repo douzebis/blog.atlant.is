@@ -103,6 +103,7 @@ TABLE_WIDTHS = {
     "| Project | Run | Log | SHA-256 of the log |": [24, 14, 30, 22],
     "| Name | Notation | In short | Defined in |": [22, 20, 40, 18],
     "| $t$ | $F(t)$ | $t/F(t)$ |": [8, 13, 10, 16, 12, 17, 20],
+    "| Length $w$ of the arc | $J$ given by the lemma |": [24, 24, 24],
 }
 
 # A picture taller than this share of its width is not given the full

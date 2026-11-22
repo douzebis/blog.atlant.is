@@ -22,7 +22,10 @@ Checked:
   coda on the 3x+1 map;
 - the fact behind Lemma 9: for a denominator q of a convergent of
   alpha = log2(3/2), any q consecutive multiples of alpha leave no gap of
-  length 2/q on the circle (checked for the first 8 denominators).
+  length 2/q on the circle (checked for the first 8 denominators);
+- the table that follows Lemma 9: for four lengths w, the J that the lemma
+  gives with Rhin's exponent, and the smallest J such that J consecutive
+  multiples of alpha meet every arc of length w.
 
 The long run behind the numerical table of the paper is walk.c.
 """
@@ -184,6 +187,31 @@ def main() -> int:
         report(
             f"Lemma 9: q consecutive points leave no gap of 2/q, q in {denominators[1:]}",
             gaps,
+        )
+    )
+
+    # The table that follows Lemma 9.  J consecutive points of an orbit meet
+    # every arc of length w if and only if they leave no gap longer than w,
+    # and every orbit is a turn of the multiples of alpha.
+    table = []
+    for w in (math.log2(5 / 4), 0.1, 0.01, 0.001):
+        bound = (2 / w) ** 13.3 / 1e-4
+        points = [0.0]
+        while True:
+            points.sort()
+            largest = max(
+                [b - a for a, b in zip(points, points[1:])]
+                + [1 - points[-1] + points[0]]
+            )
+            if largest <= w:
+                break
+            points.append((len(points) * alpha) % 1)
+        table.append((f"{bound:.1e}", len(points)))
+    results.append(
+        report(
+            f"Lemma 9: the J of the lemma and the smallest J, {table}",
+            table
+            == [("3.6e+14", 5), ("2.0e+21", 12), ("4.0e+34", 253), ("8.0e+47", 6291)],
         )
     )
     return 0 if all(results) else 1
