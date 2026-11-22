@@ -5,7 +5,7 @@
 
 title: "Jane's infinite rosary"
 date: "2022-12-02"
-revised: "2026-11-20"
+revised: "2026-11-22"
 language: "en"
 math: true
 toc: true
@@ -13,18 +13,10 @@ description: "Jane tells the beads of an infinite rosary by moving up or down by
 compare: "compare/jane-s-infinite-rosary"
 history:
   - date: "2023-01-05"
-    text: "The original post, as it stood in January 2023 on the WordPress blog. Shortest recitations, the never-ending reluctant recitation and the onyx rosary are theorems; that the reluctant recitation tells every bead is a conjecture."
+    text: "The original post, as it stood in January 2023 on the author's WordPress blog, blog.douzeb.is. Shortest recitations, the never-ending reluctant recitation and the onyx rosary are theorems; that the reluctant recitation tells every bead is a conjecture."
     version: "versions/jane-s-infinite-rosary/2023-01"
-  - date: "2026-11-17"
-    text: "Complete proofs: Theorems 1 to 6, the onyx ordering, numerical data and new open questions."
-    version: "versions/jane-s-infinite-rosary/2026-11-17"
-  - date: "2026-11-18"
-    text: "Presentation overhaul: an opening that says what is proved, four parts, names introduced where they are needed, a sketch before each long proof, context and relatives, new figures. No statement changed."
-    version: "versions/jane-s-infinite-rosary/2026-11-18"
-  - date: "2026-11-18"
-    text: "The beads are counted from 1 instead of 0, so that a down move halves the position and an up move multiplies it by 3/2. Black beads get a count of their own, written in bold, and the beads of the onyx rosary are called onyxes. No result changed."
-  - date: "2026-11-20"
-    text: "Every theorem, lemma, proposition and corollary of the paper is checked by the proof assistant Lean. Theorem 3 is checked twice: by the proof of Section 8, and by a second proof with integers only. Theorem 6 is stated in two variants, one resting on the classical irrationality measures of log₂ 3, the other on a bound formalized in Lean by R. K. Jha. The proofs of Lemma 9 and of Theorem 6 are reworded to follow the checked proofs."
+  - date: "2026-11-22"
+    text: "The current version, on douzebis.github.io/blog.atlant.is. The conjecture is a theorem, with two proofs, and the pace of the recitation is bounded (Theorems 1 to 6). The beads are counted from 1 instead of 0, the presentation is new, and every theorem, lemma, proposition and corollary is checked by the proof assistant Lean."
 diagrams:
   - "images/reluctant-jane-1024x422.png"
 categories:
@@ -1050,7 +1042,7 @@ $\mathbf{3}, \mathbf{4}, \mathbf{6}, \mathbf{41}, \mathbf{92}, \ldots$, and thos
 $\mathbf{8}, \mathbf{12}, \mathbf{26}, \mathbf{39}, \ldots$).
 
 The **address** $v(\boldsymbol{n})$ of an onyx $\boldsymbol{n}$ tells where it
-sits in the tree, read from the root (earlier versions called it the
+sits in the tree, read from the root (the original version called it the
 canonical onyx mapping and wrote it $C$):
 
 $$v(\boldsymbol{n}) = \Big(\iota\big(\boldsymbol{\pi}^{\boldsymbol{h}(\boldsymbol{n})-1}(\boldsymbol{n})\big),\ \ldots,\ \iota\big(\boldsymbol{\pi}(\boldsymbol{n})\big),\ \iota(\boldsymbol{n})\Big) \in (\mathbb{N}^*)^{<\omega}.$$
@@ -2226,8 +2218,8 @@ covered the mathematics, its verification and the writing:
 
 The author set the questions, directed the work, read and questioned the
 text, and is the sole author of the paper: the author takes responsibility
-for its content. The earlier versions of this paper are kept (see the
-history above), and show what each of them contained.
+for its content. The original version of this paper is kept (see the
+history above), and shows what it contained.
 
 The statements listed in the section "Checked by a proof assistant" do not
 rest on trust in either the author or the assistant: their proofs are

@@ -522,3 +522,15 @@ k_i - (k_N - k_1) when N - k_1 < k_i < k_N. So every gap is the distance
 from 0 of one of the two, or their sum, and the sum does not occur when
 k_1 + k_N = N + 1. This is the form that the idea and the proof of
 Lemma 9 use, with N = q - 1.
+
+2026-11-22, the history is reduced, at the author's request. The site
+keeps two versions of the paper: the original post (2023-01) and the
+current one. The versions of 2026-11-17 and 2026-11-18 are removed from
+`content/versions/` and from `docs/papers/frozen-versions.sha256`; they
+stay in the Git history of the repository (last present in the commit
+before this one). The `history` list of the front matter, which the page
+and the PDF both print, has two entries. The WordPress blog
+blog.douzeb.is, where the original was published, is to be closed: this
+site is its migration, and the copy kept here is the reference for the
+original text. The sections above are left as they were written and
+still name the removed directories.

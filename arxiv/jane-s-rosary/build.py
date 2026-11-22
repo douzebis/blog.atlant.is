@@ -52,8 +52,8 @@ PAGE = (
 # Passages of the web page that are reworded for the paper: (web, paper).
 REWORDINGS = [
     (
-        "are kept (see the\nhistory above), and show what each of them contained.",
-        "are kept (see the\nversions at the end), and show what each of them contained.",
+        "is kept (see the\nhistory above), and shows what it contained.",
+        "is kept (see the\nversions at the end), and shows what it contained.",
     ),
     (
         "reached from bead $1$. The fun starts with two finer questions.",
@@ -466,8 +466,8 @@ def main() -> int:
         "This paper is also a web page, with interactive versions of its figures, "
         f"at <{PAGE}>; its "
         "sources, the programs and the Lean files are at "
-        "<https://github.com/douzebis/blog.atlant.is>. The earlier versions are kept "
-        "there and can be compared.\n\n" + versions + "\n"
+        "<https://github.com/douzebis/blog.atlant.is>. The original version is kept "
+        "there and can be compared with this one.\n\n" + versions + "\n"
     )
     body = adapt_headings(body)
 

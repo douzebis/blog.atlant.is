@@ -36,7 +36,10 @@ twice is refused.
 - Removing a version is a decision, not an accident: it takes deleting the
   directory and its line of the record in the same change, and is told in
   the paper's history (done once, on 2026-11-17, before the versions were
-  announced: the December 2022 text was replaced by the January 2023 one).
+  announced: the December 2022 text was replaced by the January 2023 one; and on
+  2026-11-22, at the author's request: the versions of 2026-11-17 and
+  2026-11-18 were removed, and the history keeps the original post and the
+  current version).
 
 - The guarantee is about the sources. What a reader sees also depends on
   the templates, the style sheet, MathJax and the figure code, which keep
