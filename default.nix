@@ -16,6 +16,9 @@ pkgs.mkShell {
     pkgs.pyright
     pkgs.ruff
     pkgs.reuse
+    # elan installs the Lean version that each project under formal/ names
+    # in its `lean-toolchain` file; editors' Lean plugins start Lean through it.
+    pkgs.elan
   ];
 
   NIXSHELL_REPO = toString ./.;

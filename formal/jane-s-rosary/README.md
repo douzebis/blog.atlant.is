@@ -140,10 +140,12 @@ cd formal/jane-s-rosary
 lake build
 ```
 
-If Lean is installed through `elan` instead (as editors' Lean plugins
-expect), the file `lean-toolchain` tells it which version to use here. It
-names the version that `nix/nixpkgs.nix` provides, and must follow it when
-that one changes.
+Editors' Lean plugins start Lean through `elan`, which the shell of the
+repository provides (`nix-shell`, then start the editor from it). The file
+`lean-toolchain` tells `elan` which version to use here: Lean 4.34.1, the
+version of the two projects that use Mathlib, which compile these files
+too. The check above still runs with the Lean of `nix/nixpkgs.nix`, which
+is 4.29.1: these files are checked with both.
 
 `lake` is Lean's build tool. An editor with the Lean extension (VS Code has
 one) shows, at each line of a proof, what is known and what remains to be
