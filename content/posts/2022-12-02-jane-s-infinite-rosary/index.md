@@ -1322,7 +1322,7 @@ are in the [table of the appendix](#appendix-numerical-data).
 
 > **Killy**: Anyone here have terminal genes?
 >
-> Tsutomu Nihei, *Blame!* (freely translated)
+> Tsutomu Nihei, *Blame!*
 
 ### Relatives of the rosary
 
