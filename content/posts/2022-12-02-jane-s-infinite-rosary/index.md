@@ -1173,6 +1173,10 @@ that such a $\mu_0$ exists; Rhin [Rh87] gives one explicitly, $\mu_0 = 14.3$
 with $c = 10^{-4}$, and smaller exponents are known (see "Which exponent?"
 below).
 
+Recall that $\alpha = \log_2 3 - 1$, and write $\lVert x \rVert$ for the
+distance from $x$ to the nearest integer. Multiplied by $q$, the inequality
+above says that $\lVert q\alpha \rVert \geq c\,q^{-(\mu_0 - 1)}$.
+
 **Lemma 9 (covering time of a rotation).** Let $\beta = \mu_0 - 1$, so that
 $\lVert q\alpha \rVert \geq c\,q^{-\beta}$ for all $q \geq 1$. For every
 $0 < w < 1$, any $J = \lfloor (2/w)^{\beta}/c \rfloor$ consecutive points of an
