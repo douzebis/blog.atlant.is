@@ -87,3 +87,6 @@ open Hats
 #print axioms lowBlackReader_outputs
 #print axioms carterReader_outputs
 #print axioms reyesReader_outputs
+#print axioms lowBlackReader_computable
+#print axioms carterReader_computable
+#print axioms reyesReader_computable

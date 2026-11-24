@@ -3,6 +3,8 @@
 -- SPDX-License-Identifier: MIT
 
 import Hats.Topology
+import Mathlib.Computability.Primrec.List
+import Mathlib.Computability.Partrec
 
 /-!
 # The limit strategies, computed by reading the hats one at a time
@@ -15,33 +17,49 @@ makes it stop with an output.  The three readers below have finitely many
 kinds of states and one counter, as in the pictures.
 
 For each limit strategy: on every stack where the strategy is defined, the
-reader stops, and its output is what the strategy chooses.
+reader stops, and its output is what the strategy chooses.  And each
+reader is computable in the sense of recursion theory: what it has done
+after a list of hats is a computable function of the list (its steps are
+primitive recursive).
 -/
 
 namespace Hats
 
 /-- A machine that reads the hats of a stack from the bottom up.  From a
-state and a hat, `step` gives the next state, or the output. -/
+state and a hat, `step` gives the next state, or the output: a position. -/
 structure Reader (σ : Type) where
   init : σ
-  step : σ → Bool → σ ⊕ ℤ
+  step : σ → Bool → σ ⊕ ℕ
 
-/-- Where the reader is after `k` hats of stack `t`: in a state, or stopped
-with an output. -/
-def Reader.after {σ : Type} (M : Reader σ) (t : Stack) : ℕ → σ ⊕ ℤ
-  | 0 => .inl M.init
-  | k + 1 =>
-    match M.after t k with
-    | .inl q => M.step q (t k)
-    | .inr z => .inr z
+/-- Where the reader is after a list of hats (the lowest first): in a
+state, or stopped with an output. -/
+def Reader.run {σ : Type} (M : Reader σ) (l : List Bool) : σ ⊕ ℕ :=
+  l.foldl (fun r b => Sum.casesOn r (fun q => M.step q b) (fun z => .inr z)) (.inl M.init)
 
-/-- The reader stops on stack `t` with output `z`. -/
+/-- Where the reader is after the `k` lowest hats of stack `t`. -/
+def Reader.after {σ : Type} (M : Reader σ) (t : Stack) (k : ℕ) : σ ⊕ ℕ :=
+  M.run ((List.range k).map t)
+
+/-- The reader stops on stack `t` and its output is the position `z`. -/
 def Reader.Outputs {σ : Type} (M : Reader σ) (t : Stack) (z : ℤ) : Prop :=
-  ∃ k, M.after t k = .inr z
+  ∃ k m, M.after t k = .inr m ∧ (m : ℤ) = z
 
 theorem Reader.after_succ_of_inl {σ : Type} (M : Reader σ) (t : Stack) {k : ℕ} {q : σ}
     (h : M.after t k = .inl q) : M.after t (k + 1) = M.step q (t k) := by
-  simp [Reader.after, h]
+  unfold Reader.after Reader.run at h ⊢
+  rw [List.range_succ, List.map_append, List.foldl_append, h]
+  rfl
+
+/-- A reader whose steps are primitive recursive is a computable function
+of the hats it has read. -/
+theorem Reader.computable_run {σ : Type} [Primcodable σ] (M : Reader σ)
+    (h : Primrec₂ M.step) : Computable M.run := by
+  have hstep : Primrec₂ fun (_ : List Bool) (p : (σ ⊕ ℕ) × Bool) =>
+      (Sum.casesOn p.1 (fun q => M.step q p.2) (fun z => .inr z) : σ ⊕ ℕ) := by
+    refine Primrec.sumCasesOn (Primrec.fst.comp Primrec.snd) ?_ ?_
+    · exact (h.comp Primrec.snd (Primrec.snd.comp (Primrec.snd.comp Primrec.fst))).to₂
+    · exact (Primrec.sumInr.comp Primrec.snd).to₂
+  exact (Primrec.list_foldl Primrec.id (Primrec.const _) hstep).to_comp
 
 /-! ### Following the lowest black hat -/
 
@@ -49,7 +67,7 @@ theorem Reader.after_succ_of_inl {σ : Type} (M : Reader σ) (t : Stack) {k : �
 at the first black one. -/
 def lowBlackReader : Reader ℕ where
   init := 0
-  step n b := if b then .inr n else .inl (n + 1)
+  step n b := if b = true then .inr n else .inl (n + 1)
 
 theorem lowBlackReader_after {t : Stack} {k : ℕ} (h : ∀ i < k, t i = false) :
     lowBlackReader.after t k = .inl k := by
@@ -67,22 +85,34 @@ theorem lowBlackReader_outputs {t : Stack} (h : ∃ i, t i = true) :
   have hb := Nat.find_spec h
   have hq : ∀ q < Nat.find h, t q = false := fun q hq => by
     simpa using Nat.find_min h hq
-  refine ⟨Nat.find h + 1, ?_⟩
-  rw [lowBlackReader.after_succ_of_inl t (lowBlackReader_after hq), lowBlackInf_spec hb hq]
+  refine ⟨Nat.find h + 1, Nat.find h, ?_, (lowBlackInf_spec hb hq).symm⟩
+  rw [lowBlackReader.after_succ_of_inl t (lowBlackReader_after hq)]
   simp [lowBlackReader, hb]
+
+theorem lowBlackReader_computable : Computable lowBlackReader.run := by
+  refine lowBlackReader.computable_run ?_
+  exact Primrec.ite (Primrec.eq.comp Primrec.snd (Primrec.const true))
+    (Primrec.sumInr.comp Primrec.fst) (Primrec.sumInl.comp (Primrec.succ.comp Primrec.fst))
 
 /-! ### The Reyes strategies -/
 
+/-- The choices of the Carter strategy on three hats. -/
+def carter3 : List ℕ := [0, 1, 0, 0, 2, 1, 2, 0]
+
+theorem carter3_eq {v : ℕ} (hv : v < 8) : (carter3.getD v 0 : ℤ) = carterOdd 1 v := by
+  interval_cases v <;> decide
+
 /-- The reader for the Reyes limit: `n` hats are behind, in blocks that
-were all white or all black; of the current block, `c` hats were read,
-which make the stack `v`. -/
+were all white or all black; the hats read in the current block make the
+stack `v`, and the next one has weight `w` (1, 2 or 4). -/
 def reyesReader : Reader (ℕ × ℕ × ℕ) where
-  init := (0, 0, 0)
+  init := (0, 1, 0)
   step q b :=
-    let v' := 2 ^ q.2.1 * (if b then 1 else 0) + q.2.2
-    if q.2.1 = 2 then
-      if v' = 0 ∨ v' = 7 then .inl (q.1 + 3, 0, 0) else .inr (q.1 + carterOdd 1 v')
-    else .inl (q.1, q.2.1 + 1, v')
+    if q.2.1 = 4 then
+      if q.2.1 * (if b = true then 1 else 0) + q.2.2 = 0
+          ∨ q.2.1 * (if b = true then 1 else 0) + q.2.2 = 7 then .inl (q.1 + 3, 1, 0)
+      else .inr (q.1 + carter3.getD (q.2.1 * (if b = true then 1 else 0) + q.2.2) 0)
+    else .inl (q.1, 2 * q.2.1, q.2.1 * (if b = true then 1 else 0) + q.2.2)
 
 /-- One more hat of the block that starts at position `m`. -/
 theorem step_code (m c : ℕ) (t : Stack) :
@@ -91,7 +121,9 @@ theorem step_code (m c : ℕ) (t : Stack) :
 
 theorem reyesReader_after {t : Stack} {i : ℕ}
     (h : ∀ i' < i, code 3 (drop (3 * i') t) = 0 ∨ code 3 (drop (3 * i') t) = 7) :
-    ∀ c ≤ 2, reyesReader.after t (3 * i + c) = .inl (3 * i, c, code c (drop (3 * i) t)) := by
+    ∀ c ≤ 2, reyesReader.after t (3 * i + c) = .inl (3 * i, 2 ^ c, code c (drop (3 * i) t)) := by
+  have hne : ∀ c ≤ 1, (2 : ℕ) ^ c ≠ 4 := by
+    intro c hc; interval_cases c <;> norm_num
   induction i with
   | zero =>
     intro c hc
@@ -99,21 +131,21 @@ theorem reyesReader_after {t : Stack} {i : ℕ}
     | zero => rfl
     | succ c ihc =>
       rw [← add_assoc, reyesReader.after_succ_of_inl t (ihc (by omega))]
-      have : c ≠ 2 := by omega
-      simp only [reyesReader, this, ↓reduceIte, step_code]
+      simp only [reyesReader, hne c (by omega), ↓reduceIte, step_code, pow_succ, mul_comm]
   | succ i ih =>
     have hprev := ih (fun i' hi' => h i' (by omega)) 2 le_rfl
     have hu := h i (Nat.lt_succ_self i)
-    have hstart : reyesReader.after t (3 * (i + 1)) = .inl (3 * (i + 1), 0, 0) := by
+    have hstart : reyesReader.after t (3 * (i + 1)) = .inl (3 * (i + 1), 1, 0) := by
       rw [show 3 * (i + 1) = 3 * i + 2 + 1 by ring, reyesReader.after_succ_of_inl t hprev]
-      simp only [reyesReader, ↓reduceIte, step_code, hu]
+      simp only [reyesReader, show (2 : ℕ) ^ 2 = 4 by norm_num, ↓reduceIte]
+      rw [show (4 : ℕ) = 2 ^ 2 by norm_num, step_code]
+      simp only [hu, ↓reduceIte]
     intro c hc
     induction c with
     | zero => simpa [code] using hstart
     | succ c ihc =>
       rw [← add_assoc, reyesReader.after_succ_of_inl t (ihc (by omega))]
-      have : c ≠ 2 := by omega
-      simp only [reyesReader, this, ↓reduceIte, step_code]
+      simp only [reyesReader, hne c (by omega), ↓reduceIte, step_code, pow_succ, mul_comm]
 
 /-- **The reader computes the limit of the Reyes strategies** on every
 stack with a block that is neither all white nor all black. -/
@@ -126,11 +158,38 @@ theorem reyesReader_outputs {t : Stack}
       code 3 (drop (3 * i') t) = 0 ∨ code 3 (drop (3 * i') t) = 7 := fun i' hi' => by
     by_contra hn
     exact Nat.find_min h hi' hn
-  refine ⟨3 * Nat.find h + 2 + 1, ?_⟩
-  rw [reyesReader.after_succ_of_inl t (reyesReader_after hlt 2 le_rfl), reyesInf_spec hi hlt]
-  simp only [reyesReader, ↓reduceIte, step_code, hi]
-  push_cast
-  rfl
+  refine ⟨3 * Nat.find h + 2 + 1,
+    3 * Nat.find h + carter3.getD (code 3 (drop (3 * Nat.find h) t)) 0, ?_, ?_⟩
+  · rw [reyesReader.after_succ_of_inl t (reyesReader_after hlt 2 le_rfl)]
+    simp only [reyesReader, show (2 : ℕ) ^ 2 = 4 by norm_num, ↓reduceIte]
+    rw [show (4 : ℕ) = 2 ^ 2 by norm_num, step_code]
+    simp only [hi, ↓reduceIte]
+  · rw [reyesInf_spec hi hlt]
+    push_cast
+    rw [carter3_eq (code_lt 3 _)]
+
+theorem reyesReader_computable : Computable reyesReader.run := by
+  refine reyesReader.computable_run ?_
+  have n : Primrec fun p : (ℕ × ℕ × ℕ) × Bool => p.1.1 := Primrec.fst.comp Primrec.fst
+  have w : Primrec fun p : (ℕ × ℕ × ℕ) × Bool => p.1.2.1 :=
+    Primrec.fst.comp (Primrec.snd.comp Primrec.fst)
+  have v : Primrec fun p : (ℕ × ℕ × ℕ) × Bool => p.1.2.2 :=
+    Primrec.snd.comp (Primrec.snd.comp Primrec.fst)
+  have bit : Primrec fun p : (ℕ × ℕ × ℕ) × Bool => (if p.2 = true then 1 else 0 : ℕ) :=
+    Primrec.ite (Primrec.eq.comp Primrec.snd (Primrec.const true)) (Primrec.const 1)
+      (Primrec.const 0)
+  have v' : Primrec fun p : (ℕ × ℕ × ℕ) × Bool =>
+      p.1.2.1 * (if p.2 = true then 1 else 0) + p.1.2.2 :=
+    Primrec.nat_add.comp (Primrec.nat_mul.comp w bit) v
+  refine Primrec.ite (Primrec.eq.comp w (Primrec.const 4)) ?_ ?_
+  · refine Primrec.ite ((Primrec.eq.comp v' (Primrec.const 0)).or
+      (Primrec.eq.comp v' (Primrec.const 7))) ?_ ?_
+    · exact Primrec.sumInl.comp (Primrec.pair (Primrec.nat_add.comp n (Primrec.const 3))
+        (Primrec.const (1, 0)))
+    · exact Primrec.sumInr.comp (Primrec.nat_add.comp n
+        ((Primrec.list_getD 0).comp (Primrec.const carter3) v'))
+  · exact Primrec.sumInl.comp (Primrec.pair n
+      (Primrec.pair (Primrec.nat_mul.comp (Primrec.const 2) w) v'))
 
 /-! ### The Carter strategies -/
 
@@ -187,59 +246,43 @@ theorem carterOdd_succ_values (j : ℕ) :
     have a3 : 2 ^ n * 1 + (2 ^ n - 1) ≠ 2 ^ n - 1 := by omega
     simp only [carterOdd, ← hn, ds, ls, rs, hQ, a1, a2, m4, a3, m5, ↓reduceIte, o]
 
-/-- The states of the reader for the Carter limit, as in the picture of
-the article.  In `white n` the reader has seen `n + 1` hats, all white, in
-`white2 n` one more white hat, in `whiteBlack n` a black hat after them;
-and the same with the colors exchanged for `black n` and `black2 n`. -/
-inductive CarterState
-  | start
-  | white (n : ℕ)
-  | white2 (n : ℕ)
-  | whiteBlack (n : ℕ)
-  | black (n : ℕ)
-  | black2 (n : ℕ)
-
-/-- The reader for the Carter limit. -/
-def carterReader : Reader CarterState where
-  init := .start
+/-- The reader for the Carter limit, as in the picture of the article.  A
+state is a kind and a counter `n`.  The kinds: `0` at the start; `1` after
+`n + 1` hats, all white; `2` after one more white hat; `3` after a black
+hat instead; `4` and `5` like `1` and `2` with the colors exchanged. -/
+def carterReader : Reader (ℕ × ℕ) where
+  init := (0, 0)
   step q b :=
-    match q, b with
-    | .start, false => .inl (.white 0)
-    | .start, true => .inl (.black 0)
-    | .white n, false => .inl (.white2 n)
-    | .white n, true => .inl (.whiteBlack n)
-    | .white2 n, false => .inl (.white (n + 2))
-    | .white2 n, true => .inr (n + 2)
-    | .whiteBlack _, false => .inr 0
-    | .whiteBlack n, true => .inr (n + 2)
-    | .black n, false => .inr (n + 1)
-    | .black n, true => .inl (.black2 n)
-    | .black2 _, false => .inr 0
-    | .black2 n, true => .inl (.black (n + 2))
+    if q.1 = 0 then (if b = true then .inl (4, 0) else .inl (1, 0))
+    else if q.1 = 1 then (if b = true then .inl (3, q.2) else .inl (2, q.2))
+    else if q.1 = 2 then (if b = true then .inr (q.2 + 2) else .inl (1, q.2 + 2))
+    else if q.1 = 3 then (if b = true then .inr (q.2 + 2) else .inr 0)
+    else if q.1 = 4 then (if b = true then .inl (5, q.2) else .inr (q.2 + 1))
+    else (if b = true then .inl (4, q.2 + 2) else .inr 0)
 
 theorem carterReader_after_white {t : Stack} (j : ℕ) (h : ∀ i < 2 * j + 1, t i = false) :
-    carterReader.after t (2 * j + 1) = .inl (.white (2 * j)) := by
+    carterReader.after t (2 * j + 1) = .inl (1, 2 * j) := by
   induction j with
   | zero =>
-    rw [carterReader.after_succ_of_inl t (q := .start) rfl]
+    rw [carterReader.after_succ_of_inl t (q := (0, 0)) rfl]
     simp [carterReader, h 0 (by omega)]
   | succ j ih =>
     have h1 := ih fun i hi => h i (by omega)
-    have h2 : carterReader.after t (2 * j + 1 + 1) = .inl (.white2 (2 * j)) := by
+    have h2 : carterReader.after t (2 * j + 1 + 1) = .inl (2, 2 * j) := by
       rw [carterReader.after_succ_of_inl t h1]
       simp [carterReader, h (2 * j + 1) (by omega)]
     rw [show 2 * (j + 1) + 1 = 2 * j + 1 + 1 + 1 by ring, carterReader.after_succ_of_inl t h2]
     simp [carterReader, h (2 * j + 1 + 1) (by omega), mul_add]
 
 theorem carterReader_after_black {t : Stack} (j : ℕ) (h : ∀ i < 2 * j + 1, t i = true) :
-    carterReader.after t (2 * j + 1) = .inl (.black (2 * j)) := by
+    carterReader.after t (2 * j + 1) = .inl (4, 2 * j) := by
   induction j with
   | zero =>
-    rw [carterReader.after_succ_of_inl t (q := .start) rfl]
+    rw [carterReader.after_succ_of_inl t (q := (0, 0)) rfl]
     simp [carterReader, h 0 (by omega)]
   | succ j ih =>
     have h1 := ih fun i hi => h i (by omega)
-    have h2 : carterReader.after t (2 * j + 1 + 1) = .inl (.black2 (2 * j)) := by
+    have h2 : carterReader.after t (2 * j + 1 + 1) = .inl (5, 2 * j) := by
       rw [carterReader.after_succ_of_inl t h1]
       simp [carterReader, h (2 * j + 1) (by omega)]
     rw [show 2 * (j + 1) + 1 = 2 * j + 1 + 1 + 1 by ring, carterReader.after_succ_of_inl t h2]
@@ -290,42 +333,49 @@ theorem carterReader_outputs {t : Stack}
     · exfalso
       apply hk.1
       rw [hcode]; simp [hx, hy]
-    · refine ⟨2 * j + 1 + 1 + 1, ?_⟩
-      have s1 : carterReader.after t (2 * j + 1 + 1) = .inl (.white2 (2 * j)) := by
+    · have s1 : carterReader.after t (2 * j + 1 + 1) = .inl (2, 2 * j) := by
         rw [carterReader.after_succ_of_inl t hs]; simp [carterReader, hx]
-      rw [carterReader.after_succ_of_inl t s1, hval, hcode]
-      simp only [hx, hy, Bool.false_eq_true, ↓reduceIte, zero_add, mul_one, v2, carterReader]
-      push_cast; ring_nf
-    · refine ⟨2 * j + 1 + 1 + 1, ?_⟩
-      have s1 : carterReader.after t (2 * j + 1 + 1) = .inl (.whiteBlack (2 * j)) := by
+      refine ⟨2 * j + 1 + 1 + 1, 2 * j + 2, ?_, ?_⟩
+      · rw [carterReader.after_succ_of_inl t s1]; simp [carterReader, hy]
+      · rw [hval, hcode]
+        simp only [hx, hy, Bool.false_eq_true, ↓reduceIte, zero_add, mul_one, v2]
+        push_cast; ring
+    · have s1 : carterReader.after t (2 * j + 1 + 1) = .inl (3, 2 * j) := by
         rw [carterReader.after_succ_of_inl t hs]; simp [carterReader, hx]
-      rw [carterReader.after_succ_of_inl t s1, hval, hcode]
-      simp only [hx, hy, Bool.false_eq_true, ↓reduceIte, mul_zero, add_zero, v1, carterReader]
-    · refine ⟨2 * j + 1 + 1 + 1, ?_⟩
-      have s1 : carterReader.after t (2 * j + 1 + 1) = .inl (.whiteBlack (2 * j)) := by
+      refine ⟨2 * j + 1 + 1 + 1, 0, ?_, ?_⟩
+      · rw [carterReader.after_succ_of_inl t s1]; simp [carterReader, hy]
+      · rw [hval, hcode]
+        simp only [hx, hy, Bool.false_eq_true, ↓reduceIte, mul_zero, add_zero, v1]
+        rfl
+    · have s1 : carterReader.after t (2 * j + 1 + 1) = .inl (3, 2 * j) := by
         rw [carterReader.after_succ_of_inl t hs]; simp [carterReader, hx]
-      rw [carterReader.after_succ_of_inl t s1, hval, hcode]
-      simp only [hx, hy, ↓reduceIte, mul_one, show (1 : ℕ) + 2 = 3 by norm_num, v3, carterReader]
-      push_cast; ring_nf
+      refine ⟨2 * j + 1 + 1 + 1, 2 * j + 2, ?_, ?_⟩
+      · rw [carterReader.after_succ_of_inl t s1]; simp [carterReader, hy]
+      · rw [hval, hcode]
+        simp only [hx, hy, ↓reduceIte, mul_one, show (1 : ℕ) + 2 = 3 by norm_num, v3]
+        push_cast; ring
   · -- the hats below are black
     have hb := (code_eq_ones_iff _ _).mp h1
     have hs := carterReader_after_black j hb
     rw [h1] at hcode
     cases hx : t (2 * j + 1) <;> cases hy : t (2 * j + 1 + 1)
-    · refine ⟨2 * j + 1 + 1, ?_⟩
-      rw [carterReader.after_succ_of_inl t hs, hval, hcode]
-      simp only [hx, hy, Bool.false_eq_true, ↓reduceIte, mul_zero, add_zero, zero_add, v4,
-        carterReader]
-      push_cast; ring_nf
-    · refine ⟨2 * j + 1 + 1, ?_⟩
-      rw [carterReader.after_succ_of_inl t hs, hval, hcode]
-      simp only [hx, hy, Bool.false_eq_true, ↓reduceIte, zero_add, mul_one, v5, carterReader]
-      push_cast; ring_nf
-    · refine ⟨2 * j + 1 + 1 + 1, ?_⟩
-      have s1 : carterReader.after t (2 * j + 1 + 1) = .inl (.black2 (2 * j)) := by
+    · refine ⟨2 * j + 1 + 1, 2 * j + 1, ?_, ?_⟩
+      · rw [carterReader.after_succ_of_inl t hs]; simp [carterReader, hx]
+      · rw [hval, hcode]
+        simp only [hx, hy, Bool.false_eq_true, ↓reduceIte, mul_zero, add_zero, zero_add, v4]
+        push_cast; ring
+    · refine ⟨2 * j + 1 + 1, 2 * j + 1, ?_, ?_⟩
+      · rw [carterReader.after_succ_of_inl t hs]; simp [carterReader, hx]
+      · rw [hval, hcode]
+        simp only [hx, hy, Bool.false_eq_true, ↓reduceIte, zero_add, mul_one, v5]
+        push_cast; ring
+    · have s1 : carterReader.after t (2 * j + 1 + 1) = .inl (5, 2 * j) := by
         rw [carterReader.after_succ_of_inl t hs]; simp [carterReader, hx]
-      rw [carterReader.after_succ_of_inl t s1, hval, hcode]
-      simp only [hx, hy, Bool.false_eq_true, ↓reduceIte, mul_zero, add_zero, v6, carterReader]
+      refine ⟨2 * j + 1 + 1 + 1, 0, ?_, ?_⟩
+      · rw [carterReader.after_succ_of_inl t s1]; simp [carterReader, hy]
+      · rw [hval, hcode]
+        simp only [hx, hy, Bool.false_eq_true, ↓reduceIte, mul_zero, add_zero, v6]
+        rfl
     · exfalso
       apply hk.2
       rw [hcode]
@@ -334,5 +384,34 @@ theorem carterReader_outputs {t : Stack}
         rw [show 2 * (j + 1) + 1 = 2 * j + 1 + 2 by ring, pow_add]; norm_num
       have := Nat.two_pow_pos (2 * j + 1)
       omega
+
+theorem carterReader_computable : Computable carterReader.run := by
+  refine carterReader.computable_run ?_
+  have k : Primrec fun p : (ℕ × ℕ) × Bool => p.1.1 := Primrec.fst.comp Primrec.fst
+  have n : Primrec fun p : (ℕ × ℕ) × Bool => p.1.2 := Primrec.snd.comp Primrec.fst
+  have b : PrimrecPred fun p : (ℕ × ℕ) × Bool => p.2 = true :=
+    Primrec.eq.comp Primrec.snd (Primrec.const true)
+  have n1 : Primrec fun p : (ℕ × ℕ) × Bool => p.1.2 + 1 :=
+    Primrec.nat_add.comp n (Primrec.const 1)
+  have n2 : Primrec fun p : (ℕ × ℕ) × Bool => p.1.2 + 2 :=
+    Primrec.nat_add.comp n (Primrec.const 2)
+  have st : ∀ c : ℕ, ∀ {f : (ℕ × ℕ) × Bool → ℕ}, Primrec f →
+      Primrec fun p : (ℕ × ℕ) × Bool => (Sum.inl (c, f p) : (ℕ × ℕ) ⊕ ℕ) := fun c _ hf =>
+    Primrec.sumInl.comp (Primrec.pair (Primrec.const c) hf)
+  have out : ∀ {f : (ℕ × ℕ) × Bool → ℕ}, Primrec f →
+      Primrec fun p : (ℕ × ℕ) × Bool => (Sum.inr (f p) : (ℕ × ℕ) ⊕ ℕ) := fun hf =>
+    Primrec.sumInr.comp hf
+  have z0 : Primrec fun _ : (ℕ × ℕ) × Bool => (0 : ℕ) := Primrec.const 0
+  refine Primrec.ite (Primrec.eq.comp k (Primrec.const 0))
+    (Primrec.ite b (st 4 z0) (st 1 z0)) ?_
+  refine Primrec.ite (Primrec.eq.comp k (Primrec.const 1))
+    (Primrec.ite b (st 3 n) (st 2 n)) ?_
+  refine Primrec.ite (Primrec.eq.comp k (Primrec.const 2))
+    (Primrec.ite b (out n2) (st 1 n2)) ?_
+  refine Primrec.ite (Primrec.eq.comp k (Primrec.const 3))
+    (Primrec.ite b (out n2) (out z0)) ?_
+  refine Primrec.ite (Primrec.eq.comp k (Primrec.const 4))
+    (Primrec.ite b (st 5 n) (out n1)) ?_
+  exact Primrec.ite b (st 4 n2) (out z0)
 
 end Hats

@@ -157,12 +157,12 @@ Each step is committed when the check passes.
 
 - "Computable" is proved in this sense: each limit strategy is computed
   by a reader, a machine with a state that reads the hats from the bottom
-  up and stops with an output (`Reader`). The three readers have finitely
-  many kinds of states and one counter, like the automata drawn in post 3;
-  the Carter reader has the states and the transitions of the picture.
-  That the transition functions are computable in the sense of recursion
-  theory (Mathlib's `Computable`) is not stated; they are case
-  distinctions and additions on integers.
+  up and stops with an output (`Reader`), and what a reader has done after
+  a list of hats is a computable function of the list, in the sense of
+  recursion theory (Mathlib's `Computable`; the steps are primitive
+  recursive). The three readers have finitely many kinds of states and one
+  counter, like the automata drawn in post 3; the Carter reader has the
+  states and the transitions of the picture.
 - The readers show that post 3 is right to call them automata with a
   counter, and wrong to call them finite (spec 0005, D36).
 - Optimality beyond two hats is not proved.
