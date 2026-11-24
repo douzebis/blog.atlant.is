@@ -4,7 +4,7 @@
 
 """Generalized resets on blocks of m hats, as an integer program.
 
-usage: reset_schemes_lp.py M [--size Z] [--beat] > model.lp
+usage: reset_schemes_lp.py M [--size Z] [--beat] [--crushed] > model.lp
 
 Question 4 of docs/papers/hats/open-questions.md.  A scheme gives every
 stack of m hats either a position to point at or the order to skip the
@@ -25,6 +25,14 @@ when no scheme beats 7/20.
 With --size Z the number of skipped stacks is fixed.  The model is then
 "maximize A + c", and --beat asks for A + c > 7 (4^m - Z^2) / 20.
 
+With --crushed, stack number t does not point above position t.  Nothing
+is lost: permuting the positions of a scheme gives a scheme with the same
+win rate, and one of them is crushed (the argument of `exists_crushed` in
+formal/hats/Hats/Crush.lean; a skipped stack stays skipped).  It did not
+help SCIP 10 on blocks of five hats, which finds the 120 permutations by
+itself: after 4 minutes its bounds were worse with the option than
+without (2026-11-24).
+
 Variables: x_t_p = 1 when stack t points at p, s_t = 1 when it is
 skipped; w, h, g stand for the products that F needs (both stacks point
 and win; one is skipped and black where the other points; both are
@@ -40,7 +48,7 @@ def black(t: int, m: int) -> list[int]:
     return [p for p in range(m) if t >> p & 1]
 
 
-def write_lp(m: int, beat: bool, size: int | None = None) -> str:
+def write_lp(m: int, beat: bool, size: int | None = None, crushed: bool = False) -> str:
     stacks = range(2**m)
     # The weights of F; with a fixed size, those of A + c.
     unit = 20 if size is None else 1
@@ -80,6 +88,8 @@ def write_lp(m: int, beat: bool, size: int | None = None) -> str:
                 objective[w] = 2 * unit
                 rows.append(w + "".join(f" - x_{t}_{p}" for p in black(u, m)) + " <= 0")
                 rows.append(w + "".join(f" - x_{u}_{q}" for q in black(t, m)) + " <= 0")
+    if crushed:
+        rows += [f"x_{t}_{p} = 0" for t in range(m - 1) for p in range(t + 1, m)]
     skipped = " + ".join(f"s_{t}" for t in stacks)
     score = " + ".join(f"{c} {v}" for v, c in objective.items())
     if size is None:
@@ -111,8 +121,11 @@ def main() -> None:
         "--beat", action="store_true", help="ask for a scheme that beats 7/20"
     )
     parser.add_argument("--size", type=int, help="number of skipped stacks")
+    parser.add_argument(
+        "--crushed", action="store_true", help="stack t points at most at t"
+    )
     args = parser.parse_args()
-    print(write_lp(args.m, args.beat, args.size), end="")
+    print(write_lp(args.m, args.beat, args.size, args.crushed), end="")
 
 
 if __name__ == "__main__":
