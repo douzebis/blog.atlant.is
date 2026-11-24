@@ -369,7 +369,13 @@ color that triggers them, with the hat marks on the operator
 (`\rhd_{\bullet}`, `\rhd_{\circ}`, `\rhd_{\bullet\circ}`). The article
 keeps one sentence on the tuple: the all-black tower is its left end and
 the all-white tower its right end, which is where "left" and "right" came
-from. The rest of the table is still to be decided.
+from. Proposed since, not yet decided: the mark before the
+triangle (`a \mathbin{\bullet\rhd} b`: "a; on black; b"); a half-filled
+mark for "all black or all white" instead of the two marks side by side;
+chains read from the bottom up, `a \rhd b \rhd c = a \rhd (b \rhd c)`,
+which costs nothing for the black and the white reset (associative) and
+gives the Reyes strategies without parentheses. The rest of the table is
+still to be decided.
 
 Two remarks that the new names make visible, to be said in the article:
 
@@ -497,12 +503,31 @@ kind of evidence it has.
 - **M2. A reformulation of the conjecture.** "The Carter strategies are
   optimal for every `n`" is equivalent to "the value of the game with
   infinitely many hats is 7/20".
-- **M3. Relation to recent work.** According to the notes, the double-reset
-  rule contains as special cases two inequalities of Bouquet et al.
-  (2025), the Carter strategies beat their finite lower bounds from 7 hats
-  on, and double-resetting an odd Carter strategy seems to answer one of
-  their questions. The notes say that their paper was only partly read:
-  this needs a full reading before anything is claimed.
+- **M3. Relation to recent work.** Bouquet et al. (arXiv 2508.01737,
+  version 2; Sections 1 and 3.2 read on 2026-11-24, from the PDF) write
+  `V_{2,h}` for the best win rate with `h` hats and prove lower bounds:
+  - `7/20 - V_{2,h}` is at least `1/(5 * 4^h)` in absolute value, by
+    arithmetic (their Lemma 15);
+  - `V_{2,h+3} >= V_{2,h}/16 + 21/64` and
+    `V_{2,h+5} >= V_{2,h}/256 + 357/1024` (Propositions 16 and 17), hence
+    `V_{2,h} >= 7/20 - C / 256^{h/5}` (Theorem 18; 256^{1/5} is about
+    3.03);
+  - a "combining formula", `w(S * T) = w(S) + (4 w(T) - 1) / 4^N`
+    (Lemma 25), and with it, for every odd `t`, a strategy on `t` hats
+    with win rate `7/20 - 2/(5 * 4^t)` (Theorem 26);
+  - `V_{2,h} >= 7/20 - C_eps / (4^{1-eps})^h` for every `eps > 0`
+    (Theorem 27).
+
+  Against the articles of 2020: the combining formula is the double-reset
+  rule; Propositions 16 and 17 are that rule applied to C_3 and C_5; the
+  win rate of Theorem 26 is that of the odd Carter strategies; and the
+  Carter strategies give `V_{2,h} >= 7/20 - 3/(5 * 4^h)` for every `h`
+  (`2/5` for odd `h`), which is Theorem 27 without the `eps` and, by
+  their Lemma 15, within a factor 3 of the best possible if 7/20 is the
+  value of the game. Their table of lower bounds for 6 to 13 hats is one
+  hat behind the Carter values (for 6 hats: 1432/4096, against 1433).
+  Before any of this is claimed in the article: read the whole paper, and
+  check whether the same remarks are in Buhler et al.
 - **M4. Five hats.** 358 out of 1024 is optimal when both players use the
   same strategy (three independent programs, one in exact arithmetic).
   When they may use different strategies, one solver gives 358 as well;
@@ -538,7 +563,11 @@ to the three posts once it is carried out.
 - Where the new material goes: M1 and M2 are short and belong with the
   Carter strategies; M4 and M5 need a section on computations.
 
-Decided on 2026-11-24: the results of `levine-hats` enter; one article and
+Decided on 2026-11-24: "stack" replaces "tower" (the word of the
+literature; the pictures stay); white stays the color to point at and the
+digit 1, although the literature points at black hats (the win is then a
+product of binary digits), which the article says once; the results of
+`levine-hats` enter; one article and
 one blog entry; the playful tone stays; Lean verification is wanted, as
 early as possible; order of work: the defects first (Sections 1 and 2,
 with K1 and K2), then the notation, the prose and the new material.
