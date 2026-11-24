@@ -1,0 +1,3 @@
+This file is the work of a third party, named in its copyright notice. It is
+reproduced in this repository as an illustration. It is not covered by the
+licenses of this repository, and all rights remain with its holder.

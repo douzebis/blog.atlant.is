@@ -3,8 +3,12 @@
        (class "prose") lets them wrap. */ -}}
 {{- $prose := false -}}
 {{- range .TBody }}{{ range . }}{{ if gt (len (.Text | plainify)) 48 }}{{ $prose = true }}{{ end }}{{ end }}{{ end -}}
+{{- /* A table whose header cells are all empty has no header. */ -}}
+{{- $head := false -}}
+{{- range .THead }}{{ range . }}{{ if .Text | plainify | strings.TrimSpace }}{{ $head = true }}{{ end }}{{ end }}{{ end -}}
 <div class="table-wrap">
   <table{{ if $prose }} class="prose"{{ end }}>
+    {{- if $head }}
     <thead>
       {{- range .THead }}
       <tr>
@@ -14,6 +18,7 @@
       </tr>
       {{- end }}
     </thead>
+    {{- end }}
     <tbody>
       {{- range .TBody }}
       <tr>

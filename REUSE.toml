@@ -25,6 +25,14 @@ path = "content/posts/2022-12-02-jane-s-infinite-rosary/images/**"
 SPDX-FileCopyrightText = "Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)"
 SPDX-License-Identifier = "CC-BY-4.0"
 
+# The picture at the head of the first hats post shows a character of the
+# game Team Fortress 2 wearing the "Towering Pillar of Hats".  It is not the
+# author's work and is not under the licenses of this repository.
+[[annotations]]
+path = "content/posts/2020-08-30-tower-of-hats/images/hats-towering-pillar.png"
+SPDX-FileCopyrightText = "Valve Corporation"
+SPDX-License-Identifier = "LicenseRef-third-party"
+
 # Interactive figures (HTML and JavaScript), by the author.  Those of
 # jane-s-rosary were imported from github.com/douzebis/jane-s-rosary at
 # commit 947bd74582e5ae7309160c69ef2521e4180de533 (2023-01-05).
