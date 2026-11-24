@@ -41,13 +41,29 @@ the best win rate of two players with infinite stacks.
 
    with `A` the pairs outside `Z` that `a` wins and `c` the pairs
    `(t, u)`, `t` in `Z`, `u` outside, with `t` black where `a` points for
-   `u`. First result (`research/hats/generalized_resets.py`, every scheme
-   tried): for `m` = 1, 2, 3 the best win rates are 1/3, 1/3 and 7/20, and
-   for `m` = 3 only `Z` = {all white, all black} reaches 7/20, with 6
-   block strategies (the Carter strategy on three hats and its images
-   under the permutations of the positions). Open: `m` = 4 and 5; schemes
-   with several continuations (a different strategy after each kind of
-   skipped block); blocks of unequal sizes.
+   `u`. A scheme on `m` hats is also one on `m + 1` hats (ignore one hat),
+   so the best win rate cannot decrease with `m`.
+
+   Results of 2026-11-24, every scheme tried
+   (`research/hats/generalized_resets.py` for `m` up to 3,
+   `research/hats/reset-schemes/` for `m` = 4; programs, not proofs):
+
+   | `m` | Schemes | Best win rate | Reached by |
+   |---|---|---|---|
+   | 1 | 3 | 1/3 | `Z` = {all white} or {all black} |
+   | 2 | 80 | 1/3 | 22 schemes, `Z` of 1 or 2 stacks |
+   | 3 | 65,535 | 7/20 | `Z` = {all white, all black} only, with the Carter strategy on three hats and its 5 images under the permutations of the positions |
+   | 4 | 5^16, about 1.5e11 | 7/20 | one `Z` up to the permutations: the stacks whose three lowest hats are all white or all black. It is the scheme of `m` = 3 with a fourth hat that is ignored |
+
+   For `m` = 4 the best win rates by size of `Z` are 89/256, 89/255,
+   88/252, 86/247, 84/240 for sizes 0 to 4, and at most 1/3 beyond. So no
+   scheme on blocks of at most four hats beats 7/20, and none reaches it
+   except the double reset of the Carter strategy on three hats.
+
+   Open: `m` = 5 (where Bouquet et al. have a scheme at 7/20 with `Z` =
+   {all white, all black}) and beyond; schemes with several continuations
+   (a different strategy after each kind of skipped block); a proof in
+   Lean of the formula and of the enumerations.
 5. **Are all optimal strategies composed?** The search finds 2, 4 and 102
    optimal crushed strategies on 2, 3 and 4 hats. Is each obtained from
    one-hat strategies by resets and shifts, up to the symmetries

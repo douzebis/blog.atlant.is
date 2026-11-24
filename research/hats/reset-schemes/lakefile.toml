@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: 2026 Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)
+#
+# SPDX-License-Identifier: MIT
+
+name = "resetSchemes"
+defaultTargets = ["reset-schemes"]
+
+[[lean_exe]]
+name = "reset-schemes"
+root = "Main"
