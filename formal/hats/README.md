@@ -54,3 +54,18 @@ theorem hits_carter {n : ℕ} (hn : 1 ≤ n) : hits n (carter n) = 7 * 4 ^ n / 2
 ```
 
 (`/` is the division of natural numbers: the integer part.)
+
+## Working with an assistant
+
+The shell of the repository provides `lean-lsp-mcp`, a server that lets a
+coding assistant ask Lean's language server for the goal at a line, the
+diagnostics of a file, or a lemma by name or shape, without a full build.
+With Claude Code, once, from the root of the repository:
+
+```sh
+claude mcp add lean-lsp lean-lsp-mcp
+```
+
+Its search tools (`lean_leansearch`, `lean_loogle`, `lean_leanfinder`,
+`lean_hammer_premise`) send the query to services on the Internet; the
+others work on the local files.
