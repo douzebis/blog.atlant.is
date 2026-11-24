@@ -17,6 +17,8 @@ import Hats.Infinite
 import Hats.Limit
 import Hats.LimitStrategies
 import Hats.Topology
+import Hats.Measurable
+import Hats.Readers
 import Hats.Examples
 import Hats.Optimal
 import Hats.Audit

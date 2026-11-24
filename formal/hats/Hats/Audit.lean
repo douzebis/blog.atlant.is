@@ -7,6 +7,8 @@ import Hats.Rates
 import Hats.Crush
 import Hats.Optimal
 import Hats.Topology
+import Hats.Measurable
+import Hats.Readers
 
 /-!
 # What the proofs rest on
@@ -77,3 +79,11 @@ open Hats
 #print axioms continuous_lift
 #print axioms carterOdd_zero
 #print axioms carterOdd_ones
+#print axioms measurable_limitOf
+#print axioms measurableSet_hitSet
+#print axioms measurableSet_hitSet_lowBlackInf
+#print axioms measurableSet_hitSet_carterInf
+#print axioms measurableSet_hitSet_reyesInf
+#print axioms lowBlackReader_outputs
+#print axioms carterReader_outputs
+#print axioms reyesReader_outputs

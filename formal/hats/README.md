@@ -39,6 +39,8 @@ copy of `formal/jane-s-rosary-real`.
 | `Hats/Limit.lean` | close strategies have close win rates; the win rate of a limit |
 | `Hats/LimitStrategies.lean` | the limit of a sequence of strategies (`limitOf`); the lowest black hat (`rateInf_lowBlackInf`), Carter (`rateInf_carterInf`), Reyes (`rateInf_reyesInf`) |
 | `Hats/Topology.lean` | cardinalities, limits of finite stacks, continuity of finite strategies |
+| `Hats/Measurable.lean` | the hit sets of measurable strategies, and of the three limits, are measurable |
+| `Hats/Readers.lean` | machines that read the hats one at a time and compute the three limit strategies |
 | `Hats/Optimal.lean` | no strategy does better than 1 hit on one hat, 5 on two |
 | `Hats/Examples.lean` | examples computed by Lean |
 | `Hats/Audit.lean` | what each theorem rests on |

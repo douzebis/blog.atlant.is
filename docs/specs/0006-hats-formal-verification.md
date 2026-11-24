@@ -97,6 +97,9 @@ Chosen to be read against the article, and close to the calculator:
 | 12 | Optimality on one and two hats (`hits_one_le`, `hits_two_le`) | done 2026-11-24; three hats and more are searches by computer, not redone (Non-goals) |
 | 13 | Remarks of post 3: cardinalities, an infinite stack as the limit of its finite parts, continuity of finite strategies, the Carter strategies on the all-white and all-black stacks | done 2026-11-24 |
 
+| 14 | The hit sets of the three limit strategies are measurable (`measurableSet_hitSet`, `measurable_limitOf`) | done 2026-11-24 |
+| 15 | The limit strategies computed by machines that read the hats one at a time (`Hats/Readers.lean`): on every stack where the strategy is defined, the reader stops with what the strategy chooses | done 2026-11-24 |
+
 Each step is committed when the check passes.
 
 ### What step 1 showed
@@ -152,11 +155,16 @@ Each step is committed when the check passes.
 
 ### Limits of what is proved
 
-- The win rate on infinite stacks is the measure of the hit set as
-  Mathlib defines it for any set (an outer measure). That the hit sets of
-  the three limit strategies are measurable is not proved; the values do
-  not depend on it.
-- "Computable", and the automata of post 3, are not formalized.
+- "Computable" is proved in this sense: each limit strategy is computed
+  by a reader, a machine with a state that reads the hats from the bottom
+  up and stops with an output (`Reader`). The three readers have finitely
+  many kinds of states and one counter, like the automata drawn in post 3;
+  the Carter reader has the states and the transitions of the picture.
+  That the transition functions are computable in the sense of recursion
+  theory (Mathlib's `Computable`) is not stated; they are case
+  distinctions and additions on integers.
+- The readers show that post 3 is right to call them automata with a
+  counter, and wrong to call them finite (spec 0005, D36).
 - Optimality beyond two hats is not proved.
 
 ## Invariants
@@ -166,8 +174,6 @@ through `formal/check-hats.sh`.
 
 ## Open questions
 
-- Measurability of the hit sets of the limit strategies (see "Limits of
-  what is proved").
 - Whether to also state the results with a stack type (`Fin n → Bool`)
   for readers who prefer it to numbers, as an outer layer.
 
