@@ -2,7 +2,7 @@
 --
 -- SPDX-License-Identifier: MIT
 
-import Hats.Shift
+import Hats.Families
 import Hats.Examples
 
 /-!
@@ -22,3 +22,10 @@ open Hats
 #print axioms hits_congr_black
 #print axioms hits_ls
 #print axioms hits_rs
+#print axioms hits_ds
+#print axioms hits_const
+#print axioms hits_lowBlack
+#print axioms hits_lowWhite
+#print axioms hits_carter
+#print axioms hits_reyes
+#print axioms hits_emb

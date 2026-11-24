@@ -6,7 +6,7 @@ SPDX-License-Identifier: MIT
 
 # The game of hats, checked by Lean
 
-The statements of the hats article about finite towers, proved in Lean 4
+The statements of the hats article about finite stacks, proved in Lean 4
 (spec `docs/specs/0006-hats-formal-verification.md`, which lists what is
 done and what is not).
 
@@ -29,6 +29,8 @@ copy of `formal/jane-s-rosary-real`.
 | `Hats/Reset.lean` | the left reset (`lr`) and its hits (`hits_lr`) |
 | `Hats/Reset2.lean` | the right reset (`rr`, `hits_rr`) and the double reset (`dr`, `hits_dr`) |
 | `Hats/Shift.lean` | the left shift (`ls`, `hits_ls`) and the right shift (`rs`, `hits_rs`); strategies that differ at one stack (`hits_congr_white`, `hits_congr_black`) |
+| `Hats/DoubleShift.lean` | the double shift (`ds`, `hits_ds`); changing one choice of a strategy (`hits_update`) |
+| `Hats/Families.lean` | constant strategies, lowest black, lowest white, Carter (`hits_carter`), Reyes (`hits_reyes`), a strategy on a taller stack (`hits_emb`) |
 | `Hats/Examples.lean` | examples computed by Lean |
 | `Hats/Audit.lean` | what each theorem rests on |
 
@@ -44,3 +46,11 @@ that no division is involved: "the win rate of the left reset is that of
 theorem hits_lr {m : ℕ} (n : ℕ) {a : ℕ → ℤ} (b : ℕ → ℤ) (ha : Proper m a) :
     hits (m + n) (lr m a b) = 4 ^ n * hits m a + hits n b
 ```
+
+The closed form of the Carter strategies:
+
+```lean
+theorem hits_carter {n : ℕ} (hn : 1 ≤ n) : hits n (carter n) = 7 * 4 ^ n / 20
+```
+
+(`/` is the division of natural numbers: the integer part.)

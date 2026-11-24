@@ -242,4 +242,20 @@ theorem hits_dr {m n : ℕ} {a b : ℕ → ℤ} (ha : Proper m a) (hb : Proper n
   rw [← hE] at *
   nlinarith [hI]
 
+theorem rr_proper {m n : ℕ} {a b : ℕ → ℤ} (ha : Proper m a) (hb : Proper n b) :
+    Proper (m + n) (rr m a b) := by
+  intro t ht
+  have h1 := ha _ (Nat.mod_lt t (Nat.two_pow_pos m))
+  have h2 := hb (t / 2 ^ m) (by rw [Nat.div_lt_iff_lt_mul (Nat.two_pow_pos m), ← pow_add, add_comm]; exact ht)
+  unfold rr
+  split_ifs <;> constructor <;> push_cast <;> omega
+
+theorem dr_proper {m n : ℕ} {a b : ℕ → ℤ} (ha : Proper m a) (hb : Proper n b) :
+    Proper (m + n) (dr m a b) := by
+  intro t ht
+  have h1 := ha _ (Nat.mod_lt t (Nat.two_pow_pos m))
+  have h2 := hb (t / 2 ^ m) (by rw [Nat.div_lt_iff_lt_mul (Nat.two_pow_pos m), ← pow_add, add_comm]; exact ht)
+  unfold dr
+  split_ifs <;> constructor <;> push_cast <;> omega
+
 end Hats

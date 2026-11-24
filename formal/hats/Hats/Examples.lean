@@ -2,7 +2,7 @@
 --
 -- SPDX-License-Identifier: MIT
 
-import Hats.Shift
+import Hats.Families
 
 /-!
 # Examples computed by Lean
@@ -45,5 +45,18 @@ example : ∀ t < 8, lr 1 (ofList [0, 0]) (ofList [0, 1, 0, 1]) t
 twice by `[00]` differ (at stack 3, among others). -/
 example : dr 3 (dr 2 (ofList [1, 0, 1, 0]) one) one 3
     ≠ dr 2 (ofList [1, 0, 1, 0]) (dr 1 one one) 3 := by decide
+
+/-- The families, as the tuples of the article: following the lowest black
+hat on two hats is `[1010]`; the Carter strategies on two, three and four
+hats are `[0100]`, `[01002120]` and `[01002123-01002120]`. -/
+example : ∀ t < 4, lowBlack 2 t = ofList [1, 0, 1, 0] t := by decide
+example : ∀ t < 4, carter 2 t = ofList [0, 1, 0, 0] t := by decide
+example : ∀ t < 8, carter 3 t = ofList [0, 1, 0, 0, 2, 1, 2, 0] t := by decide
+example : ∀ t < 16, carter 4 t
+    = ofList [0, 1, 0, 0, 2, 1, 2, 3, 0, 1, 0, 0, 2, 1, 2, 0] t := by decide
+
+/-- The double shift of the article's example (spec 0005, D13). -/
+example : ∀ t < 16, ds 2 (ofList [0, 0, 0, 0]) t
+    = ofList [0, 0, 0, 2, 0, 0, 0, 0, 3, 0, 0, 2, 3, 0, 0, 0] t := by decide
 
 end Hats

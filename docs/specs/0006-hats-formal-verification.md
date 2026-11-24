@@ -16,7 +16,7 @@ The hats articles state six formulas for the win rate of a strategy built
 from others (three resets, three shifts), and derive from them the win
 rates of five families of strategies. Spec 0005 lists what a first reading
 and a recomputation found: three formulas stated without the condition
-they need (D1), a wrong tower in a proof (D7), several wrong values. The
+they need (D1), a wrong stack in a proof (D7), several wrong values. The
 proofs sum the entries of matrices with dotted rows; a slip there does not
 show.
 
@@ -28,7 +28,7 @@ Lean proofs are written together.
 
 ## Goals
 
-- The statements of the article about finite towers are stated and proved
+- The statements of the article about finite stacks are stated and proved
   in Lean 4, in `formal/hats/`, and one command checks them all.
 - For each, a reader of the article can find the Lean statement and see
   that both say the same thing, without reading a proof.
@@ -86,11 +86,11 @@ Chosen to be read against the article, and close to the calculator:
 | 1 | Definitions; `hits_congr`; left reset: `hits (m + n) (lr m a b) = 4 ^ n * hits m a + hits n b` for `a` proper | done 2026-11-24 |
 | 2 | Right reset (both proper) and double reset (`hits + 4 ^ n = 4 ^ n * hits a + 4 * hits b`) | done 2026-11-24 |
 | 3 | Two strategies that differ only at the all-white stack have the same hits; two proper strategies that differ only at the all-black stack too | done 2026-11-24 |
-| 4 | Left and right shift (`4 * hits s + 1`), double shift (`16 * hits s + 6`) | left and right done 2026-11-24; double shift not yet |
-| 5 | The families: top, lowest white, lowest black (`3 * hits + 1 = 4 ^ n`), Carter, Reyes, with their closed forms; the Carter strategy on `n` hats has `floor(7 * 4 ^ n / 20)` hits (spec 0005, M1) | |
-| 6 | Embedding: a proper strategy keeps its win rate on a taller tower | |
-| 7 | Counterexamples for the conditions (spec 0005, D1), and the examples of the article computed by Lean | started (left reset, left shift, two examples of D12, non-associativity of the double reset) |
-| 8 | Infinite towers (post 3): the win rates 1/3 and 7/20 of the limit strategies. To be specified once the article says how it defines them | |
+| 4 | Left and right shift (`4 * hits s + 1`), double shift (`16 * hits s + 6`) | done 2026-11-24 |
+| 5 | The families: a constant strategy (`4 ^ (n - 1)`), lowest black and lowest white (`3 * hits + 1 = 4 ^ n`), Carter (`hits n (carter n) = 7 * 4 ^ n / 20`, spec 0005, M1), Reyes (`20 * hits + 2 * 4 ^ j = 7 * 64 ^ j` on `3 j` hats) | done 2026-11-24 |
+| 6 | Embedding: a proper strategy keeps its win rate on a taller stack | done 2026-11-24 |
+| 7 | Counterexamples for the conditions (spec 0005, D1), and the examples of the article computed by Lean | done for D1 (left reset, left shift), D12, D13, the non-associativity of the double reset, the tuples of the first Carter strategies; the embedding counterexample is missing |
+| 8 | Infinite stacks (post 3): the win rates 1/3 and 7/20 of the limit strategies. To be specified once the article says how it defines them | |
 | 9 | The article's table of what is verified; a guide in `formal/hats/README.md` | README started |
 
 Each step is committed when the check passes.
@@ -116,6 +116,20 @@ Each step is committed when the check passes.
   formula gives 1 (the third case of D1), and that the two ways of
   double-resetting `[1010]` twice by `[00]` differ.
 
+### What the double shift and the families showed
+
+- The double shift is proved by changing one choice of "the left shift of
+  the right shift" and counting what the pairs of that one stack gain: one
+  hit. The stacks that matter are the three that the proof of 2020 should
+  have named (spec 0005, D7).
+- The closed form of the Carter strategies is a theorem:
+  `hits n (carter n) = 7 * 4 ^ n / 20`, with the division of natural
+  numbers, for every `n` from 1 on.
+- The top strategy needs no reset: any strategy that always points at the
+  same hat has `4 ^ (n - 1)` hits.
+- "Lowest black" needs no condition; "lowest white" is built from one hat
+  up, because the right reset needs proper strategies.
+
 ## Invariants
 
 `docs/invariants/0004-formal-proofs-are-complete.md` covers this project
@@ -123,10 +137,10 @@ through `formal/check-hats.sh`.
 
 ## Open questions
 
-- Step 8: how far to go with infinite towers (measure on the Cantor
+- Step 8: how far to go with infinite stacks (measure on the Cantor
   space, limits of strategies). Mathlib has the product measure; the cost
   is not estimated.
-- Whether to also state the results with a tower type (`Fin n → Bool`)
+- Whether to also state the results with a stack type (`Fin n → Bool`)
   for readers who prefer it to numbers, as an outer layer.
 
 ## References
