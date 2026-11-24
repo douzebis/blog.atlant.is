@@ -541,10 +541,90 @@ const C8 = rs(C7);
 const C9 = ds(C7);
 
 const R0 = T0;
+// R(n+1) is C3 double-reset by R(n), as in the article.  Until 2026 this
+// read dr(R2, C3) for R3, which is another strategy (double reset is not
+// associative) with a lower win rate.
 const R1 = dr(R0, C3);
-const R2 = dr(R1, C3);
-const R3 = dr(R2, C3);
+const R2 = dr(C3, R1);
+const R3 = dr(C3, R2);
 
+
+// == Drawing =================================================================
+
+// -- Tree of the choices of a sequence of strategies, as a LaTeX picture -----
+
+// The 2020 version of this function was lost; this one was written in 2026
+// from the pictures it had made.
+//
+// strats is a list of strategies.  The tree has one node per tower: the
+// node of a tower of d hats, d edges below the root, shows the position
+// that strats[d] chooses for it (a strategy for fewer hats only looks at
+// the lowest ones).  The edge to a node tells the color of its top hat, 0
+// or 1.
+//
+// A node is gray, and has nothing below it, when all the later strategies
+// of the list make the same choice whatever hats are added on top: the
+// limit of the sequence is reached there.  A list that ends with a
+// strategy which never chooses a hat, such as emb(T0, 9), gives the whole
+// tree with no gray node.
+//
+// The last three strategies of the list are only looked at for this, not
+// drawn, unless rows tells how many rows to draw.  Dashed lines under the
+// last row stand for the rest of the tree.
+
+function tikz(strats, rows) {
+  strats = strats.map(parse);
+  const n = strats.length;
+  if (rows === undefined) rows = n - 3;
+  if (rows < 1 || rows > n) throw Err.tikzRows;
+  const choice = (d, t) => strats[d][t % strats[d].length];
+  const settled = (d, t) => {
+    for (let e = d + 1; e < n; ++e) {
+      for (let u = t; u < 2 ** e; u += 2 ** d) {
+        if (choice(e, u) != choice(d, t)) return false;
+      }
+    }
+    return d < n - 1;
+  };
+  const name = (d, t) => 'l' + d + '_' + t;
+  let edges = '';
+  const node = (d, t) => {
+    const indent = ' '.repeat(d);
+    const gray = settled(d, t);
+    let text = (d ? indent + 'child {node' : '\\node')
+      + ' [' + (gray ? 'settled' : 'open') + '](' + name(d, t) + ')'
+      + ' {$' + choice(d, t) + '$}\n';
+    if (!gray && d < rows - 1) {
+      for (let bit = 0; bit < 2; ++bit) {
+        const u = t + bit * 2 ** d;
+        text += node(d + 1, u);
+        edges += '\\path (' + name(d, t) + ') edge[draw] node['
+          + (bit ? 'one' : 'zero') + ']{$' + bit + '$} (' + name(d + 1, u)
+          + ');\n';
+      }
+    } else if (!gray) {
+      edges += '\\draw[dashed] (' + name(d, t) + '.south) +(-0.3mm,0)'
+        + ' -- +(-1mm,-11mm) (' + name(d, t) + '.south) +(0.3mm,0)'
+        + ' -- +(1mm,-11mm);\n';
+    }
+    return text + (d ? indent + '}\n' : '');
+  };
+  const tree = node(0, 0);
+  return { tikz: ''
+    + '\\documentclass[preview]{standalone}\n'
+    + '\\usepackage{tikz}\n'
+    + '\\begin{document}\n'
+    + '\\begin{tikzpicture}[\n'
+    + ' level/.style={sibling distance=240mm/2^(1*(#1))},\n'
+    + ' edge from parent/.style={},\n'
+    + ' open/.style={draw,circle,fill=white,inner sep=0,minimum size=6.2mm},\n'
+    + ' settled/.style={open,very thick,fill=gray!20},\n'
+    + ' zero/.style={pos=0.45,above left,inner sep=1.5pt},\n'
+    + ' one/.style={pos=0.45,above right,inner sep=1.5pt}]\n'
+    + tree + ';\n' + edges
+    + '\\end{tikzpicture}\n'
+    + '\\end{document}' };
+}
 
 // == Command Line Parsing ====================================================
 
@@ -587,6 +667,8 @@ function helpEval() {
   disp('   rs(<expr>)               Right shift of <expr>');
   disp('   ds(<expr>)               Double shift of <expr>');
   disp('   crush(<expr>)            Crush transform of <expr>');
+  disp('   tikz([<expr>, ...])      Tree of the choices of the strategies,');
+  disp('                            as a LaTeX picture');
   disp('');
   disp('Examples');
   disp('   eval \'"0100"\'');
@@ -637,6 +719,7 @@ const Err = { // Throwable errors
   notInTower: 'Crushed argument must point within the tower',
   towerTooShort: 'Cannot embed in shorter tower',
   badEnv: 'Did not expect this execution environment',
+  tikzRows: 'The number of rows must be between 1 and the number of strategies',
 }
 
 // -- Command parameters ------------------------------------------------------
@@ -754,6 +837,7 @@ function parseCommandLine(args) {
       seed = eval(expression);
       if (typeof seed == 'number') seed = parse(expression);
       else if (typeof seed == 'string') seed = parse(seed);
+      if (seed && seed.tikz) { disp(seed.tikz); break; }
       if (!Array.isArray(seed)) { helpEval(); throw Err.eval; }
       show(seed);
       disp("Done in " + Math.trunc(performance.now() - start) + " ms.");
