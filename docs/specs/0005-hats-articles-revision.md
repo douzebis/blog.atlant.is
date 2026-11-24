@@ -570,6 +570,28 @@ the rosary paper.
 None is created by this spec. K2 extends invariant 0003 (frozen versions)
 to the three posts once it is carried out.
 
+### 8. Exchanging the colors
+
+Decided on 2026-11-24: black is the color to point at, and the digit 1.
+
+- Drawings of stacks: the filled mark is the digit 1.
+- Named strategies: the strategy that follows the lowest 1 is the
+  "lowest black" (the "first black hat" of Bouquet et al.), so the letters
+  **W** and **B** of 2020 exchange, in the article and in the calculator
+  (`W0`...`W9`, `B0`...`B9`).
+- Resets: the reset triggered by a block of 0s, the "left reset" of 2020,
+  is the **white reset**; the one triggered by a block of 1s is the
+  **black reset**. These are then the "reset on white" and "reset on
+  black" of Buhler et al., with no exchange to explain. The table of
+  Section 3 was written with the colors of 2020 and must be read with the
+  two marks exchanged.
+- The same for the shifts.
+- The trees and automata of post 3 label their edges 0 and 1: unchanged.
+- The Lean project counts binary digits: only its comments speak of
+  colors.
+- The article says once that the posts of 2020, following the paper of
+  2017, pointed at white hats.
+
 ## Open questions
 
 - The proposed notation (Section 3): accepted as a whole, in part, or
@@ -583,9 +605,12 @@ to the three posts once it is carried out.
   Carter strategies; M4 and M5 need a section on computations.
 
 Decided on 2026-11-24: "stack" replaces "tower" (the word of the
-literature; the pictures stay); white stays the color to point at and the
-digit 1, although the literature points at black hats (the win is then a
-product of binary digits), which the article says once; the results of
+literature; the pictures stay); the colors follow the literature since 2021
+(decided later the same day, replacing "white stays"): players point at a
+black hat and black is the digit 1, as in Buhler et al. ("black (a.k.a.
+1) or white (a.k.a. 0)"). The numbers do not change: stacks, tuples,
+scores and the calculator's arithmetic only know the digits. What changes
+is every name and drawing that carries a color (list below); the results of
 `levine-hats` enter; one article and
 one blog entry; the playful tone stays; Lean verification is wanted, as
 early as possible; order of work: the defects first (Sections 1 and 2,
