@@ -60,8 +60,16 @@ the best win rate of two players with infinite stacks.
    scheme on blocks of at most four hats beats 7/20, and none reaches it
    except the double reset of the Carter strategy on three hats.
 
-   Open: `m` = 5 (where Bouquet et al. have a scheme at 7/20 with `Z` =
-   {all white, all black}) and beyond; schemes with several continuations
+   For `m` = 5 the schemes are too many to try one by one. The question
+   "does a scheme with `Z` of a given size beat 7/20?" is an integer
+   program (`research/hats/reset_schemes_lp.py`, checked against the
+   enumerations for `m` = 3 and 4). First run of 2026-11-24, the solver
+   SCIP, 4 minutes per size: no scheme beats 7/20 for the sizes 0 and 26
+   to 31; the sizes 1 to 25 are undecided (no scheme found, none ruled
+   out).
+
+   Open: `m` = 5, sizes 1 to 25 (Bouquet et al. have a scheme at 7/20 with
+   `Z` = {all white, all black}) and beyond; schemes with several continuations
    (a different strategy after each kind of skipped block); a proof in
    Lean of the formula and of the enumerations.
 5. **Are all optimal strategies composed?** The search finds 2, 4 and 102
