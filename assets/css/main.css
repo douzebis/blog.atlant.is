@@ -148,6 +148,8 @@ iframe {
    that the white does not glare. */
 @media (prefers-color-scheme: dark) {
   img.diagram {
+    /* A drawing with a transparent background is drawn for a white page. */
+    background: #fff;
     filter: brightness(0.86);
   }
 }

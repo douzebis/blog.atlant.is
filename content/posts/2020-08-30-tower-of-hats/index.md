@@ -16,11 +16,12 @@ categories:
 
 ![A towering pillar of hats](images/hats-towering-pillar.png)
 
-> A towering pillar of hats (number $4$)
+> A towering pillar of hats (number $4$) (picture: *Team Fortress 2*, © Valve Corporation)
 
 This is the first in a series of three _exercices de style_ to show some interesting aspects of the _game of hats_: a puzzle which was initially proposed by Lionel Levine, and arose from his work with Tobias Friedrich on (Friedrich & Levine, 2012)
 
-- [Second exercice](https://blog.douzeb.is/?p=1893)
+- [Second exercice](../2020-09-05-hats-calculator/)
+- [Third exercice](../2020-09-26-infinitely-many-hats-3-3/)
 
 I borrow the introduction from (Kariv et al., 2017):
 
@@ -65,7 +66,7 @@ $$
 \end{array}
 $$
 
-Alternately, as an element of $\{0, 1\}^{[n]}$, $t$ is a map: $[n] \rightarrow \{0, 1\}$. Given a _position_ $p$ in $[n]$, $t(p)$ tells us the color of the hat at position $p$ in the tower ($0$ for black or $1$ for white). $t(p)$ is also the value of the $p$th bit in the binary representation of $t$.
+Alternately, as an element of $\{0, 1\}^{[n]}$, $t$ is a map: $[n] \rightarrow \{0, 1\}$. Given a _position_ $p$ in $[n]$, $t(p)$ tells us the color of the hat at position $p$ in the tower ($0$ for black or $1$ for white). $t(p)$ is also the value of the $p$<sup>th</sup> bit in the binary representation of $t$.
 
 To avoid confusing $t(p)$ (map application) with $t \cdot (p)$ (multiplication of numbers), we write $\overline{(t)}(p)$ (overlined) for the map application. Also, we extend the domain of $\overline{(t)}$ to the set of integers:
 
