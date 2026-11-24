@@ -48,6 +48,14 @@ How each item was established is stated with it:
 - The prose is corrected and reads as one text in three parts.
 - The results of `levine-hats` enter the articles (Section 7; decided by
   the author on 2026-11-24).
+- The three posts become one article and one blog entry (decided on
+  2026-11-24): posts 1 and 3 as its text, post 2 as the description of its
+  figure, the calculator. The three posts as imported are kept as earlier
+  versions (K2).
+- The statements of the article are proved in Lean, as for the rosary
+  paper (decided on 2026-11-24; the work has its own spec, 0006). The
+  proofs by cases of Section 6, point 1, are written for the article and
+  for Lean together.
 - The sources stay fit for an arXiv version built from the page, as for
   the rosary paper (`arxiv/jane-s-rosary/`). Building it is a later spec.
 - The texts as imported stay readable and comparable (item K2).
@@ -58,7 +66,6 @@ How each item was established is stated with it:
   possible).
 - New computations: the six-hat optimality run of `levine-hats` is not
   part of this spec.
-- A formal (Lean) verification.
 - Rewriting the calculator. Only the defects listed in Section 2 are
   concerned.
 - Replacing the three head pictures.
@@ -320,6 +327,51 @@ choices are unusual, and some clash. Proposals, each with its reason.
   settle these with N1 to N8, and give the Carter and the Reyes sequences
   different names.
 
+#### Proposed notation
+
+A proposal to be discussed, not a decision. It answers N1 to N14 together.
+The guiding choices: one written order for all operations, from the bottom
+of the tower up; the two colors named by the marks of the hats, never by
+"left" and "right"; no symbol where a word does.
+
+| Object | Now | Proposed | Remark |
+|---|---|---|---|
+| Towers of `n` hats | `\mathbb{T}_n`, also `[2^n]` and `\{0,1\}^{[n]}` | `\mathcal{T}_n`, the integers `0` to `2^n - 1` | one description; the set `[n]` is no longer needed |
+| Color of the hat at position `p` | `\overline{(t)}(p)`, with `\gg` and `\%` | `t_p`, the binary digit of weight `2^p`; `0` outside the tower | N1, N2 |
+| The `m` lowest hats, the rest | `t \% 2^m`, `t \gg m` | `t_{<m}`, `t_{\geq m}` | also replaces `s \mid k` of post 3 |
+| Strategies on `n` hats | `\mathbb{S}_n = \mathbb{Z}^{\mathbb{T}_n}` | `\mathcal{S}_n` | N3 |
+| A strategy that stays in its tower | `s \in [n]^{\mathbb{T}_n}` | a word: a *proper* strategy | the condition of D1, used in most statements |
+| A strategy written out | `[0010]`, `[0100\text{-}2123]` | `\mathtt{0010}`, groups of 8 from 16 digits on | N4, N9; what the calculator reads and prints |
+| The strategy on no hat | `[-1]`, `\mathbf{T}_0` | `\varnothing` | it chooses no hat; the calculator keeps `T0` |
+| Outcome on a pair of towers | `\eta_{t,u}(s)` | `t_{s(u)}\, u_{s(t)}`, written out | no name needed |
+| Hits | `\eta(s)`, a number, then a set | `H(s)`, always the set of winning pairs; `\lvert H(s) \rvert` its size | N8 |
+| Win rate | `\mu(s)` | `P(s)`, a probability: `\lvert H(s) \rvert / 4^n`, and the measure of `H(s)` for infinite towers | N8 |
+| Same hits | `a \equiv b` | "`a` and `b` have the same hits" | used three times |
+| Embedding | `e_m(s)` | none: a strategy on `n` hats plays a taller tower by its `n` lowest hats | as post 3 already does |
+| Left reset | `b \rightarrow a`, `LR(a,b)` | `a \rhd_{\bullet} b`, the *black reset*: `a`, and `b` above it when the hats of `a` are all black | N5, N6 |
+| Right reset | `a \leftarrow b`, `RR(a,b)` | `a \rhd_{\circ} b`, the *white reset* | |
+| Double reset | `DR(a,b)` | `a \rhd_{\bullet\circ} b` | not associative: parentheses stay |
+| Left, right, double shift | `\uparrow\!s`, `s\!\uparrow`, `s\!\Uparrow` | `\sigma_{\bullet}(s)`, `\sigma_{\circ}(s)`, `\sigma_{\bullet\circ}(s)`: the black, white and double shift | N7; no manual spacing |
+| Named strategies | `\mathbf{T}_n`, `\mathbf{W}_n`, `\mathbf{B}_n`, `\mathbf{C}_n`, `\mathbf{R}_n` | unchanged | the clash with the sets is gone |
+| Infinite towers | `\mathbb{T}_{\mathbb{N}}`, `\mathbb{T}_{<\mathbb{N}}` | `\mathcal{T}_{\infty}`; "finite towers" in words | N14 |
+| Limit strategies | `\mathbf{W}_\omega`, `\mathbf{C}_\omega`, `\mathbf{R}_\omega` | `\mathbf{W}_\infty`, `\mathbf{C}_\infty`, `\mathbf{R}_\infty` | no ordinal is involved |
+| By definition | `\stackrel{\text{def}}{=}` | `:=` | N12 |
+| Fractions | `{1 \over 4}` | `\frac14`, `\tfrac14` in text and tables | N10 |
+| Hats in formulas | ●, ○ | `\bullet`, `\circ` as indices; the marks of the rosary paper in drawings of towers | N11 |
+
+With it the lowest-white strategy reads
+`\mathbf{W}_n = \mathtt{00} \rhd_{\bullet} \cdots \rhd_{\bullet} \mathtt{00}`
+(`n` times, from the bottom up), and the Reyes strategy
+`\mathbf{R}_{n+1} = \mathbf{C}_3 \rhd_{\bullet\circ} \mathbf{R}_n`.
+
+Two remarks that the new names make visible, to be said in the article:
+
+- the black shift of `s` has the same hits as `s \rhd_{\bullet} \mathtt{00}`,
+  and the white shift differs from `s \rhd_{\circ} \mathtt{00}` at the
+  all-white tower only (this is how post 1 proves their win rates);
+- the calculator keeps its names (`lr`, `rr`, `dr`, `ls`, `rs`, `ds`) or
+  takes new ones; either way the article gives the correspondence.
+
 ### 4. Prose
 
 - **P1. Spelling and grammar.** Examples, not a full list: "exercice"
@@ -358,8 +410,9 @@ choices are unusual, and some clash. Proposals, each with its reason.
 - **P10. Post 2 reads as a manual.** It gives the commands but not what one
   learns with them; its performance figures are those of a 2015 laptop.
 - **P11. Voice.** "I borrow...", "I came across...", "I plan to..." in the
-  first person, definitions in the "we" of mathematics. To be made
-  deliberate.
+  first person, definitions in the "we" of mathematics. Decided on
+  2026-11-24: the playful tone stays (this is recreational mathematics),
+  toned down where it gets in the way of a statement or a proof.
 
 ### 5. Keeping the work checkable
 
@@ -468,19 +521,20 @@ to the three posts once it is carried out.
 
 ## Open questions
 
-- One article or three (sixth point of the assessment)? With the new
-  material and a possible arXiv version, one paper built from posts 1
-  and 3, with the calculator as its figure, seems the natural form.
-- Where does the new material go: M1 and M2 are short and belong with the
-  Carter strategies; M4 and M5 need a section on computations.
+- The proposed notation (Section 3): accepted as a whole, in part, or
+  replaced by another proposal?
 - D17: which R_1? C_3 (the text, the calculator, the pictures of post 3)
   is the natural choice; the table then changes.
-- N3 to N8: these change every formula of post 1. Do them all at once, or
-  keep the current notation and only explain it?
-- Should the first person and the playful tone stay, as in the rosary
-  paper?
-- Order of work: the defects first (Sections 1 and 2, with K1 and K2), the
-  notation next, the prose last?
+- The address and the date of the single article, and what the three old
+  addresses become (earlier versions, with a notice that points to the
+  article).
+- Where the new material goes: M1 and M2 are short and belong with the
+  Carter strategies; M4 and M5 need a section on computations.
+
+Decided on 2026-11-24: the results of `levine-hats` enter; one article and
+one blog entry; the playful tone stays; Lean verification is wanted, as
+early as possible; order of work: the defects first (Sections 1 and 2,
+with K1 and K2), then the notation, the prose and the new material.
 
 ## References
 
