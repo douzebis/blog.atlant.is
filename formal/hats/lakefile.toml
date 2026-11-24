@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: 2026 Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)
+#
+# SPDX-License-Identifier: MIT
+
+name = "hats"
+defaultTargets = ["Hats"]
+# Mathlib is the copy that the rosary project already fetched and built
+# (same revision): it is several gigabytes, and one copy is enough.
+packagesDir = "../jane-s-rosary-real/.lake/packages"
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "d13f23b723b8a846827a245b89c10fc7d3f11612"
+
+[[lean_lib]]
+name = "Hats"
