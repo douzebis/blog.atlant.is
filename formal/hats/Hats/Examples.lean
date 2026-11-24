@@ -32,6 +32,10 @@ example : hits 2 (lr 1 (ofList [1, 1]) (ofList [0, 0])) = 4 := by decide
 `4 * 0 + 1` of the formula. -/
 example : hits 2 (ls 1 (ofList [1, 1])) = 4 := by decide
 
+/-- And for a strategy played on a taller stack: `(1, 1)` has no hit on
+one hat and 4 on two. -/
+example : hits 2 (emb 1 (ofList [1, 1])) = 4 := by decide
+
 /-- Two examples that the article of 2020 printed with a wrong digit
 (spec 0005, D12): `[0010]` double-reset by itself is
 `[2012-2012-3013-2012]`, and `[00]` left-reset by `[0101]` (written
