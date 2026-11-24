@@ -46,15 +46,18 @@ How each item was established is stated with it:
   spec 0001 (plain LaTeX with `amsmath`, no Unicode symbol in a formula
   where a command exists).
 - The prose is corrected and reads as one text in three parts.
+- The results of `levine-hats` enter the articles (Section 7; decided by
+  the author on 2026-11-24).
+- The sources stay fit for an arXiv version built from the page, as for
+  the rosary paper (`arxiv/jane-s-rosary/`). Building it is a later spec.
 - The texts as imported stay readable and comparable (item K2).
 
 ## Non-goals
 
-- New mathematics: the results of `levine-hats` (five hats, the six-hat
-  bound), the closed form `floor(7 * 4^n / 20)`, the link with the 7/20
-  conjecture. Whether they enter these articles or a fourth one is an open
-  question below, not part of this spec.
-- An arXiv version.
+- Building the arXiv version (a later spec; this one only keeps it
+  possible).
+- New computations: the six-hat optimality run of `levine-hats` is not
+  part of this spec.
 - A formal (Lean) verification.
 - Rewriting the calculator. Only the defects listed in Section 2 are
   concerned.
@@ -65,7 +68,7 @@ How each item was established is stated with it:
 Items carry an identifier so that they can be discussed one by one.
 Sections 1 and 2 are defects (something is wrong). Sections 3 to 5 are
 proposals (something could be better). Section 6 is an assessment of what
-else deserves work.
+else deserves work. Section 7 lists the new material.
 
 ### 1. Defects of the texts
 
@@ -421,6 +424,43 @@ In decreasing order of what it would bring.
    paper of the size of the rosary paper, and a natural candidate for
    arXiv.
 
+### 7. New material, from `levine-hats`
+
+The author decided on 2026-11-24 that these results belong in the
+articles. The list follows `levine-hats/NOTES.md` (Sections 0, 2 and 3);
+each item must be checked again when it is written up, and stated with the
+kind of evidence it has.
+
+- **M1. A closed form.** The Carter strategy on `n` hats scores exactly
+  `floor(7 * 4^n / 20)` (recomputed here for `n` from 1 to 7: 1, 5, 22,
+  89, 358, 1433, 5734).
+- **M2. A reformulation of the conjecture.** "The Carter strategies are
+  optimal for every `n`" is equivalent to "the value of the game with
+  infinitely many hats is 7/20".
+- **M3. Relation to recent work.** According to the notes, the double-reset
+  rule contains as special cases two inequalities of Bouquet et al.
+  (2025), the Carter strategies beat their finite lower bounds from 7 hats
+  on, and double-resetting an odd Carter strategy seems to answer one of
+  their questions. The notes say that their paper was only partly read:
+  this needs a full reading before anything is claimed.
+- **M4. Five hats.** 358 out of 1024 is optimal when both players use the
+  same strategy (three independent programs, one in exact arithmetic).
+  When they may use different strategies, one solver gives 358 as well;
+  the notes ask for a second confirmation and a check of the literature
+  before this is claimed.
+- **M5. Six hats.** An upper bound of 1448 out of 4096, against 1433 for
+  the best known strategy. It is the output of a floating-point solver,
+  not a certificate.
+- **M6. What is known and what is new** (fourth point of the assessment):
+  the 7/20 strategy, its fixed-point computation and the scores up to 8
+  hats were known in 2014; the operations with proved formulas and M1 to
+  M3 were not found in the sources.
+
+The programs behind M4 and M5 live in `levine-hats`, which has no remote
+and uncommitted changes. What the articles rely on must be brought into
+this repository (`research/hats/`) or published with it, as was done for
+the rosary paper.
+
 ## Invariants
 
 None is created by this spec. K2 extends invariant 0003 (frozen versions)
@@ -428,11 +468,11 @@ to the three posts once it is carried out.
 
 ## Open questions
 
-- Scope: do the results of `levine-hats` (Section 2 of its notes: closed
-  form, link with the 7/20 conjecture, relation to Bouquet et al.) enter
-  these articles, a fourth one, or a separate paper? Items D21, D22 and
-  the fourth point of the assessment depend on the answer.
-- One article or three (sixth point of the assessment)?
+- One article or three (sixth point of the assessment)? With the new
+  material and a possible arXiv version, one paper built from posts 1
+  and 3, with the calculator as its figure, seems the natural form.
+- Where does the new material go: M1 and M2 are short and belong with the
+  Carter strategies; M4 and M5 need a section on computations.
 - D17: which R_1? C_3 (the text, the calculator, the pictures of post 3)
   is the natural choice; the table then changes.
 - N3 to N8: these change every formula of post 1. Do them all at once, or
