@@ -364,6 +364,13 @@ With it the lowest-white strategy reads
 (`n` times, from the bottom up), and the Reyes strategy
 `\mathbf{R}_{n+1} = \mathbf{C}_3 \rhd_{\bullet\circ} \mathbf{R}_n`.
 
+Accepted by the author on 2026-11-24: the resets are named after the
+color that triggers them, with the hat marks on the operator
+(`\rhd_{\bullet}`, `\rhd_{\circ}`, `\rhd_{\bullet\circ}`). The article
+keeps one sentence on the tuple: the all-black tower is its left end and
+the all-white tower its right end, which is where "left" and "right" came
+from. The rest of the table is still to be decided.
+
 Two remarks that the new names make visible, to be said in the article:
 
 - the black shift of `s` has the same hits as `s \rhd_{\bullet} \mathtt{00}`,
