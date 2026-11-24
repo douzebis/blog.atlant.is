@@ -541,6 +541,25 @@ kind of evidence it has.
   hats were known in 2014; the operations with proved formulas and M1 to
   M3 were not found in the sources.
 
+- **M7. Buhler et al., final version** (arXiv 1407.4711 version 8,
+  *Integers* 21 (2021); searched on 2026-11-24, not read in full).
+  - It states `7/20 <= V_2 <= 0.3616...` and conjectures `V_2 = 7/20`.
+  - It credits the 7/20 strategy to two groups in 2014: Carter, Reyes,
+    Rosenberg and Tiefenbruck, and Kariv and Yeroshkin.
+  - It uses the word "reset", with the colors: "reset on black",
+    "reset-on-white", "white and black recursive resets", on "tiers" of
+    `t` hats. Its players point at black hats, so its reset on white is
+    our black reset. The names proposed in Section 3 agree with it, up to
+    that exchange of colors, which the article must state.
+  - A search of its text finds neither the blog nor its author, and no
+    formula for stacks of a given finite height. To be confirmed by a
+    full reading.
+- **M8. Correspondence.** The author wrote to D. Yeroshkin on 2021-06-14
+  about the three posts; the answer of 2021-06-17 says that the message
+  was forwarded to the co-authors and points to the new section on upper
+  bounds (Section 3 of versions 6 and 7). The message is kept outside the
+  repository.
+
 The programs behind M4 and M5 live in `levine-hats`, which has no remote
 and uncommitted changes. What the articles rely on must be brought into
 this repository (`research/hats/`) or published with it, as was done for
