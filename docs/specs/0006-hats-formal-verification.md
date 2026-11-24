@@ -99,6 +99,9 @@ Chosen to be read against the article, and close to the calculator:
 
 | 14 | The hit sets of the three limit strategies are measurable (`measurableSet_hitSet`, `measurable_limitOf`) | done 2026-11-24 |
 | 15 | The limit strategies computed by machines that read the hats one at a time (`Hats/Readers.lean`): on every stack where the strategy is defined, the reader stops with what the strategy chooses | done 2026-11-24 |
+| 16 | The search of post 2 as Lean functions, with its reductions (`best`, `bestFast`), proved to return the most hits of any strategy; run by the kernel for three hats (`hits_three_le`: at most 22) | done 2026-11-24 |
+| 17 | The fast search program (`HatsSearch/Program.lean`: machine words, parallel tasks, the executable `hats-search`), proved to return `best n` for `n` from 2 to 4 (`search_toNat`, `search_spec`) | done 2026-11-24 |
+| 18 | Four hats: at most 89 hits (`Hats/SearchNative.lean`), by having Lean run the fast program; rests on the extra axiom `Lean.ofReduceBool` and is outside the audit | done 2026-11-24 |
 
 Each step is committed when the check passes.
 
@@ -165,7 +168,9 @@ Each step is committed when the check passes.
   states and the transitions of the picture.
 - The readers show that post 3 is right to call them automata with a
   counter, and wrong to call them finite (spec 0005, D36).
-- Optimality beyond two hats is not proved.
+- Optimality is proved on one, two and three hats with the three standard
+  axioms, and on four hats with the compiler trusted (step 18). Five hats
+  are out of reach of an enumeration.
 
 ## Invariants
 

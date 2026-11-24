@@ -39,6 +39,12 @@ copy of `formal/jane-s-rosary-real`.
 | `Hats/Limit.lean` | close strategies have close win rates; the win rate of a limit |
 | `Hats/LimitStrategies.lean` | the limit of a sequence of strategies (`limitOf`); the lowest black hat (`rateInf_lowBlackInf`), Carter (`rateInf_carterInf`), Reyes (`rateInf_reyesInf`) |
 | `Hats/Topology.lean` | cardinalities, limits of finite stacks, continuity of finite strategies |
+| `Hats/Search.lean` | the search of the second article with its reductions (`best`), proved right: no strategy has more hits than `best n` |
+| `Hats/SearchFast.lean` | the search that counts as it goes (`bestFast`), proved equal to `best` |
+| `Hats/SearchRun.lean` | the search run by Lean's kernel: no strategy on three hats has more than 22 hits |
+| `HatsSearch/Program.lean` | the fast search program, on machine words and in parallel tasks; it needs no library and compiles to the executable `hats-search` |
+| `Hats/SearchProgram.lean` | the fast program is correct (`search_toNat`, `search_spec`) |
+| `Hats/SearchNative.lean` | the fast program run inside Lean on four hats: no strategy has more than 89 hits. Not built by default: see below |
 | `Hats/Measurable.lean` | the hit sets of measurable strategies, and of the three limits, are measurable |
 | `Hats/Readers.lean` | machines that read the hats one at a time and compute the three limit strategies |
 | `Hats/Optimal.lean` | no strategy does better than 1 hit on one hat, 5 on two |
@@ -73,6 +79,45 @@ theorem rateInf_lowBlackInf : rateInf lowBlackInf = 1 / 3
 theorem rateInf_carterInf : rateInf carterInf = 7 / 20
 theorem rateInf_reyesInf : rateInf reyesInf = 7 / 20
 ```
+
+## The search program
+
+```sh
+cd formal/hats
+lake build hats-search 2>&1 | tee /tmp/hats-search-build.log
+.lake/build/bin/hats-search 4        # one task
+.lake/build/bin/hats-search 4 4      # the choices of 4 stacks shared out to tasks
+```
+
+It is the search of the calculator (`figures/hats/hats.js`, command
+`search`): every crushed strategy on `n` hats, `n` from 2 to 4. The counts
+that the score needs are kept in four machine words, one per chosen
+position, each cut into fields of 8 bits; the search is cut into tasks
+that run on all the cores. Lean gives no access to SIMD instructions;
+packing several counters in one word is the same idea within a register.
+
+`Hats/SearchProgram.lean` proves that what it returns is the most hits of
+any strategy on `n` hats, whatever the number of tasks:
+
+```lean
+theorem search_spec {n : ℕ} (hn2 : 2 ≤ n) (hn4 : n ≤ 4) (depth : ℕ) :
+    (∀ s : ℕ → ℤ, hits n s ≤ (HatsSearch.search n depth).toNat)
+    ∧ ∃ s : ℕ → ℤ, hits n s = (HatsSearch.search n depth).toNat
+```
+
+Indicative timings for four hats (100,663,296 strategies) on the shared
+12-core host of 2026-11-24: about 0.5 s in one task and 0.1 s in 96
+tasks, against 0.6 to 1.0 s for the calculator's generated JavaScript
+under Node 24.
+
+What the proof covers and what it does not: the theorem is about the
+function `HatsSearch.search`. That the executable computes this function
+relies on the Lean compiler and on the C compiler, as for any compiled
+program. `Hats/SearchNative.lean` (`lake build Hats.SearchNative`, about
+three minutes) has Lean itself run the program on four hats and concludes
+that no strategy has more than 89 hits; that theorem rests on one more
+axiom than the others (`Lean.ofReduceBool`: the Lean compiler is right)
+and is kept out of the audit.
 
 ## Working with an assistant
 

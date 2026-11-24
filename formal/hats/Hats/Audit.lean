@@ -9,6 +9,8 @@ import Hats.Optimal
 import Hats.Topology
 import Hats.Measurable
 import Hats.Readers
+import Hats.SearchRun
+import Hats.SearchProgram
 
 /-!
 # What the proofs rest on
@@ -90,3 +92,11 @@ open Hats
 #print axioms lowBlackReader_computable
 #print axioms carterReader_computable
 #print axioms reyesReader_computable
+#print axioms hits_le_best
+#print axioms exists_hits_eq_best
+#print axioms bestFast_eq_best
+#print axioms best_three
+#print axioms hits_three_le
+#print axioms go_toNat
+#print axioms search_toNat
+#print axioms search_spec

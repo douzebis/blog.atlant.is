@@ -13,6 +13,10 @@ import Hats.Families
 import Hats.Describe
 import Hats.Rates
 import Hats.Crush
+import Hats.Search
+import Hats.SearchFast
+import Hats.SearchRun
+import Hats.SearchProgram
 import Hats.Infinite
 import Hats.Limit
 import Hats.LimitStrategies

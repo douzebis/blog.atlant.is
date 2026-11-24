@@ -15,3 +15,11 @@ rev = "d13f23b723b8a846827a245b89c10fc7d3f11612"
 
 [[lean_lib]]
 name = "Hats"
+
+# The search program has no library: it compiles to a small executable.
+[[lean_lib]]
+name = "HatsSearch"
+
+[[lean_exe]]
+name = "hats-search"
+root = "Main"
