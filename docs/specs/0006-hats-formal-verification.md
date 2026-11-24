@@ -64,17 +64,17 @@ Lean's three, an audit that prints what each theorem rests on); the
 
 Chosen to be read against the article, and close to the calculator:
 
-- a tower of `n` hats is a natural number below `2 ^ n`; the hat at
-  position `p` is white when the binary digit of weight `2 ^ p` is `1`
-  (`hat t p`, which is `0` for a position outside the tower, negative
-  ones included);
+- a stack of `n` hats is a natural number below `2 ^ n`; the hat at
+  position `p` is black when the binary digit of weight `2 ^ p` is `1`
+  (`hat t p`, which is `0` for a position outside the stack, negative
+  ones included). Black is the color to point at (spec 0005, Section 8);
 - a strategy is a function from natural numbers to integers. Lean
   functions are total: only its values below `2 ^ n` matter, which is a
   theorem (`hits_congr`), not a convention;
-- `hits n s` counts the pairs of towers on which both players point at a
-  white hat. The win rate is `hits n s / 4 ^ n`; statements are about
+- `hits n s` counts the pairs of stacks on which both players point at a
+  black hat. The win rate is `hits n s / 4 ^ n`; statements are about
   `hits`, in natural numbers, so that no division is involved;
-- `Proper n s`: the strategy points inside the tower;
+- `Proper n s`: the strategy points inside the stack;
 - operations are named as in the calculator (`lr`, `rr`, `dr`, `ls`, `rs`,
   `ds`) until the notation of the article is settled (spec 0005,
   Section 3); the Lean names need not follow the symbols.
@@ -84,12 +84,12 @@ Chosen to be read against the article, and close to the calculator:
 | Step | Content | Status |
 |---|---|---|
 | 1 | Definitions; `hits_congr`; left reset: `hits (m + n) (lr m a b) = 4 ^ n * hits m a + hits n b` for `a` proper | done 2026-11-24 |
-| 2 | Right reset (both proper) and double reset (`hits + 4 ^ n = 4 ^ n * hits a + 4 * hits b`) | |
-| 3 | Two strategies that differ only at the all-black tower have the same hits; two proper strategies that differ only at the all-white tower too | |
-| 4 | Left and right shift (`4 * hits s + 1`), double shift (`16 * hits s + 6`) | |
+| 2 | Right reset (both proper) and double reset (`hits + 4 ^ n = 4 ^ n * hits a + 4 * hits b`) | done 2026-11-24 |
+| 3 | Two strategies that differ only at the all-white stack have the same hits; two proper strategies that differ only at the all-black stack too | done 2026-11-24 |
+| 4 | Left and right shift (`4 * hits s + 1`), double shift (`16 * hits s + 6`) | left and right done 2026-11-24; double shift not yet |
 | 5 | The families: top, lowest white, lowest black (`3 * hits + 1 = 4 ^ n`), Carter, Reyes, with their closed forms; the Carter strategy on `n` hats has `floor(7 * 4 ^ n / 20)` hits (spec 0005, M1) | |
 | 6 | Embedding: a proper strategy keeps its win rate on a taller tower | |
-| 7 | Counterexamples for the conditions (spec 0005, D1), and the examples of the article computed by Lean | started (left reset) |
+| 7 | Counterexamples for the conditions (spec 0005, D1), and the examples of the article computed by Lean | started (left reset, left shift, two examples of D12, non-associativity of the double reset) |
 | 8 | Infinite towers (post 3): the win rates 1/3 and 7/20 of the limit strategies. To be specified once the article says how it defines them | |
 | 9 | The article's table of what is verified; a guide in `formal/hats/README.md` | README started |
 
@@ -98,10 +98,23 @@ Each step is committed when the check passes.
 ### What step 1 showed
 
 - The left-reset formula holds when `a` is proper, with no condition on
-  `b`: a `b` that points below its tower lands on a black hat of the part
+  `b`: a `b` that points below its stack lands on a white hat of the part
   below, and one that points above lands outside.
 - Lean confirms the counterexample of D1: `(1, 1)` on one hat, left-reset
   by `[00]`, has 4 hits out of 16 where the formula gives 1.
+
+### What steps 2 to 4 showed
+
+- The right reset and the double reset need both strategies proper, as
+  the article of 2020 says.
+- The left shift and the right shift are proved from the resets, as in
+  the article: the left shift has the hits of the left reset by the
+  one-hat strategy (they differ at the all-white stack only), the right
+  shift those of the right reset (they differ at the all-black stack
+  only).
+- Lean computes that the left shift of `(1, 1)` has 4 hits where the
+  formula gives 1 (the third case of D1), and that the two ways of
+  double-resetting `[1010]` twice by `[00]` differ.
 
 ## Invariants
 

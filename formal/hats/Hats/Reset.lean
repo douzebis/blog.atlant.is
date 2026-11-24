@@ -8,7 +8,8 @@ import Hats.Basic
 # The left reset and its win rate
 
 `lr m a b` plays `a` on the `m` lowest hats, except when they are all
-black: then it plays `b` on the hats above them.
+white: then it plays `b` on the hats above them.  (In the tuple of `a`,
+the all-white stack is the entry on the left.)
 -/
 
 namespace Hats
@@ -24,16 +25,16 @@ theorem lr_apply (m : ℕ) (a b : ℕ → ℤ) (t1 : ℕ) {t0 : ℕ} (h0 : t0 < 
   have hpos : 0 < 2 ^ m := Nat.two_pow_pos m
   simp [lr, Nat.mod_eq_of_lt h0, Nat.mul_add_div hpos, Nat.div_eq_of_lt h0]
 
-/-- What one pair of towers contributes to the hits of a left reset: what
+/-- What one pair of stacks contributes to the hits of a left reset: what
 the lowest hats contribute to the hits of `a`, plus, when the lowest hats
-of both towers are all black, what the hats above contribute to the hits
+of both stacks are all white, what the hats above contribute to the hits
 of `b`. -/
 theorem lr_term {m : ℕ} {a : ℕ → ℤ} (b : ℕ → ℤ) (ha : Proper m a)
     (t1 u1 : ℕ) {t0 u0 : ℕ} (ht : t0 < 2 ^ m) (hu : u0 < 2 ^ m) :
-    hat (2 ^ m * t1 + t0) (lr m a b (2 ^ m * u1 + u0))
-        * hat (2 ^ m * u1 + u0) (lr m a b (2 ^ m * t1 + t0))
+    pair (lr m a b) (2 ^ m * t1 + t0) (2 ^ m * u1 + u0)
       = hat t0 (a u0) * hat u0 (a t0)
         + if t0 = 0 ∧ u0 = 0 then hat t1 (b u1) * hat u1 (b t1) else 0 := by
+  unfold pair
   rw [lr_apply m a b u1 hu, lr_apply m a b t1 ht]
   by_cases h0 : t0 = 0 <;> by_cases h1 : u0 = 0
   · subst h0; subst h1
@@ -57,7 +58,7 @@ theorem hits_lr {m : ℕ} (n : ℕ) {a : ℕ → ℤ} (b : ℕ → ℤ) (ha : Pr
     hits (m + n) (lr m a b) = 4 ^ n * hits m a + hits n b := by
   have h4 : (4 : ℕ) ^ n = 2 ^ n * 2 ^ n := by rw [show (4 : ℕ) = 2 * 2 from rfl, mul_pow]
   have hpos : 0 < 2 ^ m := Nat.two_pow_pos m
-  unfold hits
+  unfold hits pair
   rw [pow_add, sum_range_mul]
   have step : ∀ t1 ∈ range (2 ^ n), ∀ t0 ∈ range (2 ^ m),
       ∑ u ∈ range (2 ^ m * 2 ^ n), hat (2 ^ m * t1 + t0) (lr m a b u)
