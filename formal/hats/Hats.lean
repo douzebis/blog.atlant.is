@@ -13,6 +13,10 @@ import Hats.Families
 import Hats.Describe
 import Hats.Rates
 import Hats.Crush
+import Hats.Infinite
+import Hats.Limit
+import Hats.LimitStrategies
+import Hats.Topology
 import Hats.Examples
 import Hats.Optimal
 import Hats.Audit

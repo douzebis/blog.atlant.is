@@ -89,9 +89,13 @@ Chosen to be read against the article, and close to the calculator:
 | 4 | Left and right shift (`4 * hits s + 1`), double shift (`16 * hits s + 6`) | done 2026-11-24 |
 | 5 | The families: a constant strategy (`4 ^ (n - 1)`), lowest black and lowest white (`3 * hits + 1 = 4 ^ n`), Carter (`hits n (carter n) = 7 * 4 ^ n / 20`, spec 0005, M1), Reyes (`20 * hits + 2 * 4 ^ j = 7 * 64 ^ j` on `3 j` hats) | done 2026-11-24 |
 | 6 | Embedding: a proper strategy keeps its win rate on a taller stack | done 2026-11-24 |
-| 7 | Counterexamples for the conditions (spec 0005, D1), and the examples of the article computed by Lean | done for D1 (left reset, left shift), D12, D13, the non-associativity of the double reset, the tuples of the first Carter strategies; the embedding counterexample is missing |
-| 8 | Infinite stacks (post 3): the win rates 1/3 and 7/20 of the limit strategies. To be specified once the article says how it defines them | |
-| 9 | The article's table of what is verified; a guide in `formal/hats/README.md` | README started |
+| 7 | Counterexamples for the conditions (spec 0005, D1), and the examples of the article computed by Lean | done 2026-11-24 (left reset, left shift, embedding; D12, D13; the tuples of the first Carter strategies) |
+| 8 | Infinite stacks (post 3): the measure on stacks and on pairs; a strategy on `n` hats has the same win rate on infinite stacks; a limit of finite strategies has the limit of their win rates; `1/3` for the lowest black hat, `7/20` for the Carter and the Reyes limits | done 2026-11-24 |
+| 9 | The article's table of what is verified; a guide in `formal/hats/README.md` | README done; the table waits for the article |
+| 10 | The rest of post 1: associativity of the left and right resets; equivalent strategies; what the families choose (top, lowest black, lowest white); win rates as real numbers with the six formulas and the limits | done 2026-11-24 |
+| 11 | Post 2: exchanging two positions keeps the hits; crushed strategies are enough (`exists_crushed`); the counts of the two searches | done 2026-11-24 |
+| 12 | Optimality on one and two hats (`hits_one_le`, `hits_two_le`) | done 2026-11-24; three hats and more are searches by computer, not redone (Non-goals) |
+| 13 | Remarks of post 3: cardinalities, an infinite stack as the limit of its finite parts, continuity of finite strategies, the Carter strategies on the all-white and all-black stacks | done 2026-11-24 |
 
 Each step is committed when the check passes.
 
@@ -130,6 +134,31 @@ Each step is committed when the check passes.
 - "Lowest black" needs no condition; "lowest white" is built from one hat
   up, because the right reset needs proper strategies.
 
+### What the infinite stacks showed
+
+- The three win rates of post 3 are theorems: `rateInf lowBlackInf = 1/3`,
+  `rateInf carterInf = 7/20`, `rateInf reyesInf = 7/20`.
+- One argument serves the three (`rateInf_limitOf`): a strategy on
+  infinite stacks that agrees with a finite strategy except on the stacks
+  whose lowest hats fall in a set `A` has a win rate within
+  `2 * card A / 2 ^ n` of it. This replaces the three "squeeze" sketches
+  of post 3 (spec 0005, D37).
+- The limit strategies are defined as limits: for each stack, what the
+  first finite strategy that has settled chooses (`limitOf`), with the
+  proof that all later ones choose the same (`limitOf_eq`).
+- The sequences of post 3 are confirmed as spec 0005, D33, reads them:
+  the Carter strategies on `2k + 1` hats, the Reyes strategies on `3j`
+  hats.
+
+### Limits of what is proved
+
+- The win rate on infinite stacks is the measure of the hit set as
+  Mathlib defines it for any set (an outer measure). That the hit sets of
+  the three limit strategies are measurable is not proved; the values do
+  not depend on it.
+- "Computable", and the automata of post 3, are not formalized.
+- Optimality beyond two hats is not proved.
+
 ## Invariants
 
 `docs/invariants/0004-formal-proofs-are-complete.md` covers this project
@@ -137,9 +166,8 @@ through `formal/check-hats.sh`.
 
 ## Open questions
 
-- Step 8: how far to go with infinite stacks (measure on the Cantor
-  space, limits of strategies). Mathlib has the product measure; the cost
-  is not estimated.
+- Measurability of the hit sets of the limit strategies (see "Limits of
+  what is proved").
 - Whether to also state the results with a stack type (`Fin n → Bool`)
   for readers who prefer it to numbers, as an outer layer.
 

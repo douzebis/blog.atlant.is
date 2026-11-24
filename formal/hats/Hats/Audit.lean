@@ -6,6 +6,7 @@ import Hats.Assoc
 import Hats.Rates
 import Hats.Crush
 import Hats.Optimal
+import Hats.Topology
 
 /-!
 # What the proofs rest on
@@ -61,3 +62,18 @@ open Hats
 #print axioms exists_crushed
 #print axioms hits_one_le
 #print axioms hits_two_le
+#print axioms rateInf_lift
+#print axioms abs_rateInf_sub_rate_le
+#print axioms limitOf_eq
+#print axioms rateInf_limitOf
+#print axioms lowBlackInf_spec
+#print axioms rateInf_lowBlackInf
+#print axioms rateInf_carterInf
+#print axioms reyesInf_spec
+#print axioms rateInf_reyesInf
+#print axioms mk_stack
+#print axioms continuum_lt_mk_strategies
+#print axioms tendsto_trunc
+#print axioms continuous_lift
+#print axioms carterOdd_zero
+#print axioms carterOdd_ones

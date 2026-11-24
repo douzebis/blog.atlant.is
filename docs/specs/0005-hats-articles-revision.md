@@ -201,6 +201,12 @@ else deserves work. Section 7 lists the new material.
   definitely needed" and "What's next" are out of date: five hats were
   settled in 2014, and again in `levine-hats`.
 
+- **D40** (computed, and counted in Lean). Tip 2 says that crushed
+  strategies cut the search on five hats "by an additional factor of 6".
+  The count goes from `5^30` to `2 * 3 * 4 * 5^27`: a factor `125/24`,
+  about 5.2. (The count of the table, 178,813,934,326,171,875,000, is
+  right.)
+
 #### Post 3
 
 - **D32** (read). "W_omega has win rate 7/20" stands under the Carter and

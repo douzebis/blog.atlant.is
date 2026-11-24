@@ -31,6 +31,15 @@ copy of `formal/jane-s-rosary-real`.
 | `Hats/Shift.lean` | the left shift (`ls`, `hits_ls`) and the right shift (`rs`, `hits_rs`); strategies that differ at one stack (`hits_congr_white`, `hits_congr_black`) |
 | `Hats/DoubleShift.lean` | the double shift (`ds`, `hits_ds`); changing one choice of a strategy (`hits_update`) |
 | `Hats/Families.lean` | constant strategies, lowest black, lowest white, Carter (`hits_carter`), Reyes (`hits_reyes`), a strategy on a taller stack (`hits_emb`) |
+| `Hats/Assoc.lean` | the left and the right reset are associative |
+| `Hats/Describe.lean` | equivalent strategies; what the top, lowest-black and lowest-white strategies choose |
+| `Hats/Rates.lean` | win rates as real numbers: the six formulas as the article states them, the families, their limits |
+| `Hats/Crush.lean` | exchanging two positions; crushed strategies (`exists_crushed`) |
+| `Hats/Infinite.lean` | infinite stacks, their measure, the hit set and the win rate of a strategy (`rateInf`); a strategy on `n` hats keeps its win rate (`rateInf_lift`) |
+| `Hats/Limit.lean` | close strategies have close win rates; the win rate of a limit |
+| `Hats/LimitStrategies.lean` | the limit of a sequence of strategies (`limitOf`); the lowest black hat (`rateInf_lowBlackInf`), Carter (`rateInf_carterInf`), Reyes (`rateInf_reyesInf`) |
+| `Hats/Topology.lean` | cardinalities, limits of finite stacks, continuity of finite strategies |
+| `Hats/Optimal.lean` | no strategy does better than 1 hit on one hat, 5 on two |
 | `Hats/Examples.lean` | examples computed by Lean |
 | `Hats/Audit.lean` | what each theorem rests on |
 
@@ -54,6 +63,14 @@ theorem hits_carter {n : ℕ} (hn : 1 ≤ n) : hits n (carter n) = 7 * 4 ^ n / 2
 ```
 
 (`/` is the division of natural numbers: the integer part.)
+
+The three results on infinite stacks:
+
+```lean
+theorem rateInf_lowBlackInf : rateInf lowBlackInf = 1 / 3
+theorem rateInf_carterInf : rateInf carterInf = 7 / 20
+theorem rateInf_reyesInf : rateInf reyesInf = 7 / 20
+```
 
 ## Working with an assistant
 
