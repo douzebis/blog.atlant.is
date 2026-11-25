@@ -60,18 +60,33 @@ the best win rate of two players with infinite stacks.
    scheme on blocks of at most four hats beats 7/20, and none reaches it
    except the double reset of the Carter strategy on three hats.
 
-   For `m` = 5 the schemes are too many to try one by one. The question
-   "does a scheme with `Z` of a given size beat 7/20?" is an integer
-   program (`research/hats/reset_schemes_lp.py`, checked against the
-   enumerations for `m` = 3 and 4). Runs of 2026-11-24 with the solver
-   SCIP 10: no scheme beats 7/20 for the sizes 0 to 4 and 26 to 31
-   (size 0 in 99 s, which is the optimality of 358 hits on five hats;
-   sizes 1 to 4 in 15, 37, 53 and 83 minutes; sizes 26 to 31 in at most
-   3 minutes). The sizes 5 to 25 are undecided after 4 minutes each: no
-   scheme found, none ruled out. These are answers of a solver, not
-   proofs.
+   A bound that needs no computer (2026-11-25). Among the pairs `(t, u)`
+   with `u` outside `Z`, count those where `t` is black where `a` points
+   for `u`: there are `2^(m-1)` of them for each `u`, and `A + c` counts a
+   part of them. So `A + c <= 2^(m-1) (2^m - |Z|)`, and
 
-   Open: `m` = 5, sizes 5 to 25 (Bouquet et al. have a scheme at 7/20 with
+       x <= 2^(m-1) / (2^m + |Z|).
+
+   A scheme with `|Z| >= (6/7) 2^(m-1)` cannot beat 7/20: on blocks of
+   five hats, no scheme with 14 skipped stacks or more. What `A + c`
+   misses are the pairs of stacks outside `Z` where one player points at
+   a black hat and the other does not; a scheme beats 7/20 only if these
+   are few, which gives a direct search for the larger `Z`.
+
+   For `m` = 5 the schemes are too many to try one by one. Results so
+   far, with the size of `Z`:
+
+   | Size of `Z` | No scheme beats 7/20, by |
+   |---|---|
+   | 0 to 5 | one run of the solver SCIP 10 per size on an integer program (`research/hats/reset_schemes_lp.py`); 99 s for size 0, which is the optimality of 358 hits on five hats, up to 2 h 45 for size 5 |
+   | 6 | one run of SCIP per set `Z`, one `Z` in each class under the permutations of the positions: 10,195 runs (`research/hats/reset_schemes_split.py`) |
+   | 7 to 13 | open |
+   | 14 to 31 | the bound above (the solver agrees for 22 to 31) |
+
+   Both programs are checked against the enumerations for `m` = 3 and 4.
+   The answers of a solver are not proofs.
+
+   Open: `m` = 5, sizes 7 to 13 (Bouquet et al. have a scheme at 7/20 with
    `Z` = {all white, all black}) and beyond; schemes with several continuations
    (a different strategy after each kind of skipped block); a proof in
    Lean of the formula and of the enumerations.
