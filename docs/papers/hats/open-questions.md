@@ -73,21 +73,23 @@ the best win rate of two players with infinite stacks.
    a black hat and the other does not; a scheme beats 7/20 only if these
    are few, which gives a direct search for the larger `Z`.
 
-   For `m` = 5 the schemes are too many to try one by one. Results so
-   far, with the size of `Z`:
+   For `m` = 5 the schemes are too many to try one by one. **No scheme on
+   blocks of five hats beats 7/20** (2026-11-25), by the size of `Z`:
 
    | Size of `Z` | No scheme beats 7/20, by |
    |---|---|
    | 0 to 5 | one run of the solver SCIP 10 per size on an integer program (`research/hats/reset_schemes_lp.py`); 99 s for size 0, which is the optimality of 358 hits on five hats, up to 2 h 45 for size 5 |
-   | 6 | one run of SCIP per set `Z`, one `Z` in each class under the permutations of the positions: 10,195 runs (`research/hats/reset_schemes_split.py`) |
-   | 7 to 13 | open |
-   | 14 to 31 | the bound above (the solver agrees for 22 to 31) |
+   | 6, 7 | one run of SCIP per set `Z`, one `Z` in each class under the permutations of the positions: 10,195 and 34,230 runs (`research/hats/reset_schemes_split.py`); and the direct search |
+   | 8 to 13 | a direct search that counts the pairs where one player points at a black hat and the other does not (`research/hats/reset-search/`): 57 thousand nodes for size 13, 4.6e9 for size 8, 7.4e10 for size 6 |
+   | 14 to 31 | the bound above (SCIP agrees for 22 to 31) |
 
-   Both programs are checked against the enumerations for `m` = 3 and 4.
-   The answers of a solver are not proofs.
+   The three programs are checked against the enumerations for `m` = 3
+   and 4, and the sizes 6 and 7 are settled by two of them. These are
+   answers of programs, not proofs.
 
-   Open: `m` = 5, sizes 7 to 13 (Bouquet et al. have a scheme at 7/20 with
-   `Z` = {all white, all black}) and beyond; schemes with several continuations
+   Open: which schemes on five hats reach 7/20 (Bouquet et al. have one
+   with `Z` = {all white, all black}); `m` = 6 and beyond, where the bound
+   leaves the sizes below 28; schemes with several continuations
    (a different strategy after each kind of skipped block); a proof in
    Lean of the formula and of the enumerations.
 5. **Are all optimal strategies composed?** The search finds 2, 4 and 102
