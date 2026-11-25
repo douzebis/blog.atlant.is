@@ -63,12 +63,15 @@ the best win rate of two players with infinite stacks.
    For `m` = 5 the schemes are too many to try one by one. The question
    "does a scheme with `Z` of a given size beat 7/20?" is an integer
    program (`research/hats/reset_schemes_lp.py`, checked against the
-   enumerations for `m` = 3 and 4). First run of 2026-11-24, the solver
-   SCIP, 4 minutes per size: no scheme beats 7/20 for the sizes 0 and 26
-   to 31; the sizes 1 to 25 are undecided (no scheme found, none ruled
-   out).
+   enumerations for `m` = 3 and 4). Runs of 2026-11-24 with the solver
+   SCIP 10: no scheme beats 7/20 for the sizes 0 to 4 and 26 to 31
+   (size 0 in 99 s, which is the optimality of 358 hits on five hats;
+   sizes 1 to 4 in 15, 37, 53 and 83 minutes; sizes 26 to 31 in at most
+   3 minutes). The sizes 5 to 25 are undecided after 4 minutes each: no
+   scheme found, none ruled out. These are answers of a solver, not
+   proofs.
 
-   Open: `m` = 5, sizes 1 to 25 (Bouquet et al. have a scheme at 7/20 with
+   Open: `m` = 5, sizes 5 to 25 (Bouquet et al. have a scheme at 7/20 with
    `Z` = {all white, all black}) and beyond; schemes with several continuations
    (a different strategy after each kind of skipped block); a proof in
    Lean of the formula and of the enumerations.
