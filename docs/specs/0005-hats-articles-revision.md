@@ -354,10 +354,11 @@ of the tower up; the two colors named by the marks of the hats, never by
 | Win rate | `\mu(s)` | `P(s)`, a probability: `\lvert H(s) \rvert / 4^n`, and the measure of `H(s)` for infinite towers | N8 |
 | Same hits | `a \equiv b` | "`a` and `b` have the same hits" | used three times |
 | Embedding | `e_m(s)` | none: a strategy on `n` hats plays a taller tower by its `n` lowest hats | as post 3 already does |
-| Left reset | `b \rightarrow a`, `LR(a,b)` | `a \rhd_{\bullet} b`, the *black reset*: `a`, and `b` above it when the hats of `a` are all black | N5, N6 |
-| Right reset | `a \leftarrow b`, `RR(a,b)` | `a \rhd_{\circ} b`, the *white reset* | |
-| Double reset | `DR(a,b)` | `a \rhd_{\bullet\circ} b` | not associative: parentheses stay |
-| Left, right, double shift | `\uparrow\!s`, `s\!\uparrow`, `s\!\Uparrow` | `\sigma_{\bullet}(s)`, `\sigma_{\circ}(s)`, `\sigma_{\bullet\circ}(s)`: the black, white and double shift | N7; no manual spacing |
+| Left reset (triggered by an all-white block) | `b \rightarrow a`, `LR(a,b)` | `a \mathbin{\circ\rhd} b`, the *white reset*: `a`, and `b` above it when the hats of `a` are all white | N5, N6; decided 2026-11-26 |
+| Right reset (all-black block) | `a \leftarrow b`, `RR(a,b)` | `a \mathbin{\bullet\rhd} b`, the *black reset* | |
+| Double reset | `DR(a,b)` | `a \rhd b`, no mark: either color triggers it | not associative; chains are read from the bottom up |
+| Left, right shift (one more hat) | `\uparrow\!s`, `s\!\uparrow` | `s\,{\circ\uparrow}`, `s\,{\bullet\uparrow}`: the white and the black shift | N7; the mark replaces the side of the arrow |
+| Double shift (two more hats) | `s\!\Uparrow` | `s \Uparrow`, unchanged | two hats, hence the doubled arrow and no mark |
 | Named strategies | `\mathbf{T}_n`, `\mathbf{W}_n`, `\mathbf{B}_n`, `\mathbf{C}_n`, `\mathbf{R}_n` | unchanged | the clash with the sets is gone |
 | Infinite towers | `\mathbb{T}_{\mathbb{N}}`, `\mathbb{T}_{<\mathbb{N}}` | `\mathcal{T}_{\infty}`; "finite towers" in words | N14 |
 | Limit strategies | `\mathbf{W}_\omega`, `\mathbf{C}_\omega`, `\mathbf{R}_\omega` | `\mathbf{W}_\infty`, `\mathbf{C}_\infty`, `\mathbf{R}_\infty` | no ordinal is involved |
@@ -365,23 +366,39 @@ of the tower up; the two colors named by the marks of the hats, never by
 | Fractions | `{1 \over 4}` | `\frac14`, `\tfrac14` in text and tables | N10 |
 | Hats in formulas | ●, ○ | `\bullet`, `\circ` as indices; the marks of the rosary paper in drawings of towers | N11 |
 
-With it the lowest-white strategy reads
-`\mathbf{W}_n = \mathtt{00} \rhd_{\bullet} \cdots \rhd_{\bullet} \mathtt{00}`
-(`n` times, from the bottom up), and the Reyes strategy
-`\mathbf{R}_{n+1} = \mathbf{C}_3 \rhd_{\bullet\circ} \mathbf{R}_n`.
+Decided on 2026-11-26, for the resets and the shifts (the rows above are
+written with the colors of Section 8: black is 1):
 
-Accepted by the author on 2026-11-24: the resets are named after the
-color that triggers them, with the hat marks on the operator
-(`\rhd_{\bullet}`, `\rhd_{\circ}`, `\rhd_{\bullet\circ}`). The article
-keeps one sentence on the tuple: the all-black tower is its left end and
-the all-white tower its right end, which is where "left" and "right" came
-from. Proposed since, not yet decided: the mark before the
-triangle (`a \mathbin{\bullet\rhd} b`: "a; on black; b"); a half-filled
-mark for "all black or all white" instead of the two marks side by side;
-chains read from the bottom up, `a \rhd b \rhd c = a \rhd (b \rhd c)`,
-which costs nothing for the black and the white reset (associative) and
-gives the Reyes strategies without parentheses. The rest of the table is
-still to be decided.
+- **Resets.** The mark of the color that triggers the reset stands before
+  a triangle: `a \mathbin{\circ\rhd} b` is the white reset ("`a`; on
+  white; `b`"), `a \mathbin{\bullet\rhd} b` the black reset. The double
+  reset is the bare triangle, `a \rhd b`: no condition on the color. The
+  article says once that a bare triangle is the double reset, not "some
+  reset".
+- **Shifts.** The same mark before a single arrow, after the strategy:
+  `s\,{\circ\uparrow}` and `s\,{\bullet\uparrow}`. The double shift
+  keeps the doubled arrow of 2020, `s \Uparrow`, with no mark: it adds two
+  hats where the others add one, and it is not "a shift on either color",
+  so a bare single arrow would mislead. The article never writes a bare
+  single arrow.
+- **Chains** are read from the bottom up, as powers are:
+  `a \rhd b \rhd c = a \rhd (b \rhd c)`. This costs nothing for the
+  white and the black reset (associative) and writes the Reyes strategies
+  without parentheses, `\mathbf{R}_{n+1} = \mathbf{C}_3 \rhd \mathbf{R}_n`.
+  Shifts bind tighter than resets: `a \rhd b \Uparrow` is
+  `a \rhd (b \Uparrow)`.
+- The marks are the equal-sized hat marks of the rosary paper, not
+  `\bullet` and `\circ`, and each operator is a macro.
+
+Considered and left aside: the mark as a subscript or a superscript of
+the triangle (reads as two symbols side by side); the mark after the
+triangle; two marks side by side or a half-filled mark for the double
+reset; a plain arrow or a turnstile instead of the triangle; a bare
+single arrow for the double shift.
+
+The article keeps one sentence on the tuple: the all-white stack is its
+left end and the all-black stack its right end, which is where "left" and
+"right" came from. The rest of the table is still to be decided.
 
 Two remarks that the new names make visible, to be said in the article:
 
@@ -600,8 +617,8 @@ Decided on 2026-11-24: black is the color to point at, and the digit 1.
 
 ## Open questions
 
-- The proposed notation (Section 3): accepted as a whole, in part, or
-  replaced by another proposal?
+- The proposed notation (Section 3): the resets, the shifts and the
+  reading of chains are decided (2026-11-26); the rest of the table is not.
 - D17: which R_1? C_3 (the text, the calculator, the pictures of post 3)
   is the natural choice; the table then changes.
 - The address and the date of the single article, and what the three old
