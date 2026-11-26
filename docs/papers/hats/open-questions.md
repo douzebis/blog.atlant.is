@@ -79,12 +79,12 @@ the best win rate of two players with infinite stacks.
    | Size of `Z` | No scheme beats 7/20, by |
    |---|---|
    | 0 to 5 | one run of the solver SCIP 10 per size on an integer program (`research/hats/reset_schemes_lp.py`); 99 s for size 0, which is the optimality of 358 hits on five hats, up to 2 h 45 for size 5 |
-   | 6, 7 | one run of SCIP per set `Z`, one `Z` in each class under the permutations of the positions: 10,195 and 34,230 runs (`research/hats/reset_schemes_split.py`); and the direct search |
-   | 8 to 13 | a direct search that counts the pairs where one player points at a black hat and the other does not (`research/hats/reset-search/`): 57 thousand nodes for size 13, 4.6e9 for size 8, 7.4e10 for size 6 |
+   | 6, 7 | one run of SCIP per set `Z`, one `Z` in each class under the permutations of the positions: 10,195 and 34,230 runs (`research/hats/reset_schemes_split.py`) |
+   | 4 to 13 | a direct search that counts the pairs where one player points at a black hat and the other does not (`research/hats/reset-search/`): 57 thousand nodes for size 13, 4.6e9 for size 8, 3.3e11 for size 4 |
    | 14 to 31 | the bound above (SCIP agrees for 22 to 31) |
 
    The three programs are checked against the enumerations for `m` = 3
-   and 4, and the sizes 6 and 7 are settled by two of them. These are
+   and 4, and the sizes 4 to 7 are settled by two of them. These are
    answers of programs, not proofs.
 
    Open: which schemes on five hats reach 7/20 (Bouquet et al. have one
