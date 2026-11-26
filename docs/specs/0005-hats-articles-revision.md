@@ -402,9 +402,12 @@ left end and the all-black stack its right end, which is where "left" and
 
 Two remarks that the new names make visible, to be said in the article:
 
-- the black shift of `s` has the same hits as `s \rhd_{\bullet} \mathtt{00}`,
-  and the white shift differs from `s \rhd_{\circ} \mathtt{00}` at the
-  all-white tower only (this is how post 1 proves their win rates);
+- the white shift of `s` has the same hits as
+  `s \mathbin{\circ\rhd} \mathtt{00}` (they differ at the all-white stack
+  only), and the black shift the same hits as
+  `s \mathbin{\bullet\rhd} \mathtt{00}` (they differ at the all-black
+  stack only); this is how post 1 proves their win rates, and Lean too
+  (spec 0006);
 - the calculator keeps its names (`lr`, `rr`, `dr`, `ls`, `rs`, `ds`) or
   takes new ones; either way the article gives the correspondence.
 
