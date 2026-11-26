@@ -354,11 +354,11 @@ of the tower up; the two colors named by the marks of the hats, never by
 | Win rate | `\mu(s)` | `P(s)`, a probability: `\lvert H(s) \rvert / 4^n`, and the measure of `H(s)` for infinite towers | N8 |
 | Same hits | `a \equiv b` | "`a` and `b` have the same hits" | used three times |
 | Embedding | `e_m(s)` | none: a strategy on `n` hats plays a taller tower by its `n` lowest hats | as post 3 already does |
-| Left reset (triggered by an all-white block) | `b \rightarrow a`, `LR(a,b)` | `a \mathbin{\circ\rhd} b`, the *white reset*: `a`, and `b` above it when the hats of `a` are all white | N5, N6; decided 2026-11-26 |
-| Right reset (all-black block) | `a \leftarrow b`, `RR(a,b)` | `a \mathbin{\bullet\rhd} b`, the *black reset* | |
-| Double reset | `DR(a,b)` | `a \rhd b`, no mark: either color triggers it | not associative; chains are read from the bottom up |
-| Left, right shift (one more hat) | `\uparrow\!s`, `s\!\uparrow` | `s\,{\circ\uparrow}`, `s\,{\bullet\uparrow}`: the white and the black shift | N7; the mark replaces the side of the arrow |
-| Double shift (two more hats) | `s\!\Uparrow` | `s \Uparrow`, unchanged | two hats, hence the doubled arrow and no mark |
+| Left reset (triggered by an all-white block) | `b \rightarrow a`, `LR(a,b)` | `a \mathbin{\rhd\circ} b`, the *white reset*: `a`, and `b` above it when the hats of `a` are all white | N5, N6; decided 2026-11-26 |
+| Right reset (all-black block) | `a \leftarrow b`, `RR(a,b)` | `a \mathbin{\rhd\bullet} b`, the *black reset* | |
+| Double reset | `DR(a,b)` | `a \rhd b`, no mark: either color triggers it | not associative; chains are read from the bottom up; the `\star` of Bouquet et al. |
+| Left, right shift (one more hat) | `\uparrow\!s`, `s\!\uparrow` | `s\,{\uparrow\circ}`, `s\,{\uparrow\bullet}`: the white and the black shift | N7; the mark replaces the side of the arrow |
+| Double shift (two more hats) | `s\!\Uparrow` | `s \Uparrow`, short for `s\,{\Uparrow\bullet\circ}`; its sibling is `s\,{\Uparrow\circ\bullet}` | see below |
 | Named strategies | `\mathbf{T}_n`, `\mathbf{W}_n`, `\mathbf{B}_n`, `\mathbf{C}_n`, `\mathbf{R}_n` | unchanged | the clash with the sets is gone |
 | Infinite towers | `\mathbb{T}_{\mathbb{N}}`, `\mathbb{T}_{<\mathbb{N}}` | `\mathcal{T}_{\infty}`; "finite towers" in words | N14 |
 | Limit strategies | `\mathbf{W}_\omega`, `\mathbf{C}_\omega`, `\mathbf{R}_\omega` | `\mathbf{W}_\infty`, `\mathbf{C}_\infty`, `\mathbf{R}_\infty` | no ordinal is involved |
@@ -369,18 +369,29 @@ of the tower up; the two colors named by the marks of the hats, never by
 Decided on 2026-11-26, for the resets and the shifts (the rows above are
 written with the colors of Section 8: black is 1):
 
-- **Resets.** The mark of the color that triggers the reset stands before
-  a triangle: `a \mathbin{\circ\rhd} b` is the white reset ("`a`; on
-  white; `b`"), `a \mathbin{\bullet\rhd} b` the black reset. The double
-  reset is the bare triangle, `a \rhd b`: no condition on the color. The
-  article says once that a bare triangle is the double reset, not "some
-  reset".
-- **Shifts.** The same mark before a single arrow, after the strategy:
-  `s\,{\circ\uparrow}` and `s\,{\bullet\uparrow}`. The double shift
-  keeps the doubled arrow of 2020, `s \Uparrow`, with no mark: it adds two
-  hats where the others add one, and it is not "a shift on either color",
-  so a bare single arrow would mislead. The article never writes a bare
-  single arrow.
+- **The mark is a modifier, written after the operator**, tight against
+  it: the bare operator is the base, as in `x^2` or `f'`.
+- **Resets.** `a \mathbin{\rhd\circ} b` is the white reset,
+  `a \mathbin{\rhd\bullet} b` the black reset. The double reset is the
+  bare triangle, `a \rhd b`: no condition on the color. The article says
+  once that a bare triangle is the double reset, not "some reset", and
+  that it is the `\mathscr{S} \star \mathscr{T}` of Bouquet et al.
+- **Single shifts.** `s\,{\uparrow\circ}` and `s\,{\uparrow\bullet}`,
+  after the strategy. They compose from the bottom up:
+  `s\,{\uparrow\bullet}\,{\uparrow\circ}` is the white shift of the
+  black shift. The article never writes a bare single arrow.
+- **Double shifts.** There are two (found on 2026-11-26, checked on 203
+  strategies; to be proved in Lean). The two orders of composing the
+  single shifts give different strategies with the same hits,
+  `16 h + 5`; each becomes a double shift, with `16 h + 6` hits, by
+  changing one choice. `s\,{\Uparrow\bullet\circ}` is built on
+  black-then-white: it is the double shift of 2020 (`ds` in the
+  calculator and in Lean). `s\,{\Uparrow\circ\bullet}` is built on
+  white-then-black: it is the first with the colors exchanged, and the
+  posts of 2020 do not mention it. The doubled arrow says "two hats, with
+  the correction"; the marks give the order, from the bottom up. The bare
+  `s \Uparrow` is `s\,{\Uparrow\bullet\circ}`, so that the Carter
+  strategies read as in 2020.
 - **Chains** are read from the bottom up, as powers are:
   `a \rhd b \rhd c = a \rhd (b \rhd c)`. This costs nothing for the
   white and the black reset (associative) and writes the Reyes strategies
@@ -390,11 +401,13 @@ written with the colors of Section 8: black is 1):
 - The marks are the equal-sized hat marks of the rosary paper, not
   `\bullet` and `\circ`, and each operator is a macro.
 
-Considered and left aside: the mark as a subscript or a superscript of
-the triangle (reads as two symbols side by side); the mark after the
-triangle; two marks side by side or a half-filled mark for the double
-reset; a plain arrow or a turnstile instead of the triangle; a bare
-single arrow for the double shift.
+Considered and left aside: the mark before the operator (reads as a
+sentence, "a; on white; b", but `s \circ\uparrow` can be misread); the
+mark as a subscript or a superscript; two marks side by side or a
+half-filled mark for the double reset; a plain arrow or a turnstile
+instead of the triangle; a bare single arrow, or a single arrow with two
+marks, for the double shift (one space away from two single shifts,
+which is another strategy).
 
 The article keeps one sentence on the tuple: the all-white stack is its
 left end and the all-black stack its right end, which is where "left" and
@@ -403,9 +416,9 @@ left end and the all-black stack its right end, which is where "left" and
 Two remarks that the new names make visible, to be said in the article:
 
 - the white shift of `s` has the same hits as
-  `s \mathbin{\circ\rhd} \mathtt{00}` (they differ at the all-white stack
+  `s \mathbin{\rhd\circ} \mathtt{00}` (they differ at the all-white stack
   only), and the black shift the same hits as
-  `s \mathbin{\bullet\rhd} \mathtt{00}` (they differ at the all-black
+  `s \mathbin{\rhd\bullet} \mathtt{00}` (they differ at the all-black
   stack only); this is how post 1 proves their win rates, and Lean too
   (spec 0006);
 - the calculator keeps its names (`lr`, `rr`, `dr`, `ls`, `rs`, `ds`) or
