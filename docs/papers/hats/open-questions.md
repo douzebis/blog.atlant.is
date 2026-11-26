@@ -67,6 +67,8 @@ the best win rate of two players with infinite stacks.
 
        x <= 2^(m-1) / (2^m + |Z|).
 
+   This bound is proved in Lean (`schemeScore_le` and
+   `schemeScore_le_seven_twentieths` in `formal/hats/Hats/Schemes.lean`).
    A scheme with `|Z| >= (6/7) 2^(m-1)` cannot beat 7/20: on blocks of
    five hats, no scheme with 14 skipped stacks or more. What `A + c`
    misses are the pairs of stacks outside `Z` where one player points at

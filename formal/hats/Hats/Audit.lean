@@ -6,6 +6,7 @@ import Hats.Assoc
 import Hats.Rates
 import Hats.Crush
 import Hats.Optimal
+import Hats.Schemes
 import Hats.Topology
 import Hats.Measurable
 import Hats.Readers
@@ -100,3 +101,6 @@ open Hats
 #print axioms go_toNat
 #print axioms search_toNat
 #print axioms search_spec
+#print axioms schemeScore_empty
+#print axioms schemeScore_le
+#print axioms schemeScore_le_seven_twentieths

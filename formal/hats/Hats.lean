@@ -25,4 +25,5 @@ import Hats.Measurable
 import Hats.Readers
 import Hats.Examples
 import Hats.Optimal
+import Hats.Schemes
 import Hats.Audit
