@@ -35,7 +35,9 @@ the best win rate of two players with infinite stacks.
 4. **Which recursive schemes reach 7/20, and can one exceed it?** A scheme
    is a block strategy `a` on `m` hats and a set `Z` of stacks of `m` hats:
    outside `Z` play `a` on the lowest block, in `Z` skip it and start again
-   above. The double reset is `Z` = {all white, all black}. The win rate is
+   above. The double reset is `Z` = {all white, all black}. Bouquet et al.
+   call these *recursive strategies*, given by the *stopping set*, the
+   complement of `Z`. The win rate is
 
        x = (A + c) / (4^m - |Z|^2)
 
