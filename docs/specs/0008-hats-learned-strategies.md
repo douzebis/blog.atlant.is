@@ -6,7 +6,7 @@ SPDX-License-Identifier: MIT
 
 # 0008 — Hats: searching for strategies by machine, three players first
 
-**Status:** draft
+**Status:** in-progress
 **App:** blog.atlant.is (research on the game of hats)
 **Implemented in:** <!-- YYYY-MM-DD, fill after implementation -->
 
@@ -159,13 +159,11 @@ reference scorer `score.py` before they are written down.
 
 ## What is needed to start
 
-1. **A decision on where the candidates of goal 4 come from.** Either
-   (a) this assistant writes them, in batches, inside working sessions
-   (no key, no extra cost, slow: tens of candidates per session), or
-   (b) a script calls a model through an API key that the author
-   provides (thousands of candidates, unattended; a few tens of dollars
-   for 2,000 candidates at about 3,000 tokens each, to be measured on
-   the first hundred).
+1. **Where the candidates of goal 4 come from** (decided by the author
+   on 2026-11-27): the assistant writes them, in working sessions, first
+   by itself, then with helper agents for the bulk of the variations.
+   The model that wrote each candidate is logged with it, so that what
+   each model brings can be compared on the first hundred candidates.
 2. **Computing time.** Goals 1 to 3 fit on this machine (8 cores for a
    few hours, at low priority). Long annealing runs on 6 and 7 hats
    would go to the other machine.
