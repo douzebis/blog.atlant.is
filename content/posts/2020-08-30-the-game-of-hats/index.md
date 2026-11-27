@@ -504,6 +504,15 @@ So there are two double shifts, and they are equivalent: each is the other with 
 
 Compare with the single shifts. Exchanging the colors turns the white shift into the black shift, and these two are not equivalent: $\str{0010}$ and $\str{0100}$ are not the same strategy with the positions renamed. The double shift is sent by the exchange of the colors to an equivalent strategy. It does not prefer a color.
 
+#### Another way to add two hats
+
+The double shift is not the only operation that adds two hats and gains $6$ hits. Here is another, which we call the *twisted double shift*. It plays $s$ on the $n$ lowest hats, with two exceptions.
+
+- Seeing $n$ black hats with a white hat just above them, it points at the top hat, at position $n + 1$ (the double shift points at position $n$).
+- Seeing $n$ hats of a single color, white or black, with a black hat just above them and a white hat at the top, it points at position $n$.
+
+For every proper strategy $s$ that we tried, the result has $16 \, |H(s)| + 6$ hits, as for the double shift: all the strategies on one and two hats, and random ones on three and four. We have no proof yet. It is a different operation, and not the double shift under other names: on two hats, for none of the $16$ strategies $s$ is the result equivalent to $s\,\dshift$. Its dual is a fourth operation of the same kind. On one hat it gives $\str{02110200}$, which has $22$ hits and is equivalent to $\mathbf{C}_3$, as every best strategy on three hats is. On three hats it gives something new (Section 7).
+
 That one changed letter is worth a remark. Resets and single shifts build a strategy on many hats out of strategies on fewer hats, and their hits add up as the formulas say. The double shift is not built that way: it is a block on two hats that does better than the two single shifts it is made of. A natural question is whether a block on three or more hats does better still. We come back to it in Section 8.
 
 ### 5. Five families
@@ -844,6 +853,14 @@ Call a best strategy on $n$ hats *hereditary* when its cuts to $1, 2, \ldots, n 
 
 - On five hats it is the same: the nine classes that are built are the nine that hold a hereditary strategy. The eighteen others are primitive; the cuts of their strategies are best on three hats, with $22$ hits, and one short on four, with $88$.
 
+On five hats the picture can be made simpler still. The twenty-seven classes are three strategies, each with two *loose* choices: two stacks for which the strategy may point at any of three positions without changing its hits (for $\mathbf{C}_5$, the stacks $2$ and $27$, and the positions $0$, $3$ and $4$). Three times three choices make nine classes for each. The three strategies are
+
+- the Carter strategy $\mathbf{C}_5 = \mathbf{C}_3\,\dshift$, whose nine variants are the nine built classes;
+- the twisted double shift of $\mathbf{C}_3$ (Section 4);
+- the dual of the twisted double shift of the dual of $\mathbf{C}_3$.
+
+The last two are exchanged by the exchange of the colors. So up to the renamings of the positions, the exchange of the colors and the loose choices, there are two best strategies on five hats: the two ways to add two hats to $\mathbf{C}_3$ with a gain of $6$. With the twisted double shift among the operations, every best strategy on five hats is built.
+
 So on four and on five hats, "built with resets and shifts" and "best at every smaller number of hats" say the same thing. The first primitive best strategies appear on four hats, and they owe nothing to a best strategy on three hats. (This is the answer of programs, `cuts.py` and `best_classes5.py` in the repository.)
 
 ### 8. Can $\frac{7}{20}$ be beaten?
@@ -1071,7 +1088,7 @@ It is for $d$ from $1$ to $4$. If it is for every $d$, then $V = \frac{7}{20}$, 
 
 **Question K (hereditary and primitive).** Is every hereditary best strategy built with resets and shifts? Are there primitive best strategies on every number of hats from four on, and how many classes?
 
-On four and on five hats the answer to the first question is yes, and the primitive classes are four out of ten, then eighteen out of twenty-seven (Section 7).
+On four and on five hats the answer to the first question is yes, and the primitive classes are four out of ten, then eighteen out of twenty-seven (Section 7). On five hats the primitive ones come from one more operation, the twisted double shift of Section 4. Is there a finite list of operations that builds every best strategy, on every number of hats? And does the twisted double shift have $16 \, |H(s)| + 6$ hits for every proper $s$, as it does for all those we tried?
 
 ## References
 

@@ -115,6 +115,25 @@ def sibling_double_shift(n: int, s: Strategy) -> Strategy:
     return result
 
 
+def twisted_double_shift(n: int, s: Strategy) -> Strategy:
+    """Another way to add two hats (found on 2026-11-27).  Play s on the n
+    lowest hats, with two exceptions: seeing n black hats with a white hat
+    just above them, point at the top hat (position n + 1); seeing n hats
+    of a single color with a black hat just above them and a white hat at
+    the top, point at position n."""
+    low = 2**n
+    result = []
+    for t in range(4 * low):
+        below, middle, top = t % low, t >> n & 1, t >> (n + 1) & 1
+        if below == low - 1 and middle == 0:
+            result.append(n + 1)
+        elif below in (0, low - 1) and middle == 1 and top == 0:
+            result.append(n)
+        else:
+            result.append(s[below])
+    return result
+
+
 def dual(n: int, s: Strategy) -> Strategy:
     """The strategy with the two colors exchanged."""
     return [s[2**n - 1 - t] for t in range(2**n)]
@@ -348,6 +367,18 @@ def check_formulas(rng: random.Random) -> int:
                 dual(n + 1, black_shift(n, s)) == white_shift(n, dual(n, s)),
             )
             check("dual", hits(n, dual(n, s)) == h)
+            check(
+                "twisted double shift",
+                hits(n + 2, twisted_double_shift(n, s)) == 16 * h + 6,
+            )
+            if n <= 2:
+                check(
+                    "the twisted double shift is not a renamed double shift",
+                    not equivalent(
+                        n + 2, double_shift(n, s), twisted_double_shift(n, s)
+                    )
+                    or n == 1,
+                )
             # Question G: the hits as the trace of the square of a table
             table = [
                 [
@@ -370,7 +401,7 @@ def check_formulas(rng: random.Random) -> int:
             sigma = list(range(n))
             rng.shuffle(sigma)
             check("permutation", hits(n, permuted(n, s, tuple(sigma))) == h)
-            done += 15
+            done += 17
     # associativity of the white and of the black reset
     for a, b, c in itertools.product(samples[1], samples[2][:6], samples[2][:6]):
         for reset in (white_reset, black_reset):
@@ -974,6 +1005,17 @@ def quoted() -> list[tuple[str, str, object, object]]:
                 for k in range(1, n)
             ),
             True,
+        ),
+        (
+            "Section 4",
+            "the twisted double shift of 00, and of C_3",
+            (
+                word(twisted_double_shift(1, ONE)),
+                hits(3, twisted_double_shift(1, ONE)),
+                hits(5, twisted_double_shift(3, carter(3))),
+                equivalent(5, twisted_double_shift(3, carter(3)), carter(5)),
+            ),
+            ("02110200", 22, 358, False),
         ),
         ("Section 1", "81/224", str(Fraction(81, 224).numerator / 224)[:6], "0.3616"),
         ("Section 5", "word of C_3", word(carter(3)), "01002120"),

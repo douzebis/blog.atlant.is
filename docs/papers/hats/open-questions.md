@@ -171,6 +171,22 @@ the best win rate of two players with infinite stacks.
    hits, **there are exactly three best strategies on five hats: the
    Carter strategy and two primitive ones.** The 9 built classes are the
    Carter strategy with its two loose choices varied.
+
+   **A new operation** (2026-11-27, `twisted_double_shift` in
+   `research/hats/check_article.py`). The two primitive strategies on
+   five hats are dual to each other, and one of them is `C_3` with two
+   hats added by an operation that is not the double shift: play `s` on
+   the `n` lowest hats, except that `n` black hats with a white hat just
+   above send to the top hat `n + 1`, and `n` hats of one color with a
+   black hat just above and a white hat at the top send to `n`. It has
+   `16 h + 6` hits for all proper `s` on one and two hats and for random
+   ones on three and four; for none of the 16 strategies on two hats is
+   it equivalent to the double shift. So up to renamings, colors and
+   loose choices there are two best strategies on five hats: `C_3` with
+   the double shift, and `C_3` with this one. Owed: a proof (Lean), and
+   whether there are more operations of this kind (three hats added,
+   gain 25; the 4 primitive classes on four hats are not explained by
+   this one).
 6. **Why do the Reyes strategy on `3n` hats and the Carter strategy on
    `2n + 1` hats have the same win rate,** `7/20 - 1/(10 * 16^n)`? Both
    formulas are proved (`rate_reyes`, `rate_carterOdd`); no map between
