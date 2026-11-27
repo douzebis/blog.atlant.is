@@ -175,15 +175,14 @@ its Sections 7 and 8 need 8 and 9.
 
 ## Open questions
 
-- The title, and the address and date of the article. Proposal: "The game
-  of hats", at the date of the first post (2020-08-30), with "revised" set
-  when it is published, as for the rosary paper.
-- The three posts as versions: one earlier version in three parts, or
-  three. Proposal: one, "2020", with its three parts.
-- Which strategy is R_1 (spec 0005, D17). Proposal: C_3.
-- The rest of the notation table of spec 0005 (the color of a hat `t_p`,
-  the tuples in typewriter type, `H(s)` and `P(s)`, the sets of stacks and
-  strategies).
+- Decided on 2026-11-27: the title is "The game of hats", at the date of
+  the first post (2020-08-30), with "revised" set when it is published.
+  The three posts are one earlier version, "2020", in three parts.
+  R_1 = C_3. The notation table of spec 0005 stands, with `w(s)` for the
+  win rate, `s^d` for the strategy with the colors exchanged and `V_2`,
+  `V_2^{(n)}` for the best win rates. The first picture is captioned
+  "stack 3" (it was number 4 with the colors of 2020: two dark hats under
+  a light one). No picture of Valve in the arXiv paper.
 - Whether Section 7 keeps the calculator's commands in the text or moves
   them to its help.
 - Two players with different strategies: the hits of this work are those
