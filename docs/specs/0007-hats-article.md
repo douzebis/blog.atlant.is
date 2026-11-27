@@ -152,8 +152,8 @@ each section of step 5 before the next is written.
 | Step | Content | Status |
 |---|---|---|
 | 1 | Freeze the three imported posts as earlier versions (spec 0005, K2); the page of the article, unlisted until it is complete | done 2026-11-27 |
-| 2 | `research/hats/check_article.py`: every tuple, score and win rate that the article will quote, recomputed from the definitions (K1) | |
-| 3 | The macros of the notation (`data/mathjax.json`): `\\hatb`, `\\hatw` (small marks), `\\wreset`, `\\breset`, `\\dreset`, `\\wshift`, `\\bshift`, `\\dshift`, `\\dshiftbw`, `\\dshiftwb`, `\\dual`, `\\str` | done 2026-11-27 for the site; the LaTeX side comes with step 11 |
+| 2 | `research/hats/check_article.py`: every tuple, score and win rate that the article will quote, recomputed from the definitions (K1) | started 2026-11-27: definitions, formulas, families; the quoted numbers enter with each section |
+| 3 | The macros of the notation (`data/mathjax.json`): `\hatb`, `\hatw` (small marks), `\wreset`, `\breset`, `\dreset`, `\wshift`, `\bshift`, `\dshift`, `\dshiftbw`, `\dshiftwb`, `\dual`, `\str` | done 2026-11-27 for the site; the LaTeX side comes with step 11 |
 | 4 | The calculator: colors exchanged, names of the operations, the sibling double shift, a default query, the help (spec 0005, Section 2) | |
 | 5 | The article, section by section (1 to 9), each with its numbers in `check_article.py` and its entries in `statements.md` | |
 | 6 | Lean: the color exchange keeps the hits; the sibling double shift; names that follow the notation; the table of what is verified | the first two done 2026-11-27 (`Hats/Dual.lean`) |
