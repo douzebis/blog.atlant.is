@@ -222,6 +222,8 @@ def check_formulas(rng: random.Random) -> int:
                 sibling_double_shift(n, s) == dual(n + 2, double_shift(n, dual(n, s))),
             )
             check("dual", hits(n, dual(n, s)) == h)
+            taller = [s[t % 2**n] for t in range(2 ** (n + 2))]
+            check("taller stacks", hits(n + 2, taller) == 16 * h)
             # the choices for the all-white and the all-black stack
             changed = list(s)
             changed[0] = rng.randrange(n)
@@ -230,7 +232,7 @@ def check_formulas(rng: random.Random) -> int:
             sigma = list(range(n))
             rng.shuffle(sigma)
             check("permutation", hits(n, permuted(n, s, tuple(sigma))) == h)
-            done += 10
+            done += 11
     # associativity of the white and of the black reset
     for a, b, c in itertools.product(samples[1], samples[2][:6], samples[2][:6]):
         for reset in (white_reset, black_reset):
@@ -331,6 +333,32 @@ def quoted() -> list[tuple[str, str, object, object]]:
                 Fraction(1, 40960),
                 Fraction(3, 327680),
             ],
+        ),
+        ("Section 2", "the plan of Section 1 on two hats", word(low_black(2)), "0010"),
+        (
+            "Section 2",
+            "the hits of 0010",
+            [
+                (t, u)
+                for t in range(4)
+                for u in range(4)
+                if hat(t, strategy("0010")[u]) * hat(u, strategy("0010")[t])
+            ],
+            [(1, 1), (1, 3), (2, 2), (3, 1), (3, 3)],
+        ),
+        ("Section 2", "win rate of 0010", rate(2, strategy("0010")), Fraction(5, 16)),
+        ("Section 2", "hits of 0000", hits(2, strategy("0000")), 4),
+        (
+            "Section 2",
+            "one hat: 00, and pointing above when seeing black",
+            (hits(1, [0, 0]), hits(1, [0, 1])),
+            (1, 0),
+        ),
+        (
+            "Section 2",
+            "one hat: pointing above when seeing white, and its dual",
+            (hits(1, [1, 0]), hits(1, dual(1, [1, 0]))),
+            (1, 0),
         ),
         ("Section 1", "81/224", str(Fraction(81, 224).numerator / 224)[:6], "0.3616"),
         ("Section 5", "word of C_3", word(carter(3)), "01002120"),

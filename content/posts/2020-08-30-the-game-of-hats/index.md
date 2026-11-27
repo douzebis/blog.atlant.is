@@ -123,7 +123,111 @@ Three things changed, to agree with the papers that appeared since. The players 
 
 ### 2. Stacks, strategies, hits
 
-*To come.*
+#### Stacks
+
+We write a stack of hats as a number in binary: a black hat is the digit $1$, a white hat the digit $0$, and the bottom hat is the units digit. A stack of $n$ hats is then a whole number $t$ with $0 \leq t < 2^n$. The stack of the picture at the top is $3$, in binary $011$: two black hats under a white one. Here are the four stacks of two hats:
+
+$$
+\begin{array}{ccccc}
+\text{position} & t = 0 & t = 1 & t = 2 & t = 3 \\
+1 & \whitemark & \whitemark & \blackmark & \blackmark \\
+0 & \whitemark & \blackmark & \whitemark & \blackmark
+\end{array}
+$$
+
+The positions of a stack of $n$ hats are $0, 1, \ldots, n - 1$, from the bottom up. We write $t_p$ for the color of the hat of $t$ at position $p$: it is the binary digit of $t$ of weight $2^p$. Where the stack has no hat, below position $0$ or above position $n - 1$, we set $t_p = 0$: no hat is not a black hat.
+
+Two stacks have a single color: the all-white stack, which is $0$, and the all-black stack, which is $2^n - 1$. Exchanging the two colors of a stack $t$ of $n$ hats gives the stack $\dual{t} = 2^n - 1 - t$.
+
+#### Strategies
+
+A *strategy* on $n$ hats tells a player where to point: for each stack $t$ of $n$ hats that the player may see, a position $s(t)$. We write a strategy as the word $s(0)\,s(1) \cdots s(2^n - 1)$, in typewriter type. The plan of Section 1 on two hats is
+
+$$
+\str{0010}
+$$
+
+Seeing stack $1$ or stack $3$, whose bottom hat is black, the player points at position $0$; seeing stack $2$, at position $1$. Seeing stack $0$, which has no black hat to follow, the word says position $0$. Any other choice would do as well, as we will see.
+
+A strategy is *proper* when it always points at a hat: $0 \leq s(t) < n$ for every stack $t$ of $n$ hats. Nothing forbids pointing elsewhere, but it never wins. Such strategies turn up by themselves when strategies are combined, and a few statements below fail for them; this is why each statement says whether it needs proper strategies.
+
+Unless we say otherwise, Alice and Bob use the same strategy $s$. Say that Alice wears $t$ and Bob wears $u$. Alice sees $u$ and points at her position $s(u)$, where her hat has the color $t_{s(u)}$. Bob sees $t$ and points at his position $s(t)$, where his hat has the color $u_{s(t)}$. They win when
+
+$$
+t_{s(u)} \, u_{s(t)} = 1 .
+$$
+
+#### Hits
+
+A *hit* of the strategy $s$ is a pair $(t, u)$ of stacks of $n$ hats on which the players win. We write $H(s)$ for the set of the hits of $s$, and $|H(s)|$ for their number:
+
+$$
+|H(s)| = \sum_{t, u} t_{s(u)} \, u_{s(t)} ,
+$$
+
+where $t$ and $u$ run over the stacks of $n$ hats. The $4^n$ pairs of stacks are equally likely, so the *win rate* of $s$ is
+
+$$
+w(s) = \frac{|H(s)|}{4^n} .
+$$
+
+Hits are whole numbers, and most of this article counts hits; the win rates follow.
+
+Take $\str{0010}$ again. In the table below, a mark says that the pair is a hit. The row is the stack that Alice wears, the column the stack that Bob wears.
+
+| | $u = 0$ | $u = 1$ | $u = 2$ | $u = 3$ |
+|---|---|---|---|---|
+| $t = 0$ | | | | |
+| $t = 1$ | | ✓ | | ✓ |
+| $t = 2$ | | | ✓ | |
+| $t = 3$ | | ✓ | | ✓ |
+
+There are $5$ hits, and the win rate is $\frac{5}{16}$, which is $\frac13 \left(1 - \frac{1}{4^2}\right)$ as Section 1 said. The table is symmetric, as it is for every strategy: if $(t, u)$ is a hit, so is $(u, t)$.
+
+A simpler example: the strategy that points at the same position $p$ whatever it sees, such as $\str{0000}$. The players win when both wear a black hat at position $p$, which happens for $4^{n-1}$ pairs of stacks out of $4^n$: the win rate is $\frac14$, that of players who do not look at each other (Lean: `hits_const`).
+
+#### Four facts
+
+The rest of the article leans on four facts about hits. The first says that two letters of the word of a strategy do not matter.
+
+**Proposition 1 (two choices that do not matter).** Let $s$ and $s'$ be two strategies on $n$ hats.
+
+1. If $s$ and $s'$ differ only in what they do for the all-white stack, they have the same hits.
+2. If $s$ and $s'$ are proper and differ only in what they do for the all-black stack, they have the same number of hits.
+
+*Proof.* What a strategy does for the stack $0$ only matters to a pair of stacks in which one of the stacks is $0$. Such a pair is never a hit: the player who wears the all-white stack has no black hat to point at. This proves the first point.
+
+For the second point, write $b = 2^n - 1$ for the all-black stack. What a strategy does for $b$ only matters to the pairs $(t, b)$ and $(b, t)$. The player who wears $b$ points at a black hat, since the strategy is proper. So $(t, b)$ is a hit exactly when $t$ has a black hat at position $s(b)$, and this is the case for half of the stacks $t$, whatever the position $s(b)$ is. The pairs that are hits change with $s(b)$; their number does not.
+
+(Lean: `hits_congr_white`, `hits_congr_black`.) On one hat, the strategy $\str{00}$ has one hit, the pair $(1, 1)$. A strategy that points above the hat when it sees a black hat has none: the second point needs proper strategies.
+
+**Proposition 2 (the positions renamed).** Let $\sigma$ be a permutation of the positions $0, \ldots, n - 1$. For a stack $t$ of $n$ hats, write $\sigma \cdot t$ for the stack whose hat at position $\sigma(p)$ is the hat of $t$ at position $p$. For a proper strategy $s$ on $n$ hats, write $\sigma \cdot s$ for the strategy that points at $\sigma(s(t))$ when it sees $\sigma \cdot t$. Then $\sigma \cdot s$ and $s$ have the same number of hits.
+
+*Proof.* The pair $(\sigma \cdot t, \sigma \cdot u)$ is a hit of $\sigma \cdot s$ exactly when $(t, u)$ is a hit of $s$: the hat of $\sigma \cdot t$ at position $\sigma(s(u))$ is the hat of $t$ at position $s(u)$, and the same holds with $t$ and $u$ exchanged.
+
+(Lean: `hits_swapStrat`, for the permutation that exchanges two positions; every permutation is a product of such.)
+
+The third fact is less obvious: the game is not the same for the two colors, since the players must point at black hats, and yet exchanging the colors that a strategy sees costs nothing.
+
+**Proposition 3 (the colors exchanged).** The *dual* of a strategy $s$ on $n$ hats is the strategy $\dual{s}$ with the two colors exchanged: $\dual{s}(t) = s(\dual{t})$. A proper strategy and its dual have the same number of hits.
+
+*Proof.* The pair $(\dual{t}, \dual{u})$ is a hit of $\dual{s}$ when, with the stacks $t$ and $u$ and the strategy $s$, both players point at a *white* hat. So we must show that $s$ has as many pairs on which both point at a white hat as pairs on which both point at a black hat.
+
+Sort the $4^n$ pairs $(t, u)$ by what the players point at with $s$: both at black ($a$ pairs), Alice at black and Bob at white ($b$ pairs), Alice at white and Bob at black ($c$ pairs), both at white ($d$ pairs). Alice points at a black hat for half of the pairs: whatever stack $u$ she sees, the position $s(u)$ is in her stack, and half of the stacks that she may wear are black there. So $a + b = \frac12 4^n$. In the same way $a + c = \frac12 4^n$. Hence
+
+$$
+d = 4^n - (a + b) - (a + c) + a = a .
+$$
+
+(Lean: `hits_dual`.) On one hat, the strategy that points at the hat when it sees a black hat, and above it when it sees a white hat, has one hit; its dual has none. Here again the strategies must be proper.
+
+The last fact lets us compare strategies on different numbers of hats.
+
+**Proposition 4 (taller stacks).** A strategy $s$ on $n$ hats can be played with stacks of $n + k$ hats, by looking at the $n$ lowest hats only. If $s$ is proper, it then has $4^k \, |H(s)|$ hits, and so the same win rate.
+
+*Proof.* A pair of stacks of $n + k$ hats is a hit exactly when the pair of their $n$ lowest hats is a hit of $s$. Each pair of stacks of $n$ hats is continued upward in $4^k$ ways.
+
+(Lean: `hits_emb`.) In particular the best win rate on $n + 1$ hats is at least the best win rate on $n$ hats.
 
 ### 3. Resets
 
