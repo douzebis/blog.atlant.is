@@ -144,6 +144,20 @@ the best win rate of two players with infinite stacks.
    "built" and "hereditary" agree on four and on five hats. The numbers
    of best crushed strategies are 2, 4, 102, 1,014 and of classes 2, 1,
    10, 27. Open: a proof; what the primitive classes are; six hats.
+
+   The primitive classes on four hats are near the built ones
+   (2026-11-27, computed in a scratch script, not kept): each of the 4
+   primitive classes has a strategy that differs from a built best
+   strategy in 2 or 3 choices. The 240 best strategies on four hats
+   (the two free choices aside) fall into 6 groups of 40 when
+   strategies that differ in at most 2 choices are joined; the 6 groups
+   are images of one another under the renamings, and each holds 4
+   strategies of every one of the 10 classes (24 built, 16 primitive).
+   With changes of one choice only there are 72 groups of 4 or fewer.
+   So, up to renaming, the best strategies on four hats form one
+   plateau, in which built and primitive strategies are neighbors; a
+   primitive strategy is a built one moved along the plateau, as the
+   walks around the Carter strategies on 6 to 8 hats suggested.
 6. **Why do the Reyes strategy on `3n` hats and the Carter strategy on
    `2n + 1` hats have the same win rate,** `7/20 - 1/(10 * 16^n)`? Both
    formulas are proved (`rate_reyes`, `rate_carterOdd`); no map between
