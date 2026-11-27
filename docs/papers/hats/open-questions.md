@@ -35,8 +35,11 @@ the best win rate of two players with infinite stacks.
    with the same hits are many: on eight hats, 14.9 million differ from
    the Carter strategy in exactly 6 choices.
 2. **Can two players with different strategies do better?** Open in
-   general. Five hats: one solver run in `levine-hats` says no,
-   unconfirmed.
+   general. No on 1 to 3 hats (enumeration) and on 4 hats (SCIP). Five
+   hats: no, by SCIP on two models written separately (`levine-hats`,
+   and `research/hats/two_strategies.py` on 2026-11-27: 358, 384 s,
+   9,734 nodes); one solver only, and the question is listed as open on
+   Wagon's page.
 3. **Does the win rate tend to 0 with the number of players?** (Levine.)
    Our calculus has two players. Is there one, with proved formulas, for
    three?
@@ -107,11 +110,17 @@ the best win rate of two players with infinite stacks.
    leaves the sizes below 28; schemes with several continuations
    (a different strategy after each kind of skipped block); a proof in
    Lean of the formula and of the enumerations.
-5. **Are all optimal strategies composed?** The search finds 2, 4 and 102
-   optimal crushed strategies on 2, 3 and 4 hats. Is each obtained from
-   one-hat strategies by resets and shifts, up to the symmetries
-   (permuting the positions, changing the choices that do not matter)? Is
-   there a pattern in 2, 4, 102?
+5. **Are all optimal strategies composed?** No, on four hats
+   (2026-11-27, `research/hats/best_classes.py`; a program, not a
+   proof). The search finds 2, 4 and 102 optimal crushed strategies on
+   2, 3 and 4 hats. Up to the renamings of the positions and the two
+   choices that do not matter, these are 2, 1 and 10 classes (1, 1 and 5
+   when a strategy and its dual are put together). The classes that hold
+   a strategy built from the one-hat strategy with the resets, the
+   shifts and the double shift number 2, 1 and 6: four classes on four
+   hats are not built, for instance that of `0010303022112230`. What
+   remains open: what these four are (another operation?), and whether
+   on every number of hats some optimal strategy is built.
 6. **Why do the Reyes strategy on `3n` hats and the Carter strategy on
    `2n + 1` hats have the same win rate,** `7/20 - 1/(10 * 16^n)`? Both
    formulas are proved (`rate_reyes`, `rate_carterOdd`); no map between

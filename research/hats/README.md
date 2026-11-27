@@ -21,6 +21,8 @@ point at black hats.
 |---|---|---|---|
 | Every word, score and win rate quoted in the article; the formulas of the resets and the shifts; the facts of Section 2; the families | `check_article.py` | `python research/hats/check_article.py` | one line, `0 failures`; 2 seconds |
 | The calculator (`figures/hats/hats.js`) computes what the definitions say | `check_calculator.py` (needs Node.js) | `python research/hats/check_calculator.py` | one line, `0 failures` |
+| The best strategies on 2, 3 and 4 hats, in classes of equivalent strategies, and those built with resets and shifts | `best_classes.py` (needs Node.js) | `python research/hats/best_classes.py` | the three lines of its header, and four classes "not built"; 3 seconds |
+| Two players with two different strategies: the best score | `two_strategies.py` | `python research/hats/two_strategies.py 3`; for 4 and 5 hats, `two_strategies.py N --lp > m.lp`, then `scip -c "read m.lp" -c optimize -c quit` | 1, 5, 22 by enumeration; 89 (2 s) and 358 (384 s, 9,734 nodes) with SCIP 10 |
 | Generalized resets on blocks of 1 to 3 hats, every scheme | `generalized_resets.py` | see its header | best win rates 1/3, 1/3, 7/20 |
 | Generalized resets on blocks of 4 hats, every scheme | `reset-schemes/` | see its README | best win rate 7/20 |
 | Generalized resets on blocks of 5 hats: no scheme beats 7/20, by the number of skipped stacks | `reset_schemes_lp.py`, `reset_schemes_split.py` (the solver SCIP), `reset-search/` (a direct search) | see their headers | `docs/papers/hats/open-questions.md`, question 4, has the table and the times |

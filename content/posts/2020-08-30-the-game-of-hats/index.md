@@ -731,7 +731,104 @@ These machines are not finite automata, as the posts of 2020 called them: the co
 
 ### 7. The calculator, and the best strategies on few hats
 
-*To come.*
+#### A calculator for strategies
+
+The operations of Sections 3 and 4 are easy to carry out and easy to get wrong. Here is a calculator that does them. Type a query and press "Submit".
+
+{{< frame src="https://blog.atlant.is/figures/hats/hats.html" height="330" >}}
+
+The command `eval` takes a strategy and prints its word, its hits and its win rate:
+
+```
+eval C3
+"01002120" w = 22/64 ~ 34.38%
+```
+
+Long words are printed in groups of eight letters. A strategy can be a word between quotes, a name, or an operation applied to strategies:
+
+| Query | What it is |
+|---|---|
+| `"0010"` | the strategy with that word |
+| `B3`, `W3`, `C3`, `R2` | $\mathbf{B}_3$, $\mathbf{W}_3$, $\mathbf{C}_3$, $\mathbf{R}_2$ (`B`, `W`, `C` up to $9$ hats, `R` up to `R3`) |
+| `wr(a, b)`, `br(a, b)`, `dr(a, b)` | $a \wreset b$, $a \breset b$, $a \dreset b$ |
+| `ws(a)`, `bs(a)`, `ds(a)` | $a\,\wshift$, $a\,\bshift$, $a\,\dshift$ |
+| `sd(a)` | the other double shift ([Proposition 6](#proposition-6)) |
+| `dual(a)` | $\dual{a}$ |
+| `emb(a, n)` | $a$ played on stacks of $n$ hats |
+
+For instance:
+
+```
+eval ds(ds(C1))
+"01002123-01002120--41002123-41002120" w = 358/1024 ~ 34.96%
+
+eval dr(C3,C3)
+"31002123-41002124--31002123-31002123
+ 51002125-41002124--51002125-31002123" w = 1432/4096 ~ 34.96%
+```
+
+The first is $\mathbf{C}_5$, the second $\mathbf{R}_2$. The query `help eval` lists everything. The calculator is one file of JavaScript.
+
+#### Searching for the best strategy
+
+The command `search` looks for the best strategies on $n$ hats, by trying them. Trying all of them is not possible for long, since there are $n^{2^n}$, so the search uses the symmetries of Section 2.
+
+- The choices for the all-white and the all-black stack do not matter ([Proposition 1](#proposition-1)): both are set to position $0$.
+- Renaming the positions does not change the hits ([Proposition 2](#proposition-2)). So it is enough to try one strategy in each class of equivalent strategies, or at least not to try all of them. The search tries the *crushed* strategies: those that, seeing stack number $t$, point at a position at most $t$. Seeing stack $1$ a crushed strategy points at position $0$ or $1$, seeing stack $2$ at position $0$, $1$ or $2$, and so on. Every proper strategy is equivalent to a crushed one (Lean: `exists_crushed`).
+
+On four hats this leaves $2 \cdot 3 \cdot 4 \cdot 4^{11} = 100{,}663{,}296$ strategies out of $4^{16}$, about $43$ times fewer, and the search takes a second:
+
+```
+search -n 4 -q
+Done comparing 100,663,296 strategie(s) in 0.906s.
+Best win rate is 89/256 ~ 34.77% (102 occurrences).
+E.g.: "01221122-33331100"
+```
+
+Crushing does not use all the symmetry: several crushed strategies can be equivalent. And on five hats there are still $120 \cdot 5^{26}$ crushed strategies, more than $10^{20}$: the search of the calculator stops at four hats, unless it is told to stay near a given strategy (`help search`).
+
+#### The best scores
+
+Write $V_n$ for the best win rate on $n$ hats when the two players may use different strategies, as in the papers. What is known:
+
+| Hats | Best score with one shared strategy | Established by | With two strategies |
+|---|---|---|---|
+| $1$ | $1$ out of $4$ | Lean (`hits_one_le`) | the same, by enumeration |
+| $2$ | $5$ out of $16$ | Lean (`hits_two_le`) | the same, by enumeration |
+| $3$ | $22$ out of $64$ | Lean (`hits_three_le`) | the same, by enumeration |
+| $4$ | $89$ out of $256$ | Lean, the compiler trusted (`hits_four_le`); the search above | the same, by a solver |
+| $5$ | $358$ out of $1{,}024$ | two solvers and a search program, see below | the same, by one solver |
+| $6$ | at least $1{,}433$, at most $1{,}448$, out of $4{,}096$ | see below | at most $1{,}448$ |
+
+In each row the best score is that of the Carter strategy, $7 \cdot 4^n / 20$ rounded down.
+
+*One to four hats.* For one, two and three hats, Lean proves that no strategy has more hits, with nothing to trust but Lean itself. The search with crushed strategies is itself proved correct in Lean (`hits_le_best`), and for three hats Lean runs it. For four hats it is too slow inside Lean; there the theorem rests on the same search compiled into a program, which Lean trusts its compiler to run faithfully.
+
+*Five hats.* That $358$ is the best score of a shared strategy was announced in 2014 [Wa14]. We find it again with an integer program given to the solver SCIP (the model of Section 8 with nothing skipped; $99$ seconds), and in 2026 the author obtained it with two more programs: the solver HiGHS and a search written for the purpose. These are answers of programs working with rounded numbers, not proofs that a machine has checked.
+
+*Two strategies.* When Alice and Bob may use different strategies, they do not win more on one to four hats: the best score is the same. For up to three hats this is an enumeration (for each strategy of Alice, the best answer of Bob is found one stack at a time); for four hats, and for five, it is the answer of SCIP to an integer program ($384$ seconds for five hats). For five hats we have this one solver only, on two models written separately, and the question was listed as open in [Wa14].
+
+*Six hats.* Nobody knows whether $1{,}433$ is the best score. The general bound $V \leq \frac{81}{224}$ of [BFGKRTVY] allows up to $1{,}481$ hits. Their method can be applied to six hats directly: sort the stacks that Alice may wear by their number of black hats, and bound the hits of each sort separately, by a solver. The author did this in 2026 and found $63 + 267 + 468 + 427 + 191 + 32 = 1{,}448$. This too is the answer of a solver. It leaves $15$ hits between the best strategy known and the bound.
+
+#### What the best strategies look like
+
+The search can list all the best crushed strategies (`search -n 3 -a`). Sorting them into classes of equivalent strategies gives:
+
+| Hats | Best crushed strategies | Classes | Classes, a strategy and its dual together | Classes built with resets and shifts |
+|---|---|---|---|---|
+| $2$ | $2$ | $2$ | $1$ | $2$ |
+| $3$ | $4$ | $1$ | $1$ | $1$ |
+| $4$ | $102$ | $10$ | $5$ | $6$ |
+
+On two hats the best strategies are $\mathbf{B}_2$ and $\mathbf{W}_2$, which is $\mathbf{C}_2$. On three hats there is only one: every strategy with $22$ hits is equivalent to $\mathbf{C}_3$, up to the two choices that do not matter. On four hats there are ten.
+
+The last column counts the classes that hold a strategy built from $\str{00}$ with the three resets, the two shifts and the double shift. On four hats, four of the ten classes hold no such strategy. One of them is that of
+
+$$
+\str{00103030\,22112230}
+$$
+
+which has $89$ hits like $\mathbf{C}_4$. So resets and shifts do not give all the best strategies. If the conjecture $V = \frac{7}{20}$ holds, they give at least one on every number of hats, the Carter strategy.
 
 ### 8. Can $\frac{7}{20}$ be beaten?
 
