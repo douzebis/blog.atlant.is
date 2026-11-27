@@ -28,4 +28,5 @@ import Hats.Optimal
 import Hats.Schemes
 import Hats.Dual
 import Hats.Equivalent
+import Hats.Hints
 import Hats.Audit

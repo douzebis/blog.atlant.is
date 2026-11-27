@@ -966,6 +966,8 @@ $$
 
 *Proof.* In the hint game, let Alice look only at the hats that are the values of $f$ at $n$ points: the point $0$ and the $d$ points with a single coordinate $1$. The values of $f$ there are $b$ and $b + a_1, \ldots, b + a_d$. As $f$ runs over the affine functions that are not constant, these $n$ hats make each stack of $n$ hats once, except the all-white and the all-black ones. So Alice and Bob, with their strategies on $n$ hats, play the game on $n$ hats with a stack of Alice that is not of a single color, each such stack being as likely as the others; and this is a way to play the hint game, where Bob uses $n$ of his hats. Their win rate is then at most $H_d$. There are $2^n - 2$ stacks for Alice and $2^n$ for Bob: at most $2^n (2^n - 2) H_d$ winning pairs in which Alice's stack is not of a single color. When it is all white they lose. When it is all black they win at most when Bob's hat is black where he points, which is the case for $2^d$ of his stacks.
 
+(Lean: `hitsTwo_le_hintWins`, `hitsTwo_le_of_hint_le`.)
+
 So an upper bound on $V$ obtained from a hint is also an upper bound on the best score on a given number of hats, for two strategies as well as for one. And it works the other way: with the Carter strategy on $d + 1$ hats, [Proposition 17](#proposition-17) says that $H_d$ is at least
 
 $$
@@ -995,7 +997,7 @@ This value was announced in November 2026 in a note that comes with programs and
 
 Three consequences.
 
-- By [Proposition 17](#proposition-17) with $d = 3$ and $d = 4$: no two strategies win more than $8 + 224 \cdot \frac{81}{224} = 89$ pairs on four hats, nor more than $16 + 960 \cdot \frac{57}{160} = 358$ on five. This is another way to the best scores of Section 7, by programs of a different kind, and it covers two different strategies.
+- By [Proposition 17](#proposition-17) with $d = 3$ and $d = 4$: no two strategies win more than $8 + 224 \cdot \frac{81}{224} = 89$ pairs on four hats, nor more than $16 + 960 \cdot \frac{57}{160} = 358$ on five. This is another way to the best scores of Section 7, by programs of a different kind, and it covers two different strategies. (Lean checks the step from the hint values to the scores: `hitsTwo_four_le`, `hitsTwo_five_le`. The hint values themselves are computations.)
 - This family of hints will not settle the conjecture cheaply. The hint of dimension $d$ cannot prove a bound below the Carter number, about $\frac{7}{20} + \frac{1}{10 \cdot 2^d}$, and each dimension costs far more than the one before.
 - If $H_5 \leq \frac{17}{48}$, as [Ya26] reports, then $V \leq \frac{17}{48} = 0.35416\ldots$, and by [Proposition 17](#proposition-17) no two strategies win more than $1{,}437$ pairs on six hats. We have not checked that computation.
 

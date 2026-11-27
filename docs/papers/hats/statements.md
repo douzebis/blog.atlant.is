@@ -35,7 +35,7 @@ the numbers quoted near each statement.
 | Proposition 14 | 8 | The win rate of a scheme, `(A + c) / (4^m - Z^2)` | not in Lean | `generalized_resets.py` uses it |
 | Proposition 15 | 8 | Double resets of the Carter strategy on `n` hats forever: 7/20 for odd `n`, less for even `n` | not in Lean (`rate_reyes` and `rateInf_reyesInf` for `n` = 3) | the formula for `n` = 2 to 7 |
 | Proposition 16 | 8 | `A + c` is at most `2^(m-1) (2^m - Z)`; a scheme with `7 Z >= 6 * 2^(m-1)` does not beat 7/20 | `schemeScore_le`, `schemeScore_le_seven_twentieths` | |
-| Proposition 17 | 8 | The wins of any two strategies on `d + 1` hats are at most `2^d + 2^n (2^n - 2) H_d`, with `H_d` the value of the affine hint game | not in Lean | `hint_carter.py`: the Carter strategies give equality for `d` = 1 to 6 against the known or estimated `H_d` |
+| Proposition 17 | 8 | The wins of any two strategies on `d + 1` hats are at most `2^d + 2^n (2^n - 2) H_d`, with `H_d` the value of the affine hint game | `hitsTwo_le_hintWins`, `hitsTwo_le_of_hint_le`; `hitsTwo_four_le`, `hitsTwo_five_le` (89 and 358, given the hint values) | `hint_carter.py`: the Carter strategies give equality for `d` = 1 to 6 against the known or estimated `H_d` |
 
 Not numbered: the strategy that always points at the same hat has
 `4^(n-1)` hits (`hits_const`).

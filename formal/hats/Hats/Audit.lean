@@ -9,6 +9,7 @@ import Hats.Optimal
 import Hats.Schemes
 import Hats.Dual
 import Hats.Equivalent
+import Hats.Hints
 import Hats.Topology
 import Hats.Measurable
 import Hats.Readers
@@ -119,3 +120,9 @@ open Hats
 #print axioms rs_swap
 #print axioms ds_swap
 #print axioms sibling_eq_swap
+#print axioms hat_stackOf_le
+#print axioms sum_stackOf
+#print axioms hitsTwo_le_hintWins
+#print axioms hitsTwo_le_of_hint_le
+#print axioms hitsTwo_four_le
+#print axioms hitsTwo_five_le
