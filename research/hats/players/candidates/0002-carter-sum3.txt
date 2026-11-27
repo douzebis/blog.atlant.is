@@ -1,0 +1,7 @@
+(def (carter x)
+  (if (hat x 0)
+      (if (* (< (lw x) t) (mod (lw x) 2)) (lw x) 0)
+      (if (= (lb x) t) 0
+          (if (= (mod (lb x) 2) 0) (lb x)
+              (if (hat x (+ (lb x) 1)) (+ (lb x) 1) 0)))))
+(mod (+ (carter u) (carter v)) (min t 3))

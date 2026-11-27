@@ -1,0 +1,4 @@
+number	name	author	parent	2 hats	3 hats	4 hats	5 hats	6 hats
+0001	winkler	claude-fable-5	-	14	95	844	6472	53672
+0002	carter-sum3	claude-fable-5	-	14	136	1088	8704	69632
+0003	carter-table15	claude-fable-5	0002	13	136	1090	8903	71176

@@ -1,0 +1,13 @@
+(def (carter x)
+  (if (hat x 0)
+      (if (* (< (lw x) t) (mod (lw x) 2)) (lw x) 0)
+      (if (= (lb x) t) 0
+          (if (= (mod (lb x) 2) 0) (lb x)
+              (if (hat x (+ (lb x) 1)) (+ (lb x) 1) 0)))))
+(def (fold a) (if (= a 3) 1 a))
+(def (law a b)
+  (if (= (max a b) 4)
+      (if (= (min a b) 4) 2 4)
+      (if (* (= a 3) (= b 3)) 3
+          (mod (+ (fold a) (fold b)) 3))))
+(min (law (carter u) (carter v)) (- t 1))

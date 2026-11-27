@@ -16,6 +16,9 @@
 //!                                   annealing on the tables of the form
 //!                                   s[u][v] = F(state(u), state(v)), where
 //!                                   each stack has one of K states
+//!        players eval [T ...]       the wins, on T hats (2 to 6 by default),
+//!                                   of the strategy written on stdin in the
+//!                                   small language of lang.rs
 //!
 //! Three players, each with a stack of T hats (a number below 2^T, the
 //! bottom hat is the units digit, black is 1).  Each sees the two other
@@ -28,6 +31,8 @@
 //! A table is 2^T lines of 2^T digits: line u, column v.  The Python file
 //! score.py of this directory is the reference that this program is
 //! checked against (`cargo test`, and check_players.py).
+
+mod lang;
 
 use std::io::Read;
 use std::time::{Duration, Instant};
@@ -349,6 +354,29 @@ fn factor(t: usize, k: usize, seconds: f64, seed: u64, hot: f64, cold: f64) -> (
     (best, best_wins)
 }
 
+/// The table on `t` hats of a program of the small language.  An error if
+/// the program fails for some stacks, points outside the stack, or is not
+/// symmetric in the two stacks seen.
+fn table_of(program: &lang::Program, t: usize) -> Result<Table, String> {
+    let mut table = Table::new(t);
+    for u in 0..table.size {
+        for v in 0..table.size {
+            let p = program.point(t, u, v)?;
+            table.s[u * table.size + v] = p as u8;
+        }
+    }
+    for u in 0..table.size {
+        for v in 0..u {
+            if table.get(u, v) != table.get(v, u) {
+                return Err(format!(
+                    "on {t} hats it is not symmetric for the stacks {u} and {v}"
+                ));
+            }
+        }
+    }
+    Ok(table)
+}
+
 fn read_stdin() -> String {
     let mut text = String::new();
     std::io::stdin()
@@ -359,8 +387,37 @@ fn read_stdin() -> String {
 
 fn main() {
     let args: Vec<String> = std::env::args().collect();
+    if args.get(1).map(String::as_str) == Some("eval") {
+        // the text on stdin is only ever parsed and computed by lang.rs
+        let heights: Vec<usize> = if args.len() > 2 {
+            args[2..]
+                .iter()
+                .map(|s| s.parse().expect("T is a number"))
+                .collect()
+        } else {
+            (2..=6).collect()
+        };
+        let program = match lang::parse(&read_stdin()) {
+            Ok(program) => program,
+            Err(message) => {
+                println!("refused: {message}");
+                std::process::exit(1);
+            }
+        };
+        for t in heights {
+            assert!((1..=7).contains(&t), "T is between 1 and 7");
+            match table_of(&program, t) {
+                Ok(table) => println!("{t} hats: {} wins out of {}", table.wins(), 1u64 << (3 * t)),
+                Err(message) => {
+                    println!("refused: {message}");
+                    std::process::exit(1);
+                }
+            }
+        }
+        return;
+    }
     let usage = "usage: players score T | winkler T | climb T SECONDS [SEED [START [HOT COLD]]] \
-                 | factor T K SECONDS [SEED [HOT COLD]]";
+                 | factor T K SECONDS [SEED [HOT COLD]] | eval [T ...]";
     if args.len() < 3 {
         eprintln!("{usage}");
         std::process::exit(2);
@@ -466,6 +523,17 @@ mod tests {
             }
             assert_eq!(x.wins(), x.table().wins() as i64);
         }
+    }
+
+    #[test]
+    fn winkler_written_in_the_small_language() {
+        let text = "(if (* (cnt u) (cnt v)) (mod (+ (lb u) (lb v)) t) 0)";
+        let program = lang::parse(text).expect("a program");
+        for t in 2..=4 {
+            assert_eq!(table_of(&program, t).expect("a table").s, winkler(t).s);
+        }
+        let lopsided = lang::parse("(lb u)").expect("a program");
+        assert!(table_of(&lopsided, 3).is_err());
     }
 
     #[test]

@@ -71,6 +71,14 @@ path = [
 SPDX-FileCopyrightText = "Valve Corporation"
 SPDX-License-Identifier = "LicenseRef-third-party"
 
+# Candidate strategies for three players, in the small language of
+# research/hats/players/src/lang.rs, and their log: a comment would not be
+# part of the language.
+[[annotations]]
+path = "research/hats/players/candidates/**"
+SPDX-FileCopyrightText = "Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)"
+SPDX-License-Identifier = "MIT"
+
 # Kept outputs of long runs.
 [[annotations]]
 path = "research/**/results/**"
