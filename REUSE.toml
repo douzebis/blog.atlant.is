@@ -37,6 +37,7 @@ SPDX-License-Identifier = "CC-BY-4.0"
 [[annotations]]
 path = [
   "content/posts/2020-08-30-tower-of-hats/images/hats-towering-pillar.png",
+  "content/posts/2020-08-30-the-game-of-hats/images/hats-towering-pillar.png",
   "content/posts/2020-09-05-hats-calculator/images/hats-medic.png",
   "content/posts/2020-09-26-infinitely-many-hats-3-3/images/infinite-alpha.webp",
 ]

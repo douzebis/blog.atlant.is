@@ -287,6 +287,52 @@ def best(n: int) -> int:
 def quoted() -> list[tuple[str, str, object, object]]:
     return [
         ("caption", "stack of the first picture", 0b011, 3),
+        (
+            "Section 1",
+            "lowest black on 3 hats, Alice 011 and Bob 110",
+            (low_black(3)[0b110], low_black(3)[0b011]),
+            (1, 0),
+        ),
+        (
+            "Section 1",
+            "win rate of the lowest black hat on n hats",
+            [rate(n, low_black(n)) for n in range(1, 7)],
+            [Fraction(1, 3) * (1 - Fraction(1, 4**n)) for n in range(1, 7)],
+        ),
+        (
+            "Section 1",
+            "strategies on 3 and 4 hats",
+            (3**8, 4**16 > 4 * 10**9),
+            (6561, True),
+        ),
+        (
+            "Section 1",
+            "table of the Carter strategies: winning pairs",
+            [hits(n, carter(n)) for n in range(1, 9)],
+            [1, 5, 22, 89, 358, 1433, 5734, 22937],
+        ),
+        (
+            "Section 1",
+            "table of the Carter strategies: out of",
+            [4**n for n in range(1, 9)],
+            [4, 16, 64, 256, 1024, 4096, 16384, 65536],
+        ),
+        (
+            "Section 1",
+            "table of the Carter strategies: short of 7/20 by",
+            [Fraction(7, 20) - rate(n, carter(n)) for n in range(1, 9)],
+            [
+                Fraction(1, 10),
+                Fraction(3, 80),
+                Fraction(1, 160),
+                Fraction(3, 1280),
+                Fraction(1, 2560),
+                Fraction(3, 20480),
+                Fraction(1, 40960),
+                Fraction(3, 327680),
+            ],
+        ),
+        ("Section 1", "81/224", str(Fraction(81, 224).numerator / 224)[:6], "0.3616"),
         ("Section 5", "word of C_3", word(carter(3)), "01002120"),
         ("Section 5", "hits of C_3", hits(3, carter(3)), 22),
         ("Section 7", "best on 1 hat", best(1), 1),
