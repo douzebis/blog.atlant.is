@@ -1,0 +1,1 @@
+(min (lb (bxor u v)) (- t 1))

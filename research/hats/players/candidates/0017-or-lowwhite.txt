@@ -1,0 +1,1 @@
+(min (lw (bor u v)) (- t 1))

@@ -5,3 +5,14 @@ number	author	parent	note
 0004	claude-fable-5	0002	tiers of three hats: skip a tier when one of the two stacks seen is all white there, or both are all black (the resets of Buhler et al.)
 0005	claude-fable-5	0004	the same with the white reset only
 0006	claude-fable-5	0004	skip a tier when one of the two stacks seen is of a single color there
+0007	claude-fable-5	0001	lowest black hat among the t - 1 lowest hats, or t - 1 if none; sum modulo t
+0008	claude-fable-5	0007	the same plus 1
+0009	claude-fable-5	0007	the same plus 2
+0010	claude-fable-5	0007	minus the sum
+0011	claude-fable-5	0002	the Carter choices added modulo t
+0012	claude-fable-5	0002	the Carter choices added modulo 4
+0013	claude-fable-5	0002	Carter on the three lowest hats, sum modulo 3; position 3 when both stacks seen are white there
+0014	claude-fable-5	0007	the same with the lowest white hat
+0015	claude-fable-5	0001	the lowest position where the two stacks seen differ
+0016	claude-fable-5	0001	the lowest position where both stacks seen are black
+0017	claude-fable-5	0001	the lowest position where both stacks seen are white

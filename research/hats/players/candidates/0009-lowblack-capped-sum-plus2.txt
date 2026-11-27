@@ -1,0 +1,1 @@
+(mod (+ (min (lb u) (- t 1)) (min (lb v) (- t 1)) 2) t)

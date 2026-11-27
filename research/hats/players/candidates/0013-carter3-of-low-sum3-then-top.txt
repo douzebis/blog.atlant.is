@@ -1,0 +1,7 @@
+(def (car x k)
+  (if (hat x 0)
+      (if (* (< (lw x) k) (mod (lw x) 2)) (lw x) 0)
+      (if (<= k (lb x)) 0
+          (if (= (mod (lb x) 2) 0) (lb x)
+              (if (* (< (+ (lb x) 1) k) (hat x (+ (lb x) 1))) (+ (lb x) 1) 0)))))
+(if (* (= (low u 3) 0) (= (low v 3) 0)) (min 3 (- t 1)) (mod (+ (car (low u 3) 3) (car (low v 3) 3)) (min t 3)))
