@@ -6,7 +6,7 @@ SPDX-License-Identifier: MIT
 
 # 0007 — The game of hats: one article, then a paper
 
-**Status:** draft
+**Status:** in-progress
 **App:** blog.atlant.is (the hats article)
 **Implemented in:** <!-- YYYY-MM-DD, fill after implementation -->
 
@@ -62,8 +62,8 @@ for arXiv, as for Jane's rosary.
 The layout of the rosary paper (spec 0002), with the names of this one:
 
 ```
-content/posts/<date>-<slug>/        the article (address: open question)
-content/versions/<slug>/2020/...    the three posts of 2020, frozen
+content/posts/2020-08-30-the-game-of-hats/   the article
+content/versions/the-game-of-hats/2020/...  the three posts of 2020, frozen
 docs/papers/hats/
   history.md                        one entry per version
   statements.md                     every statement: where proved, what
@@ -151,7 +151,7 @@ each section of step 5 before the next is written.
 
 | Step | Content | Status |
 |---|---|---|
-| 1 | Freeze the three imported posts as earlier versions (spec 0005, K2) | |
+| 1 | Freeze the three imported posts as earlier versions (spec 0005, K2); the page of the article, unlisted until it is complete | done 2026-11-27 |
 | 2 | `research/hats/check_article.py`: every tuple, score and win rate that the article will quote, recomputed from the definitions (K1) | |
 | 3 | The macros of the notation (`data/mathjax.json`): hat marks, resets, shifts | |
 | 4 | The calculator: colors exchanged, names of the operations, the sibling double shift, a default query, the help (spec 0005, Section 2) | |

@@ -60,6 +60,16 @@ path = "content/versions/**"
 SPDX-FileCopyrightText = "Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)"
 SPDX-License-Identifier = "CC-BY-4.0"
 
+# The same three pictures in the kept posts of 2020.
+[[annotations]]
+path = [
+  "content/versions/the-game-of-hats/2020/2020-08-30-tower-of-hats/images/hats-towering-pillar.png",
+  "content/versions/the-game-of-hats/2020/2020-09-05-hats-calculator/images/hats-medic.png",
+  "content/versions/the-game-of-hats/2020/2020-09-26-infinitely-many-hats-3-3/images/infinite-alpha.webp",
+]
+SPDX-FileCopyrightText = "Valve Corporation"
+SPDX-License-Identifier = "LicenseRef-third-party"
+
 # Kept outputs of long runs.
 [[annotations]]
 path = "research/**/results/**"

@@ -2,3 +2,6 @@
 # directory: digest, two spaces, directory.  Written and checked by
 # tools/check_frozen.py (docs/invariants/0003-frozen-versions.md).
 9b1c412b784e4c412902480744038569e1bde8dd46941a6448808df5d2f24b26  content/versions/jane-s-infinite-rosary/2023-01
+2bfe8b796635fb203b55e591d2311f77bd45dd533f1da415a4852a8d938168bf  content/versions/the-game-of-hats/2020/2020-08-30-tower-of-hats
+e2b54e50c187dae0d64f73d2abe9c54e4baaf96f66a1d533bffeae63eb723696  content/versions/the-game-of-hats/2020/2020-09-05-hats-calculator
+1c8ec633cac4f938654d058de21bdd5065d19ebedf383dd01c862843d3ec04cb  content/versions/the-game-of-hats/2020/2020-09-26-infinitely-many-hats-3-3
