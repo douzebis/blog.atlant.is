@@ -6,9 +6,12 @@
 //!
 //! usage: players score T            wins of the symmetric table on stdin
 //!        players winkler T          the table of Winkler's sum, on stdout
-//!        players climb T SECONDS [SEED [START]]
+//!        players climb T SECONDS [SEED [START [HOT COLD]]]
 //!                                   annealing from the table of the file
-//!                                   START, or from a random table
+//!                                   START ("-" for a random table), the
+//!                                   temperature going from HOT down to
+//!                                   COLD again and again (3 and 0.15 by
+//!                                   default)
 //!
 //! Three players, each with a stack of T hats (a number below 2^T, the
 //! bottom hat is the units digit, black is 1).  Each sees the two other
@@ -175,7 +178,7 @@ impl Rng {
 
 /// Simulated annealing on the symmetric tables.  A move changes one entry
 /// s[u][v] (and s[v][u]).  Returns the best table met and its wins.
-fn climb(start: Table, seconds: f64, seed: u64) -> (Table, u64) {
+fn climb(start: Table, seconds: f64, seed: u64, hot: f64, cold: f64) -> (Table, u64) {
     let mut rng = Rng(seed.wrapping_mul(0x9E37_79B9_7F4A_7C15) | 1);
     let mut table = start;
     let t = table.t;
@@ -185,7 +188,6 @@ fn climb(start: Table, seconds: f64, seed: u64) -> (Table, u64) {
     let begin = Instant::now();
     let limit = Duration::from_secs_f64(seconds);
     // the temperature goes from `hot` down to `cold`, again and again
-    let (hot, cold) = (3.0_f64, 0.15_f64);
     let cycle = 2_000_000u64;
     let mut step = 0u64;
     loop {
@@ -230,7 +232,7 @@ fn read_stdin() -> String {
 
 fn main() {
     let args: Vec<String> = std::env::args().collect();
-    let usage = "usage: players score T | winkler T | climb T SECONDS [SEED [START]]";
+    let usage = "usage: players score T | winkler T | climb T SECONDS [SEED [START [HOT COLD]]]";
     if args.len() < 3 {
         eprintln!("{usage}");
         std::process::exit(2);
@@ -255,7 +257,12 @@ fn main() {
             let seed: u64 = args
                 .get(4)
                 .map_or(1, |s| s.parse().expect("SEED is a number"));
-            let start = match args.get(5) {
+            let number = |i: usize, default: f64| {
+                args.get(i)
+                    .map_or(default, |s| s.parse().expect("a number"))
+            };
+            let (hot, cold) = (number(6, 3.0), number(7, 0.15));
+            let start = match args.get(5).filter(|path| path.as_str() != "-") {
                 Some(path) => {
                     let text = std::fs::read_to_string(path).expect("reading START");
                     Table::parse(t, &text).expect("START is a table")
@@ -272,7 +279,7 @@ fn main() {
                     table
                 }
             };
-            let (best, wins) = climb(start, seconds, seed);
+            let (best, wins) = climb(start, seconds, seed, hot, cold);
             eprintln!("best: {wins} wins out of {}", 1u64 << (3 * t));
             print!("{}", best.print());
         }
