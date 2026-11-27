@@ -156,6 +156,23 @@ def carter(n: int) -> Strategy:
     return s if size == n else black_shift(size, s)
 
 
+def carter_rule(n: int) -> Strategy:
+    """The Carter strategy on n hats as the article tells it in words."""
+
+    def choice(t: int) -> int:
+        if hat(t, 0):
+            p = next((p for p in range(n) if not hat(t, p)), None)
+            return p if p is not None and p % 2 == 1 else 0
+        q = next((q for q in range(n) if hat(t, q)), None)
+        if q is None:
+            return 0
+        if q % 2 == 0:
+            return q
+        return q + 1 if q + 1 < n and hat(t, q + 1) else 0
+
+    return [choice(t) for t in range(2**n)]
+
+
 def reyes(j: int) -> Strategy:
     """The Reyes strategy on 3 j hats: the Carter strategy on three hats,
     double-reset by itself."""
@@ -271,6 +288,30 @@ def check_formulas(rng: random.Random) -> int:
                 reset(3, 2, reset(1, 2, a, b), c) == reset(1, 4, a, reset(2, 2, b, c)),
             )
             done += 1
+    # the operations respect the renamings of the positions (Proposition 7)
+    for m, n in ((1, 2), (2, 2), (3, 2), (2, 3)):
+        for _ in range(20):
+            a = rng.choice(samples[m])
+            b = rng.choice(samples[n])
+            sigma = list(range(m))
+            tau = list(range(n))
+            rng.shuffle(sigma)
+            rng.shuffle(tau)
+            rho = tuple(sigma + [m + p for p in tau])
+            a2 = permuted(m, a, tuple(sigma))
+            b2 = permuted(n, b, tuple(tau))
+            for reset in (white_reset, black_reset, double_reset):
+                check(
+                    "resets respect renamings",
+                    reset(m, n, a2, b2) == permuted(m + n, reset(m, n, a, b), rho),
+                )
+            for shift, more in ((white_shift, 1), (black_shift, 1), (double_shift, 2)):
+                rho1 = tuple(sigma + list(range(m, m + more)))
+                check(
+                    "shifts respect renamings",
+                    shift(m, a2) == permuted(m + more, shift(m, a), rho1),
+                )
+            done += 6
     # how far the double reset is from associative
     for a, b, c in itertools.product(samples[1][:2], samples[2][:8], samples[2][:8]):
         right = double_reset(1, 4, a, double_reset(2, 2, b, c))
@@ -290,7 +331,8 @@ def check_families() -> int:
         check("lowest black", 3 * hits(n, low_black(n)) + 1 == 4**n)
         check("lowest white", 3 * hits(n, low_white(n)) + 1 == 4**n)
         check("Carter", hits(n, carter(n)) == 7 * 4**n // 20)
-        done += 4
+        check("Carter, as a rule", carter_rule(n) == carter(n))
+        done += 5
     for k in range(4):
         gap = Fraction(7, 20) - rate(2 * k + 1, carter(2 * k + 1))
         check("Carter, odd", gap == Fraction(1, 10 * 16**k))
@@ -541,6 +583,87 @@ def quoted() -> list[tuple[str, str, object, object]]:
                 ),
             ],
             [True, True, True, True],
+        ),
+        (
+            "Section 5",
+            "B_3 and W_3",
+            [word(low_black(3)), word(low_white(3))],
+            ["00102010", "01020100"],
+        ),
+        (
+            "Section 5",
+            "B_3 is the dual of W_3",
+            dual(3, low_white(3))[1:-1] == low_black(3)[1:-1],
+            True,
+        ),
+        (
+            "Section 5",
+            "the first five Carter strategies",
+            [word(carter(n)) for n in range(1, 6)],
+            [
+                "00",
+                "0100",
+                "01002120",
+                "0100212301002120",
+                "01002123010021204100212341002120",
+            ],
+        ),
+        (
+            "Section 5",
+            "Carter win rates",
+            [Fraction(7, 20) - rate(n, carter(n)) for n in range(1, 9)],
+            [Fraction(2 if n % 2 else 3, 5 * 4**n) for n in range(1, 9)],
+        ),
+        (
+            "Section 5",
+            "remainders of 7 * 4^n by 20",
+            [7 * 4**n % 20 for n in range(1, 7)],
+            [8, 12, 8, 12, 8, 12],
+        ),
+        (
+            "Section 5",
+            "Reyes hits",
+            [hits(3 * j, reyes(j)) for j in (1, 2, 3)],
+            [(7 * 64**j - 2 * 4**j) // 20 for j in (1, 2, 3)],
+        ),
+        (
+            "Section 5",
+            "table: same hat",
+            [hits(n, [0] * 2**n) for n in range(1, 9)] + [4**8],
+            [1, 4, 16, 64, 256, 1024, 4096, 16384, 65536],
+        ),
+        (
+            "Section 5",
+            "table: lowest black",
+            [hits(n, low_black(n)) for n in range(1, 9)] + [(4**9 - 1) // 3],
+            [1, 5, 21, 85, 341, 1365, 5461, 21845, 87381],
+        ),
+        (
+            "Section 5",
+            "table: Carter",
+            [hits(n, carter(n)) for n in range(1, 9)] + [7 * 4**9 // 20],
+            [1, 5, 22, 89, 358, 1433, 5734, 22937, 91750],
+        ),
+        (
+            "Section 5",
+            "table: Reyes",
+            [hits(3 * j, reyes(j)) for j in (1, 2, 3)],
+            [22, 1432, 91744],
+        ),
+        (
+            "Section 5",
+            "table: out of",
+            [4**n for n in range(1, 10)],
+            [4, 16, 64, 256, 1024, 4096, 16384, 65536, 262144],
+        ),
+        (
+            "Section 5",
+            "Reyes on 3j hats and Carter on 2j + 1 hats",
+            [
+                rate(3 * j, reyes(j)) == rate(2 * j + 1, carter(2 * j + 1))
+                for j in (1, 2, 3)
+            ],
+            [True, True, True],
         ),
         ("Section 1", "81/224", str(Fraction(81, 224).numerator / 224)[:6], "0.3616"),
         ("Section 5", "word of C_3", word(carter(3)), "01002120"),

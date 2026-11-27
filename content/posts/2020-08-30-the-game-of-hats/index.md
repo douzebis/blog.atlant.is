@@ -494,7 +494,13 @@ For the second point: the dual of $s\,\dshift$ plays $\dual{s}$ on the $n$ lowes
 
 (Lean: `ds` is defined as $s\,\bshift\,\wshift$ with one choice changed; `sibling_eq` says that the strategy of the first point is the dual of the double shift of the dual. That it is $\sigma \cdot (s\,\dshift)$ is checked by program.)
 
-So there are two double shifts, and they are equivalent: each is the other with the two new positions renamed. We keep the first and write it $s\,\dshift$. Nothing later depends on this choice, because the operations of this article only look at a block of hats to ask whether it is all white or all black, which a renaming inside the block does not change: replacing a double shift by the other one anywhere in a strategy gives an equivalent strategy.
+So there are two double shifts, and they are equivalent: each is the other with the two new positions renamed. We keep the first and write it $s\,\dshift$. Nothing later depends on this choice, by the next statement.
+
+**Proposition 7 (the operations respect equivalence).** Let $a$ and $a'$ be equivalent strategies on $m$ hats, and $b$ and $b'$ equivalent strategies on $n$ hats. Then $a' \wreset b'$ is equivalent to $a \wreset b$, and the same holds for the black reset and the double reset. The shifts $a'\,\wshift$, $a'\,\bshift$ and $a'\,\dshift$ are equivalent to $a\,\wshift$, $a\,\bshift$ and $a\,\dshift$.
+
+*Proof.* Let $a' = \sigma \cdot a$ and $b' = \tau \cdot b$. Let $\rho$ be the renaming of the $m + n$ positions that acts as $\sigma$ on the $m$ lowest and as $\tau$ on the $n$ above. We show that $a' \wreset b' = \rho \cdot (a \wreset b)$. Take a stack $t$ of $m + n$ hats. The $m$ lowest hats of $\rho \cdot t$ are those of $t$, renamed by $\sigma$: they are all white exactly when those of $t$ are. If they are not, both strategies play on the lowest hats: $a \wreset b$ points at $a(t_{<m})$ when it sees $t$, and $a' \wreset b'$ points at $\sigma(a(t_{<m}))$ when it sees $\rho \cdot t$. If they are, both play above, and the same holds with $b$ and $\tau$. This is what $a' \wreset b' = \rho \cdot (a \wreset b)$ means. The proof is the same for the other resets, with "all black" or "of a single color". For the shifts, $\rho$ acts as $\sigma$ on the $m$ lowest positions and leaves the new ones in place; the stacks of the exceptions are told by their $m$ lowest hats being all white or all black, and by the new hats.
+
+(Checked by program on random strategies and renamings; not in Lean.) So in a strategy written with resets and shifts, replacing a part by an equivalent one gives an equivalent strategy. In particular it does not matter which double shift is used, and where.
 
 Compare with the single shifts. Exchanging the colors turns the white shift into the black shift, and these two are not equivalent: $\str{0010}$ and $\str{0100}$ are not the same strategy with the positions renamed. The double shift is sent by the exchange of the colors to an equivalent strategy. It does not prefer a color.
 
@@ -502,7 +508,127 @@ That one changed letter is worth a remark. Resets and single shifts build a stra
 
 ### 5. Five families
 
-*To come.*
+We now have what it takes to name strategies on any number of hats and to compute their win rates. There are five families. In bold, $\mathbf{T}_n$, $\mathbf{B}_n$, $\mathbf{W}_n$ and $\mathbf{C}_n$ are strategies on $n$ hats; $\mathbf{R}_j$ is a strategy on $3j$ hats.
+
+#### Always the same hat
+
+$\mathbf{T}_n$ points at the bottom hat whatever it sees: its word is $2^n$ zeros. We met it in Section 2: it has $4^{n-1}$ hits, and its win rate is $\frac14$ for every $n$. It is the yardstick: a strategy is worth something when it beats $\frac14$.
+
+#### The lowest black hat, the lowest white hat
+
+$\mathbf{B}_n$ points where the stack it sees has its lowest black hat; this is the plan of Section 1. $\mathbf{W}_n$ points where the stack it sees has its lowest white hat. They are chains of resets of the strategy on one hat:
+
+$$
+\mathbf{B}_n = \underbrace{\str{00} \wreset \str{00} \wreset \cdots \wreset \str{00}}_{n} , \qquad
+\mathbf{W}_n = \underbrace{\str{00} \breset \str{00} \breset \cdots \breset \str{00}}_{n} ,
+$$
+
+up to the one choice that does not matter: what $\mathbf{B}_n$ does for the all-white stack, and $\mathbf{W}_n$ for the all-black stack. On three hats, $\mathbf{B}_3 = \str{00102010}$ and $\mathbf{W}_3 = \str{01020100}$. Each is the dual of the other.
+
+**Proposition 8 (the lowest black hat, the lowest white hat).** For every $n \geq 1$,
+
+$$
+|H(\mathbf{B}_n)| = |H(\mathbf{W}_n)| = \frac{4^n - 1}{3} , \qquad
+w(\mathbf{B}_n) = w(\mathbf{W}_n) = \frac13 \left( 1 - \frac{1}{4^n} \right) .
+$$
+
+*Proof.* By [Theorem 1](#theorem-1), with $|H(\str{00})| = 1$: the hits $h_n$ of the chain of $n$ resets satisfy $h_1 = 1$ and $h_{n+1} = 4^n + h_n$. So $h_n = 1 + 4 + \cdots + 4^{n-1}$.
+
+(Lean: `hits_lowBlack`, `hits_lowWhite`, `rate_lowBlack`, `rate_lowWhite`.) The win rates climb toward $\frac13$ and never reach it.
+
+#### The Carter strategies
+
+Start from the strategy on one hat and add two hats at a time with double shifts; for an even number of hats, finish with one single shift.
+
+$$
+\mathbf{C}_1 = \str{00} , \qquad
+\mathbf{C}_{n+2} = \mathbf{C}_n\,\dshift \ \text{ for odd } n , \qquad
+\mathbf{C}_{n+1} = \mathbf{C}_n\,\bshift \ \text{ for odd } n .
+$$
+
+The first five:
+
+| Hats | $\mathbf{C}_n$ |
+|---|---|
+| $1$ | $\str{00}$ |
+| $2$ | $\str{0100}$ |
+| $3$ | $\str{01002120}$ |
+| $4$ | $\str{01002123\,01002120}$ |
+| $5$ | $\str{01002123\,01002120\,41002123\,41002120}$ |
+
+Unfolding the shifts gives a rule that is the same for every number of hats. Look at the bottom hat of the stack you see.
+
+- If it is black, find the lowest white hat. If it is at an odd position, point there.
+- If it is white, find the lowest black hat. If it is at an even position, point there. If it is at an odd position and the hat just above it is black too, point at the hat just above.
+- In every other case, point at the bottom hat.
+
+So $\mathbf{C}_n$ is one rule, cut to $n$ hats. Seeing stack $6$ of three hats (white, black, black from the bottom), the lowest black hat is at position $1$ and the hat above it is black: point at position $2$, the seventh letter of $\str{01002120}$.
+
+**Theorem 3 (the Carter strategies).** For every $n \geq 1$, the Carter strategy on $n$ hats has
+
+$$
+|H(\mathbf{C}_n)| = \left\lfloor \frac{7 \cdot 4^n}{20} \right\rfloor
+$$
+
+hits: $7 \cdot 4^n / 20$, rounded down. More precisely,
+
+$$
+w(\mathbf{C}_n) = \frac{7}{20} - \frac{2}{5 \cdot 4^n} \ \text{ for odd } n , \qquad
+w(\mathbf{C}_n) = \frac{7}{20} - \frac{3}{5 \cdot 4^n} \ \text{ for even } n .
+$$
+
+*Proof.* Write $h_n = |H(\mathbf{C}_n)|$. For odd $n$ we claim that $20 \, h_n = 7 \cdot 4^n - 8$. This holds for $n = 1$, where $h_1 = 1$. If it holds for $n$, [Theorem 2](#theorem-2) gives $h_{n+2} = 16 \, h_n + 6$, hence $20 \, h_{n+2} = 16 \, (7 \cdot 4^n - 8) + 120 = 7 \cdot 4^{n+2} - 8$. For even $n + 1$, [Theorem 2](#theorem-2) gives $h_{n+1} = 4 \, h_n + 1$, hence $20 \, h_{n+1} = 4 \, (7 \cdot 4^n - 8) + 20 = 7 \cdot 4^{n+1} - 12$. In both cases $20 \, h_n$ is the largest multiple of $20$ below $7 \cdot 4^n$, because $7 \cdot 4^n$ leaves the remainder $8$ or $12$ when divided by $20$. Dividing by $20 \cdot 4^n$ gives the win rates.
+
+(Lean: `hits_carterOdd`, `hits_carterEven`, `hits_carter`, `rate_carterOdd`, `rate_carterEven`.) The table of Section 1 lists the first eight.
+
+Two remarks. A win rate on $n$ hats is a whole number of hits out of $4^n$, and $7 \cdot 4^n / 20$ is never whole. So no strategy on $n$ hats has a win rate between that of $\mathbf{C}_n$ and $\frac{7}{20}$: on each number of hats, the Carter strategy is as close to $\frac{7}{20}$ from below as a strategy can be. And the single shift that finishes the even case could as well be the white shift, which has the same hits by [Theorem 2](#theorem-2).
+
+#### The Reyes strategies
+
+Take the Carter strategy on three hats and reset it by itself with double resets:
+
+$$
+\mathbf{R}_1 = \mathbf{C}_3 , \qquad \mathbf{R}_{j+1} = \mathbf{C}_3 \dreset \mathbf{R}_j ,
+$$
+
+that is, with the convention on chains, $\mathbf{R}_j = \mathbf{C}_3 \dreset \mathbf{C}_3 \dreset \cdots \dreset \mathbf{C}_3$ with $j$ copies. In words: look at the hats three by three from the bottom; skip every block of three that is all white or all black; on the first block that is not, play $\mathbf{C}_3$. This is the shape of the plans of 2014 that win $7$ times in $20$ on stacks that never end [BFGKRTVY].
+
+**Proposition 9 (the Reyes strategies).** For every $j \geq 1$, the Reyes strategy on $3j$ hats has
+
+$$
+|H(\mathbf{R}_j)| = \frac{7 \cdot 64^j - 2 \cdot 4^j}{20} , \qquad
+w(\mathbf{R}_j) = \frac{7}{20} - \frac{1}{10 \cdot 16^j} .
+$$
+
+*Proof.* The win rate of $\mathbf{C}_3$ is $\frac{22}{64}$. By [Theorem 1](#theorem-1),
+
+$$
+w(\mathbf{R}_{j+1}) = \frac{22}{64} + \frac{4 \, w(\mathbf{R}_j) - 1}{64} .
+$$
+
+Write $w(\mathbf{R}_j) = \frac{7}{20} - e_j$. Then $w(\mathbf{R}_{j+1}) = \frac{22}{64} + \frac{2}{5 \cdot 64} - \frac{e_j}{16} = \frac{7}{20} - \frac{e_j}{16}$, since $22 + \frac25 = 64 \cdot \frac{7}{20}$. And $e_1 = \frac{7}{20} - \frac{22}{64} = \frac{1}{160}$.
+
+(Lean: `hits_reyes`, `rate_reyes`.) This is the computation of "A first look at $\frac{7}{20}$" in Section 3, done one step at a time.
+
+#### The five families side by side
+
+Hits, out of $4^n$:
+
+| Hats | $\mathbf{T}_n$ | $\mathbf{B}_n$, $\mathbf{W}_n$ | $\mathbf{C}_n$ | $\mathbf{R}_{n/3}$ | Out of |
+|---|---|---|---|---|---|
+| $1$ | $1$ | $1$ | $1$ | | $4$ |
+| $2$ | $4$ | $5$ | $5$ | | $16$ |
+| $3$ | $16$ | $21$ | $22$ | $22$ | $64$ |
+| $4$ | $64$ | $85$ | $89$ | | $256$ |
+| $5$ | $256$ | $341$ | $358$ | | $1{,}024$ |
+| $6$ | $1{,}024$ | $1{,}365$ | $1{,}433$ | $1{,}432$ | $4{,}096$ |
+| $7$ | $4{,}096$ | $5{,}461$ | $5{,}734$ | | $16{,}384$ |
+| $8$ | $16{,}384$ | $21{,}845$ | $22{,}937$ | | $65{,}536$ |
+| $9$ | $65{,}536$ | $87{,}381$ | $91{,}750$ | $91{,}744$ | $262{,}144$ |
+
+The Carter and the Reyes strategies both climb toward $\frac{7}{20}$, at different paces. The Reyes strategy on $3j$ hats has exactly the win rate of the Carter strategy on $2j + 1$ hats, $\frac{7}{20} - \frac{1}{10 \cdot 16^j}$: the Carter strategies get there with fewer hats, and on the same number of hats they win more, as the table shows on $6$ and $9$ hats. We know no direct reason for this coincidence of win rates, no way to turn one strategy into the other (Section 9).
+
+What the Reyes strategies have for them is their shape: the same block, played again and again. That shape goes over to stacks that never end without any change, which is the subject of the next section.
 
 ### 6. Infinite stacks
 

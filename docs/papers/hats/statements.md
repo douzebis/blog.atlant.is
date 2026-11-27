@@ -22,6 +22,10 @@ the numbers quoted near each statement.
 | Proposition 5 | 3 | The white and the black reset are associative | `lr_assoc`, `rr_assoc` | strategies on 1, 2 and 2 hats |
 | Theorem 2 | 4 | Hits of the white and the black shift, `4 H(s) + 1`, and of the double shift, `16 H(s) + 6`; `s` proper | `hits_ls`, `hits_rs`, `hits_ds`; `rate_ls`, `rate_rs`, `rate_ds` | all proper strategies on 1 and 2 hats, random ones on 3 and 4 |
 | Proposition 6 | 4 | The other order of the single shifts, with one choice changed, is the double shift with its two new positions exchanged; so is the dual of the double shift of the dual | `sibling_eq` (the two descriptions agree), `hits_sibling`; the renaming is not in Lean | the same strategies |
+| Proposition 7 | 4 | Resets and shifts of equivalent strategies are equivalent | not in Lean | random strategies and renamings, on 1 to 3 hats by 2 or 3 hats |
+| Proposition 8 | 5 | The lowest black hat and the lowest white hat have `(4^n - 1) / 3` hits | `hits_lowBlack`, `hits_lowWhite`, `rate_lowBlack`, `rate_lowWhite` | 1 to 8 hats |
+| Theorem 3 | 5 | The Carter strategy on `n` hats has `7 * 4^n / 20` hits, rounded down | `hits_carterOdd`, `hits_carterEven`, `hits_carter`, `rate_carterOdd`, `rate_carterEven` | 1 to 8 hats; the rule in words agrees with the shifts on 1 to 8 hats (program only) |
+| Proposition 9 | 5 | The Reyes strategy on `3j` hats has win rate `7/20 - 1/(10 * 16^j)` | `hits_reyes`, `rate_reyes` | `j` = 1, 2, 3 |
 
 Not numbered: the strategy that always points at the same hat has
 `4^(n-1)` hits (`hits_const`).
