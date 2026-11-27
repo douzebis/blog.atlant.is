@@ -158,6 +158,19 @@ the best win rate of two players with infinite stacks.
    plateau, in which built and primitive strategies are neighbors; a
    primitive strategy is a built one moved along the plateau, as the
    walks around the Carter strategies on 6 to 8 hats suggested.
+
+   On five hats the picture is sharper (2026-11-27, scratch script). The
+   3,240 best strategies (the two free choices aside) make 360 groups
+   of exactly 9 when strategies that differ in one choice are joined,
+   and changes of two choices join nothing more. In a group, two stacks
+   have a choice among three positions each, independently (for the
+   Carter strategy: the stacks 2 and 27, positions 0, 3 or 4), and all
+   the rest is fixed. A group holds 9 classes: 120 groups hold the 9
+   built classes, and 240 hold 9 primitive classes, of two kinds. So,
+   up to the renamings and to these choices that do not change the
+   hits, **there are exactly three best strategies on five hats: the
+   Carter strategy and two primitive ones.** The 9 built classes are the
+   Carter strategy with its two loose choices varied.
 6. **Why do the Reyes strategy on `3n` hats and the Carter strategy on
    `2n + 1` hats have the same win rate,** `7/20 - 1/(10 * 16^n)`? Both
    formulas are proved (`rate_reyes`, `rate_carterOdd`); no map between
