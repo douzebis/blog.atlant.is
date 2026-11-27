@@ -103,6 +103,7 @@ Chosen to be read against the article, and close to the calculator:
 | 17 | The fast search program (`HatsSearch/Program.lean`: machine words, parallel tasks, the executable `hats-search`), proved to return `best n` for `n` from 2 to 4 (`search_toNat`, `search_spec`) | done 2026-11-24 |
 | 18 | Four hats: at most 89 hits (`Hats/SearchNative.lean`), by having Lean run the fast program; rests on the extra axiom `Lean.ofReduceBool` and is outside the audit | done 2026-11-24 |
 | 19 | Generalized resets (`Hats/Schemes.lean`): the score of a scheme, and the bound `schemeScore_le`: at most `2 ^ (m - 1) * (2 ^ m - |Z|)`; so a scheme with `7 |Z| >= 6 * 2 ^ (m - 1)` has a score of at most 7/20 of `4 ^ m - |Z| ^ 2` | done 2026-11-26; that the win rate is the score divided by `4 ^ m - |Z| ^ 2` is not proved |
+| 20 | Exchanging the colors (`Hats/Dual.lean`): the dual of a strategy; a proper strategy and its dual have the same hits (`hits_dual`); the sibling of the double shift, defined as the dual of the double shift of the dual, has `16 * hits s + 6` hits (`hits_sibling`) and is the black shift of the white shift except for the stack `2 ^ n - 1`, which points at `n + 1` (`sibling_eq`) | done 2026-11-27 |
 
 Each step is committed when the check passes.
 

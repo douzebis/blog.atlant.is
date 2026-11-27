@@ -7,6 +7,7 @@ import Hats.Rates
 import Hats.Crush
 import Hats.Optimal
 import Hats.Schemes
+import Hats.Dual
 import Hats.Topology
 import Hats.Measurable
 import Hats.Readers
@@ -104,3 +105,6 @@ open Hats
 #print axioms schemeScore_empty
 #print axioms schemeScore_le
 #print axioms schemeScore_le_seven_twentieths
+#print axioms hits_dual
+#print axioms hits_sibling
+#print axioms sibling_eq

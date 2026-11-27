@@ -26,4 +26,5 @@ import Hats.Readers
 import Hats.Examples
 import Hats.Optimal
 import Hats.Schemes
+import Hats.Dual
 import Hats.Audit
