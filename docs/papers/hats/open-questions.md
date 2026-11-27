@@ -199,7 +199,14 @@ the best win rate of two players with infinite stacks.
    always reached. Owed: a proof (human and Lean; it would replace the
    separate proofs of Theorems 1 and 2 and of `hits_tds`), and whether
    every best strategy on `n` hats is, up to renaming and colors, a
-   substitution of best strategies on fewer hats. Open:
+   substitution of best strategies on fewer hats. First test
+   (scratch, 2026-11-27; a class counts when some renaming of it is a
+   substitution of a strategy on at least two hats): on four hats, the
+   6 built classes are and the 4 primitive ones are not; on five hats,
+   15 of the 27 classes are (the 9 built and 6 others), 12 are not.
+   The 12 are loose-choice variants of substitutions, so the exact
+   statement on five hats is "a substitution up to the loose choices".
+   The 4 primitive classes on four hats remain unexplained. Open:
    whether there are more operations of this kind (three hats added,
    gain 25; the 4 primitive classes on four hats are not explained by
    this one).
