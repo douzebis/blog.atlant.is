@@ -194,7 +194,7 @@ function d2s(d) {
 // ingests string or array, returns array
 function parse(s) {
   if (typeof s === 'string') {
-      // special case: tower of height 0 with negative choice, like: "-1"
+      // special case: stack of height 0 with negative choice, like: "-1"
       if (s.slice(0,1) == "-") {
           s = [parseInt(s)];
       // general case
@@ -291,7 +291,7 @@ function show(s) {
   s = parse(s);
   let H = _score(s);
   let cardinalSquared = s.length * s.length;
-  let msg = _fmt(s) + ' mu = ' + H + '/' + cardinalSquared + ' ';
+  let msg = _fmt(s) + ' w = ' + H + '/' + cardinalSquared + ' ';
   const exactRatio = 100 * H / cardinalSquared;
   const shortRatio = Math.trunc(100 * exactRatio +0.5) / 100;
   if (shortRatio == exactRatio) {
@@ -376,7 +376,14 @@ function emb(a,n) {
   return s;
 }
 
-// -- Left reset: (a, b) +--> (b -> a) ----------------------------------------
+// The colors: black is the digit 1 and the color to point at (until 2026 it
+// was white).  The operations are named after the color that triggers them:
+// the white reset and the white shift (lr and ls until 2026, "left") act on
+// the stack of all-white hats, number 0; the black reset and the black shift
+// (rr and rs, "right") on the stack of all-black hats.  The old names are
+// kept.
+
+// -- White reset: a, and b above it when the hats of a are all white ---------
 
 function lr(a, b) {
   a = parse(a);
@@ -398,7 +405,7 @@ function lr(a, b) {
   return s;
 }
 
-// -- Right reset: (a, b) +--> (a <- b) ---------------------------------------
+// -- Black reset: a, and b above it when the hats of a are all black ---------
 
 function rr(a, b) {
   a = parse(a);
@@ -420,7 +427,7 @@ function rr(a, b) {
   return s;
 }
 
-// -- Double reset: (a, b) +--> DR(a, b) --------------------------------------
+// -- Double reset: a, and b above it when the hats of a have one color -------
 
 function dr(a, b) {
   a = parse(a);
@@ -442,7 +449,7 @@ function dr(a, b) {
   return s;
 }
 
-// -- Left shift: a +--> ^a ---------------------------------------------------
+// -- White shift --------------------------------------------------------------
 
 function ls(a) {
   a = parse(a);
@@ -462,7 +469,7 @@ function ls(a) {
   return s;
 }
 
-// -- Right shift: a +--> a^ --------------------------------------------------
+// -- Black shift --------------------------------------------------------------
 
 function rs(a) {
   a = parse(a);
@@ -482,7 +489,7 @@ function rs(a) {
   return s;
 }
 
-// -- Double shift: a +--> a^^ ------------------------------------------------
+// -- Double shift: the white shift of the black shift, one choice changed ----
 
 function ds(a) {
   a = parse(a);
@@ -504,31 +511,70 @@ function ds(a) {
   return s;
 }
 
+// -- Sibling double shift: the black shift of the white shift, one choice ----
+// -- changed (the double shift with the colors exchanged) --------------------
+
+function sd(a) {
+  a = parse(a);
+  let ca = a.length; // count of possible stacks for a
+  let m = log_2(ca); // height of a
+  let s = [];
+  let i = -1;
+  for (let u = 0; u < 4; ++u) {
+    for (let t = 0; t < ca; ++t) {
+      if ((u == 1 || u == 3) && t == 0) {
+        s[++i] = m;
+      } else if ((u == 0 || u == 1) && t == ca - 1) {
+        s[++i] = m + 1;
+      } else {
+        s[++i] = a[t];
+      }
+    }
+  }
+  return s;
+}
+
+// -- Dual: the strategy with the two colors exchanged ------------------------
+
+function dual(a) {
+  a = parse(a);
+  return a.slice().reverse();
+}
+
+// -- The operations under the names of their colors --------------------------
+
+const wr = lr;
+const br = rr;
+const ws = ls;
+const bs = rs;
+
 // -- Basic strategies --------------------------------------------------------
 
 const T0 = [-1];
 
-const W0 = T0;
-const W1 = lr([0, 0], W0);
-const W2 = lr([0, 0], W1);
-const W3 = lr([0, 0], W2);
-const W4 = lr([0, 0], W3);
-const W5 = lr([0, 0], W4);
-const W6 = lr([0, 0], W5);
-const W7 = lr([0, 0], W6);
-const W8 = lr([0, 0], W7);
-const W9 = lr([0, 0], W8);
-
+// B<n> points at the lowest black hat, W<n> at the lowest white hat (the
+// two names were exchanged in 2026, with the colors).
 const B0 = T0;
-const B1 = rr([0, 0], B0);
-const B2 = rr([0, 0], B1);
-const B3 = rr([0, 0], B2);
-const B4 = rr([0, 0], B3);
-const B5 = rr([0, 0], B4);
-const B6 = rr([0, 0], B5);
-const B7 = rr([0, 0], B6);
-const B8 = rr([0, 0], B7);
-const B9 = rr([0, 0], B8);
+const B1 = lr([0, 0], B0);
+const B2 = lr([0, 0], B1);
+const B3 = lr([0, 0], B2);
+const B4 = lr([0, 0], B3);
+const B5 = lr([0, 0], B4);
+const B6 = lr([0, 0], B5);
+const B7 = lr([0, 0], B6);
+const B8 = lr([0, 0], B7);
+const B9 = lr([0, 0], B8);
+
+const W0 = T0;
+const W1 = rr([0, 0], W0);
+const W2 = rr([0, 0], W1);
+const W3 = rr([0, 0], W2);
+const W4 = rr([0, 0], W3);
+const W5 = rr([0, 0], W4);
+const W6 = rr([0, 0], W5);
+const W7 = rr([0, 0], W6);
+const W8 = rr([0, 0], W7);
+const W9 = rr([0, 0], W8);
 
 const C1 = [0, 0];
 const C2 = rs(C1);
@@ -544,7 +590,7 @@ const R0 = T0;
 // R(n+1) is C3 double-reset by R(n), as in the article.  Until 2026 this
 // read dr(R2, C3) for R3, which is another strategy (double reset is not
 // associative) with a lower win rate.
-const R1 = dr(R0, C3);
+const R1 = C3;
 const R2 = dr(C3, R1);
 const R3 = dr(C3, R2);
 
@@ -650,32 +696,38 @@ function help() {
 function helpEval() {
   disp('usage: hats eval <expr>');
   disp('');
-  disp('Evaluates strategy <expr> and displays the result.');
+  disp('Evaluates strategy <expr> and displays the result: the position');
+  disp('it points at for each stack, its hits and its win rate w.');
+  disp('A stack is a number, its bottom hat is the units digit, black is 1,');
+  disp('and the players point at black hats.');
   disp('');
   disp('Recognized syntax for <expr> include:');
-  disp('   "00" | "0100" | ...      Literal strategy name (short form)');
-  disp('   [0,0] | [0,1,0,0] | ...  Literal strategy name (long form)');
-  disp('   W0, W1, ..., W9          Predefined Lowest-White strategies');
-  disp('   B0, B1, ..., B9          Predefined Lowest-Black strategies');
+  disp('   "00" | "0100" | ...      Literal strategy (short form)');
+  disp('   [0,0] | [0,1,0,0] | ...  Literal strategy (long form)');
+  disp('   B0, B1, ..., B9          Predefined lowest-black strategies');
+  disp('   W0, W1, ..., W9          Predefined lowest-white strategies');
   disp('   C1, C2, ..., C9          Predefined Carter strategies');
   disp('   R0, R1, R2, R3           Predefined Reyes strategies');
-  disp('   emb(<expr>, <num>)       Embedding of <expr> in T_<num>');
-  disp('   lr(<expr>, <expr2>)      Left reset of <expr> by <expr2>');
-  disp('   rr(<expr>, <expr2>)      Right reset of <expr> by <expr2>');
+  disp('   emb(<expr>, <num>)       <expr> played on stacks of <num> hats');
+  disp('   wr(<expr>, <expr2>)      White reset of <expr> by <expr2>');
+  disp('   br(<expr>, <expr2>)      Black reset of <expr> by <expr2>');
   disp('   dr(<expr>, <expr2>)      Double reset of <expr> by <expr2>');
-  disp('   ls(<expr>)               Left shift of <expr>');
-  disp('   rs(<expr>)               Right shift of <expr>');
+  disp('   ws(<expr>)               White shift of <expr>');
+  disp('   bs(<expr>)               Black shift of <expr>');
   disp('   ds(<expr>)               Double shift of <expr>');
+  disp('   sd(<expr>)               Sibling double shift of <expr>');
+  disp('   dual(<expr>)             <expr> with the colors exchanged');
   disp('   crush(<expr>)            Crush transform of <expr>');
   disp('   tikz([<expr>, ...])      Tree of the choices of the strategies,');
   disp('                            as a LaTeX picture');
+  disp('   lr, rr, ls, rs           Names of 2020 for wr, br, ws, bs');
   disp('');
   disp('Examples');
   disp('   eval \'"0100"\'');
   disp('   eval \'[0,1,0,0]\'');
-  disp('   eval \'W3\'');
-  disp('   eval \'ds(ds(W1))\'');
-  disp('   eval \'lr(W1,W1)\'');
+  disp('   eval \'B3\'');
+  disp('   eval \'ds(ds(C1))\'');
+  disp('   eval \'wr(B1,B1)\'');
 }
 
 function helpSearch() {
@@ -713,11 +765,11 @@ function helpSearch() {
 const Err = { // Throwable errors
   cliParsing: 'Command line parsing error',
   cliParameters: 'Command line parameters error',
-  eval: 'Expression evaluation error',
+  eval: 'The expression is not a strategy',
   heightSearch: 'Height search must be within [1,..,5]',
   searchSeed: 'Search seed must be in crushed form',
-  notInTower: 'Crushed argument must point within the tower',
-  towerTooShort: 'Cannot embed in shorter tower',
+  notInTower: 'Crushed argument must point within the stack',
+  towerTooShort: 'Cannot embed in a shorter stack',
   badEnv: 'Did not expect this execution environment',
   tikzRows: 'The number of rows must be between 1 and the number of strategies',
 }
@@ -778,6 +830,12 @@ function parseCommandLine(args) {
           case Cmd.eval: // eval
             command = Cmd.eval;
             if (args.length != 2) { helpEval(); throw Err.cliParsing; }
+            if (args[1] == Cmd.help) { // "eval help"
+              command = Cmd.help;
+              helpEval();
+              args = [];
+              break;
+            }
             expression = args[1];
             args = [];
             break;
@@ -936,7 +994,7 @@ function _code_hitContribExpanded(tower, choice, height) {
   let already = 0;
   let expression = '((';
   for (let t = 0; t < cardinal; ++t) { // for all possible configurations for _my_ tower
-      if (!(t & (1 << choice))) continue; // if _your_ choice points to a black hat: no hit
+      if (!(t & (1 << choice))) continue; // if _your_ choice points to a white hat: no hit
       if (t == tower) {
           single = 1; // count this hit ony once (and add it last)
       } else { // these hits must be counted twice
@@ -958,7 +1016,7 @@ function _code_hitContribInteger(e, tower, choice, height) {
   already = 0;
   expression = '((';
   for (let position = 0; position < height; ++position) {   // for each position...
-      if (!(tower & (1 << position))) continue;             // ...where I have white hat
+      if (!(tower & (1 << position))) continue;             // ...where I have a black hat
       if (already) expression += ' + '; else already = 1;
       let shift = position * (height + 1);                  // gather the associated hits
       if (shift) {
@@ -985,7 +1043,7 @@ function _code_gotcha(height, ratings) {
   if (all) __________________('    }');
   ___________________________('      S = fmt(); // Remember strategy');
   if (!quiet) {
-    _________________________('      msg = S + " mu = " + H + "/% ";').r(cardinalSquared);
+    _________________________('      msg = S + " w = " + H + "/% ";').r(cardinalSquared);
     _________________________('      const exactRatio = 100 * H / %;').r(cardinalSquared);
     _________________________('      const shortRatio = Math.trunc(100 * exactRatio +0.5) / 100;');
     _________________________('      if (shortRatio == exactRatio) {');

@@ -22,45 +22,55 @@
 // IN THE SOFTWARE.
 -->
 
-<html><body>
-
-<style type="text/css">
-    .tg  {border-color:black;border-style:solid;border-width:1px;margin:0px auto;}
-    .tg td{border-collapse:collapse;border-spacing:0;font-family:Arial, sans-serif;font-size:14px;
-        overflow:hidden;padding:10px 5px;word-break:normal;}
-    .tg th{border-collapse:collapse;border-spacing:0;font-family:Arial, sans-serif;font-size:14px;
-        font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-    .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hats calculator</title>
+<style>
+    :root { color-scheme: light dark; --text: #1c1c1a; --background: #fff; --rule: #8c8c86; }
+    @media (prefers-color-scheme: dark) {
+        :root { --text: #e4e4de; --background: #191918; --rule: #6e6e6a; }
+    }
+    body { margin: 0; padding: 4px; color: var(--text); background: var(--background);
+        font-family: Arial, sans-serif; font-size: 14px; }
+    .tg { border: 1px solid var(--rule); margin: 0 auto; max-width: 100%; }
+    .tg td { padding: 10px 5px; text-align: left; vertical-align: top; }
+    button { color: #000; }
+    #query { font-family: monospace; width: 100%; box-sizing: border-box; }
+    #output { width: 100%; max-height: 200px; overflow: auto; }
 </style>
+</head>
+<body>
+
 <table class="tg">
     <tbody>
         <tr>
-            <td class="tg-0pky">
-                Enter a <a href="../../posts/2020-09-05-hats-calculator/" target="_top">hats query</a>,
-                then click "Submit":
+            <td>
+                Enter a <a href="../../posts/2020-08-30-the-game-of-hats/" target="_top">hats query</a>
+                (try <code>help</code>, <code>help eval</code>), then click "Submit":
             </td>
-            <td class="tg-0pky">
+            <td>
                 <button type="button" name="submit" id="submit"
                 style="background-color:PaleGreen;"
                 onclick="hats(false);" >Submit</button>
             </td>
-            <td class="tg-0pky">
+            <td>
                 <button type="button" name="abort" id="abort"
                 style="background-color:LightGray;"
                 onclick="hats(true);" >Abort</button>
             </td>
         </tr>
         <tr>
-            <td class="tg-0pky" colspan="3">
-                <input type="text" name="query" id="query"
-                style='font-family: monospace' size='64'
-                value='help'
+            <td colspan="3">
+                <input type="text" name="query" id="query" size="64"
+                value="eval C3" aria-label="Query"
                 onKeyDown="if(event.keyCode==13) hats();">
             </td>
         </tr>
         <tr>
-            <td class="tg-0pky" colspan="3">
-                <div style="width:100%; max-height:200px; overflow:auto">
+            <td colspan="3">
+                <div id="output">
                     <pre name="result" id="result"></pre>
                 </div>
             </td>
