@@ -7,8 +7,12 @@
 /*
  * The value of the affine hint game of dimension 4: an upper bound on V.
  *
- * usage: hint4 [NUM DEN]     the default is 171 16
+ * usage: hint4 [NUM DEN [CHECKPOINT]]     the default is 171 16
  *        hint4 --selftest
+ *
+ * With a file CHECKPOINT, each finished part of the search is written to
+ * it as it ends, and a run that finds the file goes on from there: the
+ * parts already written are not done again.
  *
  * The game (Buhler et al., arXiv 1407.4711, Section 3, with the 16 x 30
  * matrix).  The labels are the 30 non-constant affine functions
@@ -62,6 +66,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 /* ---- the game of dimension 3: all partitions of 14 labels ---- */
 
@@ -310,8 +315,12 @@ typedef struct {
 
 static uint64_t threshold;            /* drop when bound <= threshold */
 static uint64_t target_num, target_den;
-static uint64_t nodes_at[L4 + 1];
-static uint64_t leaves, leaves_equal, leaves_above;
+static uint64_t nodes_at[L4 + 1]; /* while the tasks are collected */
+
+/* what one task of the search counts */
+typedef struct {
+    uint64_t nodes, leaves, equal, above;
+} counts;
 static int lex_depth = 14;
 
 static void init_state(state *s) {
@@ -339,17 +348,17 @@ static void place(state *s, int j, int c) {
     }
 }
 
-static void report_leaf(const state *s) {
+static void report_leaf(const state *s, counts *n) {
     uint64_t total = score4(s->block, s->nblocks); /* 2^K E */
     /* compare total / 2^K with num / den */
     __uint128_t left = (__uint128_t)total * target_den;
     __uint128_t right = (__uint128_t)target_num << s->nblocks;
-    #pragma omp critical
-    {
-        leaves++;
-        if (left == right) leaves_equal++;
-        if (left >= right) {
-            if (left > right) leaves_above++;
+    n->leaves++;
+    n->equal += left == right;
+    n->above += left > right;
+    if (left >= right) {
+        #pragma omp critical
+        {
             printf("%s %llu/2^%d blocks:", left > right ? "ABOVE" : "equal",
                    (unsigned long long)total, s->nblocks);
             for (int l = 0; l < L4; l++) printf(" %d", s->block[l]);
@@ -358,11 +367,10 @@ static void report_leaf(const state *s) {
     }
 }
 
-static void search(state *s, int j) {
-    #pragma omp atomic
-    nodes_at[j]++;
+static void search(state *s, int j, counts *n) {
+    n->nodes++;
     if (j == L4) {
-        report_leaf(s);
+        report_leaf(s, n);
         return;
     }
     for (int c = 0; c <= s->nblocks; c++) {
@@ -381,7 +389,7 @@ static void search(state *s, int j) {
         place(s, j, c);
         if (s->bound > threshold &&
             (((j + 1) & 1) || j + 1 > lex_depth || is_first(s->block, j + 1)))
-            search(s, j + 1);
+            search(s, j + 1, n);
         s->nblocks = nblocks;
         s->bound = bound;
         for (int k = 0; k < nframes_of[j]; k++) {
@@ -498,7 +506,6 @@ int main(int argc, char **argv) {
     if (argc > 1 && !strcmp(argv[1], "--selftest")) return selftest();
     target_num = argc > 2 ? strtoull(argv[1], NULL, 10) : 171;
     target_den = argc > 2 ? strtoull(argv[2], NULL, 10) : 16;
-    if (argc > 3) lex_depth = atoi(argv[3]);
     /* bound in units of 2^-14 per frame: drop when bound / 7 <= num / den */
     threshold = 7 * 16384 * target_num / target_den;
     printf("target %llu/%llu; a partial partition is dropped when its frames sum to at most %llu/16384\n",
@@ -509,23 +516,78 @@ int main(int argc, char **argv) {
     int depth = 14;
     collect(&s, 0, depth);
     printf("%d partial partitions of the first %d labels survive\n", ntasks, depth);
+    /* the tasks already done, from the checkpoint */
+    const char *checkpoint = argc > 3 ? argv[3] : NULL;
+    counts *done = calloc((size_t)ntasks, sizeof(counts));
+    char *is_done = calloc((size_t)ntasks, 1);
+    int ndone = 0;
+    FILE *out = NULL;
+    if (checkpoint) {
+        FILE *in = fopen(checkpoint, "r");
+        if (in) {
+            unsigned long long num, den, total, i, a, b, c, d;
+            if (fscanf(in, "target %llu %llu tasks %llu", &num, &den, &total) != 3 ||
+                num != target_num || den != target_den || total != (unsigned long long)ntasks) {
+                fprintf(stderr, "the checkpoint is for another search\n");
+                return 2;
+            }
+            while (fscanf(in, " task %llu %llu %llu %llu %llu", &i, &a, &b, &c, &d) == 5)
+                if (i < (unsigned long long)ntasks && !is_done[i]) {
+                    is_done[i] = 1;
+                    done[i] = (counts){a, b, c, d};
+                    ndone++;
+                }
+            fclose(in);
+            out = fopen(checkpoint, "a");
+        } else {
+            out = fopen(checkpoint, "w");
+            fprintf(out, "target %llu %llu tasks %d\n", (unsigned long long)target_num,
+                    (unsigned long long)target_den, ntasks);
+        }
+        printf("checkpoint %s: %d tasks already done\n", checkpoint, ndone);
+    }
+    time_t begin = time(NULL);
+    int finished = ndone;
     #pragma omp parallel for schedule(dynamic, 1)
     for (int i = 0; i < ntasks; i++) {
+        if (is_done[i]) continue;
         state t;
         init_state(&t);
         for (int j = 0; j < depth; j++) place(&t, j, tasks[i][j]);
-        nodes_at[depth]--; /* counted by collect */
-        search(&t, depth);
+        counts n = {0, 0, 0, 0};
+        search(&t, depth, &n);
+        #pragma omp critical
+        {
+            done[i] = n;
+            finished++;
+            if (out) {
+                fprintf(out, "task %d %llu %llu %llu %llu\n", i, (unsigned long long)n.nodes,
+                        (unsigned long long)n.leaves, (unsigned long long)n.equal,
+                        (unsigned long long)n.above);
+                fflush(out);
+            }
+            if (finished % 500 == 0)
+                fprintf(stderr, "%d of %d tasks done, %ld s\n", finished, ntasks,
+                        (long)(time(NULL) - begin));
+        }
     }
-    printf("nodes by number of labels placed:");
-    for (int j = 0; j <= L4; j++) printf(" %llu", (unsigned long long)nodes_at[j]);
-    printf("\n");
+    if (out) fclose(out);
+    counts all = {0, 0, 0, 0};
+    for (int i = 0; i < ntasks; i++) {
+        all.nodes += done[i].nodes;
+        all.leaves += done[i].leaves;
+        all.equal += done[i].equal;
+        all.above += done[i].above;
+    }
+    printf("nodes while the first %d labels were placed:", depth);
+    for (int j = 0; j <= depth; j++) printf(" %llu", (unsigned long long)nodes_at[j]);
+    printf("\nnodes after that: %llu\n", (unsigned long long)all.nodes);
     printf("complete partitions scored: %llu; equal to the target: %llu; above: %llu\n",
-           (unsigned long long)leaves, (unsigned long long)leaves_equal,
-           (unsigned long long)leaves_above);
-    if (leaves_above == 0)
+           (unsigned long long)all.leaves, (unsigned long long)all.equal,
+           (unsigned long long)all.above);
+    if (all.above == 0)
         printf("PROVED: E(P) <= %llu/%llu for every partition, so V <= %llu/%llu\n",
                (unsigned long long)target_num, (unsigned long long)target_den,
                (unsigned long long)target_num, (unsigned long long)(30 * target_den));
-    return leaves_above != 0;
+    return all.above != 0;
 }
