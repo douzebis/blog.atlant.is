@@ -255,6 +255,18 @@ def check_machines() -> int:
     return done
 
 
+def cut(n: int, s: Strategy, k: int) -> Strategy:
+    """The cut of s to k hats: where s points when the k lowest hats seen
+    are enough to know it and the position is among them, the bottom hat
+    otherwise."""
+    result = []
+    for t in range(2**k):
+        seen = {s[u] for u in range(2**n) if u % 2**k == t}
+        position = seen.pop() if len(seen) == 1 else k
+        result.append(position if position < k else 0)
+    return result
+
+
 # Checks.
 
 FAILURES: list[str] = []
@@ -952,6 +964,16 @@ def quoted() -> list[tuple[str, str, object, object]]:
             "57/160 and 17/48 as decimals",
             (str(float(Fraction(57, 160))), str(float(Fraction(17, 48)))[:7]),
             ("0.35625", "0.35416"),
+        ),
+        (
+            "Section 7",
+            "the cut of C_n to k hats is C_k, n up to 7",
+            all(
+                cut(n, carter(n), k)[1:-1] == carter(k)[1:-1]
+                for n in range(2, 8)
+                for k in range(1, n)
+            ),
+            True,
         ),
         ("Section 1", "81/224", str(Fraction(81, 224).numerator / 224)[:6], "0.3616"),
         ("Section 5", "word of C_3", word(carter(3)), "01002120"),

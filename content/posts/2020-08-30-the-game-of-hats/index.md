@@ -830,6 +830,19 @@ $$
 
 which has $89$ hits like $\mathbf{C}_4$. So resets and shifts do not give all the best strategies. If the conjecture $V = \frac{7}{20}$ holds, they give at least one on every number of hats, the Carter strategy.
 
+#### Cuts: strategies that are best at every height
+
+What tells the six classes that are built from the four that are not? Here is one answer.
+
+Say that a strategy on $n$ hats is *bottom-up* when it never points above the hats that it had to read: if the $k$ lowest hats of the stack seen are enough to know where it points, it points below position $k$. For such a strategy, the *cut* to $k$ hats is the strategy on $k$ hats that points where it points when $k$ hats are enough to know, and at the bottom hat otherwise. The Carter strategies are bottom-up, and their cuts are Carter strategies: the cut of $\mathbf{C}_n$ to $k$ hats is $\mathbf{C}_k$. This is one more way to say that $\mathbf{C}_n$ is a single rule, cut to $n$ hats.
+
+Call a best strategy on $n$ hats *hereditary* when its cuts to $1, 2, \ldots, n - 1$ hats are best strategies too, and *primitive* when no strategy equivalent to it is hereditary.
+
+- The Carter strategies are hereditary, as far as the best scores are known. Being bottom-up is not rare: of the $120$ strategies equivalent to $\mathbf{C}_5$, $80$ are. But only $4$ of them are hereditary: $\mathbf{C}_5$ and those obtained by taking the other double shift at one step or at both.
+- On four hats, the six classes built with resets and shifts each hold a hereditary strategy. The four others are primitive: the cuts of their strategies to three hats have at most $20$ hits, where the best is $22$.
+
+So on four hats, "built with resets and shifts" and "best at every smaller number of hats" say the same thing, and the first primitive best strategies appear there. They owe nothing to a best strategy on three hats. (This is the answer of a program, `cuts.py` in the repository, for one to four hats.)
+
 ### 8. Can $\frac{7}{20}$ be beaten?
 
 Nobody knows. This section says what beating $\frac{7}{20}$ would take, and reports three attempts with the tools of this article. None succeeds.
@@ -1025,7 +1038,7 @@ Not on one to four hats; not on five either, according to one solver (Section 7)
 
 **Conjecture C (many players).** With more players, each wearing a stack and all of them having to point at a black hat, the best win rate tends to $0$ as the number of players grows (Levine; see [BFGKRTVY], where it is proved that the best win rate decreases with each player).
 
-Our resets and shifts are for two players. Do they have a counterpart for three, with formulas for the hits?
+Our resets and shifts are for two players. Do they have a counterpart for three, with formulas for the hits? A first look by program suggests that the Carter rule has a part to play there. With three players and five hats each, let each player compute where the Carter rule points for each of the two stacks seen, and point at the sum of these two positions modulo $3$: this wins $8{,}704$ times out of $32{,}768$. A table of $15$ entries that says where to point for each pair of Carter positions does better, $8{,}903$. The best table known, found by a search in 2014 [BFGKRTVY], wins $9{,}120$ times; it has $528$ entries and no description.
 
 **Question D (general resets).** Does a scheme on blocks of six hats or more win more than $7$ times in $20$?
 
@@ -1052,6 +1065,10 @@ the trace of the square of $N$. Which tables come from a strategy? Does a descri
 **Question J (hints and the Carter strategies).** Is the best win rate $H_d$ of the hint game of dimension $d$ (Section 8) always the win rate of the Carter strategy on $d + 1$ hats when Alice's stack is not of a single color?
 
 It is for $d$ from $1$ to $4$. If it is for every $d$, then $V = \frac{7}{20}$, since these numbers tend to $\frac{7}{20}$. And $H_5 = \frac{1401}{3968}$ alone would prove that $1{,}433$ is the best score on six hats.
+
+**Question K (hereditary and primitive).** Is every hereditary best strategy built with resets and shifts? Are there primitive best strategies on every number of hats from four on, and how many classes?
+
+On four hats the answers are yes, and four classes out of ten (Section 7). Five hats would be the next test; it needs the list of all strategies with $358$ hits, which we do not have.
 
 ## References
 

@@ -226,3 +226,50 @@ the best win rate of two players with infinite stacks.
   (`7/20 - V_{2,h} <= 3/(5 * 4^h)`), see spec 0005, M3.
 - Crushing uses part of the symmetry between positions; a canonical form
   for the whole group would cut the search on four hats by up to 9 more.
+
+## What is within reach (stock taken on 2026-11-27)
+
+Listed with what each would cost, as far as we can tell, and whether
+anyone claims it. "New" means: not found in Buhler et al., Bouquet et
+al. or the note of yangsong97, which have not all been read in full.
+
+Two players, results:
+
+1. **The best score on six hats** (is it 1,433?). Open, claimed by
+   nobody. Two routes: the direct search of `levine-hats` (estimated
+   there at 1,000 to 5,000 core-hours), or the exact value of the hint
+   game of dimension 5, `H_5 = 1401/3968`, which gives 1,433 by
+   Proposition 17. The note stops at `H_5 <= 17/48`, which gives 1,437.
+2. **An independent check of `V <= 17/48`.** Claimed by the note, not
+   reviewed. With our search: a list of the sortings of dimension 4
+   above 170/16 (700 to 1,000 core-hours after the speed-up of
+   2026-11-27), then a second stage that is not written.
+3. **All the best strategies on five hats, in classes.** New. A solver
+   can list the strategies with 358 hits; then `best_classes.py` and
+   `cuts.py` apply. It tests on five hats what holds on four: hereditary
+   classes are the built ones.
+4. **Why the hint value is the Carter number** (Question J). New. A
+   proof for all `d` would prove the conjecture; a proof that the points
+   beyond the `d + 1` of Proposition 17 are useless, or that Bob needs
+   no more than `d + 1` hats, would already be a result.
+5. **Hereditary implies built** (Question K), as a theorem. New.
+6. **The four primitive classes on four hats**: a description, an
+   operation that builds them, whether they have relatives on five hats.
+7. **General resets on blocks of six hats.** New; the counting bound
+   leaves the schemes that skip fewer than 28 stacks.
+8. **Certificates**: the best score on five hats, or `H_4 = 57/160`, as
+   a statement that Lean checks from a certificate produced by a
+   program (Question I).
+
+Two players, in Lean, small: the cut of the Carter strategy is the
+Carter strategy; the rule in words of the Carter strategies; the win
+rate formula of a scheme (Proposition 14); Propositions 12, 13 and 15.
+
+Three players (spec 0008): beat 0.279124, the best win rate known; a
+rule in words for a strategy near it; a family in the number of hats
+with a formula; resets with proved formulas. All new if obtained. Known
+so far: 9,116 of 32,768 on five hats by annealing (the table of 2014
+has 9,120); the Carter choices of the two stacks seen, added modulo 3,
+give 8,704, and a table of 15 entries on them 8,903.
+
+Not within reach by these means: a proof of `V = 7/20`.
