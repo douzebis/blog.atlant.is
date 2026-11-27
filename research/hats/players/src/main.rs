@@ -12,6 +12,10 @@
 //!                                   temperature going from HOT down to
 //!                                   COLD again and again (3 and 0.15 by
 //!                                   default)
+//!        players factor T K SECONDS [SEED [HOT COLD]]
+//!                                   annealing on the tables of the form
+//!                                   s[u][v] = F(state(u), state(v)), where
+//!                                   each stack has one of K states
 //!
 //! Three players, each with a stack of T hats (a number below 2^T, the
 //! bottom hat is the units digit, black is 1).  Each sees the two other
@@ -222,6 +226,129 @@ fn climb(start: Table, seconds: f64, seed: u64, hot: f64, cold: f64) -> (Table, 
     (best, best_wins as u64)
 }
 
+/// A table of the form s[u][v] = f[state[u]][state[v]]: each stack seen is
+/// summed up by one of `k` states, and `f` is symmetric.
+#[derive(Clone)]
+struct Factored {
+    t: usize,
+    k: usize,
+    state: Vec<usize>,
+    f: Vec<usize>,
+}
+
+impl Factored {
+    fn table(&self) -> Table {
+        let mut table = Table::new(self.t);
+        for u in 0..table.size {
+            for v in 0..table.size {
+                let p = self.f[self.state[u] * self.k + self.state[v]];
+                table.s[u * table.size + v] = p as u8;
+            }
+        }
+        table
+    }
+
+    /// The wins, counted by states: with count[i][p] the number of stacks
+    /// in state i that are black at p, they are the sum over the triples
+    /// of states (i, j, l) of
+    /// count[i][f(j, l)] * count[j][f(i, l)] * count[l][f(i, j)].
+    fn wins(&self) -> i64 {
+        let (k, t) = (self.k, self.t);
+        let mut count = vec![0i64; k * t];
+        for (u, &i) in self.state.iter().enumerate() {
+            for p in 0..t {
+                count[i * t + p] += (u >> p & 1) as i64;
+            }
+        }
+        let mut total = 0;
+        for i in 0..k {
+            for j in 0..k {
+                for l in 0..k {
+                    total += count[i * t + self.f[j * k + l]]
+                        * count[j * t + self.f[i * k + l]]
+                        * count[l * t + self.f[i * k + j]];
+                }
+            }
+        }
+        total
+    }
+}
+
+/// Simulated annealing on the factored tables with `k` states.  A move
+/// changes the state of one stack or one value of `f`.
+fn factor(t: usize, k: usize, seconds: f64, seed: u64, hot: f64, cold: f64) -> (Factored, i64) {
+    let mut rng = Rng(seed.wrapping_mul(0x9E37_79B9_7F4A_7C15) | 1);
+    let size = 1usize << t;
+    let mut x = Factored {
+        t,
+        k,
+        state: (0..size).map(|_| rng.below(k)).collect(),
+        f: vec![0; k * k],
+    };
+    for i in 0..k {
+        for j in i..k {
+            let p = rng.below(t);
+            x.f[i * k + j] = p;
+            x.f[j * k + i] = p;
+        }
+    }
+    let mut current = x.wins();
+    let mut best = x.clone();
+    let mut best_wins = current;
+    let begin = Instant::now();
+    let limit = Duration::from_secs_f64(seconds);
+    let cycle = 400_000u64;
+    let mut step = 0u64;
+    loop {
+        if step.is_multiple_of(4096) && begin.elapsed() >= limit {
+            break;
+        }
+        let phase = (step % cycle) as f64 / cycle as f64;
+        let temperature = hot * (cold / hot).powf(phase);
+        step += 1;
+        // either the state of a stack, or a value of f
+        let move_state = k > 1 && rng.below(3) > 0;
+        let (place, other, old) = if move_state {
+            let u = rng.below(size);
+            (u, u, x.state[u])
+        } else {
+            let (i, j) = (rng.below(k), rng.below(k));
+            (i * k + j, j * k + i, x.f[i * k + j])
+        };
+        if move_state {
+            x.state[place] = (old + 1 + rng.below(k - 1)) % k;
+        } else {
+            let new = (old + 1 + rng.below(t - 1)) % t;
+            x.f[place] = new;
+            x.f[other] = new;
+        }
+        let wins = x.wins();
+        let delta = wins - current;
+        if delta >= 0 || rng.unit() < (delta as f64 / temperature).exp() {
+            current = wins;
+            if current > best_wins {
+                best_wins = current;
+                best = x.clone();
+                eprintln!(
+                    "{:8.1}s step {step}: {best_wins} wins",
+                    begin.elapsed().as_secs_f64()
+                );
+            }
+        } else if move_state {
+            x.state[place] = old;
+        } else {
+            x.f[place] = old;
+            x.f[other] = old;
+        }
+    }
+    assert_eq!(
+        best.table().wins() as i64,
+        best_wins,
+        "the count by states is wrong"
+    );
+    (best, best_wins)
+}
+
 fn read_stdin() -> String {
     let mut text = String::new();
     std::io::stdin()
@@ -232,7 +359,8 @@ fn read_stdin() -> String {
 
 fn main() {
     let args: Vec<String> = std::env::args().collect();
-    let usage = "usage: players score T | winkler T | climb T SECONDS [SEED [START [HOT COLD]]]";
+    let usage = "usage: players score T | winkler T | climb T SECONDS [SEED [START [HOT COLD]]] \
+                 | factor T K SECONDS [SEED [HOT COLD]]";
     if args.len() < 3 {
         eprintln!("{usage}");
         std::process::exit(2);
@@ -283,6 +411,30 @@ fn main() {
             eprintln!("best: {wins} wins out of {}", 1u64 << (3 * t));
             print!("{}", best.print());
         }
+        "factor" => {
+            let k: usize = args.get(3).expect(usage).parse().expect("K is a number");
+            let seconds: f64 = args
+                .get(4)
+                .expect(usage)
+                .parse()
+                .expect("SECONDS is a number");
+            let seed: u64 = args
+                .get(5)
+                .map_or(1, |s| s.parse().expect("SEED is a number"));
+            let number = |i: usize, default: f64| {
+                args.get(i)
+                    .map_or(default, |s| s.parse().expect("a number"))
+            };
+            let scale = (1u64 << (3 * t)) as f64;
+            let (hot, cold) = (number(6, 0.004) * scale, number(7, 0.0001) * scale);
+            let (best, wins) = factor(t, k, seconds, seed, hot, cold);
+            eprintln!("best: {wins} wins out of {}", 1u64 << (3 * t));
+            println!("states of the stacks 0, 1, ...: {:?}", best.state);
+            for i in 0..k {
+                println!("f[{i}]: {:?}", &best.f[i * k..(i + 1) * k]);
+            }
+            print!("{}", best.table().print());
+        }
         _ => {
             eprintln!("{usage}");
             std::process::exit(2);
@@ -293,6 +445,28 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn factored_tables_are_counted_by_states() {
+        let mut rng = Rng(11);
+        for _ in 0..50 {
+            let (t, k) = (4, 3);
+            let mut x = Factored {
+                t,
+                k,
+                state: (0..16).map(|_| rng.below(k)).collect(),
+                f: vec![0; k * k],
+            };
+            for i in 0..k {
+                for j in i..k {
+                    let p = rng.below(t);
+                    x.f[i * k + j] = p;
+                    x.f[j * k + i] = p;
+                }
+            }
+            assert_eq!(x.wins(), x.table().wins() as i64);
+        }
+    }
 
     #[test]
     fn same_hat() {
