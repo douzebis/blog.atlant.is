@@ -9,6 +9,9 @@
  *
  * usage: hint4 [NUM DEN [CHECKPOINT]]     the default is 171 16
  *        hint4 --selftest
+ *        hint4 --orbits < LOG     sorts the partitions that a run printed
+ *                                 ("equal ... blocks: ...") into orbits
+ *                                 under the symmetries
  *
  * With a file CHECKPOINT, each finished part of the search is written to
  * it as it ends, and a run that finds the file goes on from there: the
@@ -498,10 +501,77 @@ static int selftest(void) {
     return failures != 0;
 }
 
+/* The partitions printed by a run, up to the symmetries: the number of
+   orbits, and of partitions in them. */
+static int orbits(void) {
+    static char line[1024];
+    uint8_t (*canon)[L4] = NULL;
+    uint64_t *size = NULL;
+    int *nb = NULL;
+    int norbits = 0, read = 0;
+    while (fgets(line, sizeof line, stdin)) {
+        char *p = strstr(line, "blocks:");
+        if (!p) continue;
+        uint8_t block[L4], best[L4];
+        p += 7;
+        int ok = 1, nblocks = 0;
+        for (int l = 0; l < L4; l++) {
+            char *end;
+            long v = strtol(p, &end, 10);
+            if (end == p) { ok = 0; break; }
+            block[l] = (uint8_t)v;
+            if (v + 1 > nblocks) nblocks = (int)v + 1;
+            p = end;
+        }
+        if (!ok) continue;
+        read++;
+        memset(best, 255, sizeof best);
+        uint64_t fixed = 0; /* the symmetries that keep the partition */
+        for (int s = 0; s < nsym; s++) {
+            uint8_t image[L4], rename[L4 + 1], rgs[L4];
+            for (int l = 0; l < L4; l++) image[sym[s][l]] = block[l];
+            memset(rename, 255, sizeof rename);
+            int next = 0;
+            for (int l = 0; l < L4; l++) {
+                if (rename[image[l]] == 255) rename[image[l]] = (uint8_t)next++;
+                rgs[l] = rename[image[l]];
+            }
+            int cmp = memcmp(rgs, best, L4);
+            if (cmp < 0) memcpy(best, rgs, L4);
+            /* is the image the partition itself? (block is already numbered
+               in the order of the labels) */
+            fixed += memcmp(rgs, block, L4) == 0;
+        }
+        int found = -1;
+        for (int o = 0; o < norbits; o++)
+            if (!memcmp(canon[o], best, L4)) found = o;
+        if (found < 0) {
+            canon = realloc(canon, (size_t)(norbits + 1) * L4);
+            size = realloc(size, (size_t)(norbits + 1) * sizeof *size);
+            nb = realloc(nb, (size_t)(norbits + 1) * sizeof *nb);
+            memcpy(canon[norbits], best, L4);
+            size[norbits] = (uint64_t)nsym / fixed;
+            nb[norbits] = nblocks;
+            norbits++;
+        }
+    }
+    uint64_t total = 0;
+    for (int o = 0; o < norbits; o++) {
+        total += size[o];
+        printf("orbit of %llu partitions, %d blocks:", (unsigned long long)size[o], nb[o]);
+        for (int l = 0; l < L4; l++) printf(" %d", canon[o][l]);
+        printf("\n");
+    }
+    printf("%d partitions read, %d orbits, %llu partitions in all\n", read, norbits,
+           (unsigned long long)total);
+    return 0;
+}
+
 int main(int argc, char **argv) {
     setvbuf(stdout, NULL, _IOLBF, 0);
     build_frames();
     build_symmetries();
+    if (argc > 1 && !strcmp(argv[1], "--orbits")) return orbits();
     build_table3();
     if (argc > 1 && !strcmp(argv[1], "--selftest")) return selftest();
     target_num = argc > 2 ? strtoull(argv[1], NULL, 10) : 171;

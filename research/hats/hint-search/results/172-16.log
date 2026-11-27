@@ -1,0 +1,65 @@
+target 172/16; a partial partition is dropped when its frames sum to at most 1232896/16384
+27330 partial partitions of the first 14 labels survive
+checkpoint runs/172-16.ckpt: 0 tasks already done
+500 of 27330 tasks done, 0 s
+1000 of 27330 tasks done, 0 s
+1500 of 27330 tasks done, 0 s
+2000 of 27330 tasks done, 1 s
+2500 of 27330 tasks done, 1 s
+3000 of 27330 tasks done, 2 s
+3500 of 27330 tasks done, 3 s
+4000 of 27330 tasks done, 3 s
+4500 of 27330 tasks done, 4 s
+5000 of 27330 tasks done, 6 s
+5500 of 27330 tasks done, 6 s
+6000 of 27330 tasks done, 7 s
+6500 of 27330 tasks done, 8 s
+7000 of 27330 tasks done, 9 s
+7500 of 27330 tasks done, 11 s
+8000 of 27330 tasks done, 12 s
+8500 of 27330 tasks done, 13 s
+9000 of 27330 tasks done, 13 s
+9500 of 27330 tasks done, 14 s
+10000 of 27330 tasks done, 15 s
+10500 of 27330 tasks done, 15 s
+11000 of 27330 tasks done, 16 s
+11500 of 27330 tasks done, 17 s
+12000 of 27330 tasks done, 19 s
+12500 of 27330 tasks done, 20 s
+13000 of 27330 tasks done, 22 s
+13500 of 27330 tasks done, 23 s
+14000 of 27330 tasks done, 24 s
+14500 of 27330 tasks done, 26 s
+15000 of 27330 tasks done, 27 s
+15500 of 27330 tasks done, 29 s
+16000 of 27330 tasks done, 31 s
+16500 of 27330 tasks done, 32 s
+17000 of 27330 tasks done, 33 s
+17500 of 27330 tasks done, 34 s
+18000 of 27330 tasks done, 36 s
+18500 of 27330 tasks done, 38 s
+19000 of 27330 tasks done, 40 s
+19500 of 27330 tasks done, 41 s
+20000 of 27330 tasks done, 43 s
+20500 of 27330 tasks done, 44 s
+21000 of 27330 tasks done, 45 s
+21500 of 27330 tasks done, 46 s
+22000 of 27330 tasks done, 47 s
+22500 of 27330 tasks done, 49 s
+23000 of 27330 tasks done, 51 s
+23500 of 27330 tasks done, 52 s
+24000 of 27330 tasks done, 53 s
+24500 of 27330 tasks done, 55 s
+25000 of 27330 tasks done, 56 s
+25500 of 27330 tasks done, 58 s
+26000 of 27330 tasks done, 59 s
+26500 of 27330 tasks done, 60 s
+27000 of 27330 tasks done, 61 s
+nodes while the first 14 labels were placed: 1 1 2 5 5 19 13 59 87 361 320 1893 2130 14719 27330
+nodes after that: 494871913
+complete partitions scored: 47764; equal to the target: 0; above: 0
+PROVED: E(P) <= 172/16 for every partition, so V <= 172/480
+
+real	2m9.127s
+user	8m43.541s
+sys	0m1.939s

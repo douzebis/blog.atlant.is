@@ -163,8 +163,16 @@ the best win rate of two players with infinite stacks.
    3,920 partitions, as the paper says; and for dimension 4,
    `V <= 173/480 = 0.36042` (75 seconds) and
    `V <= 172/480 = 43/120 = 0.35833` (2 minutes; 495 million nodes,
-   47,764 complete partitions scored, none above). The target 171/480 =
-   57/160 is running.
+   47,764 complete partitions scored, none above). And the exact value:
+   **`V <= 171/480 = 57/160 = 0.35625`** (183 minutes on 6 threads,
+   8.8e10 nodes, 38,779,772 complete partitions scored exactly, none
+   above 171/16). The partitions that reach 171/16 make 11 orbits under
+   the symmetries, 250,880 partitions in all, with 5 or 6 blocks: the
+   same numbers as in the repository above, which this program was
+   written without reading. Logs:
+   `research/hats/hint-search/results/`. With the inequality above,
+   this is also a second proof by computation that 358 is the best
+   score on five hats, for two different strategies too.
 
    What follows. (a) The affine hint of dimension `d` cannot prove a
    bound on `V` below that value, so this family of hints goes to 7/20
