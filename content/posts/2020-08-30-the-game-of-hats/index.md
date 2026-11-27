@@ -74,7 +74,7 @@ $$
 \frac{7}{20} = 0.35 \;\leq\; V \;\leq\; \frac{81}{224} = 0.3616\ldots
 $$
 
-and conjecture that $V = \frac{7}{20}$. They also prove that the best win rate decreases with each player added, which Alon, Friedgut, Kalai and Kindler prove by other means [AFKK]. More recently, Bouquet, Chikhi, Charles, Zhou and Wang [BCCZW] found new plans that win $7$ times in $20$, built on blocks of five hats, then of any odd number of hats, where the plans of 2014 use blocks of three. They quote one more upper bound, $V \leq 0.37193$, obtained by Heilman and Tamuz without a computer [HT25].
+and conjecture that $V = \frac{7}{20}$. They also prove that the best win rate decreases with each player added, which Alon, Friedgut, Kalai and Kindler prove by other means [AFKK]. More recently, Bouquet, Chikhi, Charles, Zhou and Wang [BCCZW] found new plans that win $7$ times in $20$, built on blocks of five hats, then of any odd number of hats, where the plans of 2014 use blocks of three. They quote one more upper bound, $V \leq 0.37193$, obtained by Heilman and Tamuz without a computer [HT25]. A better upper bound, $V \leq \frac{57}{160} = 0.35625$, was claimed in November 2026 in a note that has not been reviewed [Ya26]; Section 8 confirms it by an independent computation.
 
 The author met the game in 2020 through a video of *Numberphile* in which Joe Buhler presents it [Bu20], and wrote three blog posts about it that summer. This article replaces them.
 
@@ -113,7 +113,7 @@ The rest of the article:
 
 The game, the plans that win $7$ times in $20$ and the strategies of Carter and Reyes on up to $8$ hats are not ours. The word "reset" is in [BFGKRTVY], and the formula for one of our resets, the double reset, is the "combining formula" of [BCCZW].
 
-The posts of 2020 brought the operations with their formulas, the Carter strategy for every number of hats, and the description of the limit strategies by machines. This article adds the closed form $7 \cdot 4^n / 20$ rounded down and its link with the conjecture, the proofs for stacks that never end, and the results of Section 8. As far as we know these are not in the papers cited above.
+The posts of 2020 brought the operations with their formulas, the Carter strategy for every number of hats, and the description of the limit strategies by machines. This article adds the closed form $7 \cdot 4^n / 20$ rounded down and its link with the conjecture, the proofs for stacks that never end, and the results of Section 8, among them a link between the upper bounds on $V$ and the Carter strategies. As far as we know these are not in the papers cited above.
 
 The statements of Sections 2 to 6 were checked by a proof assistant, Lean, and the numbers of this article by programs; a table at the end says which statement is checked by what.
 
@@ -797,7 +797,7 @@ Write $V_n$ for the best win rate on $n$ hats when the two players may use diffe
 | $2$ | $5$ out of $16$ | Lean (`hits_two_le`) | the same, by enumeration |
 | $3$ | $22$ out of $64$ | Lean (`hits_three_le`) | the same, by enumeration |
 | $4$ | $89$ out of $256$ | Lean, the compiler trusted (`hits_four_le`); the search above | the same, by a solver |
-| $5$ | $358$ out of $1{,}024$ | two solvers and a search program, see below | the same, by one solver |
+| $5$ | $358$ out of $1{,}024$ | two solvers and a search program, see below | the same, by one solver and by Section 8 |
 | $6$ | at least $1{,}433$, at most $1{,}448$, out of $4{,}096$ | see below | at most $1{,}448$ |
 
 In each row the best score is that of the Carter strategy, $7 \cdot 4^n / 20$ rounded down.
@@ -806,9 +806,9 @@ In each row the best score is that of the Carter strategy, $7 \cdot 4^n / 20$ ro
 
 *Five hats.* That $358$ is the best score of a shared strategy was announced in 2014 [Wa14]. We find it again with an integer program given to the solver SCIP (the model of Section 8 with nothing skipped; $99$ seconds), and in 2026 the author obtained it with two more programs: the solver HiGHS and a search written for the purpose. These are answers of programs working with rounded numbers, not proofs that a machine has checked.
 
-*Two strategies.* When Alice and Bob may use different strategies, they do not win more on one to four hats: the best score is the same. For up to three hats this is an enumeration (for each strategy of Alice, the best answer of Bob is found one stack at a time); for four hats, and for five, it is the answer of SCIP to an integer program ($384$ seconds for five hats). For five hats we have this one solver only, on two models written separately, and the question was listed as open in [Wa14].
+*Two strategies.* When Alice and Bob may use different strategies, they do not win more on one to four hats: the best score is the same. For up to three hats this is an enumeration (for each strategy of Alice, the best answer of Bob is found one stack at a time); for four hats, and for five, it is the answer of SCIP to an integer program ($384$ seconds for five hats). For five hats the question was listed as open in [Wa14]; besides this solver, on two models written separately, Section 8 gives a second computation of another kind.
 
-*Six hats.* Nobody knows whether $1{,}433$ is the best score. The general bound $V \leq \frac{81}{224}$ of [BFGKRTVY] allows up to $1{,}481$ hits. Their method can be applied to six hats directly: sort the stacks that Alice may wear by their number of black hats, and bound the hits of each sort separately, by a solver. The author did this in 2026 and found $63 + 267 + 468 + 427 + 191 + 32 = 1{,}448$. This too is the answer of a solver. It leaves $15$ hits between the best strategy known and the bound.
+*Six hats.* Nobody knows whether $1{,}433$ is the best score. The general bound $V \leq \frac{81}{224}$ of [BFGKRTVY] allows up to $1{,}481$ hits, and the bound $\frac{57}{160}$ of Section 8 up to $1{,}459$. The method of [BFGKRTVY] can be applied to six hats directly: sort the stacks that Alice may wear by their number of black hats, and bound the hits of each sort separately, by a solver. The author did this in 2026 and found $63 + 267 + 468 + 427 + 191 + 32 = 1{,}448$. This too is the answer of a solver. It leaves $15$ hits between the best strategy known and the bound.
 
 #### What the best strategies look like
 
@@ -944,6 +944,61 @@ The last attempt is the simplest: start from a Carter strategy and change some o
 
 "Within $r$ changed choices" is complete: every strategy that differs from the Carter strategy for at most $r$ stacks was ruled out. The walks move from a strategy to another with the same score, one or two changes at a time, and look around each. There is room to walk: on eight hats, $14.9$ million strategies differ from $\mathbf{C}_8$ for exactly six stacks and have its score, and a walk went as far as $21$ changes away. A Carter strategy is not an isolated peak. It sits on a wide plateau, and we found no way up from it.
 
+#### From above: hints
+
+Everything so far is about strategies, that is, about lower bounds on $V$. The upper bounds come from an idea of [BFGKRTVY]: give the players a *hint*. If they cannot win more than a certain rate with the hint, they cannot without it, since they are free to ignore it.
+
+The hint of dimension $d$ is this. Take the $2^d$ points $x$ with $d$ coordinates $0$ or $1$, and the functions $f(x) = a \cdot x + b$ modulo $2$, with $a$ not zero: the affine functions that are not constant. There are $m = 2 \, (2^d - 1)$ of them, and each takes the value $1$ at half of the points. The referee picks one of them, $f$, at random, and makes Alice's stack out of its values: each of her hats is the value of $f$ at a point, black for $1$, and every point comes back again and again up the stack. Each hat of Alice is still black or white with equal chances, so the game is the same for players who ignore how the stack was made. But the players are told how it was made. Bob, who sees Alice's stack, then knows $f$; all that he can do is to sort the $m$ functions into blocks, one block for each of his own hats that he may point at. Alice, who sees which of Bob's hats are black, picks a point. Write $H_d$ for the best win rate of this game. Then
+
+$$
+V \leq H_d \quad \text{for every } d .
+$$
+
+The first bound of [BFGKRTVY], $\frac38$, is $H_1$, and their best, $\frac{81}{224}$, is $H_3$: they computed it by trying all the ways of sorting $14$ functions into blocks, about $190$ million.
+
+The hint game contains the game of hats on $d + 1$ hats, almost.
+
+**Proposition 17 (the hint and the game on $d + 1$ hats).** Let $n = d + 1$. For any two strategies on $n$ hats, one for Alice and one for Bob, the number of pairs of stacks on which they win is at most
+
+$$
+2^d + 2^n \left( 2^n - 2 \right) H_d .
+$$
+
+*Proof.* In the hint game, let Alice look only at the hats that are the values of $f$ at $n$ points: the point $0$ and the $d$ points with a single coordinate $1$. The values of $f$ there are $b$ and $b + a_1, \ldots, b + a_d$. As $f$ runs over the affine functions that are not constant, these $n$ hats make each stack of $n$ hats once, except the all-white and the all-black ones. So Alice and Bob, with their strategies on $n$ hats, play the game on $n$ hats with a stack of Alice that is not of a single color, each such stack being as likely as the others; and this is a way to play the hint game, where Bob uses $n$ of his hats. Their win rate is then at most $H_d$. There are $2^n - 2$ stacks for Alice and $2^n$ for Bob: at most $2^n (2^n - 2) H_d$ winning pairs in which Alice's stack is not of a single color. When it is all white they lose. When it is all black they win at most when Bob's hat is black where he points, which is the case for $2^d$ of his stacks.
+
+So an upper bound on $V$ obtained from a hint is also an upper bound on the best score on a given number of hats, for two strategies as well as for one. And it works the other way: with the Carter strategy on $d + 1$ hats, [Proposition 17](#proposition-17) says that $H_d$ is at least
+
+$$
+\frac{|H(\mathbf{C}_{d+1})| - 2^d}{2^{d+1} \left( 2^{d+1} - 2 \right)} ,
+$$
+
+the win rate of $\mathbf{C}_{d+1}$ when Alice's stack is known not to be of a single color. Here is that number next to what is known of $H_d$.
+
+| $d$ | Hits of $\mathbf{C}_{d+1}$ | Its win rate, Alice's stack not of one color | $H_d$ |
+|---|---|---|---|
+| $1$ | $5$ | $\frac38$ | $\frac38$ [BFGKRTVY] |
+| $2$ | $22$ | $\frac38$ | $\frac38$ [BFGKRTVY] |
+| $3$ | $89$ | $\frac{81}{224}$ | $\frac{81}{224}$ [BFGKRTVY] |
+| $4$ | $358$ | $\frac{57}{160}$ | $\frac{57}{160}$ ([Ya26], and below) |
+| $5$ | $1{,}433$ | $\frac{1401}{3968}$ | at least this; at most $\frac{17}{48}$ according to [Ya26] |
+| $6$ | $5{,}734$ | $\frac{45}{128}$ | at least this |
+
+In every case where $H_d$ is known, it is the Carter number: neither the points that Alice may use beyond the $d + 1$ of the proof, nor the hats that Bob may use beyond $d + 1$, bring anything. We do not know why. In closed form the Carter number is $\frac{7}{20} + \left( \frac15 - \frac{c}{2^d} \right) \frac{1}{m}$, with $c = \frac15$ for even $d$ and $\frac{3}{10}$ for odd $d$: about $\frac{7}{20} + \frac{1}{10 \cdot 2^d}$.
+
+**Result (programs).** $H_4 = \frac{57}{160}$, and so
+
+$$
+V \leq \frac{57}{160} = 0.35625 .
+$$
+
+This value was announced in November 2026 in a note that comes with programs and that nobody has reviewed [Ya26]. We wrote a program of our own for it, from the definition of the game, without reading theirs. It goes through the ways of sorting the $30$ functions into blocks. It drops a partial sorting as soon as a bound shows that it cannot do better than the target: the $30$ functions hold $15$ copies of the hint of dimension $3$, whose values are all in a table, and the win rate is at most the average of these $15$. It also uses the $645{,}120$ symmetries of the hint. With the target $\frac{57}{160}$ it scored $38{,}779{,}772$ complete sortings exactly, in $17$ hours of one processor, and found none above the target. Those at the target make $11$ classes under the symmetries, $250{,}880$ sortings in all, with $5$ or $6$ blocks: the numbers of [Ya26]. On the way, the program finds $\frac{81}{224}$ again for dimension $3$, reached by $3{,}920$ sortings, as [BFGKRTVY] say. This is the answer of programs, not a proof that a machine has checked.
+
+Three consequences.
+
+- By [Proposition 17](#proposition-17) with $d = 3$ and $d = 4$: no two strategies win more than $8 + 224 \cdot \frac{81}{224} = 89$ pairs on four hats, nor more than $16 + 960 \cdot \frac{57}{160} = 358$ on five. This is another way to the best scores of Section 7, by programs of a different kind, and it covers two different strategies.
+- This family of hints will not settle the conjecture cheaply. The hint of dimension $d$ cannot prove a bound below the Carter number, about $\frac{7}{20} + \frac{1}{10 \cdot 2^d}$, and each dimension costs far more than the one before.
+- If $H_5 \leq \frac{17}{48}$, as [Ya26] reports, then $V \leq \frac{17}{48} = 0.35416\ldots$, and by [Proposition 17](#proposition-17) no two strategies win more than $1{,}437$ pairs on six hats. We have not checked that computation.
+
 #### How fast the best win rates climb
 
 Whatever $V$ is, [Theorem 3](#theorem-3) says how fast the best win rates on $n$ hats get near $\frac{7}{20}$ at least:
@@ -986,11 +1041,15 @@ $$
 |H(s)| = \sum_{p,q} N_{p,q} \, N_{q,p} ,
 $$
 
-the trace of the square of $N$. Which tables come from a strategy? Does a description of them by inequalities give an upper bound on $V$ below the known $\frac{81}{224}$?
+the trace of the square of $N$. Which tables come from a strategy? Does a description of them by inequalities give an upper bound on $V$ below those of Section 8?
 
 **Question H (the best strategies on infinite stacks).** If $V = \frac{7}{20}$, the limits $\mathbf{C}_\infty$ and $\mathbf{R}_\infty$ are best strategies on infinite stacks, and they are computed by machines that read finitely many hats and stop (Section 6). Is every best strategy of that kind, up to a set of stacks of probability $0$? And whatever $V$ is, is it the best win rate of such machines?
 
 **Question I (certificates).** That $358$ is the best score on five hats, and the bound $1{,}448$ on six, are the answers of solvers that compute with rounded numbers. Can they be turned into proofs that a proof assistant checks? A solver can in principle give its answer with a certificate, a combination of inequalities with exact weights, whose check is arithmetic. For six hats this would make "$1{,}433$ is the best score", if true, a theorem. How large such a certificate would be, we do not know.
+
+**Question J (hints and the Carter strategies).** Is the best win rate $H_d$ of the hint game of dimension $d$ (Section 8) always the win rate of the Carter strategy on $d + 1$ hats when Alice's stack is not of a single color?
+
+It is for $d$ from $1$ to $4$. If it is for every $d$, then $V = \frac{7}{20}$, since these numbers tend to $\frac{7}{20}$. And $H_5 = \frac{1401}{3968}$ alone would prove that $1{,}433$ is the best score on six hats.
 
 ## References
 
@@ -1002,3 +1061,4 @@ the trace of the square of $N$. Which tables come from a strategy? Does a descri
 - [HT25] S. Heilman and O. Tamuz, *A Fourier approach to Levine's hat puzzle*, preprint, 2025 (as quoted in [BCCZW]).
 - [Kh11] T. Khovanova, *How many hats can fit on your head?*, blog post, 2011, <https://blog.tanyakhovanova.com/2011/04/how-many-hats-can-fit-on-your-head/>.
 - [Wa14] S. Wagon, *Problem 1179: An infinitely puzzling hat problem*, Macalester Problem of the Week, 2014, <http://stanwagon.com/potw/fall13/p1179.html>.
+- [Ya26] "Yang" (GitHub account yangsong97), *levine-hat-bounds*, a note with programs, November 2026, not reviewed, <https://github.com/yangsong97/levine-hat-bounds>.

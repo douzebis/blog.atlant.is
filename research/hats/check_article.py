@@ -893,6 +893,66 @@ def quoted() -> list[tuple[str, str, object, object]]:
             ],
             [2, 3, 2, 3, 2, 3],
         ),
+        (
+            "Section 8",
+            "hints: functions and symmetries of dimension 4; sortings of 14",
+            (2 * (2**4 - 1), 20160 * 16 * 2, 190899322 > 190 * 10**6),
+            (30, 645120, True),
+        ),
+        (
+            "Section 8",
+            "hints: the Carter numbers for d = 1 to 6",
+            [
+                Fraction(
+                    hits(d + 1, carter(d + 1)) - 2**d, 2 ** (d + 1) * (2 ** (d + 1) - 2)
+                )
+                for d in range(1, 7)
+            ],
+            [
+                Fraction(3, 8),
+                Fraction(3, 8),
+                Fraction(81, 224),
+                Fraction(57, 160),
+                Fraction(1401, 3968),
+                Fraction(45, 128),
+            ],
+        ),
+        (
+            "Section 8",
+            "hints: the closed form",
+            [
+                Fraction(7, 20)
+                + (
+                    Fraction(1, 5)
+                    - Fraction(1 if d % 2 == 0 else 3, (5 if d % 2 == 0 else 10) * 2**d)
+                )
+                / (2 * (2**d - 1))
+                for d in range(1, 7)
+            ],
+            [
+                Fraction(
+                    hits(d + 1, carter(d + 1)) - 2**d, 2 ** (d + 1) * (2 ** (d + 1) - 2)
+                )
+                for d in range(1, 7)
+            ],
+        ),
+        (
+            "Section 8",
+            "hints: the bounds on 4, 5 and 6 hats, and 57/160 on 6 hats",
+            (
+                8 + 224 * Fraction(81, 224),
+                16 + 960 * Fraction(57, 160),
+                (32 + 3968 * Fraction(17, 48)).__floor__(),
+                4096 * 57 // 160,
+            ),
+            (89, 358, 1437, 1459),
+        ),
+        (
+            "Section 8",
+            "57/160 and 17/48 as decimals",
+            (str(float(Fraction(57, 160))), str(float(Fraction(17, 48)))[:7]),
+            ("0.35625", "0.35416"),
+        ),
         ("Section 1", "81/224", str(Fraction(81, 224).numerator / 224)[:6], "0.3616"),
         ("Section 5", "word of C_3", word(carter(3)), "01002120"),
         ("Section 5", "hits of C_3", hits(3, carter(3)), 22),
