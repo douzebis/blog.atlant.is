@@ -156,6 +156,16 @@ the best win rate of two players with infinite stacks.
    `m = 2 (2^d - 1)`: `7/20 + (1/5 - c / 2^d) / m`, `c` = 1/5 for even
    `d` and 3/10 for odd `d`; about `7/20 + 1 / (10 * 2^d)`.
 
+   Our own check (2026-11-27, `research/hats/hint-search/hint4.c`, a
+   search over all the partitions of the 30 labels with the bound by
+   frames and the symmetries; a computation, not a proof checked by
+   machine): the game of dimension 3 has the maximum 81/224, reached by
+   3,920 partitions, as the paper says; and for dimension 4,
+   `V <= 173/480 = 0.36042` (75 seconds) and
+   `V <= 172/480 = 43/120 = 0.35833` (2 minutes; 495 million nodes,
+   47,764 complete partitions scored, none above). The target 171/480 =
+   57/160 is running.
+
    What follows. (a) The affine hint of dimension `d` cannot prove a
    bound on `V` below that value, so this family of hints goes to 7/20
    no faster than `2^-d`. (b) An exact value of `H_d` is a proof that
