@@ -23,6 +23,17 @@ the best win rate of two players with infinite stacks.
    beats 7/20, nothing beats the floor; and the Carter scores tend to
    7/20. Confirmed for 1 to 5 hats (1, 5, 22, 89, 358); 1433 for six hats
    is the next case.
+
+   A search around the Carter strategies (2026-11-27,
+   `research/hats/local-search/`; a program, not a proof) finds nothing
+   better. No strategy that differs from the Carter strategy in at most
+   `r` choices has more hits, for `r` = 8 on six hats, 7 on seven hats
+   and 6 on eight hats. Walks through strategies with the same hits
+   (300,000 steps on six and seven hats, 100,000 on eight, from the
+   variants with the other double shift too) find no gain either; on
+   eight hats they go as far as 21 choices from the start. Strategies
+   with the same hits are many: on eight hats, 14.9 million differ from
+   the Carter strategy in exactly 6 choices.
 2. **Can two players with different strategies do better?** Open in
    general. Five hats: one solver run in `levine-hats` says no,
    unconfirmed.
