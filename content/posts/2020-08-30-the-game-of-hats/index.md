@@ -221,6 +221,12 @@ $$
 
 (Lean: `hits_dual`.) On one hat, the strategy that points at the hat when it sees a black hat, and above it when it sees a white hat, has one hit; its dual has none. Here again the strategies must be proper.
 
+[Propositions 2](#proposition-2) and [3](#proposition-3) are about the symmetries of the game, and they are not of the same kind.
+
+Renaming the positions is a symmetry of the game itself. The hits of $\sigma \cdot s$ are the hits of $s$ with the hats renamed, pair by pair; the two strategies play the same game, and only the names of the hats differ. We say that two strategies on $n$ hats are **equivalent** when one is the other with the positions renamed. There are $n!$ ways to rename $n$ positions, so a strategy has up to $n!$ equivalent ones, and they all have the same number of hits.
+
+Exchanging the colors is a symmetry of the score only. The rule of the game prefers a color, and the hits of $\dual{s}$ are not those of $s$ under another name: they come from the pairs on which, with $s$, both players point at a white hat. That there are as many of these as hits is a matter of counting, and it needs a proper strategy. A strategy and its dual are in general not equivalent.
+
 The last fact lets us compare strategies on different numbers of hats.
 
 **Proposition 4 (taller stacks).** A strategy $s$ on $n$ hats can be played with stacks of $n + k$ hats, by looking at the $n$ lowest hats only. If $s$ is proper, it then has $4^k \, |H(s)|$ hits, and so the same win rate.
@@ -316,7 +322,7 @@ $$
 \dual{a \breset b} = \dual{a} \wreset \dual{b} ,
 $$
 
-because the lowest hats of $\dual{t}$ are all white when those of $t$ are all black. All these strategies are proper, and a proper strategy has as many hits as its dual ([Proposition 3](#proposition-3)). So $a \breset b$ has as many hits as $\dual{a} \wreset \dual{b}$, that is $4^n \, |H(\dual{a})| + |H(\dual{b})| = 4^n \, |H(a)| + |H(b)|$.
+because the lowest hats of $\dual{t}$ are all white when those of $t$ are all black. The double reset is its own mirror: $\dual{a \dreset b} = \dual{a} \dreset \dual{b}$. All these strategies are proper, and a proper strategy has as many hits as its dual ([Proposition 3](#proposition-3)). So $a \breset b$ has as many hits as $\dual{a} \wreset \dual{b}$, that is $4^n \, |H(\dual{a})| + |H(\dual{b})| = 4^n \, |H(a)| + |H(b)|$.
 
 *Proof for the double reset.* Let $s = a \dreset b$. We first count the hits of $a$ in which one of the stacks is the all-black stack $2^m - 1$. The proof of [Proposition 1](#proposition-1) does it: there are $2^{m-1}$ stacks that have a black hat at the position that $a$ points at when it sees the all-black stack. One of them is the all-black stack itself. This gives $2 \, (2^{m-1} - 1) + 1 = 2^m - 1$ hits. Now the cases.
 
@@ -471,11 +477,11 @@ The first two have $n$ black hats with a white hat above them, and send to posit
 
 One hit is gained: $16 \, |H(s)| + 6$.
 
-#### The other order
+#### The other double shift
 
-The double shift starts from the black shift followed by the white shift. Starting from the other order gives nothing new.
+The double shift starts from the black shift followed by the white shift. Starting from the other order gives a second double shift, and it is equivalent to the first.
 
-**Proposition 6 (the double shift and the colors).** Let $s$ be a strategy on $n$ hats, with $n \geq 1$, and let $\sigma$ be the exchange of the positions $n$ and $n + 1$.
+**Proposition 6 (the two double shifts are equivalent).** Let $s$ be a strategy on $n$ hats, with $n \geq 1$, and let $\sigma$ be the exchange of the positions $n$ and $n + 1$.
 
 1. Take $s\,\wshift\,\bshift$ and make it point at position $n + 1$ for the stack $2^n - 1$, which is $n$ black hats under two white ones. The result is $\sigma \cdot (s\,\dshift)$: the double shift with its two new positions exchanged.
 2. Exchanging the colors does the same: $\dual{s\,\dshift} = \sigma \cdot (\dual{s}\,\dshift)$.
@@ -488,7 +494,9 @@ For the second point: the dual of $s\,\dshift$ plays $\dual{s}$ on the $n$ lowes
 
 (Lean: `ds` is defined as $s\,\bshift\,\wshift$ with one choice changed; `sibling_eq` says that the strategy of the first point is the dual of the double shift of the dual. That it is $\sigma \cdot (s\,\dshift)$ is checked by program.)
 
-By [Proposition 2](#proposition-2), a renaming of the positions keeps the hits. So there is one double shift, and it does not prefer a color: starting from either order of the single shifts, or exchanging black and white, gives the same strategy up to the names of the two new positions.
+So there are two double shifts, and they are equivalent: each is the other with the two new positions renamed. We keep the first and write it $s\,\dshift$. Nothing later depends on this choice, because the operations of this article only look at a block of hats to ask whether it is all white or all black, which a renaming inside the block does not change: replacing a double shift by the other one anywhere in a strategy gives an equivalent strategy.
+
+Compare with the single shifts. Exchanging the colors turns the white shift into the black shift, and these two are not equivalent: $\str{0010}$ and $\str{0100}$ are not the same strategy with the positions renamed. The double shift is sent by the exchange of the colors to an equivalent strategy. It does not prefer a color.
 
 That one changed letter is worth a remark. Resets and single shifts build a strategy on many hats out of strategies on fewer hats, and their hits add up as the formulas say. The double shift is not built that way: it is a block on two hats that does better than the two single shifts it is made of. A natural question is whether a block on three or more hats does better still. We come back to it in Section 8.
 

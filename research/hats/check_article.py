@@ -166,6 +166,11 @@ def reyes(j: int) -> Strategy:
     return s
 
 
+def equivalent(n: int, a: Strategy, b: Strategy) -> bool:
+    """Whether b is a with the positions renamed."""
+    return any(permuted(n, a, sigma) == b for sigma in itertools.permutations(range(n)))
+
+
 # Checks.
 
 FAILURES: list[str] = []
@@ -208,7 +213,12 @@ def check_formulas(rng: random.Random) -> int:
                     dual(m + n, black_reset(m, n, a, b))
                     == white_reset(m, n, dual(m, a), dual(n, b)),
                 )
-                done += 4
+                check(
+                    "the dual of a double reset",
+                    dual(m + n, double_reset(m, n, a, b))
+                    == double_reset(m, n, dual(m, a), dual(n, b)),
+                )
+                done += 5
     for n in (1, 2, 3, 4):
         for s in samples[n]:
             h = hits(n, s)
@@ -494,6 +504,43 @@ def quoted() -> list[tuple[str, str, object, object]]:
                 for sigma in itertools.permutations(range(3))
             ),
             False,
+        ),
+        (
+            "Section 4",
+            "the two shifts of 00 are not equivalent",
+            any(
+                permuted(2, white_shift(1, ONE), sigma)[1:-1]
+                == black_shift(1, ONE)[1:-1]
+                for sigma in itertools.permutations(range(2))
+            ),
+            False,
+        ),
+        (
+            "Section 4",
+            "one double shift replaced by the other inside a strategy",
+            [
+                equivalent(
+                    5,
+                    double_shift(3, double_shift(1, ONE)),
+                    double_shift(3, sibling_double_shift(1, ONE)),
+                ),
+                equivalent(
+                    5,
+                    double_reset(2, 3, strategy("0010"), double_shift(1, ONE)),
+                    double_reset(2, 3, strategy("0010"), sibling_double_shift(1, ONE)),
+                ),
+                equivalent(
+                    5,
+                    white_reset(3, 2, double_shift(1, ONE), strategy("0010")),
+                    white_reset(3, 2, sibling_double_shift(1, ONE), strategy("0010")),
+                ),
+                equivalent(
+                    4,
+                    black_shift(3, double_shift(1, ONE)),
+                    black_shift(3, sibling_double_shift(1, ONE)),
+                ),
+            ],
+            [True, True, True, True],
         ),
         ("Section 1", "81/224", str(Fraction(81, 224).numerator / 224)[:6], "0.3616"),
         ("Section 5", "word of C_3", word(carter(3)), "01002120"),
