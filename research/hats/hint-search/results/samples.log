@@ -1,0 +1,24 @@
+== target 343/32, one task in 50
+28107 partial partitions of the first 14 labels survive
+nodes after that: 134406774
+complete partitions scored: 7268; equal to the target: 0; above: 0
+one task in 50 was done, in 22 s: nothing is proved
+user	5m19.826s
+== target 171/16, one task in 50
+36582 partial partitions of the first 14 labels survive
+nodes after that: 1693518988
+complete partitions scored: 445272; equal to the target: 0; above: 0
+one task in 50 was done, in 327 s: nothing is proved
+user	24m10.472s
+== target 341/32, one task in 200
+56669 partial partitions of the first 14 labels survive
+nodes after that: 5909217647
+complete partitions scored: 2319496; equal to the target: 32; above: 0
+one task in 200 was done, in 1174 s: nothing is proved
+user	73m33.725s
+== target 170/16, one task in 1000
+57600 partial partitions of the first 14 labels survive
+nodes after that: 20665363645
+complete partitions scored: 7123624; equal to the target: 0; above: 0
+one task in 1000 was done, in 4661 s: nothing is proved
+user	258m11.984s
