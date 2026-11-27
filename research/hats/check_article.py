@@ -802,6 +802,85 @@ def quoted() -> list[tuple[str, str, object, object]]:
             (word(low_black(2)), word(low_white(2)), word(carter(2))),
             ("0010", "0100", "0100"),
         ),
+        (
+            "Section 8",
+            "one more hit on six hats, reset forever",
+            (
+                str(float(Fraction(1434 - 1, 4096 - 4)))[:7],
+                Fraction(1433, 4092) > Fraction(7, 20),
+            ),
+            ("0.35019", True),
+        ),
+        (
+            "Section 8",
+            "7 * 4^n / 20 exceeds the Carter score by 0.4 or 0.6",
+            [Fraction(7 * 4**n, 20) - hits(n, carter(n)) for n in (1, 2, 3, 4)],
+            [Fraction(2, 5), Fraction(3, 5), Fraction(2, 5), Fraction(3, 5)],
+        ),
+        (
+            "Section 8",
+            "shifts in a row, on a strategy with 5 hits on 2 hats",
+            [
+                hits(5, double_shift(3, white_shift(2, strategy("0010")))),
+                hits(5, white_shift(4, double_shift(2, strategy("0010")))),
+                hits(6, double_shift(4, double_shift(2, strategy("0010")))),
+            ],
+            [64 * 5 + 22, 64 * 5 + 25, 256 * 5 + 102],
+        ),
+        (
+            "Section 8",
+            "the largest gains",
+            [5 - 4, 22 - 16, 89 - 64, 358 - 256],
+            [1, 6, 25, 102],
+        ),
+        (
+            "Section 8",
+            "double resets of the Carter strategies, odd sizes",
+            [Fraction(hits(n, carter(n)) - 1, 4**n - 4) for n in (3, 5, 7)],
+            [Fraction(7, 20)] * 3,
+        ),
+        (
+            "Section 8",
+            "double resets of the Carter strategies, even sizes",
+            [Fraction(hits(n, carter(n)) - 1, 4**n - 4) for n in (2, 4, 6)],
+            [Fraction(7 * 4**n - 32, 20 * (4**n - 4)) for n in (2, 4, 6)],
+        ),
+        (
+            "Section 8",
+            "they are below 7/20",
+            all(
+                Fraction(7 * 4**n - 32, 20 * (4**n - 4)) < Fraction(7, 20)
+                for n in (2, 4, 6, 8)
+            ),
+            True,
+        ),
+        (
+            "Section 8",
+            "the Carter strategy on five hats, reset once by itself",
+            rate(10, double_reset(5, 5, carter(5), carter(5))),
+            Fraction(358, 1024) + (4 * Fraction(358, 1024) - 1) / 1024,
+        ),
+        (
+            "Section 8",
+            "numbers of schemes",
+            (3, 3**4 - 1, 4**8 - 1, 5**16, 6**32 > 7 * 10**24),
+            (3, 80, 65535, 152587890625, True),
+        ),
+        (
+            "Section 8",
+            "skipped stacks that Proposition 16 settles, blocks of 5 and 6",
+            [min(z for z in range(2**m) if 7 * z >= 6 * 2 ** (m - 1)) for m in (5, 6)],
+            [14, 28],
+        ),
+        (
+            "Section 8",
+            "the gap of the Carter strategies",
+            [
+                (Fraction(7, 20) - rate(n, carter(n))) * 5 * 4**n
+                for n in (1, 2, 3, 4, 5, 6)
+            ],
+            [2, 3, 2, 3, 2, 3],
+        ),
         ("Section 1", "81/224", str(Fraction(81, 224).numerator / 224)[:6], "0.3616"),
         ("Section 5", "word of C_3", word(carter(3)), "01002120"),
         ("Section 5", "hits of C_3", hits(3, carter(3)), 22),

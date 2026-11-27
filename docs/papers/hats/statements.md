@@ -30,6 +30,11 @@ the numbers quoted near each statement.
 | Theorem 4 | 6 | The win rate of a limit of strategies: within `2 A_k / 2^(n_k)` of each of them, and their limit | `abs_rateInf_sub_rate_le`, `rateInf_limitOf`; `measurable_limitOf`, `measurableSet_hitSet` | |
 | Theorem 5 | 6 | The limits of the lowest black hat (1/3), of the Carter and of the Reyes strategies (7/20), and what they do | `rateInf_lowBlackInf`, `rateInf_carterInf`, `rateInf_reyesInf`, `lowBlackInf_spec`, `reyesInf_spec` | the counts of undecided stacks |
 | Proposition 11 | 6 | Each limit is computed by a machine that reads the hats one at a time | `lowBlackReader_outputs`, `carterReader_outputs`, `reyesReader_outputs`, and the three `_computable` | the three machines as written in the article agree with the strategies on 7 and 9 hats wherever they stop |
+| Proposition 12 | 8 | `V = 7/20` exactly when no plan on any number of hats beats the Carter strategy | not in Lean (`hits_carter` gives the scores) | the remainders of `7 * 4^n` by 20 |
+| Proposition 13 | 8 | An operation that adds `k` hats gains at most 1, 6, 25, 102 for `k` = 1 to 4 | rests on the best scores (Section 7) | the hits of shifts in a row |
+| Proposition 14 | 8 | The win rate of a scheme, `(A + c) / (4^m - Z^2)` | not in Lean | `generalized_resets.py` uses it |
+| Proposition 15 | 8 | Double resets of the Carter strategy on `n` hats forever: 7/20 for odd `n`, less for even `n` | not in Lean (`rate_reyes` and `rateInf_reyesInf` for `n` = 3) | the formula for `n` = 2 to 7 |
+| Proposition 16 | 8 | `A + c` is at most `2^(m-1) (2^m - Z)`; a scheme with `7 Z >= 6 * 2^(m-1)` does not beat 7/20 | `schemeScore_le`, `schemeScore_le_seven_twentieths` | |
 
 Not numbered: the strategy that always points at the same hat has
 `4^(n-1)` hits (`hits_const`).
@@ -39,3 +44,9 @@ of the duals (program; the article's proof of the black reset uses it,
 Lean proves `hits_rr` directly); the difference between the two nestings
 of the double reset, `12 (H(c) - 4^(k-1))` (program; it follows from
 Theorem 1).
+
+Section 8, results of programs (not statements with a proof): no scheme
+on blocks of at most five hats beats 7/20 (`generalized_resets.py`,
+`reset-schemes/`, `reset_schemes_lp.py`, `reset_schemes_split.py`,
+`reset-search/`); no better strategy near the Carter strategies
+(`local-search/`).

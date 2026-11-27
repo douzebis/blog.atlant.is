@@ -832,7 +832,127 @@ which has $89$ hits like $\mathbf{C}_4$. So resets and shifts do not give all th
 
 ### 8. Can $\frac{7}{20}$ be beaten?
 
-*To come.*
+Nobody knows. This section says what beating $\frac{7}{20}$ would take, and reports three attempts with the tools of this article. None succeeds.
+
+Recall that $V_n$ is the best win rate on $n$ hats when Alice and Bob may use different strategies, and that $V$, the best win rate of the game, is the limit of the $V_n$, which never decrease ([Proposition 4](#proposition-4)).
+
+#### One more hit
+
+**Proposition 12 (the conjecture, one number of hats at a time).** The following are equivalent.
+
+1. $V = \frac{7}{20}$.
+2. For every $n \geq 1$, nothing on $n$ hats wins more pairs of stacks than the Carter strategy: $V_n = w(\mathbf{C}_n)$.
+
+*Proof.* A win rate on $n$ hats is a whole number of pairs out of $4^n$, with one strategy or with two. By [Theorem 3](#theorem-3) the Carter strategy wins $7 \cdot 4^n / 20$ pairs rounded down, and $7 \cdot 4^n / 20$ is never whole. So a plan on $n$ hats that wins one more pair than $\mathbf{C}_n$ has a win rate above $\frac{7}{20}$, and then $V > \frac{7}{20}$. Conversely, if nothing beats $\mathbf{C}_n$ for any $n$, every $V_n$ is below $\frac{7}{20}$, and so is their limit; and it is not less, by the Carter strategies themselves.
+
+So the conjecture is an infinite list of statements about whole numbers, one for each number of hats, and Section 7 says where we stand: the first five are checked. The sixth is whether some plan on six hats wins $1{,}434$ pairs out of $4{,}096$. One such plan, resetting itself forever with double resets as in Section 3, would win with probability $\frac{1{,}433}{4{,}092} = 0.35019\ldots$
+
+The misses are not all of the same size. On an odd number of hats, $7 \cdot 4^n / 20$ exceeds the Carter score by $0.4$; on an even number, by $0.6$. An extra hit is a shorter step on an even number of hats.
+
+#### Better shifts
+
+The double shift does better than two single shifts. Could an operation that adds three hats, or more, do better than the shifts that we have? Say that an operation that adds $k$ hats is *of gain $c$* when it turns every proper strategy $s$ into a strategy with $4^k \, |H(s)| + c$ hits. The white and the black shift are of gain $1$, the double shift of gain $6$. Shifts in a row give, with $h = |H(s)|$:
+
+| Hats added | Operation | Hits |
+|---|---|---|
+| $3$ | $s\,\wshift\,\dshift$ | $64 \, h + 22$ |
+| $3$ | $s\,\dshift\,\wshift$ | $64 \, h + 25$ |
+| $4$ | $s\,\dshift\,\dshift$ | $256 \, h + 102$ |
+
+**Proposition 13 (the shifts cannot be improved).** An operation that adds $k$ hats has a gain of at most $1$, $6$, $25$, $102$ for $k = 1, 2, 3, 4$. The shifts above reach these gains.
+
+*Proof.* Apply the operation to the strategy $\str{00}$ on one hat, which has one hit. The result is a strategy on $k + 1$ hats with $4^k + c$ hits, at most the best score on $k + 1$ hats: $5$, $22$, $89$, $358$ (Section 7). So $c$ is at most $5 - 4$, $22 - 16$, $89 - 64$, $358 - 256$.
+
+The statement is as sure as the best scores it uses: proved for $k = 1$ and $2$, proved with a compiler trusted for $k = 3$, the answer of solvers for $k = 4$. So there is no "triple shift" of gain $26$: it would make a strategy with $90$ hits on four hats. In general, an operation that adds $k$ hats with a better gain than shifts in a row would beat the Carter strategy on $k + 1$ hats, and with it $\frac{7}{20}$.
+
+#### More general resets
+
+A double reset skips a block of hats when it is all white or all black. Why these two stacks? One may skip any set of stacks.
+
+A *scheme* on blocks of $m$ hats is a set $Z$ of stacks of $m$ hats, the *skipped* stacks, not all of them, and a strategy $a$ on $m$ hats. It defines a strategy on infinite stacks: look at the hats $m$ by $m$ from the bottom; skip every block that is in $Z$; on the first block that is not, play $a$. The paper [BCCZW] calls these *recursive strategies*. The limit $\mathbf{R}_\infty$ is the scheme on blocks of three hats with $Z$ made of the all-white and the all-black stack and $a = \mathbf{C}_3$; the limit $\mathbf{B}_\infty$ is a scheme on blocks of one hat.
+
+**Proposition 14 (the win rate of a scheme).** The scheme $(Z, a)$ on blocks of $m$ hats, with $a$ proper, has the win rate
+
+$$
+\frac{A + c}{4^m - |Z|^2} ,
+$$
+
+where $A$ is the number of hits $(t, u)$ of $a$ with neither $t$ nor $u$ in $Z$, and $c$ is the number of pairs $(t, u)$ with $t$ in $Z$, $u$ not in $Z$, and a black hat of $t$ at the position $a(u)$.
+
+*Proof.* Let $x$ be the win rate, and look at the lowest blocks $t$ and $u$ of the two players. If neither is skipped, both play $a$ and win when $(t, u)$ is a hit of $a$: $A$ pairs out of $4^m$. If both are skipped, the game starts again above: $|Z|^2$ pairs, each won with probability $x$. If $t$ is skipped and $u$ is not, the player who wears $t$ sees $u$ and points at the position $a(u)$ of the block $t$; the other player skips $t$ and points at a hat above their lowest block, chosen without a look at their own hats: it is black half of the time. The same goes with the two players exchanged, which makes $2 \cdot \frac12 \cdot c$. Hence $4^m \, x = A + c + |Z|^2 \, x$.
+
+For the double reset, $Z$ has two stacks, and the formula becomes that of "A first look at $\frac{7}{20}$" in Section 3:
+
+$$
+x = \frac{|H(a)| - 1}{4^m - 4} .
+$$
+
+**Proposition 15 (double resets of the Carter strategies).** Reset the Carter strategy on $n$ hats by itself forever, with double resets. For odd $n \geq 3$ the win rate is $\frac{7}{20}$. For even $n$ it is $\dfrac{7 \cdot 4^n - 32}{20 \, (4^n - 4)}$, which is less.
+
+*Proof.* Put the hits of [Theorem 3](#theorem-3) in the formula: $20 \, |H(\mathbf{C}_n)|$ is $7 \cdot 4^n - 8$ for odd $n$ and $7 \cdot 4^n - 12$ for even $n$.
+
+So $\frac{7}{20}$ is reached with blocks of every odd size, three, five, seven and so on, and the Carter strategy is a block that does it. The paper [BCCZW] has this result: a scheme on blocks of five hats that wins $7$ times in $20$, then one for every odd size, and none for an even size when the skipped stacks are the all-white and the all-black one.
+
+Now the question: does some scheme beat $\frac{7}{20}$? There is a bound that needs no computer.
+
+**Proposition 16 (a scheme that skips much does not win much).** With the notation of [Proposition 14](#proposition-14),
+
+$$
+A + c \leq 2^{m-1} \left( 2^m - |Z| \right) , \qquad \text{so that the win rate is at most} \quad \frac{2^{m-1}}{2^m + |Z|} .
+$$
+
+A scheme with $|Z| \geq \frac67 \, 2^{m-1}$ does not beat $\frac{7}{20}$.
+
+*Proof.* Fix a stack $u$ outside $Z$. Among the $2^m$ stacks $t$, exactly $2^{m-1}$ have a black hat at the position $a(u)$. The pairs $(t, u)$ that $A$ and $c$ count are among them: for $A$ the stack $t$ is outside $Z$ and must be black at $a(u)$ for the pair to be a hit, for $c$ it is in $Z$ and black at $a(u)$. There are $2^m - |Z|$ stacks $u$. This gives the first inequality; divide by $4^m - |Z|^2 = (2^m - |Z|)(2^m + |Z|)$ for the second. The last statement is $\frac{2^{m-1}}{2^m + |Z|} \leq \frac{7}{20}$, solved for $|Z|$.
+
+(Lean: `schemeScore_le`, `schemeScore_le_seven_twentieths`, for the inequality on $A + c$. The win rate formula of [Proposition 14](#proposition-14) is not in Lean.)
+
+For blocks of five hats, this settles the schemes that skip $14$ stacks or more. For the others we asked programs.
+
+**Result (programs).** No scheme on blocks of at most five hats beats $\frac{7}{20}$.
+
+| Block | Schemes | Best win rate | How |
+|---|---|---|---|
+| $1$ hat | $3$ | $\frac13$ | all tried |
+| $2$ hats | $80$ | $\frac13$ | all tried |
+| $3$ hats | $65{,}535$ | $\frac{7}{20}$, by the double reset of $\mathbf{C}_3$ and its equivalents only | all tried |
+| $4$ hats | $5^{16}$, about $1.5 \cdot 10^{11}$ | $\frac{7}{20}$, by the scheme on three hats with a fourth hat that is not looked at | all tried |
+| $5$ hats | $6^{32}$, about $8 \cdot 10^{24}$ | $\frac{7}{20}$ | see below |
+
+Blocks of five hats have too many schemes to try. The work was split by the number of skipped stacks:
+
+| Skipped stacks | No scheme beats $\frac{7}{20}$, by |
+|---|---|
+| $0$ to $5$ | the solver SCIP on one integer program for each number; from $99$ seconds to $2$ hours $45$ |
+| $6$ and $7$ | SCIP on one program for each set $Z$, one $Z$ in each class under the renamings of the positions: $10{,}195$ and $34{,}230$ runs |
+| $4$ to $13$ | a search written for the purpose, which counts the pairs of stacks on which one player points at a black hat and the other does not; from $57$ thousand cases for $13$ skipped stacks to $3.3 \cdot 10^{11}$ for $4$ |
+| $14$ to $31$ | [Proposition 16](#proposition-16) |
+
+The numbers $4$ to $7$ are settled twice, by programs that have nothing in common. All this is the answer of programs, apart from [Proposition 16](#proposition-16).
+
+Blocks of six hats are open. [Proposition 16](#proposition-16) settles the schemes that skip $28$ stacks or more, out of $64$.
+
+#### Around the Carter strategies
+
+The last attempt is the simplest: start from a Carter strategy and change some of its choices. A program looked, on six, seven and eight hats, for a strategy with one more hit.
+
+| Hats | Carter score | No better strategy within | Random walks |
+|---|---|---|---|
+| $6$ | $1{,}433$ | $8$ changed choices | $300{,}000$ steps, nothing |
+| $7$ | $5{,}734$ | $7$ changed choices | $300{,}000$ steps, nothing |
+| $8$ | $22{,}937$ | $6$ changed choices | $100{,}000$ steps, nothing |
+
+"Within $r$ changed choices" is complete: every strategy that differs from the Carter strategy for at most $r$ stacks was ruled out. The walks move from a strategy to another with the same score, one or two changes at a time, and look around each. There is room to walk: on eight hats, $14.9$ million strategies differ from $\mathbf{C}_8$ for exactly six stacks and have its score, and a walk went as far as $21$ changes away. A Carter strategy is not an isolated peak. It sits on a wide plateau, and we found no way up from it.
+
+#### How fast the best win rates climb
+
+Whatever $V$ is, [Theorem 3](#theorem-3) says how fast the best win rates on $n$ hats get near $\frac{7}{20}$ at least:
+
+$$
+V_n \;\geq\; \frac{7}{20} - \frac{3}{5 \cdot 4^n} \quad \text{for every } n \geq 1 ,
+$$
+
+with $2$ in place of $3$ for odd $n$. If $V = \frac{7}{20}$, this is an equality ([Proposition 12](#proposition-12)), and no smaller gap is possible in any case: the gap between $\frac{7}{20}$ and a win rate on $n$ hats is at least $\frac{1}{5 \cdot 4^n}$, as [BCCZW] note. The same paper proves that $\frac{7}{20} - V_n$ is at most a constant times $(4^{1 - \varepsilon})^{-n}$, for every $\varepsilon > 0$. The Carter strategies give the exponent $4^{-n}$ itself.
 
 ### 9. Open questions
 
