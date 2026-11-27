@@ -132,9 +132,18 @@ the best win rate of two players with infinite stacks.
    "best at every number of hats below" pick the same classes. Among the
    strategies equivalent to a Carter strategy, those whose cuts are all
    best are 2, 2 and 4 for 3, 4 and 5 hats: one for each choice between
-   the two double shifts. Open: the same count on 5 hats, where the list
-   of the best strategies is not known; whether the 4 other classes are
-   the first of a family.
+   the two double shifts.
+
+   Five hats (2026-11-27, `research/hats/best-search/best_all.c`, a
+   search that lists every crushed strategy with a given number of hits,
+   and `research/hats/best_classes5.py`): 1,014 crushed strategies with
+   358 hits and none with 359 (a third program for the best score on
+   five hats, 53 seconds); 27 classes, 15 up to the colors; 9 classes
+   are built and they are the 9 hereditary ones; the 18 others are
+   primitive, with cuts of 22 hits on three hats and 88 on four. So
+   "built" and "hereditary" agree on four and on five hats. The numbers
+   of best crushed strategies are 2, 4, 102, 1,014 and of classes 2, 1,
+   10, 27. Open: a proof; what the primitive classes are; six hats.
 6. **Why do the Reyes strategy on `3n` hats and the Carter strategy on
    `2n + 1` hats have the same win rate,** `7/20 - 1/(10 * 16^n)`? Both
    formulas are proved (`rate_reyes`, `rate_carterOdd`); no map between

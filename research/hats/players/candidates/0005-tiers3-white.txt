@@ -1,0 +1,12 @@
+(def (car x k)
+  (if (hat x 0)
+      (if (* (< (lw x) k) (mod (lw x) 2)) (lw x) 0)
+      (if (<= k (lb x)) 0
+          (if (= (mod (lb x) 2) 0) (lb x)
+              (if (* (< (+ (lb x) 1) k) (hat x (+ (lb x) 1))) (+ (lb x) 1) 0)))))
+(def (tier x j) (low (above x (* 3 j)) 3))
+(def (skip a b) (if (+ (= a 0) (= b 0)) 1 0))
+(def (stop a b j) (* (<= (* 3 (+ j 1)) t) (not (skip (tier a j) (tier b j)))))
+(def (where a b) (first j (stop a b j)))
+(def (play a b j) (+ (* 3 j) (mod (+ (car (tier a j) 3) (car (tier b j) 3)) 3)))
+(if (< (where u v) t) (play u v (where u v)) 0)

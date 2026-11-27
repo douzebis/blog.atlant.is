@@ -2,3 +2,6 @@ number	author	parent	note
 0001	claude-fable-5	-	the sum of the lowest black hats modulo t (Winkler)
 0002	claude-fable-5	-	the Carter choices of the two stacks, added modulo 3
 0003	claude-fable-5	0002	the table of 15 entries on the Carter choices found by features.py on 5 hats
+0004	claude-fable-5	0002	tiers of three hats: skip a tier when one of the two stacks seen is all white there, or both are all black (the resets of Buhler et al.)
+0005	claude-fable-5	0004	the same with the white reset only
+0006	claude-fable-5	0004	skip a tier when one of the two stacks seen is of a single color there

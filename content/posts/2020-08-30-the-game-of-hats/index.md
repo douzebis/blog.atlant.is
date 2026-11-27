@@ -819,8 +819,9 @@ The search can list all the best crushed strategies (`search -n 3 -a`). Sorting 
 | $2$ | $2$ | $2$ | $1$ | $2$ |
 | $3$ | $4$ | $1$ | $1$ | $1$ |
 | $4$ | $102$ | $10$ | $5$ | $6$ |
+| $5$ | $1{,}014$ | $27$ | $15$ | $9$ |
 
-On two hats the best strategies are $\mathbf{B}_2$ and $\mathbf{W}_2$, which is $\mathbf{C}_2$. On three hats there is only one: every strategy with $22$ hits is equivalent to $\mathbf{C}_3$, up to the two choices that do not matter. On four hats there are ten.
+On two hats the best strategies are $\mathbf{B}_2$ and $\mathbf{W}_2$, which is $\mathbf{C}_2$. On three hats there is only one: every strategy with $22$ hits is equivalent to $\mathbf{C}_3$, up to the two choices that do not matter. On four hats there are ten, on five hats twenty-seven. (For five hats the list comes from a search of its own, which also finds, in a minute, that no strategy has $359$ hits.)
 
 The last column counts the classes that hold a strategy built from $\str{00}$ with the three resets, the two shifts and the double shift. On four hats, four of the ten classes hold no such strategy. One of them is that of
 
@@ -841,7 +842,9 @@ Call a best strategy on $n$ hats *hereditary* when its cuts to $1, 2, \ldots, n 
 - The Carter strategies are hereditary, as far as the best scores are known. Being bottom-up is not rare: of the $120$ strategies equivalent to $\mathbf{C}_5$, $80$ are. But only $4$ of them are hereditary: $\mathbf{C}_5$ and those obtained by taking the other double shift at one step or at both.
 - On four hats, the six classes built with resets and shifts each hold a hereditary strategy. The four others are primitive: the cuts of their strategies to three hats have at most $20$ hits, where the best is $22$.
 
-So on four hats, "built with resets and shifts" and "best at every smaller number of hats" say the same thing, and the first primitive best strategies appear there. They owe nothing to a best strategy on three hats. (This is the answer of a program, `cuts.py` in the repository, for one to four hats.)
+- On five hats it is the same: the nine classes that are built are the nine that hold a hereditary strategy. The eighteen others are primitive; the cuts of their strategies are best on three hats, with $22$ hits, and one short on four, with $88$.
+
+So on four and on five hats, "built with resets and shifts" and "best at every smaller number of hats" say the same thing. The first primitive best strategies appear on four hats, and they owe nothing to a best strategy on three hats. (This is the answer of programs, `cuts.py` and `best_classes5.py` in the repository.)
 
 ### 8. Can $\frac{7}{20}$ be beaten?
 
@@ -1068,7 +1071,7 @@ It is for $d$ from $1$ to $4$. If it is for every $d$, then $V = \frac{7}{20}$, 
 
 **Question K (hereditary and primitive).** Is every hereditary best strategy built with resets and shifts? Are there primitive best strategies on every number of hats from four on, and how many classes?
 
-On four hats the answers are yes, and four classes out of ten (Section 7). Five hats would be the next test; it needs the list of all strategies with $358$ hits, which we do not have.
+On four and on five hats the answer to the first question is yes, and the primitive classes are four out of ten, then eighteen out of twenty-seven (Section 7).
 
 ## References
 
