@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: 2026 Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)
+#
+# SPDX-License-Identifier: MIT
+
+[package]
+name = "players"
+version = "0.1.0"
+edition = "2021"
+description = "The game of hats with three players: scorer and searches"
+license = "MIT"
+
+[dependencies]
+
+[profile.release]
+opt-level = 3
+debug = false
