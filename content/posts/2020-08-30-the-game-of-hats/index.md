@@ -492,7 +492,7 @@ For the first point: the white shift sends the stack $2^n$ to position $n$; the 
 
 For the second point: the dual of $s\,\dshift$ plays $\dual{s}$ on the $n$ lowest hats, and its exceptions are those of the double shift with the colors exchanged, which are again the exceptions above.
 
-(Lean: `ds` is defined as $s\,\bshift\,\wshift$ with one choice changed; `sibling_eq` says that the strategy of the first point is the dual of the double shift of the dual. That it is $\sigma \cdot (s\,\dshift)$ is checked by program.)
+(Lean: `ds` is defined as $s\,\bshift\,\wshift$ with one choice changed; `sibling_eq` says that the strategy of the first point is the dual of the double shift of the dual, and `sibling_eq_swap` that it is $\sigma \cdot (s\,\dshift)$, for a proper $s$.)
 
 So there are two double shifts, and they are equivalent: each is the other with the two new positions renamed. We keep the first and write it $s\,\dshift$. Nothing later depends on this choice, by the next statement.
 
@@ -500,7 +500,7 @@ So there are two double shifts, and they are equivalent: each is the other with 
 
 *Proof.* Let $a' = \sigma \cdot a$ and $b' = \tau \cdot b$. Let $\rho$ be the renaming of the $m + n$ positions that acts as $\sigma$ on the $m$ lowest and as $\tau$ on the $n$ above. We show that $a' \wreset b' = \rho \cdot (a \wreset b)$. Take a stack $t$ of $m + n$ hats. The $m$ lowest hats of $\rho \cdot t$ are those of $t$, renamed by $\sigma$: they are all white exactly when those of $t$ are. If they are not, both strategies play on the lowest hats: $a \wreset b$ points at $a(t_{<m})$ when it sees $t$, and $a' \wreset b'$ points at $\sigma(a(t_{<m}))$ when it sees $\rho \cdot t$. If they are, both play above, and the same holds with $b$ and $\tau$. This is what $a' \wreset b' = \rho \cdot (a \wreset b)$ means. The proof is the same for the other resets, with "all black" or "of a single color". For the shifts, $\rho$ acts as $\sigma$ on the $m$ lowest positions and leaves the new ones in place; the stacks of the exceptions are told by their $m$ lowest hats being all white or all black, and by the new hats.
 
-(Checked by program on random strategies and renamings; not in Lean.) So in a strategy written with resets and shifts, replacing a part by an equivalent one gives an equivalent strategy. In particular it does not matter which double shift is used, and where.
+(Lean, for the exchange of two positions, of which every renaming is a product, and for proper strategies: `lr_swap_low`, `lr_swap_high`, `rr_swap_low`, `rr_swap_high`, `dr_swap_low`, `dr_swap_high`, `ls_swap`, `rs_swap`, `ds_swap`.) So in a strategy written with resets and shifts, replacing a part by an equivalent one gives an equivalent strategy. In particular it does not matter which double shift is used, and where.
 
 Compare with the single shifts. Exchanging the colors turns the white shift into the black shift, and these two are not equivalent: $\str{0010}$ and $\str{0100}$ are not the same strategy with the positions renamed. The double shift is sent by the exchange of the colors to an equivalent strategy. It does not prefer a color.
 

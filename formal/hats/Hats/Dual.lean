@@ -19,8 +19,7 @@ with every hat of the other color.
   (`hits_sibling`).
 
 The sibling is not a new strategy: it is the double shift with its two
-new positions exchanged (found on 2026-11-27, checked by
-`research/hats/check_article.py`, not proved here).
+new positions exchanged (`sibling_eq_swap` in `Hats/Equivalent.lean`).
 -/
 
 namespace Hats

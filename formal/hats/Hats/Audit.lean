@@ -8,6 +8,7 @@ import Hats.Crush
 import Hats.Optimal
 import Hats.Schemes
 import Hats.Dual
+import Hats.Equivalent
 import Hats.Topology
 import Hats.Measurable
 import Hats.Readers
@@ -108,3 +109,13 @@ open Hats
 #print axioms hits_dual
 #print axioms hits_sibling
 #print axioms sibling_eq
+#print axioms lr_swap_low
+#print axioms lr_swap_high
+#print axioms rr_swap_low
+#print axioms rr_swap_high
+#print axioms dr_swap_low
+#print axioms dr_swap_high
+#print axioms ls_swap
+#print axioms rs_swap
+#print axioms ds_swap
+#print axioms sibling_eq_swap
