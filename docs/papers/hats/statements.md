@@ -26,6 +26,10 @@ the numbers quoted near each statement.
 | Proposition 8 | 5 | The lowest black hat and the lowest white hat have `(4^n - 1) / 3` hits | `hits_lowBlack`, `hits_lowWhite`, `rate_lowBlack`, `rate_lowWhite` | 1 to 8 hats |
 | Theorem 3 | 5 | The Carter strategy on `n` hats has `7 * 4^n / 20` hits, rounded down | `hits_carterOdd`, `hits_carterEven`, `hits_carter`, `rate_carterOdd`, `rate_carterEven` | 1 to 8 hats; the rule in words agrees with the shifts on 1 to 8 hats (program only) |
 | Proposition 9 | 5 | The Reyes strategy on `3j` hats has win rate `7/20 - 1/(10 * 16^j)` | `hits_reyes`, `rate_reyes` | `j` = 1, 2, 3 |
+| Proposition 10 | 6 | A proper strategy on `n` hats has the same win rate on infinite stacks | `rateInf_lift` | |
+| Theorem 4 | 6 | The win rate of a limit of strategies: within `2 A_k / 2^(n_k)` of each of them, and their limit | `abs_rateInf_sub_rate_le`, `rateInf_limitOf`; `measurable_limitOf`, `measurableSet_hitSet` | |
+| Theorem 5 | 6 | The limits of the lowest black hat (1/3), of the Carter and of the Reyes strategies (7/20), and what they do | `rateInf_lowBlackInf`, `rateInf_carterInf`, `rateInf_reyesInf`, `lowBlackInf_spec`, `reyesInf_spec` | the counts of undecided stacks |
+| Proposition 11 | 6 | Each limit is computed by a machine that reads the hats one at a time | `lowBlackReader_outputs`, `carterReader_outputs`, `reyesReader_outputs`, and the three `_computable` | the three machines as written in the article agree with the strategies on 7 and 9 hats wherever they stop |
 
 Not numbered: the strategy that always points at the same hat has
 `4^(n-1)` hits (`hits_const`).

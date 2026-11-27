@@ -188,6 +188,73 @@ def equivalent(n: int, a: Strategy, b: Strategy) -> bool:
     return any(permuted(n, a, sigma) == b for sigma in itertools.permutations(range(n)))
 
 
+# The machines of Section 6.  Each reads the hats of stack t (n hats) from
+# the bottom up and returns the position it stops with, or None if it has
+# not stopped after n hats.
+
+
+def machine_low_black(n: int, t: int) -> int | None:
+    return next((p for p in range(n) if hat(t, p)), None)
+
+
+def machine_reyes(n: int, t: int) -> int | None:
+    c3 = carter(3)
+    for start in range(0, n - 2, 3):
+        block = (t >> start) & 7
+        if block not in (0, 7):
+            return start + c3[block]
+    return None
+
+
+def machine_carter(n: int, t: int) -> int | None:
+    """The table of the article, row by row."""
+    if n == 0:
+        return None
+    c = 0
+    row = "black 1" if hat(t, 0) else "white 1"
+    for p in range(1, n):
+        black = hat(t, p) == 1
+        if row == "white 1":  # c + 1 white hats
+            row = "black on white" if black else "white 2"
+        elif row == "black on white":
+            return c + 2 if black else 0
+        elif row == "white 2":  # c + 2 white hats
+            if black:
+                return c + 2
+            c, row = c + 2, "white 1"
+        elif row == "black 1":  # c + 1 black hats
+            if not black:
+                return c + 1
+            row = "black 2"
+        else:  # c + 2 black hats
+            if not black:
+                return 0
+            c, row = c + 2, "black 1"
+    return None
+
+
+def check_machines() -> int:
+    done = 0
+    for n in (7, 9):
+        full = {
+            "lowest black": (machine_low_black, low_black(n)),
+            "Carter": (machine_carter, carter(n)),
+        }
+        if n % 3 == 0:
+            full["Reyes"] = (machine_reyes, reyes(n // 3))
+        for name, (machine, s) in full.items():
+            stopped = 0
+            for t in range(2**n):
+                answer = machine(n, t)
+                if answer is not None:
+                    stopped += 1
+                    check(f"machine: {name}", answer == s[t])
+            # the machine stops on most stacks
+            check(f"machine stops: {name}", stopped >= 2**n - 2 ** (n // 2 + 1))
+            done += 2**n + 1
+    return done
+
+
 # Checks.
 
 FAILURES: list[str] = []
@@ -665,6 +732,24 @@ def quoted() -> list[tuple[str, str, object, object]]:
             ],
             [True, True, True],
         ),
+        (
+            "Section 6",
+            "stacks of 3j hats with every block of a single color",
+            [
+                sum(
+                    all((t >> 3 * i) & 7 in (0, 7) for i in range(j))
+                    for t in range(8**j)
+                )
+                for j in (1, 2, 3)
+            ],
+            [2, 4, 8],
+        ),
+        (
+            "Section 6",
+            "hats read on average for the lowest black hat",
+            sum(Fraction(k, 2**k) for k in range(1, 200)).limit_denominator(10**6),
+            2,
+        ),
         ("Section 1", "81/224", str(Fraction(81, 224).numerator / 224)[:6], "0.3616"),
         ("Section 5", "word of C_3", word(carter(3)), "01002120"),
         ("Section 5", "hits of C_3", hits(3, carter(3)), 22),
@@ -681,6 +766,7 @@ def main() -> int:
     rng = random.Random(args.seed)
     formulas = check_formulas(rng)
     families = check_families()
+    machines = check_machines()
     table = quoted()
     for where, what, computed, expected in table:
         check(
@@ -691,6 +777,7 @@ def main() -> int:
         print(f"FAILED: {name}")
     print(
         f"check_article: {formulas} checks of formulas, {families} of families, "
+        f"{machines} of machines, "
         f"{len(table)} quoted numbers, {len(set(FAILURES))} failures"
     )
     return 1 if FAILURES else 0

@@ -632,7 +632,102 @@ What the Reyes strategies have for them is their shape: the same block, played a
 
 ### 6. Infinite stacks
 
-*To come.*
+So far the stacks had $n$ hats. Levine's game has stacks that never end: a hat at every position $0, 1, 2, \ldots$ On such stacks $\frac{7}{20}$ is not only approached, it is reached.
+
+#### The game on infinite stacks
+
+An *infinite stack* $t$ gives a color $t_p$ to every position $p \geq 0$. Each hat is black with probability $\frac12$, independently of the others, for both players. This defines a probability on the pairs of infinite stacks, which we write $\mathbf{P}$. For an infinite stack $t$ we still write $t_{<n}$ for its $n$ lowest hats, a stack of $n$ hats.
+
+A strategy $S$ on infinite stacks gives, for each infinite stack, a position to point at, or nothing at all: we allow a strategy to have no answer for some stacks, and then the players lose. Its hits are the pairs $(t, u)$ of infinite stacks on which both players point at a black hat, and its win rate is their probability:
+
+$$
+w(S) = \mathbf{P}(H(S)) .
+$$
+
+A word of caution. A strategy on infinite stacks is a function of infinitely many hats, and there are more such functions than real numbers (Lean: `continuum_lt_mk_strategies`). Most of them are of no use to anyone, and for some the set $H(S)$ has no probability at all: the paper [BFGKRTVY] has an appendix on what the axiom of choice does to a game of this kind. The strategies of this section are tame. Each is computed by reading finitely many hats, with probability $1$, and its hits form a set that has a probability.
+
+The simplest strategies on infinite stacks are those we already have.
+
+**Proposition 10 (a strategy on $n$ hats, on infinite stacks).** A proper strategy $s$ on $n$ hats, played on infinite stacks by looking at the $n$ lowest hats only, has the win rate $w(s)$.
+
+*Proof.* A pair $(t, u)$ of infinite stacks is a hit exactly when $(t_{<n}, u_{<n})$ is a hit of $s$, and each pair of stacks of $n$ hats has probability $\frac{1}{4^n}$ of being the lowest hats of the two players.
+
+(Lean: `rateInf_lift`.) This is [Proposition 4](#proposition-4) with infinitely many hats added on top. So every win rate of Section 5 is a win rate on infinite stacks, and the best win rate on infinite stacks is at least $w(\mathbf{C}_n)$ for every $n$, hence at least $\frac{7}{20}$. To reach $\frac{7}{20}$ itself takes a strategy that may look at any number of hats.
+
+#### Limits of strategies
+
+The families of Section 5 have a property in common: adding hats changes what the strategy does for few stacks. Seeing a stack whose bottom hat is black, $\mathbf{B}_n$ points at the bottom hat for every $n$. This is what makes a limit.
+
+Let $s_0, s_1, s_2, \ldots$ be strategies on more and more hats, $s_k$ on $n_k$ hats. We say that the sequence *settles* on an infinite stack $t$ when the positions $s_k(t_{<n_k})$ are the same from some $k$ on. The *limit* of the sequence is the strategy $S$ on infinite stacks that points at that position, and has no answer for the stacks on which the sequence does not settle.
+
+**Theorem 4 (the win rate of a limit).** Let $s_k$ be a proper strategy on $n_k$ hats, for $k = 0, 1, 2, \ldots$, and let $A_k$ be a set of stacks of $n_k$ hats, such that:
+
+1. the sequence has settled on every infinite stack $t$ whose lowest hats are outside $A_k$: if $t_{<n_k}$ is not in $A_k$, then $s_j(t_{<n_j}) = s_k(t_{<n_k})$ for all $j \geq k$;
+2. the proportion of $A_k$ among the stacks of $n_k$ hats, $|A_k| / 2^{n_k}$, tends to $0$;
+3. the win rates $w(s_k)$ tend to a number $L$.
+
+Then the limit $S$ of the sequence has the win rate $L$. More precisely, for every $k$,
+
+$$
+\left| w(S) - w(s_k) \right| \leq \frac{2 \, |A_k|}{2^{n_k}} .
+$$
+
+*Proof.* Fix $k$, and play $s_k$ on infinite stacks; by [Proposition 10](#proposition-10) its win rate is still $w(s_k)$. By the first condition, $S$ and $s_k$ point at the same position for every infinite stack whose $n_k$ lowest hats are outside $A_k$. So a pair $(t, u)$ in which neither $t_{<n_k}$ nor $u_{<n_k}$ is in $A_k$ is a hit of both or of neither. The other pairs have probability at most $2 \, |A_k| / 2^{n_k}$: this is the inequality. Let $k$ grow, and the second and third conditions give $w(S) = L$.
+
+(Lean: `abs_rateInf_sub_rate_le`, `rateInf_limitOf`. That the hits of such a limit form a set that has a probability: `measurable_limitOf`, `measurableSet_hitSet`.)
+
+The set $A_k$ holds the stacks of $n_k$ hats that are still undecided. The theorem says that the win rate goes to the limit as soon as the undecided become rare.
+
+#### Three limits
+
+**Theorem 5 (the limits of the families).**
+
+1. The strategies $\mathbf{B}_n$ have a limit $\mathbf{B}_\infty$: point where the stack you see has its lowest black hat. It has an answer for every stack but the all-white one, and $w(\mathbf{B}_\infty) = \frac13$.
+2. The Carter strategies have a limit $\mathbf{C}_\infty$: the rule of Section 5, with no limit on the number of hats. It has an answer for every stack but the all-white and the all-black ones, and $w(\mathbf{C}_\infty) = \frac{7}{20}$.
+3. The Reyes strategies have a limit $\mathbf{R}_\infty$: look at the hats three by three from the bottom, skip the blocks that are all white or all black, and play $\mathbf{C}_3$ on the first block that is not. It has an answer for every stack in which some block is neither all white nor all black, and $w(\mathbf{R}_\infty) = \frac{7}{20}$.
+
+*Proof.* In each case we give the sets $A_k$ of [Theorem 4](#theorem-4).
+
+For $\mathbf{B}_n$: take $A_n$ to be the all-white stack of $n$ hats alone. Once the $n$ lowest hats are not all white, the lowest black hat is among them, and more hats do not change it. The proportion is $\frac{1}{2^n}$, and the win rates tend to $\frac13$ ([Proposition 8](#proposition-8)).
+
+For the Carter strategies on $1, 3, 5, \ldots$ hats: take the all-white and the all-black stacks. A double shift plays the strategy it starts from, except when the hats that this strategy looks at are all black or all white. So once the lowest hats are of both colors, the double shifts above them change nothing. The proportion is $\frac{2}{2^n}$, and the win rates tend to $\frac{7}{20}$ ([Theorem 3](#theorem-3)).
+
+For the Reyes strategies on $3, 6, 9, \ldots$ hats: take the stacks of $3j$ hats whose $j$ blocks of three are each all white or all black. There are $2^j$ of them among $8^j$, a proportion of $\frac{1}{4^j}$. Once a block is neither, the strategy plays $\mathbf{C}_3$ on the first such block, whatever comes above. The win rates tend to $\frac{7}{20}$ ([Proposition 9](#proposition-9)).
+
+(Lean: `rateInf_lowBlackInf`, `rateInf_carterInf`, `rateInf_reyesInf`, with `lowBlackInf_spec` and `reyesInf_spec` for what the limits do.)
+
+The same goes for the lowest white hat, with the colors exchanged. So on infinite stacks there are strategies that win exactly $7$ times in $20$, where no strategy on $n$ hats does. This is the form in which the result of 2014 is usually told: the limit $\mathbf{R}_\infty$ has the shape of the plans of [BFGKRTVY]. The limit $\mathbf{C}_\infty$ is another one, not built on blocks of a fixed size.
+
+The stacks for which these limits have no answer are few: one or two stacks for $\mathbf{B}_\infty$ and $\mathbf{C}_\infty$, and for $\mathbf{R}_\infty$ a set of stacks of probability $0$.
+
+One point of vocabulary. In the papers, the best win rate $V$ is defined through finite stacks, as the limit of the best win rates on $n$ hats, to keep away from the strategies that have no win rate. With strategies on infinite stacks whose hits have a probability, the best win rate is the same number $V$ [BCCZW]. [Theorem 5](#theorem-5) says that it is at least $\frac{7}{20}$, and that if $V = \frac{7}{20}$ then the best win rate is attained on infinite stacks.
+
+#### Machines that read the hats
+
+Each of the three limits can be computed by a player who reads the other stack from the bottom up, one hat at a time, and stops as soon as the position to point at is known. The player needs a counter, and a few words of memory.
+
+*For $\mathbf{B}_\infty$.* Count the white hats. At the first black hat, stop: the position is the count.
+
+*For $\mathbf{R}_\infty$.* Read three hats. If they are all white or all black, add $3$ to the counter and read three more. If not, stop: the position is the counter plus what $\mathbf{C}_3$ says of these three hats.
+
+*For $\mathbf{C}_\infty$.* The counter $c$ starts at $0$ and moves by $2$. Start at row $1$ of the table; at each row, read the next hat and do what the table says.
+
+| Row | Hats read so far | If the next hat is black | If the next hat is white |
+|---|---|---|---|
+| $1$ | none | go to row $5$ | go to row $2$ |
+| $2$ | $c + 1$ white hats | go to row $3$ | go to row $4$ |
+| $3$ | a black hat on $c + 1$ white hats | stop: position $c + 2$ | stop: position $0$ |
+| $4$ | $c + 2$ white hats | stop: position $c + 2$ | add $2$ to $c$; go to row $2$ |
+| $5$ | $c + 1$ black hats | go to row $6$ | stop: position $c + 1$ |
+| $6$ | $c + 2$ black hats | add $2$ to $c$; go to row $5$ | stop: position $0$ |
+
+This is the rule of Section 5: on a white bottom hat, find the lowest black hat, and so on.
+
+**Proposition 11 (the limits are computed by machines).** For each of $\mathbf{B}_\infty$, $\mathbf{C}_\infty$ and $\mathbf{R}_\infty$, the machine above stops on every stack for which the limit has an answer, after finitely many hats, and stops with that answer. Each step of the machine is a computation on whole numbers of the simplest kind.
+
+(Lean: `lowBlackReader_outputs`, `carterReader_outputs`, `reyesReader_outputs`; the steps are primitive recursive: `lowBlackReader_computable`, `carterReader_computable`, `reyesReader_computable`.)
+
+These machines are not finite automata, as the posts of 2020 called them: the counter can be as large as the stack requires. But with probability $1$ a player reads finitely many hats, and few: for $\mathbf{B}_\infty$, two on average.
 
 ### 7. The calculator, and the best strategies on few hats
 
