@@ -15,6 +15,7 @@ T, by `score.py T < file`.
 |---|---|---|---|---|
 | `t4-1126.txt` | 4 | 1,126 | 4,096 | `players climb 4 1800 1`, 2026-11-27 |
 | `t5-9094.txt` | 5 | 9,094 | 32,768 | `players climb 5 1800 1`, 2026-11-27 |
+| `t5-9108.txt` | 5 | 9,108 | 32,768 | `players climb 5 3600 16 - 4 0.1`, 2026-11-27 |
 | `t6-71819.txt` | 6 | 71,819 | 262,144 | `players climb 6 1800 1`, 2026-11-27 |
 
 For comparison: Buhler et al. report a symmetric table on 5 hats with

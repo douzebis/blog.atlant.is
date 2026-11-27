@@ -17,6 +17,10 @@
  * it as it ends, and a run that finds the file goes on from there: the
  * parts already written are not done again.
  *
+ * To estimate the cost of a search without doing it: with the environment
+ * variable HINT4_SAMPLE=K, one task in K is done, nothing is claimed, and
+ * the partitions found are counted but not printed.
+ *
  * The game (Buhler et al., arXiv 1407.4711, Section 3, with the 16 x 30
  * matrix).  The labels are the 30 non-constant affine functions
  * (a, b): x -> a.x + b on 4 bits (a = 1..15, b = 0, 1).  Bob sorts the
@@ -325,6 +329,7 @@ typedef struct {
     uint64_t nodes, leaves, equal, above;
 } counts;
 static int lex_depth = 14;
+static int sample; /* do one task in `sample`, to estimate (0: all) */
 
 static void init_state(state *s) {
     memset(s, 0, sizeof *s);
@@ -359,7 +364,7 @@ static void report_leaf(const state *s, counts *n) {
     n->leaves++;
     n->equal += left == right;
     n->above += left > right;
-    if (left >= right) {
+    if (left >= right && !sample) {
         #pragma omp critical
         {
             printf("%s %llu/2^%d blocks:", left > right ? "ABOVE" : "equal",
@@ -616,11 +621,12 @@ int main(int argc, char **argv) {
         }
         printf("checkpoint %s: %d tasks already done\n", checkpoint, ndone);
     }
+    if (getenv("HINT4_SAMPLE")) sample = atoi(getenv("HINT4_SAMPLE"));
     time_t begin = time(NULL);
     int finished = ndone;
     #pragma omp parallel for schedule(dynamic, 1)
     for (int i = 0; i < ntasks; i++) {
-        if (is_done[i]) continue;
+        if (is_done[i] || (sample && i % sample)) continue;
         state t;
         init_state(&t);
         for (int j = 0; j < depth; j++) place(&t, j, tasks[i][j]);
@@ -655,7 +661,10 @@ int main(int argc, char **argv) {
     printf("complete partitions scored: %llu; equal to the target: %llu; above: %llu\n",
            (unsigned long long)all.leaves, (unsigned long long)all.equal,
            (unsigned long long)all.above);
-    if (all.above == 0)
+    if (sample)
+        printf("one task in %d was done, in %ld s: nothing is proved\n", sample,
+               (long)(time(NULL) - begin));
+    else if (all.above == 0)
         printf("PROVED: E(P) <= %llu/%llu for every partition, so V <= %llu/%llu\n",
                (unsigned long long)target_num, (unsigned long long)target_den,
                (unsigned long long)target_num, (unsigned long long)(30 * target_den));
