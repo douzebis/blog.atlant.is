@@ -153,10 +153,10 @@ each section of step 5 before the next is written.
 |---|---|---|
 | 1 | Freeze the three imported posts as earlier versions (spec 0005, K2); the page of the article, unlisted until it is complete | done 2026-11-27 |
 | 2 | `research/hats/check_article.py`: every tuple, score and win rate that the article will quote, recomputed from the definitions (K1) | |
-| 3 | The macros of the notation (`data/mathjax.json`): hat marks, resets, shifts | |
+| 3 | The macros of the notation (`data/mathjax.json`): `\\hatb`, `\\hatw` (small marks), `\\wreset`, `\\breset`, `\\dreset`, `\\wshift`, `\\bshift`, `\\dshift`, `\\dshiftbw`, `\\dshiftwb`, `\\dual`, `\\str` | done 2026-11-27 for the site; the LaTeX side comes with step 11 |
 | 4 | The calculator: colors exchanged, names of the operations, the sibling double shift, a default query, the help (spec 0005, Section 2) | |
 | 5 | The article, section by section (1 to 9), each with its numbers in `check_article.py` and its entries in `statements.md` | |
-| 6 | Lean: the color exchange keeps the hits; the sibling double shift; names that follow the notation; the table of what is verified | |
+| 6 | Lean: the color exchange keeps the hits; the sibling double shift; names that follow the notation; the table of what is verified | the first two done 2026-11-27 (`Hats/Dual.lean`) |
 | 7 | The diagrams of Section 6 as vector drawings, with a dark variant (K3) | |
 | 8 | The programs of `levine-hats` that the article relies on, brought into `research/hats/` | |
 | 9 | The literature read in full (Buhler et al. version 8, Bouquet et al. version 2), `related.md`, and the claims of novelty checked against it | |

@@ -32,6 +32,24 @@
       "whitebead": [
         "\\underset{\\class{bead-white}{\\rule{1.2em}{1.2em}}}{#1}",
         1
+      ],
+      "hatb": "\\class{bead-black}{\\rule{0.6em}{0.6em}}",
+      "hatw": "\\class{bead-white}{\\rule{0.6em}{0.6em}}",
+      "dreset": "\\mathbin{\\rhd}",
+      "wreset": "\\mathbin{{\\rhd}\\mkern1.5mu\\hatw}",
+      "breset": "\\mathbin{{\\rhd}\\mkern1.5mu\\hatb}",
+      "wshift": "{\\uparrow}\\mkern1mu\\hatw",
+      "bshift": "{\\uparrow}\\mkern1mu\\hatb",
+      "dshift": "{\\Uparrow}",
+      "dshiftbw": "{\\Uparrow}\\mkern1mu\\hatb\\mkern1mu\\hatw",
+      "dshiftwb": "{\\Uparrow}\\mkern1mu\\hatw\\mkern1mu\\hatb",
+      "dual": [
+        "\\overline{#1}",
+        1
+      ],
+      "str": [
+        "\\mathtt{#1}",
+        1
       ]
     }
   }
