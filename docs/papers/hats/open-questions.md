@@ -134,6 +134,41 @@ the best win rate of two players with infinite stacks.
    relaxation of it (spectral, semidefinite) give an upper bound better
    than the known 0.3616?
 
+8a. **The hint bounds are the Carter win rates** (2026-11-27;
+   `research/hats/hint_carter.py`, `research/hats/hint_games.py`). The
+   upper bounds on `V` of Buhler et al. come from a hint: Alice's stack
+   is one of the `2 (2^d - 1)` non-constant affine functions on `d` bits.
+   Write `H_d` for the best value of that game (81/224 for `d` = 3).
+   Restricting Alice to the points `0, e_1, ..., e_d` gives the game on
+   `n = d + 1` hats with her stack not of a single color, so for any
+   pair of strategies on `n` hats
+
+       hits <= 2^d + 2^n (2^n - 2) H_d.
+
+   This is a short argument, written in the header of
+   `hint_carter.py`; it is not in Lean and was not found in the sources.
+   With the Carter strategy on `d + 1` hats the two sides are equal for
+   every `d` for which `H_d` is known or estimated: 3/8, 3/8, 81/224
+   (the paper), 57/160 (claimed exact in
+   `github.com/yangsong97/levine-hat-bounds`, November 2026, a
+   computer-assisted note that nobody has reviewed), 1401/3968 and
+   45/128 (best found there for `d` = 5, 6). In closed form, with
+   `m = 2 (2^d - 1)`: `7/20 + (1/5 - c / 2^d) / m`, `c` = 1/5 for even
+   `d` and 3/10 for odd `d`; about `7/20 + 1 / (10 * 2^d)`.
+
+   What follows. (a) The affine hint of dimension `d` cannot prove a
+   bound on `V` below that value, so this family of hints goes to 7/20
+   no faster than `2^-d`. (b) An exact value of `H_d` is a proof that
+   the Carter strategy is optimal on `d + 1` hats, also against two
+   different strategies: 81/224 gives 89 on four hats, 57/160 would
+   give 358 on five. (c) The same repository claims `H_5 <= 17/48`,
+   hence `V <= 17/48 = 0.354167`; with the inequality above this would
+   give at most 1,437 hits on six hats, against our 1,448. (d) Is `H_d`
+   always that Carter value? If so `V = 7/20`. Open: an independent
+   check of 57/160 and 17/48; why Alice gains nothing from the other
+   points (the sums of an odd number of her `d + 1` hats), nor Bob from
+   more than `d + 1` hats.
+
 ## Ours, on infinite stacks
 
 8. **Is the best value attained, and by what kind of strategy?** If
