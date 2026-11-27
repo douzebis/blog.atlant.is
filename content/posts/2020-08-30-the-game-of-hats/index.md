@@ -956,7 +956,41 @@ with $2$ in place of $3$ for odd $n$. If $V = \frac{7}{20}$, this is an equality
 
 ### 9. Open questions
 
-*To come.*
+The first three are in the papers. The others came up in this work; we do not know whether they were asked before.
+
+**Conjecture A (the value of the game).** $V = \frac{7}{20}$ [BFGKRTVY].
+
+By [Proposition 12](#proposition-12) this says that on every number of hats, no plan wins one more pair of stacks than the Carter strategy. The first case that is not settled is six hats: the best score is between $1{,}433$ and $1{,}448$ out of $4{,}096$ (Section 7).
+
+**Question B (two strategies).** On some number of hats, do Alice and Bob win more with two different strategies than with the best strategy that they can share?
+
+Not on one to four hats; not on five either, according to one solver (Section 7). If the answer is no for every number of hats, the game is that of this article: one strategy, counted by its hits.
+
+**Conjecture C (many players).** With more players, each wearing a stack and all of them having to point at a black hat, the best win rate tends to $0$ as the number of players grows (Levine; see [BFGKRTVY], where it is proved that the best win rate decreases with each player).
+
+Our resets and shifts are for two players. Do they have a counterpart for three, with formulas for the hits?
+
+**Question D (general resets).** Does a scheme on blocks of six hats or more win more than $7$ times in $20$?
+
+Not on blocks of at most five hats (Section 8). On blocks of six hats, [Proposition 16](#proposition-16) leaves the schemes that skip fewer than $28$ stacks out of $64$. One may also let the game go on in different ways after different skipped blocks: a scheme with several continuations. We have not looked at these.
+
+**Question E (the best strategies that are not built).** On four hats, four of the ten classes of best strategies hold no strategy built with resets and shifts (Section 7). What are they? Is there one more operation that gives them? And on every number of hats, is some best strategy built with resets and shifts?
+
+The last question has the answer yes if [Conjecture A](#conjecture-A) holds, since the Carter strategies are built. The numbers of classes, $2$, $1$, $10$ on two, three and four hats, are too few to guess a rule.
+
+**Question F (Carter and Reyes).** The Reyes strategy on $3j$ hats and the Carter strategy on $2j + 1$ hats have the same win rate, $\frac{7}{20} - \frac{1}{10 \cdot 16^j}$ (Section 5). Is there a reason, such as a way to turn one into the other?
+
+**Question G (an upper bound from matrices).** For a strategy $s$ on $n$ hats, let $N$ be the table with $n$ rows and $n$ columns in which $N_{p,q}$ is the number of stacks $t$ with $s(t) = p$ and a black hat at position $q$. Then
+
+$$
+|H(s)| = \sum_{p,q} N_{p,q} \, N_{q,p} ,
+$$
+
+the trace of the square of $N$. Which tables come from a strategy? Does a description of them by inequalities give an upper bound on $V$ below the known $\frac{81}{224}$?
+
+**Question H (the best strategies on infinite stacks).** If $V = \frac{7}{20}$, the limits $\mathbf{C}_\infty$ and $\mathbf{R}_\infty$ are best strategies on infinite stacks, and they are computed by machines that read finitely many hats and stop (Section 6). Is every best strategy of that kind, up to a set of stacks of probability $0$? And whatever $V$ is, is it the best win rate of such machines?
+
+**Question I (certificates).** That $358$ is the best score on five hats, and the bound $1{,}448$ on six, are the answers of solvers that compute with rounded numbers. Can they be turned into proofs that a proof assistant checks? A solver can in principle give its answer with a certificate, a combination of inequalities with exact weights, whose check is arithmetic. For six hats this would make "$1{,}433$ is the best score", if true, a theorem. How large such a certificate would be, we do not know.
 
 ## References
 

@@ -336,6 +336,18 @@ def check_formulas(rng: random.Random) -> int:
                 dual(n + 1, black_shift(n, s)) == white_shift(n, dual(n, s)),
             )
             check("dual", hits(n, dual(n, s)) == h)
+            # Question G: the hits as the trace of the square of a table
+            table = [
+                [
+                    sum(1 for t in range(2**n) if s[t] == p and hat(t, q))
+                    for q in range(n)
+                ]
+                for p in range(n)
+            ]
+            check(
+                "hits from the table of counts",
+                sum(table[p][q] * table[q][p] for p in range(n) for q in range(n)) == h,
+            )
             taller = [s[t % 2**n] for t in range(2 ** (n + 2))]
             check("taller stacks", hits(n + 2, taller) == 16 * h)
             # the choices for the all-white and the all-black stack
@@ -346,7 +358,7 @@ def check_formulas(rng: random.Random) -> int:
             sigma = list(range(n))
             rng.shuffle(sigma)
             check("permutation", hits(n, permuted(n, s, tuple(sigma))) == h)
-            done += 14
+            done += 15
     # associativity of the white and of the black reset
     for a, b, c in itertools.product(samples[1], samples[2][:6], samples[2][:6]):
         for reset in (white_reset, black_reset):
