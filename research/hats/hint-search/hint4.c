@@ -58,7 +58,13 @@
  * of b = 0 and b = 1 permute the labels and keep E.  When the first j
  * labels are those of a = 1..j/2 and a symmetry maps this set of labels
  * to itself, a partial partition whose image comes earlier in the order
- * of the search is dropped.
+ * of the search is dropped.  Beyond the first 14 labels (those of the
+ * frame a = 1..7), the symmetries that keep the partition of these 14
+ * labels as it is are used at every second label: the image of the
+ * partial partition is compared with it label by label, as far as the
+ * image is known, and the partial partition is dropped if the image comes
+ * earlier.  Among these symmetries are the 16 that do not move any of the
+ * first 14 labels.
  *
  * Complete partitions that survive are scored exactly, over all the
  * subsets of their blocks.
@@ -282,6 +288,59 @@ static void build_symmetries(void) {
     }
 }
 
+/* the symmetries that keep the first 14 labels as a set, inverted:
+   inv14[s][l] is the label that the symmetry stab[14][s] sends to l */
+static uint8_t (*inv14)[L4];
+
+static void build_inverses(void) {
+    inv14 = malloc((size_t)nstab[14] * L4);
+    for (int s = 0; s < nstab[14]; s++)
+        for (int l = 0; l < L4; l++) inv14[s][stab[14][s][l]] = (uint8_t)l;
+}
+
+/* The symmetries of stab[14] that keep the partition of the first 14
+   labels: their numbers, into `list`; returns how many. */
+static int automorphisms(const uint8_t *block, int *list) {
+    int n = 0;
+    for (int s = 0; s < nstab[14]; s++) {
+        const uint8_t *g = stab[14][s];
+        uint8_t image[14], rename[L4 + 1];
+        for (int l = 0; l < 14; l++) image[g[l]] = block[l];
+        memset(rename, 255, sizeof rename);
+        int next = 0, same = 1;
+        for (int l = 0; l < 14 && same; l++) {
+            if (rename[image[l]] == 255) rename[image[l]] = (uint8_t)next++;
+            same = rename[image[l]] == block[l];
+        }
+        if (same) list[n++] = s;
+    }
+    return n;
+}
+
+/* With the first j labels placed (j > 14): does some symmetry of `list`
+   send the partial partition to one that comes earlier?  The image is
+   followed label by label from label 14 on, as long as it is known. */
+static int image_is_earlier(const uint8_t *block, int j, int nblocks14, const int *list,
+                            int n) {
+    for (int k = 0; k < n; k++) {
+        const uint8_t *inv = inv14[list[k]];
+        uint8_t rename[L4 + 1];
+        /* the blocks of the first 14 labels keep their numbers */
+        memset(rename, 255, sizeof rename);
+        for (int l = 0; l < 14; l++) rename[block[inv[l]]] = block[l];
+        int next = nblocks14;
+        for (int l = 14; l < j; l++) {
+            int from = inv[l];
+            if (from >= j) break; /* the image is not known there */
+            if (rename[block[from]] == 255) rename[block[from]] = (uint8_t)next++;
+            int v = rename[block[from]];
+            if (v < block[l]) return 1;
+            if (v > block[l]) break;
+        }
+    }
+    return 0;
+}
+
 /* is the partial partition (first j labels) the first of its images? */
 static int is_first(const uint8_t *block, int j) {
     for (int s = 0; s < nstab[j]; s++) {
@@ -375,7 +434,15 @@ static void report_leaf(const state *s, counts *n) {
     }
 }
 
-static void search(state *s, int j, counts *n) {
+static int auto_step = 2; /* the automorphisms are used every `auto_step` labels */
+
+typedef struct {
+    const int *list; /* the automorphisms of the first 14 labels */
+    int n;
+    int nblocks14;
+} autos;
+
+static void search(state *s, int j, counts *n, const autos *au) {
     n->nodes++;
     if (j == L4) {
         report_leaf(s, n);
@@ -396,8 +463,10 @@ static void search(state *s, int j, counts *n) {
         }
         place(s, j, c);
         if (s->bound > threshold &&
-            (((j + 1) & 1) || j + 1 > lex_depth || is_first(s->block, j + 1)))
-            search(s, j + 1, n);
+            (((j + 1) & 1) || j + 1 > lex_depth || is_first(s->block, j + 1)) &&
+            !(auto_step && (j + 1) % auto_step == 0 &&
+              image_is_earlier(s->block, j + 1, au->nblocks14, au->list, au->n)))
+            search(s, j + 1, n, au);
         s->nblocks = nblocks;
         s->bound = bound;
         for (int k = 0; k < nframes_of[j]; k++) {
@@ -576,6 +645,7 @@ int main(int argc, char **argv) {
     setvbuf(stdout, NULL, _IOLBF, 0);
     build_frames();
     build_symmetries();
+    build_inverses();
     if (argc > 1 && !strcmp(argv[1], "--orbits")) return orbits();
     build_table3();
     if (argc > 1 && !strcmp(argv[1], "--selftest")) return selftest();
@@ -622,6 +692,12 @@ int main(int argc, char **argv) {
         printf("checkpoint %s: %d tasks already done\n", checkpoint, ndone);
     }
     if (getenv("HINT4_SAMPLE")) sample = atoi(getenv("HINT4_SAMPLE"));
+    if (getenv("HINT4_LEX")) lex_depth = atoi(getenv("HINT4_LEX"));
+    if (getenv("HINT4_AUTO")) auto_step = atoi(getenv("HINT4_AUTO"));
+    printf("symmetries are used while the first %d labels are placed; those that keep the "
+           "first 16, 18, ..., 30 labels:", lex_depth);
+    for (int j = 16; j <= L4; j += 2) printf(" %d", nstab[j]);
+    printf("\n");
     time_t begin = time(NULL);
     int finished = ndone;
     #pragma omp parallel for schedule(dynamic, 1)
@@ -631,7 +707,10 @@ int main(int argc, char **argv) {
         init_state(&t);
         for (int j = 0; j < depth; j++) place(&t, j, tasks[i][j]);
         counts n = {0, 0, 0, 0};
-        search(&t, depth, &n);
+        int *list = malloc((size_t)nstab[14] * sizeof(int));
+        autos au = {list, automorphisms(tasks[i], list), t.nblocks};
+        search(&t, depth, &n, &au);
+        free(list);
         #pragma omp critical
         {
             done[i] = n;
