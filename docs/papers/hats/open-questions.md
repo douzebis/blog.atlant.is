@@ -183,7 +183,9 @@ the best win rate of two players with infinite stacks.
    ones on three and four; for none of the 16 strategies on two hats is
    it equivalent to the double shift. So up to renamings, colors and
    loose choices there are two best strategies on five hats: `C_3` with
-   the double shift, and `C_3` with this one. Owed: a proof (Lean), and
+   the double shift, and `C_3` with this one. The formula is proved in
+   Lean (`hits_tds` in `formal/hats/Hats/TwistedShift.lean`, the same
+   day). Open:
    whether there are more operations of this kind (three hats added,
    gain 25; the 4 primitive classes on four hats are not explained by
    this one).

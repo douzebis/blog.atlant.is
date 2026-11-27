@@ -511,7 +511,7 @@ The double shift is not the only operation that adds two hats and gains $6$ hits
 - Seeing $n$ black hats with a white hat just above them, it points at the top hat, at position $n + 1$ (the double shift points at position $n$).
 - Seeing $n$ hats of a single color, white or black, with a black hat just above them and a white hat at the top, it points at position $n$.
 
-For every proper strategy $s$ that we tried, the result has $16 \, |H(s)| + 6$ hits, as for the double shift: all the strategies on one and two hats, and random ones on three and four. We have no proof yet. It is a different operation, and not the double shift under other names: on two hats, for none of the $16$ strategies $s$ is the result equivalent to $s\,\dshift$. Its dual is a fourth operation of the same kind. On one hat it gives $\str{02110200}$, which has $22$ hits and is equivalent to $\mathbf{C}_3$, as every best strategy on three hats is. On three hats it gives something new (Section 7).
+For every proper strategy $s$, the result has $16 \, |H(s)| + 6$ hits, as for the double shift (Lean: `hits_tds`). The proof goes through a black reset. Let $b = \str{1010}$ be the strategy on two hats that points at the top hat when the bottom hat is white; it has $5$ hits, so $s \breset b$ has $16 \, |H(s)| + 5$. Changing what it does for one stack, $n$ white hats under a black one and a white one, gains one hit, and gives the twisted double shift up to the choice for the all-black stack. It is a different operation, and not the double shift under other names: on two hats, for none of the $16$ strategies $s$ is the result equivalent to $s\,\dshift$. Its dual is a fourth operation of the same kind. On one hat it gives $\str{02110200}$, which has $22$ hits and is equivalent to $\mathbf{C}_3$, as every best strategy on three hats is. On three hats it gives something new (Section 7).
 
 That one changed letter is worth a remark. Resets and single shifts build a strategy on many hats out of strategies on fewer hats, and their hits add up as the formulas say. The double shift is not built that way: it is a block on two hats that does better than the two single shifts it is made of. A natural question is whether a block on three or more hats does better still. We come back to it in Section 8.
 
@@ -1088,7 +1088,7 @@ It is for $d$ from $1$ to $4$. If it is for every $d$, then $V = \frac{7}{20}$, 
 
 **Question K (hereditary and primitive).** Is every hereditary best strategy built with resets and shifts? Are there primitive best strategies on every number of hats from four on, and how many classes?
 
-On four and on five hats the answer to the first question is yes, and the primitive classes are four out of ten, then eighteen out of twenty-seven (Section 7). On five hats the primitive ones come from one more operation, the twisted double shift of Section 4. Is there a finite list of operations that builds every best strategy, on every number of hats? And does the twisted double shift have $16 \, |H(s)| + 6$ hits for every proper $s$, as it does for all those we tried?
+On four and on five hats the answer to the first question is yes, and the primitive classes are four out of ten, then eighteen out of twenty-seven (Section 7). On five hats the primitive ones come from one more operation, the twisted double shift of Section 4. Is there a finite list of operations that builds every best strategy, on every number of hats?
 
 ## References
 

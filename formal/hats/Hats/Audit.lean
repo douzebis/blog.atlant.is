@@ -10,6 +10,7 @@ import Hats.Schemes
 import Hats.Dual
 import Hats.Equivalent
 import Hats.Hints
+import Hats.TwistedShift
 import Hats.Topology
 import Hats.Measurable
 import Hats.Readers
@@ -126,3 +127,5 @@ open Hats
 #print axioms hitsTwo_le_of_hint_le
 #print axioms hitsTwo_four_le
 #print axioms hitsTwo_five_le
+#print axioms hits_tds
+#print axioms tds_proper
