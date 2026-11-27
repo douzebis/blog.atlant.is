@@ -46,7 +46,8 @@ question 3).
    are all black) as operations with formulas for the wins, checked by
    the scorer. Success: 9,119 / 32,670 is recomputed from 9,120.
 4. **Strategies as programs.** A search over short programs (a function
-   from the stacks seen to a position, valid for every number of hats),
+   from the stacks seen to a position, valid for every number of hats,
+   written in a small language that has no input or output),
    proposed by a language model and scored on 2 to 6 hats at once.
    Success, in increasing order: a program that equals the best table on
    five hats; a rule in words for it; a family with a formula in the
@@ -102,21 +103,40 @@ tables, not symmetric.
 
 ### Programs (goal 4)
 
-- A candidate is a Python function `point(t, u, v) -> position`, at most
-  about 30 lines, with no input but the two stacks.
+Requirement (decided by the author on 2026-11-27): **a candidate does no
+input or output of any kind**, and nothing that a model writes is ever
+run as code by Python, a shell or a compiler.
+
+- A candidate is therefore data: an expression in a small language of
+  this project, read by a parser and computed by an evaluator of this
+  project. The language has the inputs (the number of hats `t`, the
+  stacks seen), a fixed list of pure building blocks (the lowest black
+  hat of a stack, the lowest white hat, the number of black hats, the
+  color of a hat at a position, "these `k` hats are of one color"),
+  whole-number arithmetic, comparisons, `if`, and named sub-expressions.
+  It has no loop without a bound, no call outside the list, no string,
+  no file, no import: these cannot be written.
+- What the parser does not accept is rejected. The evaluator counts its
+  steps and stops a candidate over its budget. The text of a candidate
+  is never passed to a shell nor used as a file name.
+- The list of building blocks is extended by a change of this project,
+  never by a candidate. Each extension is recorded in the notes.
+- A candidate is at most about 30 lines. The language cannot express a
+  table of constants indexed by the stacks, nor a search.
 - Score: the wins on 2, 3, 4, 5 and 6 hats, each divided by the best
-  known for that number of hats, and the length of the program as a
+  known for that number of hats, and the size of the expression as a
   tie-breaker.
 - Loop: keep a population of the best candidates in a few separate
   groups; ask the model for a variation of one or a combination of two,
-  given their sources and scores; run it in a sandbox with a time limit;
-  keep it if it scores.
+  given their sources and scores; parse, evaluate, score; keep it if it
+  scores. The model is used as it is: its weights are not changed.
 - Seeds for the population: the lowest black hat (Winkler's sum modulo
-  `t`), the tier-and-reset strategies of the paper, and programs fitted
-  to the best table of goal 2 (a decision tree on the features "lowest
-  black hat", "lowest white hat", "number of black hats" of each stack).
+  `t`), the tier-and-reset strategies of the paper, and expressions
+  fitted to the best table of goal 2.
 - Every candidate, its score and its parent are logged; a result is
-  reproduced by running the logged source.
+  reproduced by evaluating the logged source.
+- The evaluator and the scorer are written in Rust or C; the choice is
+  the author's.
 
 ### Stopping rules
 
