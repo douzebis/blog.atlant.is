@@ -108,7 +108,8 @@ def double_shift(n: int, s: Strategy) -> Strategy:
 
 
 def sibling_double_shift(n: int, s: Strategy) -> Strategy:
-    """The black shift of the white shift, with one choice changed."""
+    """The black shift of the white shift, with one choice changed.  It is
+    the double shift with its two new positions exchanged."""
     result = black_shift(n + 1, white_shift(n, s))
     result[2**n - 1] = n + 1
     return result
@@ -226,6 +227,20 @@ def check_formulas(rng: random.Random) -> int:
                 "sibling is the dual",
                 sibling_double_shift(n, s) == dual(n + 2, double_shift(n, dual(n, s))),
             )
+            swap = tuple(list(range(n)) + [n + 1, n])
+            check(
+                "the sibling is the double shift, two positions exchanged",
+                sibling_double_shift(n, s) == permuted(n + 2, double_shift(n, s), swap),
+            )
+            check(
+                "the dual of the double shift",
+                dual(n + 2, double_shift(n, s))
+                == permuted(n + 2, double_shift(n, dual(n, s)), swap),
+            )
+            check(
+                "the dual of the black shift",
+                dual(n + 1, black_shift(n, s)) == white_shift(n, dual(n, s)),
+            )
             check("dual", hits(n, dual(n, s)) == h)
             taller = [s[t % 2**n] for t in range(2 ** (n + 2))]
             check("taller stacks", hits(n + 2, taller) == 16 * h)
@@ -237,7 +252,7 @@ def check_formulas(rng: random.Random) -> int:
             sigma = list(range(n))
             rng.shuffle(sigma)
             check("permutation", hits(n, permuted(n, s, tuple(sigma))) == h)
-            done += 11
+            done += 14
     # associativity of the white and of the black reset
     for a, b, c in itertools.product(samples[1], samples[2][:6], samples[2][:6]):
         for reset in (white_reset, black_reset):
@@ -448,6 +463,37 @@ def quoted() -> list[tuple[str, str, object, object]]:
                 ),
             ),
             (84, 1348, 1360),
+        ),
+        (
+            "Section 4",
+            "the shifts of 00",
+            [word(white_shift(1, ONE)), word(black_shift(1, ONE))],
+            ["0010", "0100"],
+        ),
+        (
+            "Section 4",
+            "two shifts of 00, and the double shift",
+            [word(white_shift(2, black_shift(1, ONE))), word(double_shift(1, ONE))],
+            ["01002100", "01002120"],
+        ),
+        (
+            "Section 4",
+            "their hits",
+            [
+                hits(3, white_shift(2, black_shift(1, ONE))),
+                hits(3, double_shift(1, ONE)),
+            ],
+            [21, 22],
+        ),
+        (
+            "Section 4",
+            "the two orders of two shifts of 00 are not renamings of each other",
+            any(
+                permuted(3, white_shift(2, black_shift(1, ONE)), sigma)[1:-1]
+                == black_shift(2, white_shift(1, ONE))[1:-1]
+                for sigma in itertools.permutations(range(3))
+            ),
+            False,
         ),
         ("Section 1", "81/224", str(Fraction(81, 224).numerator / 224)[:6], "0.3616"),
         ("Section 5", "word of C_3", word(carter(3)), "01002120"),

@@ -29,8 +29,8 @@ the best win rate of two players with infinite stacks.
    better. No strategy that differs from the Carter strategy in at most
    `r` choices has more hits, for `r` = 8 on six hats, 7 on seven hats
    and 6 on eight hats. Walks through strategies with the same hits
-   (300,000 steps on six and seven hats, 100,000 on eight, from the
-   variants with the other double shift too) find no gain either; on
+   (300,000 steps on six and seven hats, 100,000 on eight) find no gain
+   either; on
    eight hats they go as far as 21 choices from the start. Strategies
    with the same hits are many: on eight hats, 14.9 million differ from
    the Carter strategy in exactly 6 choices.

@@ -512,7 +512,7 @@ function ds(a) {
 }
 
 // -- Sibling double shift: the black shift of the white shift, one choice ----
-// -- changed (the double shift with the colors exchanged) --------------------
+// -- changed.  It is the double shift with its two new positions exchanged ---
 
 function sd(a) {
   a = parse(a);
@@ -715,7 +715,8 @@ function helpEval() {
   disp('   ws(<expr>)               White shift of <expr>');
   disp('   bs(<expr>)               Black shift of <expr>');
   disp('   ds(<expr>)               Double shift of <expr>');
-  disp('   sd(<expr>)               Sibling double shift of <expr>');
+  disp('   sd(<expr>)               Double shift of <expr>, the two new');
+  disp('                            positions exchanged');
   disp('   dual(<expr>)             <expr> with the colors exchanged');
   disp('   crush(<expr>)            Crush transform of <expr>');
   disp('   tikz([<expr>, ...])      Tree of the choices of the strategies,');

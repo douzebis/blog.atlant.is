@@ -113,7 +113,7 @@ The rest of the article:
 
 The game, the plans that win $7$ times in $20$ and the strategies of Carter and Reyes on up to $8$ hats are not ours. The word "reset" is in [BFGKRTVY], and the formula for one of our resets, the double reset, is the "combining formula" of [BCCZW].
 
-The posts of 2020 brought the operations with their formulas, the Carter strategy for every number of hats, and the description of the limit strategies by machines. This article adds the closed form $7 \cdot 4^n / 20$ rounded down and its link with the conjecture, a second double shift, the proofs for stacks that never end, and the results of Section 8. As far as we know these are not in the papers cited above.
+The posts of 2020 brought the operations with their formulas, the Carter strategy for every number of hats, and the description of the limit strategies by machines. This article adds the closed form $7 \cdot 4^n / 20$ rounded down and its link with the conjecture, the proofs for stacks that never end, and the results of Section 8. As far as we know these are not in the papers cited above.
 
 The statements of Sections 2 to 6 were checked by a proof assistant, Lean, and the numbers of this article by programs; a table at the end says which statement is checked by what.
 
@@ -371,7 +371,126 @@ $$
 
 ### 4. Shifts
 
-*To come.*
+A reset adds a whole strategy on top of another. A *shift* adds one hat, and changes what the strategy does for a single stack.
+
+#### The white shift and the black shift
+
+Let $s$ be a strategy on $n$ hats. Its shifts are strategies on $n + 1$ hats; the new hat, on top, is at position $n$.
+
+- The **white shift** $s\,\wshift$ plays $s$ on the $n$ lowest hats, with one exception: seeing $n$ white hats under a black one, it points at the top hat.
+- The **black shift** $s\,\bshift$ plays $s$ on the $n$ lowest hats, with one exception: seeing $n$ black hats under a white one, it points at the top hat.
+
+The stack of the exception is $2^n$ for the white shift and $2^n - 1$ for the black shift. The mark after the arrow is the color of the $n$ lowest hats of that stack. On one hat, with $s = \str{00}$:
+
+$$
+\begin{array}{ccc}
+\text{position} & t = 2 & t = 1 \\
+1 & \blackmark & \whitemark \\
+0 & \whitemark & \blackmark
+\end{array}
+\qquad\qquad
+\str{00}\,\wshift = \str{0010} , \qquad \str{00}\,\bshift = \str{0100} .
+$$
+
+The white shift of $\str{00}$ points at position $1$ when it sees stack $2$; the black shift, when it sees stack $1$. The first is once more the plan of Section 1 on two hats.
+
+Shifts are written after the strategy and are read from left to right: $s\,\bshift\,\wshift$ is the white shift of the black shift of $s$. They bind tighter than resets: $a \dreset b\,\wshift$ is $a \dreset (b\,\wshift)$.
+
+#### Two shifts in a row, and one better
+
+Shifting twice adds two hats, and it can be done in two orders: $s\,\bshift\,\wshift$ and $s\,\wshift\,\bshift$. These are different strategies, and stay different when the positions are renamed. Either can be improved by changing what it does for one more stack. This gives the operation that matters most in this article.
+
+The **double shift** $s\,\dshift$ plays $s$ on the $n$ lowest hats, with two exceptions.
+
+- Seeing $n$ black hats with a white hat just above them, it points at that hat, at position $n$.
+- Seeing $n$ white hats and a black hat at the top, it points at the top hat, at position $n + 1$.
+
+The double shift is $s\,\bshift\,\wshift$ with one choice changed. Both point at position $n$ for the two stacks that have $n$ black hats and a white hat above them, and at position $n + 1$ for the stack $2^{n+1}$, which is $n + 1$ white hats under a black one. The double shift also points at position $n + 1$ for the stack $2^{n+1} + 2^n$: $n$ white hats under two black ones. For that stack $s\,\bshift\,\wshift$ plays $s$.
+
+On one hat, with $s = \str{00}$:
+
+$$
+\str{00}\,\bshift\,\wshift = \str{01002100} , \qquad \str{00}\,\dshift = \str{01002120} .
+$$
+
+The first word has $21$ hits out of $64$, the second $22$. One letter makes the difference, the seventh, for stack $6$:
+
+$$
+\begin{array}{cc}
+\text{position} & t = 6 \\
+2 & \blackmark \\
+1 & \blackmark \\
+0 & \whitemark
+\end{array}
+$$
+
+#### The hits of a shift
+
+**Theorem 2 (hits of the shifts).** Let $s$ be a proper strategy on $n$ hats. Then
+
+$$
+|H(s\,\wshift)| = |H(s\,\bshift)| = 4 \, |H(s)| + 1 , \qquad
+|H(s\,\dshift)| = 16 \, |H(s)| + 6 .
+$$
+
+As win rates:
+
+$$
+w(s\,\wshift) = w(s\,\bshift) = w(s) + \frac{1}{4^{n+1}} , \qquad
+w(s\,\dshift) = w(s) + \frac{6}{4^{n+2}} .
+$$
+
+(Lean: `hits_ls`, `hits_rs`, `hits_ds`; as win rates, `rate_ls`, `rate_rs`, `rate_ds`.)
+
+Two shifts in a row give $4 \, (4 \, |H(s)| + 1) + 1 = 16 \, |H(s)| + 5$ hits, in either order. The double shift has one more.
+
+*Proof for the white shift.* Played on stacks of $n + 1$ hats, $s$ has $4 \, |H(s)|$ hits ([Proposition 4](#proposition-4)). The white shift changes what it does for one stack, $k = 2^n$, so only the pairs that contain $k$ can change. The player who wears $k$ has a single black hat, the top one. Before the change nobody points at their top hat, so no pair with $k$ is a hit. After the change a player points at the top hat only when seeing $k$: the pair $(k, k)$ is a hit, and it is the only one. One hit is gained.
+
+*Proof for the black shift.* Exchanging the colors turns one shift into the other, $\dual{s\,\bshift} = \dual{s}\,\wshift$: seeing $n$ black hats under a white one is, for the dual, seeing $n$ white hats under a black one. These strategies are proper, so [Proposition 3](#proposition-3) gives $|H(s\,\bshift)| = |H(\dual{s}\,\wshift)| = 4 \, |H(\dual{s})| + 1 = 4 \, |H(s)| + 1$.
+
+*Proof for the double shift.* Let $s' = s\,\bshift\,\wshift$, which has $16 \, |H(s)| + 5$ hits. The double shift changes what $s'$ does for one stack, $k = 2^{n+1} + 2^n$: seeing $k$, it points at position $n + 1$, where $s'$ points at one of the $n$ lowest positions. We count the hits that contain $k$, before and after.
+
+The player who wears $k$ has black hats at positions $n$ and $n + 1$ only. So the other player must wear a stack $t$ for which the strategy points there, and there are three such stacks besides $k$:
+
+$$
+t_1 = 2^n - 1 , \qquad t_2 = 2^{n+1} + 2^n - 1 , \qquad t_3 = 2^{n+1} .
+$$
+
+The first two have $n$ black hats with a white hat above them, and send to position $n$; the third sends to position $n + 1$. Their hats:
+
+| Stack | The $n$ lowest hats | Position $n$ | Position $n + 1$ |
+|---|---|---|---|
+| $t_1$ | black | white | white |
+| $t_2$ | black | white | black |
+| $t_3$ | white | white | black |
+| $k$ | white | black | black |
+
+*Before.* Seeing $k$, a player points at one of their $n$ lowest hats. This hat is black for $t_1$ and $t_2$, white for $t_3$ and for $k$. The hits that contain $k$ are $(t_1, k)$, $(t_2, k)$ and the same two in the other order: $4$ hits.
+
+*After.* Seeing $k$, a player points at position $n + 1$. This hat is black for $t_2$, $t_3$ and $k$, white for $t_1$. The hits that contain $k$ are $(t_2, k)$, $(t_3, k)$, the same two in the other order, and $(k, k)$: $5$ hits.
+
+One hit is gained: $16 \, |H(s)| + 6$.
+
+#### The other order
+
+The double shift starts from the black shift followed by the white shift. Starting from the other order gives nothing new.
+
+**Proposition 6 (the double shift and the colors).** Let $s$ be a strategy on $n$ hats, with $n \geq 1$, and let $\sigma$ be the exchange of the positions $n$ and $n + 1$.
+
+1. Take $s\,\wshift\,\bshift$ and make it point at position $n + 1$ for the stack $2^n - 1$, which is $n$ black hats under two white ones. The result is $\sigma \cdot (s\,\dshift)$: the double shift with its two new positions exchanged.
+2. Exchanging the colors does the same: $\dual{s\,\dshift} = \sigma \cdot (\dual{s}\,\dshift)$.
+
+*Proof.* Exchange the positions $n$ and $n + 1$ in the two exceptions of the double shift. The strategy $\sigma \cdot (s\,\dshift)$ plays $s$ on the $n$ lowest hats, except that seeing $n$ black hats and a white hat at the top it points at position $n + 1$, and that seeing $n$ white hats with a black hat just above them it points at position $n$.
+
+For the first point: the white shift sends the stack $2^n$ to position $n$; the black shift after it plays the white shift on the $n + 1$ lowest hats, so it sends both stacks that have $n$ white hats with a black hat just above them to position $n$, and it sends $2^{n+1} - 1$, which is $n + 1$ black hats under a white one, to position $n + 1$. With $2^n - 1$ sent to position $n + 1$ as well, these are the exceptions above.
+
+For the second point: the dual of $s\,\dshift$ plays $\dual{s}$ on the $n$ lowest hats, and its exceptions are those of the double shift with the colors exchanged, which are again the exceptions above.
+
+(Lean: `ds` is defined as $s\,\bshift\,\wshift$ with one choice changed; `sibling_eq` says that the strategy of the first point is the dual of the double shift of the dual. That it is $\sigma \cdot (s\,\dshift)$ is checked by program.)
+
+By [Proposition 2](#proposition-2), a renaming of the positions keeps the hits. So there is one double shift, and it does not prefer a color: starting from either order of the single shifts, or exchanging black and white, gives the same strategy up to the names of the two new positions.
+
+That one changed letter is worth a remark. Resets and single shifts build a strategy on many hats out of strategies on fewer hats, and their hits add up as the formulas say. The double shift is not built that way: it is a block on two hats that does better than the two single shifts it is made of. A natural question is whether a block on three or more hats does better still. We come back to it in Section 8.
 
 ### 5. Five families
 

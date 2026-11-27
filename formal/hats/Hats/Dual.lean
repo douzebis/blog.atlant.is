@@ -17,6 +17,10 @@ with every hat of the other color.
   built on the white shift followed by the black shift
   (`sibling_eq`).  It has the same hits, `16 * hits s + 6`
   (`hits_sibling`).
+
+The sibling is not a new strategy: it is the double shift with its two
+new positions exchanged (found on 2026-11-27, checked by
+`research/hats/check_article.py`, not proved here).
 -/
 
 namespace Hats

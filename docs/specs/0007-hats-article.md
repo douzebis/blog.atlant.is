@@ -103,7 +103,10 @@ refer to spec 0005.
    each, proved by cases (spec 0005, Section 6, point 1); the conditions
    and why they are needed; chains and associativity. From P1.
 4. **Shifts.** The white and the black shift; the double shift and its
-   sibling (new); formulas. From P1, with D7.
+   dual; formulas. From P1, with D7. (The "sibling" double shift of
+   2026-11-26 is the double shift with its two new positions exchanged,
+   found on 2026-11-27: there is one double shift, and Section 4 says
+   so in Proposition 6.)
 5. **Five families.** Always the same hat; the lowest black hat and the
    lowest white hat (1/3); the Carter strategies, with the closed form
    `7 * 4^n / 20` rounded down (M1); the Reyes strategies; why the last

@@ -389,6 +389,13 @@ written with the colors of Section 8: black is 1):
   after the strategy. They compose from the bottom up:
   `s\,{\uparrow\bullet}\,{\uparrow\circ}` is the white shift of the
   black shift. The article never writes a bare single arrow.
+- **Corrected on 2026-11-27: there is one double shift.** The
+  "sibling" below is the double shift with its two new positions
+  exchanged (a renaming of the positions, which keeps the hits), so it is
+  not a new strategy. The article writes `s \Uparrow` only; the marked
+  forms are not used. What remains true: the two orders of the single
+  shifts are different strategies, even up to a renaming, and each
+  becomes the double shift, up to a renaming, by one changed choice.
 - **Double shifts.** There are two (found on 2026-11-26, checked on 203
   strategies; to be proved in Lean). The two orders of composing the
   single shifts give different strategies with the same hits,

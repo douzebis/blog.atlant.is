@@ -34,6 +34,9 @@
  * strategy on N hats is the one-hat strategy double-shifted (N - 1) / 2
  * times, then shifted once if N is even; bit i of VARIANT asks for the
  * sibling double shift at step i (white shift first, see spec 0005).
+ * Found on 2026-11-27: the sibling is the double shift with its two new
+ * positions exchanged, so all the variants are the same strategy up to a
+ * renaming of the positions, and searching from several adds nothing.
  * DAMAGE spoils that many choices of the starting point first, at random:
  * the search must then find a gain, which is a check of the program.
  *
