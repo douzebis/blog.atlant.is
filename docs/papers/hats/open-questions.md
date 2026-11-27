@@ -121,6 +121,20 @@ the best win rate of two players with infinite stacks.
    hats are not built, for instance that of `0010303022112230`. What
    remains open: what these four are (another operation?), and whether
    on every number of hats some optimal strategy is built.
+   Cuts (2026-11-27, `research/hats/cuts.py`; a program). The *cut* of
+   a strategy to `k` hats points where the strategy points when the `k`
+   lowest hats seen are enough to know it, and at the bottom hat
+   otherwise. The cut of the Carter strategy on `n` hats to `k` hats is
+   the Carter strategy on `k` hats (`n` up to 7). On four hats, the 6
+   built classes have a member whose cuts are best strategies on 1, 2
+   and 3 hats, and the 4 classes that are not built have none (their
+   cuts to 3 hats have at most 20 hits). So on four hats "built" and
+   "best at every number of hats below" pick the same classes. Among the
+   strategies equivalent to a Carter strategy, those whose cuts are all
+   best are 2, 2 and 4 for 3, 4 and 5 hats: one for each choice between
+   the two double shifts. Open: the same count on 5 hats, where the list
+   of the best strategies is not known; whether the 4 other classes are
+   the first of a family.
 6. **Why do the Reyes strategy on `3n` hats and the Carter strategy on
    `2n + 1` hats have the same win rate,** `7/20 - 1/(10 * 16^n)`? Both
    formulas are proved (`rate_reyes`, `rate_carterOdd`); no map between
