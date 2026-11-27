@@ -202,7 +202,12 @@ def check_formulas(rng: random.Random) -> int:
                     "double reset",
                     hits(m + n, double_reset(m, n, a, b)) == 4**n * ha + 4 * hb - 4**n,
                 )
-                done += 3
+                check(
+                    "the black reset is the dual of the white reset of the duals",
+                    dual(m + n, black_reset(m, n, a, b))
+                    == white_reset(m, n, dual(m, a), dual(n, b)),
+                )
+                done += 4
     for n in (1, 2, 3, 4):
         for s in samples[n]:
             h = hits(n, s)
@@ -241,6 +246,15 @@ def check_formulas(rng: random.Random) -> int:
                 reset(3, 2, reset(1, 2, a, b), c) == reset(1, 4, a, reset(2, 2, b, c)),
             )
             done += 1
+    # how far the double reset is from associative
+    for a, b, c in itertools.product(samples[1][:2], samples[2][:8], samples[2][:8]):
+        right = double_reset(1, 4, a, double_reset(2, 2, b, c))
+        left = double_reset(3, 2, double_reset(1, 2, a, b), c)
+        check(
+            "double reset, two nestings",
+            hits(5, right) - hits(5, left) == 12 * (hits(2, c) - 4),
+        )
+        done += 1
     return done
 
 
@@ -359,6 +373,81 @@ def quoted() -> list[tuple[str, str, object, object]]:
             "one hat: pointing above when seeing white, and its dual",
             (hits(1, [1, 0]), hits(1, dual(1, [1, 0]))),
             (1, 0),
+        ),
+        (
+            "Section 3",
+            "the three resets of 0010 by 00",
+            [
+                word(f(2, 1, strategy("0010"), ONE))
+                for f in (white_reset, black_reset, double_reset)
+            ],
+            ["20102010", "00120012", "20122012"],
+        ),
+        (
+            "Section 3",
+            "the reset at stacks 4 and 6",
+            [white_reset(2, 1, strategy("0010"), ONE)[t] for t in (4, 6)],
+            [2, 1],
+        ),
+        (
+            "Section 3",
+            "00 white-reset by 00",
+            word(white_reset(1, 1, ONE, ONE)),
+            "1010",
+        ),
+        (
+            "Section 3",
+            "lower strategy not proper",
+            (
+                hits(1, [0, 1]),
+                word(white_reset(1, 1, [0, 1], ONE)),
+                hits(2, white_reset(1, 1, [0, 1], ONE)),
+            ),
+            (0, "1111", 4),
+        ),
+        (
+            "Section 3",
+            "upper strategy not proper",
+            (hits(1, [0, -1]), hits(2, black_reset(1, 1, ONE, [0, -1]))),
+            (0, 5),
+        ),
+        (
+            "Section 3",
+            "fixed point of the double reset, 22 hits on 3 hats",
+            (64 * Fraction(22, 64) - 1) / (64 - 4),
+            Fraction(7, 20),
+        ),
+        (
+            "Section 3",
+            "fixed point of the white reset, 22 hits on 3 hats",
+            Fraction(22, 64) / (1 - Fraction(1, 64)),
+            Fraction(22, 63),
+        ),
+        (
+            "Section 3",
+            "0010 double-reset by itself: 84, 1348, 1360",
+            (
+                hits(4, double_reset(2, 2, strategy("0010"), strategy("0010"))),
+                hits(
+                    6,
+                    double_reset(
+                        4,
+                        2,
+                        double_reset(2, 2, strategy("0010"), strategy("0010")),
+                        strategy("0010"),
+                    ),
+                ),
+                hits(
+                    6,
+                    double_reset(
+                        2,
+                        4,
+                        strategy("0010"),
+                        double_reset(2, 2, strategy("0010"), strategy("0010")),
+                    ),
+                ),
+            ),
+            (84, 1348, 1360),
         ),
         ("Section 1", "81/224", str(Fraction(81, 224).numerator / 224)[:6], "0.3616"),
         ("Section 5", "word of C_3", word(carter(3)), "01002120"),

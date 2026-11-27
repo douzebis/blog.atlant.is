@@ -231,7 +231,143 @@ The last fact lets us compare strategies on different numbers of hats.
 
 ### 3. Resets
 
-*To come.*
+The plan of Section 1 has a shape worth a name. Look at the bottom hat; if it is of no use, forget it and start again one hat higher. A *reset* does this with any two strategies, and with blocks of several hats.
+
+#### Three resets
+
+Let $a$ be a strategy on $m$ hats and $b$ a strategy on $n$ hats. The resets of $a$ by $b$ are strategies on $m + n$ hats. For a stack $t$ of $m + n$ hats, write $t_{<m}$ for the stack of its $m$ lowest hats and $t_{\geq m}$ for the stack of the $n$ hats above them.
+
+- The **white reset** $a \wreset b$ plays $a$ on the $m$ lowest hats; but when these are all white, it plays $b$ on the hats above.
+- The **black reset** $a \breset b$ plays $a$ on the $m$ lowest hats; but when these are all black, it plays $b$ on the hats above.
+- The **double reset** $a \dreset b$ plays $a$ on the $m$ lowest hats; but when these are all white or all black, it plays $b$ on the hats above.
+
+The mark after the triangle is the color that triggers the reset; no mark, either color. In a formula, for the white reset:
+
+$$
+(a \wreset b)(t) =
+\begin{cases}
+m + b(t_{\geq m}) & \text{if } t_{<m} = 0, \\
+a(t_{<m}) & \text{otherwise,}
+\end{cases}
+$$
+
+and the same for the other two, with the condition $t_{<m} = 2^m - 1$ for the black reset, and "$t_{<m} = 0$ or $t_{<m} = 2^m - 1$" for the double reset. "Playing $b$ on the hats above" means pointing at $m + b(t_{\geq m})$: the position that $b$ chooses, counted from the bottom of the whole stack.
+
+An example. Take $a = \str{0010}$ on two hats, and $b = \str{00}$, the strategy on one hat, which points at it. Here is what the white reset $a \wreset b$ does for two of the stacks of three hats:
+
+$$
+\begin{array}{ccc}
+\text{position} & t = 4 & t = 6 \\
+2 & \blackmark & \blackmark \\
+1 & \whitemark & \blackmark \\
+0 & \whitemark & \whitemark
+\end{array}
+$$
+
+Seeing stack $4$, whose two lowest hats are white, it plays $b$ above them and points at position $2$. Seeing stack $6$, it plays $a$ on the two lowest hats, which are the stack $2$, and points at position $1$. The three resets of $a$ by $b$ are
+
+$$
+a \wreset b = \str{20102010}, \qquad
+a \breset b = \str{00120012}, \qquad
+a \dreset b = \str{20122012} .
+$$
+
+The word of a reset is easy to write: the word of $a$, once for each stack of $n$ hats, and in each copy the first letter (for the white reset), the last letter (for the black reset) or both (for the double reset) replaced by what $b$ says.
+
+A reset of proper strategies is proper. And the plan of Section 1 on two hats is a reset: $\str{00} \wreset \str{00} = \str{1010}$, which differs from $\str{0010}$ only in what it does for the all-white stack, where nothing matters ([Proposition 1](#proposition-1)).
+
+#### The hits of a reset
+
+**Theorem 1 (hits of the resets).** Let $a$ be a proper strategy on $m$ hats and $b$ a strategy on $n$ hats. Then
+
+$$
+|H(a \wreset b)| = 4^n \, |H(a)| + |H(b)| .
+$$
+
+If $b$ is proper too, then
+
+$$
+\begin{aligned}
+|H(a \breset b)| &= 4^n \, |H(a)| + |H(b)| , \\
+|H(a \dreset b)| &= 4^n \, |H(a)| + 4 \, |H(b)| - 4^n .
+\end{aligned}
+$$
+
+As win rates:
+
+$$
+w(a \wreset b) = w(a \breset b) = w(a) + \frac{w(b)}{4^m} , \qquad
+w(a \dreset b) = w(a) + \frac{4 \, w(b) - 1}{4^m} .
+$$
+
+(Lean: `hits_lr`, `hits_rr`, `hits_dr`; as win rates, `rate_lr`, `rate_rr`, `rate_dr`.)
+
+The first formula can be read aloud. The players win as often as with $a$; and one time in $4^m$, when the lowest hats of both are all white, a game that $a$ would lose is played again with $b$. The double reset is more of a gamble, since it also gives up some games that $a$ would win, when a player sees $m$ black hats; this is the $-1$.
+
+*Proof for the white reset.* Let $s = a \wreset b$, and take two stacks $t$ and $u$ of $m + n$ hats. There are three cases.
+
+- *Neither $t_{<m}$ nor $u_{<m}$ is all white.* Both players play $a$ on the lowest hats: the pair is a hit exactly when $(t_{<m}, u_{<m})$ is a hit of $a$. Every hit of $a$ is of this kind, since a pair with an all-white stack is never a hit, and each is continued upward in $4^n$ ways: $4^n \, |H(a)|$ hits.
+- *Both are all white.* Both players play $b$ above: the pair is a hit exactly when $(t_{\geq m}, u_{\geq m})$ is a hit of $b$. This gives $|H(b)|$ hits.
+- *One is all white and the other is not*, say $t_{<m}$ is. The player who wears $t$ sees lowest hats that are not all white, plays $a$, and points at one of their own $m$ lowest hats, since $a$ is proper. These are white: no hit.
+
+*Proof for the black reset.* Exchanging the colors turns one reset into the other:
+
+$$
+\dual{a \breset b} = \dual{a} \wreset \dual{b} ,
+$$
+
+because the lowest hats of $\dual{t}$ are all white when those of $t$ are all black. All these strategies are proper, and a proper strategy has as many hits as its dual ([Proposition 3](#proposition-3)). So $a \breset b$ has as many hits as $\dual{a} \wreset \dual{b}$, that is $4^n \, |H(\dual{a})| + |H(\dual{b})| = 4^n \, |H(a)| + |H(b)|$.
+
+*Proof for the double reset.* Let $s = a \dreset b$. We first count the hits of $a$ in which one of the stacks is the all-black stack $2^m - 1$. The proof of [Proposition 1](#proposition-1) does it: there are $2^{m-1}$ stacks that have a black hat at the position that $a$ points at when it sees the all-black stack. One of them is the all-black stack itself. This gives $2 \, (2^{m-1} - 1) + 1 = 2^m - 1$ hits. Now the cases.
+
+- *Neither $t_{<m}$ nor $u_{<m}$ has a single color.* Both play $a$. The hits of $a$ with no all-black stack number $|H(a)| - (2^m - 1)$, and each is continued in $4^n$ ways.
+- *Both have a single color.* Both play $b$ above, and the colors below do not matter: $4 \, |H(b)|$ hits.
+- *One has a single color and the other does not*, say $t_{<m}$ has. The player who wears $t$ plays $a$ and points at one of their $m$ lowest hats: it must be black, so $t_{<m}$ is all black. The other player plays $b$ above and points at a hat that is black for half of the stacks $u_{\geq m}$ that they may wear there, since $b$ is proper. With $2^m - 2$ choices for $u_{<m}$, $2^n$ for $t_{\geq m}$ and $2^{n-1}$ for $u_{\geq m}$, and as many again with $t$ and $u$ exchanged, this gives $(2^m - 2) \, 4^n$ hits.
+
+In all: $4^n \left(|H(a)| - 2^m + 1\right) + 4 \, |H(b)| + (2^m - 2) \, 4^n = 4^n \, |H(a)| + 4 \, |H(b)| - 4^n$.
+
+The conditions are needed. For the lower strategy: on one hat, let $a$ point at the hat when it sees white and just above it when it sees black. It has no hit. But once $\str{00}$ is put on top of it by a white reset, "just above" is a hat: the result always points at position $1$ and has $4$ hits, where the formula would give $1$. For the upper strategy: let $b$, on one hat, point at the hat when it sees white and just below it when it sees black. It has no hit either; but $\str{00} \breset b$ has $5$ hits, where the formula would give $4$, because "just below" is now the hat of $\str{00}$.
+
+#### A first look at $\frac{7}{20}$
+
+Reset a strategy $a$ on $m$ hats by itself, again and again, with double resets. If the win rates settle on a value $x$, the last formula of [Theorem 1](#theorem-1) says what it is:
+
+$$
+x = w(a) + \frac{4x - 1}{4^m}, \qquad \text{that is} \qquad x = \frac{4^m \, w(a) - 1}{4^m - 4} .
+$$
+
+With a strategy on three hats that has $22$ hits out of $64$, this is $\frac{21}{60} = \frac{7}{20}$. There is such a strategy, and $22$ is the best that three hats allow (Sections 5 and 7). With white resets alone, the same computation gives $x = \frac{22}{63}$, a little less. Section 6 makes "again and again" precise.
+
+#### Chains of resets
+
+**Proposition 5 (the white and the black reset are associative).** For strategies $a$, $b$ and $c$,
+
+$$
+(a \wreset b) \wreset c = a \wreset (b \wreset c) , \qquad
+(a \breset b) \breset c = a \breset (b \breset c) .
+$$
+
+*Proof.* Let $a$ be on $m$ hats and $b$ on $n$ hats. On both sides the strategy plays $a$ unless the $m$ lowest hats are all white; then $b$ on the next $n$ hats unless these are all white too; then $c$ above. The same goes for black.
+
+(Lean: `lr_assoc`, `rr_assoc`. These are equalities of strategies, not only of hits, and need no proper strategy.)
+
+The double reset is not associative. Take $a = \str{0010}$, which has $5$ hits on two hats. By [Theorem 1](#theorem-1), $a \dreset a$ has $84$ hits on four hats, and on six hats
+
+$$
+|H((a \dreset a) \dreset a)| = 1348 , \qquad |H(a \dreset (a \dreset a))| = 1360 .
+$$
+
+The general computation is short. For proper strategies $a$, $b$, $c$, with $c$ on $k$ hats, [Theorem 1](#theorem-1) gives
+
+$$
+|H(a \dreset (b \dreset c))| - |H((a \dreset b) \dreset c)| = 12 \left( |H(c)| - 4^{k-1} \right) .
+$$
+
+So nesting to the right is the better choice as soon as $c$ wins more than one time in four. We therefore read a chain of resets from the bottom up, as a tower of powers is read:
+
+$$
+a \dreset b \dreset c = a \dreset (b \dreset c) .
+$$
 
 ### 4. Shifts
 
