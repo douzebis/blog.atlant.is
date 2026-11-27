@@ -69,12 +69,14 @@ question 3).
 
 ```
 research/hats/players/
-  score.c            wins of a strategy table, n players, t hats
-  score.py           the same in Python, slow, the reference
-  climb.c            hill climbing and simulated annealing
+  Cargo.toml, src/   one Rust project:
+    score            wins of a strategy table, n players, t hats
+    climb            hill climbing and simulated annealing
+    lang             the small language: parser and evaluator
+  score.py           the scorer again, in Python, slow: the reference
   soft.py            gradient ascent on soft strategies (numpy)
   resets.py          the two resets, their formulas, checks
-  programs/          the search over programs: candidates, scores, log
+  candidates/        the search over programs: sources, scores, log
   results/           the best tables found, as text, with their scores
 docs/papers/hats/three-players.md
 ```
@@ -135,8 +137,12 @@ run as code by Python, a shell or a compiler.
   fitted to the best table of goal 2.
 - Every candidate, its score and its parent are logged; a result is
   reproduced by evaluating the logged source.
-- The evaluator and the scorer are written in Rust or C; the choice is
-  the author's.
+- The parser, the evaluator, the scorer and the baseline searches are
+  one Rust project (decided by the author on 2026-11-27). Its binary
+  reads the text of a candidate on its standard input and prints the
+  scores. `score.py` stays as a slow reference to check the scorer. The
+  loop that calls the model, if there is one, is a separate small
+  script that passes the model's text to that binary unread.
 
 ### Stopping rules
 
