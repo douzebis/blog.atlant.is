@@ -896,6 +896,21 @@ The double shift does better than two single shifts. Could an operation that add
 
 *Proof.* Apply the operation to the strategy $\str{00}$ on one hat, which has one hit. The result is a strategy on $k + 1$ hats with $4^k + c$ hits, at most the best score on $k + 1$ hats: $5$, $22$, $89$, $358$ (Section 7). So $c$ is at most $5 - 4$, $22 - 16$, $89 - 64$, $358 - 256$.
 
+#### Every strategy is an operation
+
+The proof above reads an operation as a strategy, by applying it to one hat. It also works the other way: every strategy is an operation. Let $m$ be a strategy on $k + 1$ hats and $s$ a strategy on $n$ hats. The *substitution* of $s$ for the bottom hat of $m$ is this strategy on $n + k$ hats:
+
+- when the $n$ lowest hats seen are not all of the same color, play $s$ on them;
+- when they are, read them as a single hat of that color under the $k$ others, and ask $m$. If $m$ points at its bottom hat, play $s$ on the $n$ lowest hats; if it points at another hat, point at that hat.
+
+For every $m$ and $s$ that we tried, the result has
+
+$$4^k \, |H(s)| + |H(m)| - 4^k$$
+
+hits: several thousand pairs, with $k$ from $1$ to $3$ and $n$ from $1$ to $3$. We have no proof yet. So each strategy $m$ on $k + 1$ hats is an operation that adds $k$ hats, of gain $|H(m)| - 4^k$, and the bound of [Proposition 13](#proposition-13) is reached by every best strategy on $k + 1$ hats, not only by shifts in a row.
+
+All the operations of this article are substitutions. The white shift, the black shift, the double shift and the twisted double shift are the substitutions into what they make of the strategy on one hat: $\str{0010}$, $\str{0100}$, $\mathbf{C}_3 = \str{01002120}$ and $\str{02110200}$. The three resets of $s$ by $b$ are the substitutions into the resets of the strategy on one hat by $b$. For the white and the black reset by a strategy $b$ on $k$ hats, $|H(m)| = 4^k + |H(b)|$, and the formula above gives back [Theorem 1](#theorem-1).
+
 The statement is as sure as the best scores it uses: proved for $k = 1$ and $2$, proved with a compiler trusted for $k = 3$, the answer of solvers for $k = 4$. So there is no "triple shift" of gain $26$: it would make a strategy with $90$ hits on four hats. In general, an operation that adds $k$ hats with a better gain than shifts in a row would beat the Carter strategy on $k + 1$ hats, and with it $\frac{7}{20}$.
 
 #### More general resets

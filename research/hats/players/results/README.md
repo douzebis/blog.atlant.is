@@ -16,6 +16,7 @@ T, by `score.py T < file`.
 | `t4-1126.txt` | 4 | 1,126 | 4,096 | `players climb 4 1800 1`, 2026-11-27 |
 | `t5-9094.txt` | 5 | 9,094 | 32,768 | `players climb 5 1800 1`, 2026-11-27 |
 | `t5-9108.txt` | 5 | 9,108 | 32,768 | `players climb 5 3600 16 - 4 0.1`, 2026-11-27 |
+| `t5-9120.txt` | 5 | 9,120 | 32,768 | `players climb 5 5400 32 - 5 0.12` (two runs of eight reached it, none passed it; equals the score of the 2014 table of Buhler et al.), 2026-11-27 |
 | `t5-9116.txt` | 5 | 9,116 | 32,768 | `players climb 5 3600 27 - 5 0.12`, 2026-11-27 |
 | `t6-72950.txt` | 6 | 72,950 | 262,144 | `players climb 6 2400 41 t6-72900.txt 1.5 0.2` (annealing from the table with 8 states), 2026-11-27 |
 | `t6-72900.txt` | 6 | 72,900 | 262,144 | `players factor 6 8 1200 1` (8 states), 2026-11-27 |

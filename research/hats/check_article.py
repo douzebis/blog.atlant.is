@@ -134,6 +134,26 @@ def twisted_double_shift(n: int, s: Strategy) -> Strategy:
     return result
 
 
+def substitute(k: int, m: Strategy, n: int, s: Strategy) -> Strategy:
+    """The strategy s on n hats put in the place of the bottom hat of the
+    strategy m on k + 1 hats: a strategy on n + k hats.  When the n lowest
+    hats seen are of a single color, read them as one hat of that color
+    under the k others and ask m: if m points at the bottom hat, play s
+    on the n lowest hats, and if m points at its hat p, point at the hat
+    n + p - 1.  When the n lowest hats are not of a single color, play
+    s on them."""
+    low = 2**n
+    result = []
+    for t in range(2 ** (n + k)):
+        below, above = t % low, t >> n
+        if below in (0, low - 1):
+            p = m[above << 1 | (below == low - 1)]
+            result.append(s[below] if p == 0 else n + p - 1)
+        else:
+            result.append(s[below])
+    return result
+
+
 def dual(n: int, s: Strategy) -> Strategy:
     """The strategy with the two colors exchanged."""
     return [s[2**n - 1 - t] for t in range(2**n)]
@@ -434,6 +454,42 @@ def check_formulas(rng: random.Random) -> int:
                     shift(m, a2) == permuted(m + more, shift(m, a), rho1),
                 )
             done += 6
+    # the substitution: its hits, and the operations that are substitutions
+    for k, n in ((1, 1), (1, 2), (2, 1), (2, 2), (1, 3), (3, 2), (2, 3)):
+        for m in samples[k + 1][:20]:
+            for s in samples[n][:20]:
+                check(
+                    "substitution",
+                    hits(n + k, substitute(k, m, n, s))
+                    == 4**k * hits(n, s) + hits(k + 1, m) - 4**k,
+                )
+                done += 1
+    for n in (1, 2, 3):
+        for s in samples[n][:20]:
+            check(
+                "white shift, as a substitution",
+                substitute(1, white_shift(1, ONE), n, s) == white_shift(n, s),
+            )
+            check(
+                "black shift, as a substitution",
+                substitute(1, black_shift(1, ONE), n, s) == black_shift(n, s),
+            )
+            check(
+                "double shift, as a substitution",
+                substitute(2, double_shift(1, ONE), n, s) == double_shift(n, s),
+            )
+            check(
+                "twisted double shift, as a substitution",
+                substitute(2, twisted_double_shift(1, ONE), n, s)
+                == twisted_double_shift(n, s),
+            )
+            for b in samples[2][:6]:
+                for reset in (white_reset, black_reset, double_reset):
+                    check(
+                        "resets, as substitutions",
+                        substitute(2, reset(1, 2, ONE, b), n, s) == reset(n, 2, s, b),
+                    )
+            done += 22
     # how far the double reset is from associative
     for a, b, c in itertools.product(samples[1][:2], samples[2][:8], samples[2][:8]):
         right = double_reset(1, 4, a, double_reset(2, 2, b, c))

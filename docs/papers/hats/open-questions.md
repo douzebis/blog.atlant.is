@@ -185,7 +185,21 @@ the best win rate of two players with infinite stacks.
    loose choices there are two best strategies on five hats: `C_3` with
    the double shift, and `C_3` with this one. The formula is proved in
    Lean (`hits_tds` in `formal/hats/Hats/TwistedShift.lean`, the same
-   day). Open:
+   day).
+
+   **Substitution** (2026-11-27, `substitute` in `check_article.py`).
+   Every strategy `m` on `k + 1` hats is an operation that adds `k`
+   hats: put `s` in the place of the bottom hat of `m` (when the `n`
+   lowest hats are of one color, ask `m`; otherwise play `s`). For all
+   pairs tried (`k`, `n` from 1 to 3) the hits are
+   `4^k h(s) + h(m) - 4^k`. Shifts, the double shift, the twisted one
+   and the three resets are all substitutions (checked as equalities of
+   words). So the best operations that add `k` hats are exactly the
+   best strategies on `k + 1` hats, and the bound of Proposition 13 is
+   always reached. Owed: a proof (human and Lean; it would replace the
+   separate proofs of Theorems 1 and 2 and of `hits_tds`), and whether
+   every best strategy on `n` hats is, up to renaming and colors, a
+   substitution of best strategies on fewer hats. Open:
    whether there are more operations of this kind (three hats added,
    gain 25; the 4 primitive classes on four hats are not explained by
    this one).
