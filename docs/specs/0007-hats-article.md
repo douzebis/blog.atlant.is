@@ -179,8 +179,8 @@ its Sections 7 and 8 need 8 and 9.
   the first post (2020-08-30), with "revised" set when it is published.
   The three posts are one earlier version, "2020", in three parts.
   R_1 = C_3. The notation table of spec 0005 stands, with `w(s)` for the
-  win rate, `s^d` for the strategy with the colors exchanged and `V_2`,
-  `V_2^{(n)}` for the best win rates. The first picture is captioned
+  win rate, an overline for the strategy with the colors exchanged and `V`,
+  `V_n` for the best win rates on infinite stacks and on `n` hats. The first picture is captioned
   "stack 3" (it was number 4 with the colors of 2020: two dark hats under
   a light one). No picture of Valve in the arXiv paper.
 - Whether Section 7 keeps the calculator's commands in the text or moves

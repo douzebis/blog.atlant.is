@@ -359,8 +359,8 @@ units digit) and says so in its table of notations.
 | Outcome on a pair of towers | `\eta_{t,u}(s)` | `t_{s(u)}\, u_{s(t)}`, written out | no name needed |
 | Hits | `\eta(s)`, a number, then a set | `H(s)`, always the set of winning pairs; `\lvert H(s) \rvert` its size | N8 |
 | Win rate | `\mu(s)` | `w(s)`: `\lvert H(s) \rvert / 4^n`, and the measure of `H(s)` for infinite stacks | N8; the `w(\mathscr{S})` of Bouquet et al.; a capital `W_n` is a bound in both papers |
-| The strategy with the colors exchanged | none | `s^d`, the *dual* of `s` | the `S^d` of Buhler et al. |
-| Best win rate on `n` hats, on infinite stacks | none | `V_2^{(n)}`, `V_2` | as Buhler et al.; Bouquet et al. write `V_{2,h}` |
+| The stack, the strategy with the colors exchanged | none | `\overline{t}`, and `\overline{s}`, the *dual* of `s`: `\overline{s}(t) = s(\overline{t})` | Buhler et al. write `S^d`; the exponent is kept for powers (a strategy reset by itself), not decided yet |
+| Best win rate on `n` hats, on infinite stacks | none | `V_n`, `V` | two players only, so no index for them; `V` is the `V_2` of the literature, and its `V_n` is for `n` players |
 | Same hits | `a \equiv b` | "`a` and `b` have the same hits" | used three times |
 | Embedding | `e_m(s)` | none: a strategy on `n` hats plays a taller tower by its `n` lowest hats | as post 3 already does |
 | Left reset (triggered by an all-white block) | `b \rightarrow a`, `LR(a,b)` | `a \mathbin{\rhd\circ} b`, the *white reset*: `a`, and `b` above it when the hats of `a` are all white | N5, N6; decided 2026-11-26 |
