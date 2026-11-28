@@ -1,0 +1,757 @@
+% SPDX-FileCopyrightText: 2026 Frederic Ruget <fred@atlant.is> (GitHub: @douzebis)
+%
+% SPDX-License-Identifier: CC-BY-4.0
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=28mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{question}[theorem]{Question}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\lean}[1]{\texttt{#1}}
+\newcommand{\str}[1]{\mathtt{#1}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\repo}{\url{https://github.com/douzebis/blog.atlant.is}}
+
+\title{Substitutions and resets in Levine's hat game:\\
+a structure theorem and new lower bounds\\
+for two, three and four players}
+\author{Fr\'ed\'eric Ruget}
+\date{November 2026 (draft)}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In Levine's hat game each of $n$ players wears a stack of hats, black or
+white at random; each sees the stacks of the others and points at one hat
+of their own stack; they win when all the hats pointed at are black. We
+give an exact formula for the number of winning positions of a strategy
+obtained by putting one strategy in the place of a hat of another
+(\emph{substitution}), of which the resets and shifts used so far are
+cases. For two players it yields in one line the strategies of Carter on
+every number of hats, a second way to add two hats with the best possible
+gain, and a reduction of the conjecture $V_2 = 7/20$ to finite stacks.
+With the same tools we improve the best known lower bounds: for three
+players, $V_3 \ge 73225/261950 \approx 0.279538$; for four players,
+$V_4 \ge 15191/64120 \approx 0.236915$; and for two players with hats
+black with probability $p \ne 1/2$, a bound that beats the published
+ones for most $p$. The statements, and the counts of the tables for three
+and four players, are checked in the Lean proof assistant.
+\end{abstract}
+
+\noindent\textbf{MSC 2020:} 91A12 (primary); 05A05, 60C05, 68V20
+(secondary).
+
+\noindent\textbf{Keywords:} hat puzzles, Levine's hat problem,
+cooperative games, lower bounds, formal proof, Lean.
+
+\section{Introduction}
+
+\subsection{The game}
+
+Two players, Alice and Bob, each wear a stack of hats. Each hat is black
+or white, by the toss of a fair coin. Alice sees Bob's stack and not her
+own, and Bob sees Alice's. Without a word, each points at one hat of their
+own stack. They win when both hats are black. They may agree on a plan
+beforehand. The game is due to Levine (2011); it became known through
+\cite{Kh11}, and \cite{BFG} is the reference on it. Write $V_2$ for the
+best probability of winning, over all plans and all heights of the
+stacks; and $V_n$ for the game with $n$ players, who must all point at a
+black hat, each seeing the stacks of all the others.
+
+Pointing at random wins one time in four. The first surprise is that one
+can do better; the second, that nobody knows how much better. The known
+bounds for two players are
+\[
+  \frac{7}{20} \;\le\; V_2 \;\le\; \frac{81}{224} ,
+\]
+both from \cite{BFG}, and $V_2 = 7/20$ is conjectured. The upper bound
+was lowered to $57/160$ and, according to a recent computer-assisted
+note that has not been reviewed, to $17/48$ \cite{Ya26}; an analytic
+bound without computer is in \cite{HT25}. For more players, $V_n$
+decreases strictly with $n$ \cite{FKK21,AFKK}, and \cite{BFG} gives
+$V_3 \ge 9119/32670$ and $V_4 \ge 14844/64120$, from tables found by a
+search, due to Reyes and Carter.
+
+\subsection{Results}
+
+A \emph{strategy} on $h$ hats is a table that gives, for each stack seen,
+the position to point at. Good strategies are built from small ones by a
+few operations: \cite{BFG} uses \emph{resets}, which start the game again
+on the hats above when the lowest hats are all white or all black, and
+\cite{BCCZW} a ``combining construction''. Our first result is one
+formula that holds all of these.
+
+\begin{itemize}
+\item \textbf{Substitution} (Theorem~\ref{thm:sub}). Put a strategy $s$
+  on $h$ hats in the place of the bottom hat of a strategy $m$ on $k+1$
+  hats. The result has $4^k(|H(s)|-1)+|H(m)|$ winning pairs of stacks,
+  where $|H(\cdot)|$ counts the winning pairs. So every strategy $m$ is
+  an \emph{operation} that adds $k$ hats, with a gain that does not
+  depend on $s$. Resets and shifts are substitutions
+  (Proposition~\ref{prop:instances}).
+\item \textbf{Consequences for two players} (Section~\ref{sec:two}).
+  The strategies $\C_h$ of Carter, with
+  $\lfloor 7\cdot 4^h/20\rfloor$ winning pairs on $h$ hats, for every
+  $h$; the conjecture $V_2 = 7/20$ holds if and only if no strategy on
+  any number of hats wins one more pair than $\C_h$; an operation that
+  adds $k$ hats gains at most the best score on $k+1$ hats less $4^k$;
+  and there is a second operation that adds two hats with the best gain,
+  not equivalent to the first.
+\item \textbf{Biased coins} (Section~\ref{sec:bias}). When hats are
+  black with probability $p$, a strategy that plays the best strategy on
+  three hats on the first block of three hats that is not all white wins
+  with probability
+  $(3p^2-6p^3+8p^4-6p^5+2p^6)/(1-(1-p)^6)$. For $p$ from $1/20$ to
+  $8/20$ this is more than the strategies of \cite{BFG} and
+  \cite{BCCZW}; and $V_2(1-p) = V_2(p) + 1 - 2p$ carries the result to
+  $p > 1/2$.
+\item \textbf{More players} (Section~\ref{sec:players}). The reset of
+  \cite{BFG} for $n$ players has an exact count of winning positions
+  (Theorem~\ref{thm:reset}), from which the limit formula of \cite{BFG}
+  follows. A search that starts from a table made by a reset, instead of
+  a random table, then gives
+  \[
+    V_3 \;\ge\; \frac{73225}{261950} = 0.279538\ldots ,
+    \qquad
+    V_4 \;\ge\; \frac{15191}{64120} = 0.236915\ldots
+  \]
+  against $0.279124\ldots$ and $0.231503\ldots$ in \cite{BFG}.
+\end{itemize}
+
+Section~\ref{sec:upper} relates the upper bounds on $V_2$ obtained from
+``hint games'' to the strategies $\C_h$, and
+Section~\ref{sec:programs} reports what exhaustive searches say of the
+best strategies on up to five hats.
+
+\subsection{What is checked, and how}
+
+Every numbered theorem, proposition and corollary of
+Sections~\ref{sec:game} to~\ref{sec:players} is stated and proved in the
+Lean~4 proof assistant with Mathlib; the names of the Lean theorems are
+given after each statement and collected in
+Section~\ref{sec:lean}. This includes the two bounds displayed above:
+the tables are part of the Lean sources, and the kernel of Lean counts
+their winning positions one by one, so that no program has to be
+trusted. Where a statement rests on a program instead, the text says so.
+
+A longer account, with the history of these strategies since 2020,
+pictures and a calculator, is on the web \cite{web}.
+
+\section{The game, strategies, hits}\label{sec:game}
+
+A \emph{stack} of $h$ hats is a word $t = t_0 t_1 \cdots t_{h-1}$ on
+$\{0,1\}$; $t_0$ is the bottom hat, $1$ is black. We also read $t$ as the
+number $\sum_i t_i 2^i$. A \emph{strategy} on $h$ hats is a map $s$ from
+stacks to positions $\{0,\ldots,h-1\}$: the player who \emph{sees} the
+stack $u$ points at position $s(u)$ of their own stack. We write a
+strategy as the word $s(0)s(1)\cdots s(2^h-1)$.
+
+Unless said otherwise both players use the same strategy. A pair of
+stacks $(t,u)$ is a \emph{hit} of $s$ when $t_{s(u)} = 1$ and
+$u_{s(t)} = 1$. We write $H(s)$ for the set of hits; the win rate of $s$
+is $|H(s)|/4^h$. A strategy on $h$ hats is also a strategy on more hats,
+with the same win rate, so $V_2$ is the supremum of the win rates over
+all $h$, and no finite stack attains $7/20$: a win rate on $h$ hats is a
+multiple of $4^{-h}$.
+
+Three elementary facts are used throughout.
+
+\begin{proposition}\label{prop:basic}
+Let $s$ be a strategy on $h$ hats.
+\begin{enumerate}
+\item The value of $s$ on the all-white stack does not change $|H(s)|$;
+  nor does its value on the all-black stack.
+\item Renaming the positions of the hats does not change $|H(s)|$.
+\item Exchanging the two colors does not change $|H(s)|$.
+\end{enumerate}
+\end{proposition}
+
+For the third, the \emph{dual} of $s$ is $\bar s(t) = s(\bar t)$, where
+$\bar t$ is $t$ with the colors exchanged; a player points at a black hat
+for exactly half of the stacks they may wear, whatever they see, and an
+inclusion--exclusion gives $|H(\bar s)| = |H(s)|$. Two strategies are
+\emph{equivalent} when one is the other with the positions renamed.
+(Lean: \lean{hits\_congr\_white}, \lean{hits\_congr\_black},
+\lean{hits\_renamed}, \lean{hits\_dual}.)
+
+\section{Substitution, and two players}\label{sec:two}
+
+\subsection{The theorem}
+
+\begin{definition}\label{def:sub}
+Let $s$ be a strategy on $h \ge 1$ hats and $m$ a strategy on $k+1$ hats.
+The \emph{substitution} of $s$ for the bottom hat of $m$ is the strategy
+$m[s]$ on $h+k$ hats defined as follows, for a stack whose $h$ lowest
+hats are $\ell$ and whose other hats are $x$.
+\begin{itemize}
+\item If the hats of $\ell$ are not all of the same color: $m[s]$ points
+  at $s(\ell)$.
+\item If they all have the color $c$: let $p = m(cx)$, the choice of $m$
+  for the stack made of one hat of color $c$ under the hats $x$. If
+  $p = 0$, $m[s]$ points at $s(\ell)$; otherwise it points at
+  $h + p - 1$, the hat that $m$ pointed at.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[Substitution]\label{thm:sub}
+For every strategy $s$ on $h \ge 1$ hats and $m$ on $k+1$ hats,
+\[
+  |H(m[s])| \;=\; 4^k \bigl(|H(s)| - 1\bigr) + |H(m)| .
+\]
+\end{theorem}
+
+\begin{proof}
+Sort the pairs of stacks by the $h$ lowest hats of each, which are
+\emph{mixed} or of a single color.
+
+\emph{Both mixed.} Both players play $s$: each hit of $s$ between mixed
+stacks is counted $4^k$ times, once for each choice of the hats above.
+
+\emph{Both of a single color.} Read each stack as a stack of $k+1$ hats.
+A player points at a black hat exactly when $m$ does: if $m$ goes up, it
+is the same hat; if $m$ points at the bottom hat, the player points among
+$h$ hats that all have the color of that bottom hat. These pairs give
+$|H(m)|$ hits.
+
+\emph{All white and mixed.} The player who sees the mixed stack points at
+one of the $h$ white hats: no hit.
+
+\emph{All black and mixed.} The player who sees the mixed stack points at
+a black hat. The other one either plays $s$, and points at a fixed
+position among the lowest hats, or goes up to a fixed position above. In
+both cases the hat is black for $2^k(2^{h-1}-1)$ of the $2^k(2^h-2)$
+stacks whose lower part is mixed. With the $2^k$ stacks that are all
+black below and the two orders, that is $2\cdot 4^k(2^{h-1}-1)$ hits.
+
+The same count for $s$ alone gives
+$|H(s)| = M + 2(2^{h-1}-1) + 1$, where $M$ is the number of hits of $s$
+between mixed stacks and the last $1$ is the pair of all-black stacks.
+Hence $|H(m[s])| = 4^k M + 2\cdot 4^k(2^{h-1}-1) + |H(m)|
+= 4^k(|H(s)|-1) + |H(m)|$.
+\end{proof}
+
+(Lean: \lean{hits\_sub}.) The fourth case is the heart of the proof:
+going up or staying makes no difference to the count, which is why any
+$m$ will do. To substitute for another hat of $m$ than the bottom one,
+rename the positions first; by Proposition~\ref{prop:basic} nothing new
+is obtained up to equivalence.
+
+So each strategy $m$ on $k+1$ hats is an operation that adds $k$ hats,
+with the \emph{gain} $|H(m)| - 4^k$: it turns $|H(s)|$ into
+$4^k|H(s)|$ plus the gain.
+
+\subsection{Resets and shifts are substitutions}
+
+Let $\str{0}$ be the strategy on one hat. The operations in use are the
+following, for a strategy $s$ on $h$ hats and a strategy $b$ on $k$ hats.
+\begin{itemize}
+\item The \emph{white reset} of $s$ by $b$: play $s$ on the $h$ lowest
+  hats, unless they are all white; then play $b$ on the hats above. The
+  \emph{black reset} is the same with ``all black'', and the
+  \emph{double reset} with ``all white or all black''. The double reset
+  is the reset of \cite{BFG} for two players and the combining
+  construction of \cite{BCCZW}.
+\item The \emph{white shift} and the \emph{black shift}, which add one
+  hat, are $m[s]$ for $m = \str{0010}$ and $m = \str{0100}$.
+\item The \emph{double shift}, which adds two hats, is $m[s]$ for
+  $m = \C_3 = \str{01002120}$.
+\end{itemize}
+
+\begin{proposition}\label{prop:instances}
+Each reset of $s$ by $b$ is the substitution of $s$ into the same reset
+of $\str{0}$ by $b$. Consequently, for $b$ on $k$ hats,
+\begin{align*}
+  |H| &= 4^k|H(s)| + |H(b)| && \text{(white and black resets)},\\
+  |H| &= 4^k|H(s)| + 4|H(b)| - 4^k && \text{(double reset)},
+\end{align*}
+and the shifts have $4|H(s)|+1$ hits (white, black) and
+$16|H(s)|+6$ hits (double).
+\end{proposition}
+
+(Lean: \lean{lr\_eq\_sub}, \lean{rr\_eq\_sub}, \lean{dr\_eq\_sub},
+\lean{ls\_eq\_sub}, \lean{rs\_eq\_sub}, \lean{ds\_eq\_sub}; the counts
+are also proved directly: \lean{hits\_lr}, \lean{hits\_rr},
+\lean{hits\_dr}, \lean{hits\_ls}, \lean{hits\_rs}, \lean{hits\_ds}.)
+
+\subsection{The Carter strategies}
+
+Let $\C_1 = \str{0}$, $\C_{h+2} = \C_3[\C_h]$ for odd $h$, and
+$\C_{h+1} = \str{0100}[\C_h]$ for odd $h$. These are the strategies that
+Carter found on up to eight hats in 2014 (see \cite{BFG}); \cite{BCCZW}
+builds strategies with the same scores for odd $h$.
+
+\begin{corollary}\label{cor:carter}
+For every $h \ge 1$, $|H(\C_h)| = \lfloor 7\cdot 4^h/20 \rfloor$: the
+win rate of $\C_h$ is $\frac{7}{20} - \frac{2}{5\cdot 4^h}$ for odd $h$
+and $\frac{7}{20} - \frac{3}{5\cdot 4^h}$ for even $h$.
+\end{corollary}
+
+(Lean: \lean{hits\_carter}.) A win rate on $h$ hats is a multiple of
+$4^{-h}$, and $7\cdot 4^h/20$ is never an integer, so
+$\lfloor 7\cdot 4^h/20\rfloor$ is the largest number of hits that does
+not pass $7/20$. This gives the rate at which finite stacks approach
+$7/20$, improving the bound $\frac{7}{20} - C_\varepsilon
+(4^{1-\varepsilon})^{-h}$ of \cite{BCCZW}; with their remark that
+$|\frac{7}{20} - V_{2,h}| \ge \frac{1}{5\cdot 4^h}$ for the best win
+rate $V_{2,h}$ on $h$ hats, the order $4^{-h}$ cannot be improved if the
+conjecture holds.
+
+The strategy $\C_h$ is also given by a rule that does not depend on $h$
+(Lean: \lean{carter\_words}). If the bottom hat seen is black, point at
+the lowest white hat when it is at an odd position, and at the bottom hat
+otherwise. If the bottom hat seen is white, look at the lowest black hat:
+at an even position, point at it; at an odd position, point at the hat
+just above it if that hat exists and is black; in every other case point
+at the bottom hat.
+
+\begin{corollary}\label{cor:conj}
+The following are equivalent: (i) no strategy on any number of hats has a
+win rate above $7/20$; (ii) for every $h \ge 1$ the best number of hits
+on $h$ hats is $\lfloor 7\cdot 4^h/20\rfloor$.
+\end{corollary}
+
+(Lean: \lean{conjecture\_iff}.) Statement (i) is the conjecture
+$V_2 = 7/20$ for plans in which both players use the same strategy.
+
+\begin{corollary}\label{cor:gain}
+An operation $m$ that adds $k$ hats has a gain of at most $B_{k+1} - 4^k$,
+where $B_j$ is the best number of hits on $j$ hats. With $B_2 = 5$,
+$B_3 = 22$, $B_4 = 89$: at most $1$, $6$ and $25$ for one, two and three
+hats added.
+\end{corollary}
+
+(Lean: \lean{hits\_sub\_le}; $B_2$ and $B_3$ are proved by the kernel,
+$B_4 = 89$ by a certified search run as a compiled program; $B_5 = 358$
+is the answer of solvers and of the enumeration of
+Section~\ref{sec:programs}.) In particular no operation built from
+resets, shifts or any substitution can do better than the Carter
+strategies unless some strategy on few hats already does.
+
+\subsection{A second operation that adds two hats}
+
+The double shift is $m[s]$ for $m = \C_3$. The best strategies on three
+hats are all equivalent to $\C_3$ (Section~\ref{sec:programs}), but
+equivalent strategies $m$ do not give equivalent operations, since the
+bottom hat of $m$ plays a special part. The \emph{twisted double shift}
+is $m[s]$ for $m = \str{02110200}$. In words: play $s$ on the $h$ lowest
+hats, except that $h$ black hats with a white hat just above send to the
+top hat, and $h$ hats of a single color with a black hat just above and
+a white hat at the top send to the hat just above.
+
+\begin{proposition}\label{prop:twisted}
+The twisted double shift of $s$ has $16|H(s)|+6$ hits. For each of the
+sixteen strategies $s$ on two hats, it is not equivalent to the double
+shift of $s$, whatever the values on the all-white and all-black stacks.
+\end{proposition}
+
+(Lean: \lean{hits\_tds}, \lean{tds\_eq\_sub},
+\lean{tds\_not\_renamed\_ds}.) On five hats, up to equivalence, the
+exchange of the colors and two stacks on which the choice is free, the
+best strategies are exactly two: $\C_5$, and the twisted double shift of
+$\C_3$ (Section~\ref{sec:programs}).
+
+\section{Biased coins}\label{sec:bias}
+
+Let now each hat be black with probability $p$, independently, and
+$q = 1-p$. The \emph{value} $\mathrm{val}_p(s)$ of a strategy is the
+probability that both players point at a black hat, and $V_2(p)$ the
+supremum of the values. In \cite{BFG} four strategies $S_1,\ldots,S_4$
+are given, all of value $7/20$ at $p = 1/2$; \cite{BCCZW} adds a fifth,
+$S_5$, better than these for $p < 0.312$.
+
+\begin{proposition}[Exchange of the colors]\label{prop:dual}
+For every strategy $s$ and every $p$,
+$\mathrm{val}_{1-p}(\bar s) = \mathrm{val}_p(s) + 1 - 2p$. Hence
+$V_2(1-p) = V_2(p) + 1 - 2p$.
+\end{proposition}
+
+\begin{proof}
+A player points at a black hat with probability $p$ whatever the
+strategy, since the choice does not depend on the player's own hats. So
+both point at a white hat with probability $1 - 2p + \mathrm{val}_p(s)$,
+and exchanging the colors turns this event into a win.
+\end{proof}
+
+(Lean: \lean{val\_dual}.) In \cite{BFG} the strategies $S_1$ and $S_3$,
+which give the bounds for $p \le 1/2$ and $p \ge 1/2$, are stated
+separately; they are dual to each other.
+
+The substitution has a formula for every $p$. For a strategy $m$ on
+$k+1$ hats let $A_{cc'}$ be the probability, over the $k$ upper hats of
+both players, that the pair of stacks with bottom hats of colors $c$ and
+$c'$ is a hit of $m$, and $a$ the probability that $m$ points at the
+bottom hat when the bottom hat seen is black.
+
+\begin{theorem}\label{thm:valsub}
+For $s$ on $h \ge 1$ hats and $m$ on $k+1$ hats,
+\begin{align*}
+  \mathrm{val}_p(m[s]) = {} & \mathrm{val}_p(s) - p^{2h}
+    + q^{2h} A_{00} + (pq)^h (A_{01} + A_{10}) + p^{2h} A_{11} \\
+  & {} - 2p^h (1-a)\, pq\, \bigl(q^{h-1} - p^{h-1}\bigr) .
+\end{align*}
+\end{theorem}
+
+(Lean: \lean{val\_sub}.) The last term vanishes at $p = 1/2$, where the
+formula is Theorem~\ref{thm:sub}. For $p < 1/2$ it is a loss unless
+$a = 1$: a player should not leave the lowest hats on seeing them all
+black. The resets of \cite{BFG} and \cite{BCCZW} leave on both colors.
+
+\begin{theorem}[White resets]\label{thm:white}
+For $0 < p \le 1$,
+\[
+  V_2(p) \;\ge\; \frac{3p^2 - 6p^3 + 8p^4 - 6p^5 + 2p^6}{1 - (1-p)^6} .
+\]
+\end{theorem}
+
+\begin{proof}
+A white reset adds values: the white reset of $s$ (on $h$ hats) by $b$
+has the value $\mathrm{val}_p(s) + q^{2h}\,\mathrm{val}_p(b)$, since the
+pairs in which exactly one player has $h$ white hats below are lost with
+or without the reset. The numerator is $\mathrm{val}_p(\C_3)$. The
+white reset of $\C_3$ by itself $j$ times has the value
+$\mathrm{val}_p(\C_3)\,(1 + q^6 + \cdots + q^{6j})$.
+\end{proof}
+
+(Lean: \lean{val\_lr}, \lean{val\_c3}, \lean{val\_whiteChain},
+\lean{tendsto\_whiteChain}.) In words: play $\C_3$ on the first block of
+three hats that is not all white. At $p = 1/2$ the bound is $22/63$,
+below $7/20$. Table~\ref{tab:bias} compares it with the best of
+$S_1,\ldots,S_5$; it is larger at every $p = i/20$ for $1 \le i \le 8$
+and, by Proposition~\ref{prop:dual} and the mirror strategy, for
+$12 \le i \le 19$. (The comparison is by exact rational arithmetic in a
+program, \texttt{biased.py} in the repository.)
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{@{}ccc@{}}
+\toprule
+$p$ & best of $S_1,\ldots,S_5$ & white resets of $\C_3$ \\
+\midrule
+$1/10$ & $0.052755$ & $24742/468559 = 0.052804$ \\
+$1/5$  & $0.112240$ & $1297/11529 = 0.112499$ \\
+$3/10$ & $0.180491$ & $17742/98039 = 0.180969$ \\
+$2/5$  & $0.259458$ & $967/3724 = 0.259667$ \\
+$9/20$ & $0.303257$ & $0.303080$ \\
+$1/2$  & $7/20$ & $22/63$ \\
+\bottomrule
+\end{tabular}
+\caption{Lower bounds on $V_2(p)$.}\label{tab:bias}
+\end{table}
+
+With blocks of four and five hats in place of three, the white resets do
+less well for the values of $p$ that we tried, and at $p = 3/10$ the
+best strategy that a search finds on six hats is within $3\cdot 10^{-6}$
+of two blocks of white resets.
+
+\section{More players}\label{sec:players}
+
+Let there be $n \ge 2$ players. A \emph{plan} on $T$ hats gives each
+player a position of their own stack as a function of the stacks of
+everybody; it is \emph{blind} when no player uses their own stack, which
+is the rule of the game. Its \emph{wins} are the placements of the hats,
+out of $2^{nT}$, for which all the hats pointed at are black. Players may
+have different tables; the tables of \cite{BFG} are symmetric, one for
+all.
+
+\begin{definition}
+The \emph{reset} of a plan $S$ on $T$ hats by a plan $M$ on $k$ hats: a
+player who sees a stack that is all white on its $T$ lowest hats, or
+sees only stacks that are all black there, plays $M$ on the $k$ hats
+above; any other player plays $S$ on the $T$ lowest hats.
+\end{definition}
+
+This is the reset of \cite{BFG}, where the limit below is stated with a
+proof in words.
+
+\begin{theorem}\label{thm:reset}
+Let $S$ and $M$ be blind plans on $T \ge 1$ and $k \ge 1$ hats, with
+$W_S$ and $W_M$ wins, and $P = 2^T$. The reset of $S$ by $M$ has
+\[
+  2^{nk}\,(W_S - 1) + R\,W_M
+  \quad\text{wins, where}\quad
+  R = P^n - (P-1)^n - n(P-1)^{n-1} + n + 1 .
+\]
+If $T \ge 2$, the win rates of $S$ reset by itself again and again tend
+to
+\[
+  \frac{W_S - 1}{(P-1)^n + n(P-1)^{n-1} - (n+1)} .
+\]
+\end{theorem}
+
+\begin{proof}
+Sort the ways to choose the $T$ lowest hats of everybody. (a) Everybody
+goes up: this happens when two players at least are all white, or one is
+all white and the others all black, or all are all black; there are $R$
+such ways, and each is worth $W_M$. (b) One player is mixed and all the
+others are all black: the others stay and point at black hats; the mixed
+player goes up alone and points at a black hat for half of the hats
+above, as often as by staying, where the hat pointed at is black for
+$2^{T-1}-1$ of the $2^T - 2$ mixed stacks. (c) All the other ways:
+either a player who is all white stays, and the game is lost with $S$
+too, or nobody goes up and $S$ decides. So every way outside (a) is
+worth $2^{nk}$ times what it is worth for $S$, and $S$ wins exactly one
+of the ways of (a), the one where all are all black. The limit follows
+from the recursion on the win rates, whose ratio $R/P^n$ is less than
+$1$ for $T \ge 2$.
+\end{proof}
+
+(Lean: \lean{winsN\_reset}, \lean{resetCard\_add}, \lean{tendsto\_rateN},
+\lean{limitN\_eq}.) For $n = 2$, $R = 4$ and the limit is
+$(W_S-1)/(4^T-4)$: the reset is the double reset of
+Section~\ref{sec:two}, and the limit is $7/20$ for $S = \C_T$ with $T$
+odd (Lean: \lean{tendsto\_rate\_drChain\_carterOdd}). The substitution
+of Theorem~\ref{thm:sub} also makes sense for three players, with
+$8^k(W_S-1)+W_M$ wins for $M$ on $k+1$ hats (Lean: \lean{wins3\_sub});
+for three players the reset does better.
+
+\subsection{New bounds}
+
+Theorem~\ref{thm:reset} says where to look. For three players, the best
+table known on five hats has $9120$ wins out of $32768$ \cite{BFG}; we
+found one with the same score. Reset by one hat, it gives a table on six
+hats with $73050$ wins, and a table on six hats improves the bound of
+\cite{BFG} as soon as it has $73117$ wins. A simulated annealing on
+symmetric tables that starts from the first of these, and changes one
+entry at a time, passes that number in a few minutes, whereas the same
+search from a random table stopped at $71819$ in our runs. We repeated this from
+six to seven hats and from seven to eight; for four players, random
+starts on four hats suffice.
+
+\begin{theorem}\label{thm:bounds}
+$V_3 \ge 73225/261950 = 0.279538\ldots$ and
+$V_4 \ge 15191/64120 = 0.236915\ldots$
+\end{theorem}
+
+(Lean: \lean{tendsto\_six}, \lean{tendsto\_four4}.) The proof is a
+symmetric table on six hats with $73226$ wins for three players, a
+symmetric table on four hats with $15192$ wins for four players, and
+Theorem~\ref{thm:reset}. Both tables are in the Lean sources, and the
+kernel counts their wins. Table~\ref{tab:players} lists all the tables;
+those on seven and eight hats, too large for the kernel as we encoded
+them, are counted by two programs written independently.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{@{}cccccl@{}}
+\toprule
+players & hats & wins & out of & limit & counted by \\
+\midrule
+3 & 5 & 9120 & $2^{15}$ & 0.279124 & \cite{BFG} \\
+3 & 6 & 73226 & $2^{18}$ & 0.279538 & Lean \\
+3 & 7 & 586263 & $2^{21}$ & 0.279603 & two programs \\
+3 & 8 & 4690902 & $2^{24}$ & 0.279612 & two programs \\
+4 & 4 & 14845 & $2^{16}$ & 0.231503 & \cite{BFG} \\
+4 & 3 & 886 & $2^{12}$ & 0.234873 & Lean \\
+4 & 4 & 15192 & $2^{16}$ & 0.236915 & Lean \\
+4 & 5 & 246459 & $2^{20}$ & 0.236370 & two programs \\
+\bottomrule
+\end{tabular}
+\caption{Symmetric tables and the limit of their resets.}
+\label{tab:players}
+\end{table}
+
+Two remarks. A table on three hats already beats the bound of \cite{BFG}
+for four players: resets weigh more on few hats. And for three players
+each hat added brings a little more; nothing indicates that these bounds
+are close to $V_3$ and $V_4$. For two players the same search, started
+from $\C_7$ and $\C_8$, finds nothing better than the Carter strategies.
+
+\section{Remarks on upper bounds}\label{sec:upper}
+
+The upper bounds on $V_2$ of \cite{BFG} and \cite{Ya26} come from a
+\emph{hint}: Alice's stack is known to be one of the $2(2^d-1)$
+non-constant affine functions on $\mathbb{F}_2^d$, her hats being its
+values at the $2^d$ points. Write $H_d$ for the value of that game;
+$V_2 \le H_d$, with $H_3 = 81/224$ \cite{BFG} and $H_4 = 57/160$
+(\cite{Ya26}; we confirmed this value and its $11$ classes of optimal
+solutions with a program written independently).
+
+\begin{proposition}\label{prop:hint}
+For any two strategies $a$, $b$ on $d+1$ hats, used by Alice and Bob,
+the number of hits is at most $2^d + 2^{d+1}(2^{d+1}-2)\,H_d$.
+\end{proposition}
+
+(Lean: \lean{hitsTwo\_le\_hintWins}.) The values of an affine function at
+the points $0, e_1, \ldots, e_d$ run over the stacks of $d+1$ hats that
+are not of a single color, once each. With $\C_{d+1}$ for both players
+the inequality is an equality for $d = 1,\ldots,4$, and the best values
+found by annealing in \cite{Ya26} for $d = 5, 6$ are again those of
+$\C_6$ and $\C_7$. So $H_d \ge \frac{7}{20} + \Theta(2^{-d})$; if equality persists for
+every $d$, then $H_d \to 7/20$ and the conjecture follows. With
+$H_4 = 57/160$ the proposition gives $358$ as the best score on five
+hats, also for two different strategies.
+
+Not every optimal solution of the hint game is a strategy of the real
+game: of the $11$ classes for $d = 4$, four need Alice to point at
+points that are affinely dependent. The hint game can be read as
+follows. Bob's hats decide which vectors $v \ne 0$ are active and a
+target bit $T(v)$ for each; Alice looks for a point $x$ with
+$v\cdot x = T(v)$ for as many active $v$ as she can, and the value is
+$\frac{3}{8}$ less the expected number of equations she gives up,
+divided by $2(2^d-1)$. Three active vectors $v$, $w$, $v+w$ whose
+targets do not add up force her to give up one. For all the optimal
+solutions with $d = 4$, and for the solutions that come from $\C_{d+1}$
+with $d \le 6$, these triples are the only obstruction (a result of
+programs). The conjecture would follow from a proof that the expected
+number of equations given up is at least $2^d/20 - o(2^d)$.
+
+\section{The best strategies on few hats}\label{sec:programs}
+
+The statements of this section are results of programs. An exhaustive
+search gives the best scores $1$, $5$, $22$, $89$ on one to four hats
+(the last two are also certified in Lean), and $358$ on five hats by
+three programs and by Proposition~\ref{prop:hint}. Up to equivalence and
+to the values on the all-white and all-black stacks, the best strategies
+form $2$, $1$, $10$ and $27$ classes on two to five hats. On four hats,
+six classes are substitutions of smaller best strategies and four are
+not; these four are one strategy up to the exchange of the colors and two
+free choices. On five hats the $27$ classes are the two strategies of
+Section~\ref{sec:two}, each with two stacks on which three choices are
+equally good. On six hats, $2392$ runs of simulated annealing found
+$1971$ different strategies with $1433 = |H(\C_6)|$ hits and none with
+more; each of them is, after free choices, the substitution of a best
+strategy on three hats into a best strategy on four hats.
+
+\section{Formal verification, data and code}\label{sec:lean}
+
+The Lean~4 sources (directory \texttt{formal/hats} of \cite{web}, built
+against Mathlib) contain every statement cited with a Lean name. An
+audit file prints the axioms of each theorem; all of them use the three
+standard axioms of Lean only, except the best score on four hats, which
+is obtained by running a certified search as a compiled program. For
+Theorem~\ref{thm:bounds} the tables are literals of the Lean sources and
+the counts are done by \texttt{decide} in the kernel.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+statement & Lean \\
+\midrule
+Theorem~\ref{thm:sub} & \lean{hits\_sub} \\
+Proposition~\ref{prop:instances} & \lean{lr\_eq\_sub}, \lean{rr\_eq\_sub},
+  \lean{dr\_eq\_sub}, \lean{ls\_eq\_sub}, \lean{rs\_eq\_sub},
+  \lean{ds\_eq\_sub} \\
+Corollary~\ref{cor:carter} & \lean{hits\_carter}, \lean{carter\_words} \\
+Corollary~\ref{cor:conj} & \lean{conjecture\_iff} \\
+Corollary~\ref{cor:gain} & \lean{hits\_sub\_le} \\
+Proposition~\ref{prop:twisted} & \lean{hits\_tds},
+  \lean{tds\_not\_renamed\_ds} \\
+Proposition~\ref{prop:dual} & \lean{val\_dual} \\
+Theorem~\ref{thm:valsub} & \lean{val\_sub} \\
+Theorem~\ref{thm:white} & \lean{tendsto\_whiteChain}, \lean{val\_c3} \\
+Theorem~\ref{thm:reset} & \lean{winsN\_reset}, \lean{resetCard\_add},
+  \lean{tendsto\_rateN}, \lean{limitN\_eq} \\
+Theorem~\ref{thm:bounds} & \lean{tendsto\_six}, \lean{tendsto\_four4} \\
+Proposition~\ref{prop:hint} & \lean{hitsTwo\_le\_hintWins} \\
+\bottomrule
+\end{tabular}
+\caption{The statements and their Lean names.}
+\end{table}
+
+The tables of Table~\ref{tab:players} are text files of the repository
+(one digit per entry). The first sixteen hexadecimal digits of their
+SHA-256 sums are: six hats, \texttt{a2929fc0f57e9cbc}; seven hats,
+\texttt{567dd9eeed59d44b}; eight hats, \texttt{328f8a1d8aab5d51}; four
+players on three hats, \texttt{32a068d81a5a9c99}; four players on four
+hats, \texttt{3ab3840ccd415040}. The search programs, the plain scorers
+used for the recounts, and a record of the literature consulted are in
+the same repository.
+
+\section{Open questions}
+
+\begin{question}
+For small $p$, is $V_2(p)$ equal to the bound of
+Theorem~\ref{thm:white}?
+\end{question}
+
+\begin{question}
+For three players and more, is there a rule to leave the lowest hats
+that does better than the reset of Theorem~\ref{thm:reset}, with tables
+made for it? Do the bounds of Table~\ref{tab:players} keep growing with
+the number of hats, and toward what?
+\end{question}
+
+\begin{question}
+On every number of hats, is every best strategy for two players a
+substitution of best strategies on fewer hats, up to equivalence, colors
+and free choices, with finitely many exceptions such as the one on four
+hats?
+\end{question}
+
+\begin{question}
+Is $H_d$ the value given by $\C_{d+1}$ in Proposition~\ref{prop:hint}
+for every $d$? Is the obstruction by triples of Section~\ref{sec:upper}
+the only one at the optimum?
+\end{question}
+
+\section*{Declaration on the use of AI tools}
+
+The operations (resets and shifts), their formulas and the Carter
+strategy for every number of hats are from blog posts that the author
+wrote alone in 2020. The present work was done in November 2026 by the
+author in collaboration with Claude, an AI system made by Anthropic. The
+collaboration covered the mathematics (the substitution theorem and its
+consequences, the bounds for three and four players and for biased
+coins, the remarks on upper bounds), the programs, the formal proofs and
+the writing of this text, most of which was drafted by Claude. The
+author set the questions, directed the work, read and questioned the
+results, and is the sole author of the paper: the author takes
+responsibility for its content. The statements checked in Lean do not
+rest on trust in either the author or the assistant; the correspondence
+between the Lean statements and the text, and the results of programs,
+rest on the usual reading.
+
+\begin{thebibliography}{99}
+
+\bibitem{AFKK} N.~Alon, E.~Friedgut, G.~Kalai and G.~Kindler, The
+success probability in Levine's hat problem, and independent sets in
+graphs, \emph{SIAM J. Discrete Math.} \textbf{37} (2023),
+arXiv:2208.06858.
+
+\bibitem{BCCZW} C.~Bouquet, S.~Chikhi, T.~Charles, Y.~Zhou and E.~Wang,
+An analytical framework for the Levine hats problem: new strategies,
+bounds and generalizations, preprint, 2025, arXiv:2508.01737.
+
+\bibitem{BFG} J.~Buhler, C.~Freiling, R.~Graham, J.~Kariv, J.~R.~Roche,
+M.~Tiefenbruck, C.~Van~Alten and D.~Yeroshkin, On Levine's notorious hat
+puzzle, \emph{Integers} \textbf{21A} (2021), \#A8, arXiv:1407.4711.
+
+\bibitem{FKK21} E.~Friedgut, G.~Kalai and G.~Kindler, The success
+probability in Lionel Levine's hat problem is strictly decreasing with
+the number of players, preprint, 2021, arXiv:2103.01541.
+
+\bibitem{HT25} S.~Heilman and O.~Tamuz, A Fourier approach to Levine's
+hat puzzle, preprint, 2025, arXiv:2503.09042.
+
+\bibitem{Kh11} T.~Khovanova, How many hats can fit on your head?, blog
+post, 2011,
+\url{https://blog.tanyakhovanova.com/2011/04/how-many-hats-can-fit-on-your-head/}.
+
+\bibitem{web} F.~Ruget, The game of hats, web article with Lean sources,
+programs and tables, 2020--2026, \repo.
+
+\bibitem{Ya26} Yang Song, Exact referee relaxations for Levine's
+two-player hat problem, note with programs, 2026,
+\url{https://github.com/yangsong97/levine-hat-bounds}.
+
+\end{thebibliography}
+
+\end{document}
