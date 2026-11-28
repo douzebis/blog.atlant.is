@@ -198,9 +198,9 @@ the best win rate of two players with infinite stacks.
    best strategies on `k + 1` hats, and the bound of Proposition 13 is
    always reached. Proved on 2026-11-28: Theorem 6 of the article, and
    `hits_sub` in `formal/hats/Hats/Substitute.lean`; `tds_eq_sub` in
-   `Hats/Instances.lean` shows the twisted double shift is one. Owed in
-   Lean: that the shifts and the resets are substitutions too (checked
-   by program). Open: whether
+   `Hats/Instances.lean` shows the twisted double shift is one. The shifts, the double shift and the three resets are
+   substitutions too, proved in Lean the same day (`ls_eq_sub` ...
+   `dr_eq_sub`). Open: whether
    every best strategy on `n` hats is, up to renaming and colors, a
    substitution of best strategies on fewer hats. First test
    (scratch, 2026-11-27; a class counts when some renaming of it is a

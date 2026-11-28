@@ -63,5 +63,6 @@ Section 8, Theorem 6 (substitution): `hits_sub` in
 `substitute` in `check_article.py` checks the formula on samples and
 that the shifts, the double shift, the twisted double shift and the
 resets are substitutions. Section 4, the twisted double shift:
-`hits_tds` (`Hats/TwistedShift.lean`), and `tds_eq_sub`
-(`Hats/Instances.lean`).
+`hits_tds` (`Hats/TwistedShift.lean`). That each operation is a
+substitution: `ls_eq_sub`, `rs_eq_sub`, `ds_eq_sub`, `tds_eq_sub`,
+`lr_eq_sub`, `rr_eq_sub`, `dr_eq_sub` (`Hats/Instances.lean`).

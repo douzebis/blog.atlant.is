@@ -135,3 +135,10 @@ open Hats
 #print axioms sub_proper
 #print axioms tds_eq_sub
 #print axioms hits_tds_of_sub
+#print axioms ls_eq_sub
+#print axioms rs_eq_sub
+#print axioms ds_eq_sub
+#print axioms lr_eq_sub
+#print axioms rr_eq_sub
+#print axioms dr_eq_sub
+#print axioms hits_ds_of_sub
