@@ -277,6 +277,21 @@ the best win rate of two players with infinite stacks.
    this is also a second proof by computation that 358 is the best
    score on five hats, for two different strategies too.
 
+   **Are the best sortings games on five hats?** (2026-11-28,
+   `research/hats/hint_frames.py`.) Not all. Of the 11 orbits of best
+   sortings in dimension 4, seven are games on five hats: some five
+   independent points hold a best answer of Alice for every stack of
+   Bob. The six of them with five blocks, read as one strategy for both
+   players, are best strategies on five hats: three orbits around the
+   Carter class, three around the twisted double shift. The four other
+   orbits (three with five blocks, one with six) are not: Alice needs
+   points that are not independent (four points of a plane), so her
+   hats are not fair independent coins. They reach the same value
+   171/480. So `H_4` equals the Carter number, but no translation of
+   each best sorting into a pair of strategies can prove
+   `H_d <= ` (game on `d + 1` hats) in general: a proof must bound the
+   value, not transform the solutions.
+
    What follows. (a) The affine hint of dimension `d` cannot prove a
    bound on `V` below that value, so this family of hints goes to 7/20
    no faster than `2^-d`. (b) An exact value of `H_d` is a proof that
