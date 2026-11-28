@@ -19,6 +19,7 @@ import Hats.ThreeLimit
 import Hats.Players
 import Hats.PlayersLimit
 import Hats.Biased
+import Hats.BiasedSub
 import Hats.Topology
 import Hats.Measurable
 import Hats.Readers
@@ -159,3 +160,4 @@ open Hats
 #print axioms val_c3
 #print axioms tendsto_whiteChain
 #print axioms val_dual
+#print axioms val_sub
