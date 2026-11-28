@@ -116,6 +116,30 @@ too), and proved in Lean for any number of players the same day:
 players may use different strategies, as long as nobody uses their own
 stack; one table for all is a special case.
 
+## Eight hats, and what is in Lean (2026-11-28, later)
+
+Eight hats, three runs of 90 minutes from the seven-hat table reset by
+one hat (4,690,482 wins): 4,690,710, 4,690,817, 4,690,902. So
+
+    V_3 >= 4690901/16776446 = 0.279612...
+
+(`t8-4690902.txt`, recounted by `compose.py --bound 8`). Four players on
+five hats, from the four-hat table reset by one hat (244,472): 246,459 at
+best (`players4/results/t5-246459.txt`), which gives 0.236370, below the
+four-hat bound; four hats again: nothing above 15,192.
+
+Checked entirely in Lean, the count of the table included (the kernel
+counts every placement; no compiled program is trusted):
+
+- three players: `V_3 >= 73225/261950 = 0.279538` from the six-hat table
+  with 73,226 wins (`tendsto_six`, `formal/hats/Hats/Three6.lean`);
+- four players: `V_4 >= 15191/64120 = 0.236915` from the four-hat table
+  (`tendsto_four4`, `Hats/Four4.lean`), and `885/3768` from the
+  three-hat table (`tendsto_four3`, `Hats/Four.lean`).
+
+The bounds from seven and eight hats (0.279603, 0.279612) rest on counts
+by two programs.
+
 ## Next
 
 - Longer annealing from the new tables; seven hats from the six-hat

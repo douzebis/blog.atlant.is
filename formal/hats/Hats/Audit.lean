@@ -20,6 +20,10 @@ import Hats.Players
 import Hats.PlayersLimit
 import Hats.Biased
 import Hats.BiasedSub
+import Hats.Four4
+import Hats.Three6
+import Hats.Four
+import Hats.Conjecture
 import Hats.Topology
 import Hats.Measurable
 import Hats.Readers
@@ -161,3 +165,9 @@ open Hats
 #print axioms tendsto_whiteChain
 #print axioms val_dual
 #print axioms val_sub
+#print axioms conjecture_iff
+#print axioms hits_sub_le
+#print axioms tendsto_rate_drChain_carterOdd
+#print axioms tendsto_four3
+#print axioms tendsto_four4
+#print axioms tendsto_six

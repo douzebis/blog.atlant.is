@@ -17,6 +17,11 @@ also prints the bound a table gives. Record of results:
 | `results/t3-886.txt` | 3 | 886 | 4,096 | 885/3768 = 0.234873 | `four climb 3 10 1 OUT`, 2026-11-28 |
 | `results/t4-15192.txt` | 4 | 15,192 | 65,536 | 15191/64120 = 0.236915 | `four climb 4 1200 4 OUT - 4 0.2` (from a random table), 2026-11-28 |
 
+| `results/t5-246459.txt` | 5 | 246,459 | 1,048,576 | 123229/521340 = 0.236370 | `four climb 5 5400 52 OUT START 4 0.3` from the four-hat table reset by one hat (244,472), 2026-11-28: below the four-hat bound |
+
+The counts of the tables on three and four hats are also done by Lean's
+kernel: `formal/hats/Hats/Four.lean`, `Four4.lean`.
+
 For comparison, Buhler et al. (arXiv:1407.4711v8, appendix): a table on
 4 hats with 14,845 wins (Reyes and Carter, 2014), and
 `V_4 >= 14844/64120 = 0.231503`.
