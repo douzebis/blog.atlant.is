@@ -11,6 +11,8 @@ import Hats.Dual
 import Hats.Equivalent
 import Hats.Hints
 import Hats.TwistedShift
+import Hats.Substitute
+import Hats.Instances
 import Hats.Topology
 import Hats.Measurable
 import Hats.Readers
@@ -129,3 +131,7 @@ open Hats
 #print axioms hitsTwo_five_le
 #print axioms hits_tds
 #print axioms tds_proper
+#print axioms hits_sub
+#print axioms sub_proper
+#print axioms tds_eq_sub
+#print axioms hits_tds_of_sub

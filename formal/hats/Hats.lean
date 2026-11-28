@@ -30,4 +30,6 @@ import Hats.Dual
 import Hats.Equivalent
 import Hats.Hints
 import Hats.TwistedShift
+import Hats.Substitute
+import Hats.Instances
 import Hats.Audit
