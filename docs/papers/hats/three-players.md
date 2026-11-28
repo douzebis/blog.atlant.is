@@ -140,6 +140,29 @@ counts every placement; no compiled program is trusted):
 The bounds from seven and eight hats (0.279603, 0.279612) rest on counts
 by two programs.
 
+## Five players and more (2026-11-28)
+
+Programs: `research/hats/playersn/` (`many.c`, `scoren.py`,
+`winkler.py`). The bounds of Buhler et al. for 5 to 12 players come from
+a recipe (lowest black hats combined by a Latin square, on tiers of 4 or
+5 hats, with resets), not from a search: 0.202911, 0.187159, 0.175306,
+0.165807 for 5 to 8 players. `winkler.py N 4 xor` gives tables with
+exactly their wins (205,448; 2,984,605; 43,930,664; 651,583,633).
+
+    V_5 >= 5943/28806 = 1981/9602 = 0.206311...
+
+from a symmetric table on 3 hats with 5,944 wins out of 32,768
+(`playersn/results/n5-t3-5944.txt`; annealing from a random table, found
+in seconds). Checked entirely in Lean, the count by the kernel:
+`tendsto_five3` in `formal/hats/Hats/Five.lean`. On 4 hats a random
+start gives 208,528 wins, limit 0.205954, also above the published
+bound.
+
+From random tables, ten minutes each: 6 players 0.185739 (3 hats) and
+0.184650 (4 hats), below the published 0.187159; 7 to 12 players well
+below. As for three players, the search has to start from a structured
+table: next, from the tables of `winkler.py`.
+
 ## Next
 
 - Longer annealing from the new tables; seven hats from the six-hat

@@ -39,6 +39,7 @@ import Hats.Players
 import Hats.PlayersLimit
 import Hats.Biased
 import Hats.BiasedSub
+import Hats.Five
 import Hats.Loose
 import Hats.Renamed
 import Hats.SchemeRate

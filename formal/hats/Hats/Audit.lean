@@ -20,6 +20,7 @@ import Hats.Players
 import Hats.PlayersLimit
 import Hats.Biased
 import Hats.BiasedSub
+import Hats.Five
 import Hats.Loose
 import Hats.Renamed
 import Hats.SchemeRate
@@ -187,4 +188,5 @@ open Hats
 #print axioms tendsto_rate_drChain_carterOdd
 #print axioms tendsto_four3
 #print axioms tendsto_four4
+#print axioms tendsto_five3
 #print axioms tendsto_six
