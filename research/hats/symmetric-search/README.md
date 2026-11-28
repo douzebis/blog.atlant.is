@@ -54,3 +54,20 @@ that is not built from smaller ones.
 Limits: annealing finds what is easy to reach; this is a sample, not a
 proof that 1,433 is best nor that every strategy with 1,433 hits is a
 substitution.
+
+## Seven and eight hats, from the Carter strategies (2026-11-28)
+
+The three-player search only did well once it started from a composed
+table. The same test for two players, four minutes for each run:
+
+| Hats | Start | Best found | Carter score |
+|---|---|---|---|
+| 7 | random | 5,734 (48 restarts of 162) | 5,734 |
+| 8 | random | 21,503 | 22,937 |
+| 7 | `C_7`, temperature 1.5 | 5,734 (299 restarts) | 5,734 |
+| 8 | `C_8`, temperatures 1 and 2 | 22,937 (304 restarts) | 22,937 |
+
+On eight hats a random start fails by far, as for three players on six
+hats; but from the Carter strategy nothing better is found, where the
+three-player search gained at once.
+

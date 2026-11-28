@@ -6,7 +6,7 @@
 
 /* Search for two-player strategies with a prescribed symmetry.
 
-   usage: symsearch N SECONDS SEED [CYCLES [KEEP]]
+   usage: symsearch N SECONDS SEED [CYCLES [KEEP [START [HOT]]]]
 
    N hats (at most 8).  CYCLES is a renaming of the positions written as
    cycles, for instance "(01)(23)(45)"; the group it generates acts on the
@@ -16,7 +16,10 @@
    annealing with restarts; prints each new best number of hits and, at
    the end, the best strategy as a word.  With KEEP, also prints, for
    each restart that reaches KEEP hits, a line "found" with the best
-   strategy of that restart.
+   strategy of that restart.  With START (a word of 2^N digits), every
+   restart begins from that strategy, at the temperature HOT (1 by
+   default), instead of a random strategy at temperature 3; CYCLES should
+   then be empty.
 
    No input is read; the output is text on the standard output. */
 #include <stdio.h>
@@ -96,6 +99,9 @@ int main(int argc, char **argv) {
     S = 1 << N;
     parse(argc > 4 ? argv[4] : "");
     int keep = argc > 5 ? atoi(argv[5]) : 0;
+    const char *start_word = argc > 6 ? argv[6] : NULL;
+    double hot = argc > 7 ? atof(argv[7]) : 1.0;
+    if (start_word && (int)strlen(start_word) != S) { fprintf(stderr, "START has the wrong length\n"); return 1; }
     for (int g = 0; g < G; g++)
         for (int t = 0; t < S; t++) {
             int u = 0;
@@ -126,13 +132,21 @@ int main(int argc, char **argv) {
     long restarts = 0, reached = 0;
     while ((double)(clock() - start) / CLOCKS_PER_SEC < seconds) {
         restarts++;
-        for (int k = 0; k < nunits; k++) {
-            int p = rnd() % N;
-            for (int i = 0; i < unit_size[k]; i++) s[unit_members[k][i]] = perm[unit_g[k][i]][p];
+        if (start_word) {
+            for (int t = 0; t < S; t++) {
+                int p = start_word[t] - '0';
+                if (p < 0 || p >= N) { fprintf(stderr, "START is not a strategy\n"); return 1; }
+                s[t] = p;
+            }
+        } else {
+            for (int k = 0; k < nunits; k++) {
+                int p = rnd() % N;
+                for (int i = 0; i < unit_size[k]; i++) s[unit_members[k][i]] = perm[unit_g[k][i]][p];
+            }
         }
         int h = hits(s), local = h;
         memcpy(local_s, s, sizeof s);
-        double T = 3.0;
+        double T = start_word ? hot : 3.0;
         long steps = 400000L * (N >= 6 ? 4 : 1);
         for (long step = 0; step < steps; step++, T *= 0.99999 - (N < 6) * 0.00003) {
             int k = rnd() % nunits, p = rnd() % N;
