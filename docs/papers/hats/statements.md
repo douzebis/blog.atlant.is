@@ -64,3 +64,19 @@ resets are substitutions. Section 4, the twisted double shift:
 `hits_tds` (`Hats/TwistedShift.lean`). That each operation is a
 substitution: `ls_eq_sub`, `rs_eq_sub`, `ds_eq_sub`, `tds_eq_sub`,
 `lr_eq_sub`, `rr_eq_sub`, `dr_eq_sub` (`Hats/Instances.lean`).
+
+Section 9 (added 2026-11-28). Theorem 7, resets for any number of
+players: `winsN_reset`, `resetCard_add`, `tendsto_rateN`, `limitN_eq`
+(`Hats/Players.lean`, `PlayersLimit.lean`); for three players also
+`wins3_reset`, `wins3_sub`, `tendsto_rate3`. Theorem 8, the bounds for
+three and four players: `tendsto_six` (`Three6.lean`), `tendsto_four3`,
+`tendsto_four4` (`Four.lean`, `Four4.lean`), the counts by the kernel;
+the tables on seven and eight hats and on five hats for four players are
+counted by `research/hats/players/compose.py --bound`, the Rust program
+`players score`, `players4/four score` and `players4/score4.py`.
+Proposition 18, the exchange of the colors: `val_dual`. Theorem 9, the
+white resets: `val_lr`, `val_c3`, `val_whiteChain`, `tendsto_whiteChain`
+(`Hats/Biased.lean`); the substitution with a biased coin: `val_sub`
+(`BiasedSub.lean`); the table of values and the comparison with the
+published strategies: `research/hats/biased.py`.
+

@@ -106,16 +106,24 @@ The rest of the article:
 
 - stacks that never end, where the limits of our families win exactly one time in three, or $7$ times in $20$, and are computed by a machine that reads the hats one at a time (Section 6);
 - a calculator for strategies, which the reader can use on this page, and what a search by computer says of the best strategies on few hats (Section 7);
-- attempts at beating $\frac{7}{20}$: resets of a more general kind, and a search around the Carter strategies. None succeeds (Section 8);
-- open questions (Section 9).
+- attempts at beating $\frac{7}{20}$: resets of a more general kind, and a search around the Carter strategies. None succeeds. On the way, one statement that holds all our operations: every strategy is an operation (Section 8);
+- what the same tools give with three and four players, and with hats that are black more or less often than white: better lower bounds than those we found in the papers (Section 9);
+- open questions (Section 10).
 
 #### What is new, and what is not
 
 The game, the plans that win $7$ times in $20$ and the strategies of Carter and Reyes on up to $8$ hats are not ours. The word "reset" is in [BFGKRTVY], and the formula for one of our resets, the double reset, is the "combining formula" of [BCCZW].
 
-The posts of 2020 brought the operations with their formulas, the Carter strategy for every number of hats, and the description of the limit strategies by machines. This article adds the closed form $7 \cdot 4^n / 20$ rounded down and its link with the conjecture, the proofs for stacks that never end, and the results of Section 8, among them a link between the upper bounds on $V$ and the Carter strategies. As far as we know these are not in the papers cited above.
+The posts of 2020 brought the operations with their formulas, the Carter strategy for every number of hats, and the description of the limit strategies by machines. This article adds:
 
-The statements of Sections 2 to 6 were checked by a proof assistant, Lean, and the numbers of this article by programs; a table at the end says which statement is checked by what.
+- the closed form $7 \cdot 4^n / 20$ rounded down and its link with the conjecture, and the proofs for stacks that never end;
+- the *substitution* of a strategy for a hat of another, with its formula, of which every reset and shift is a case (Section 8), and a new operation that adds two hats, the twisted double shift (Section 4);
+- a link between the upper bounds on $V$ and the Carter strategies (Section 8);
+- for three and for four players, tables that win more often than those of [BFGKRTVY], and for two players with a biased coin, a strategy that wins more often than those of [BFGKRTVY] and [BCCZW] for most biases (Section 9).
+
+As far as we know these are not in the papers cited at the end; Section 9 says what was looked at.
+
+Every numbered statement of this article was checked by a proof assistant, Lean, with one exception that is said where it occurs ([Proposition 13](#proposition-13) for four hats added). The bounds of Section 9 for three and four players are checked in Lean down to the count of the winning placements of the hats. The numbers quoted along the way are checked by programs; a table at the end says which statement is checked by what.
 
 #### For the readers of the posts of 2020
 
@@ -511,7 +519,7 @@ The double shift is not the only operation that adds two hats and gains $6$ hits
 - Seeing $n$ black hats with a white hat just above them, it points at the top hat, at position $n + 1$ (the double shift points at position $n$).
 - Seeing $n$ hats of a single color, white or black, with a black hat just above them and a white hat at the top, it points at position $n$.
 
-For every proper strategy $s$, the result has $16 \, |H(s)| + 6$ hits, as for the double shift (Lean: `hits_tds`). The proof goes through a black reset. Let $b = \str{1010}$ be the strategy on two hats that points at the top hat when the bottom hat is white; it has $5$ hits, so $s \breset b$ has $16 \, |H(s)| + 5$. Changing what it does for one stack, $n$ white hats under a black one and a white one, gains one hit, and gives the twisted double shift up to the choice for the all-black stack. It is a different operation, and not the double shift under other names: on two hats, for none of the $16$ strategies $s$ is the result equivalent to $s\,\dshift$. Its dual is a fourth operation of the same kind. On one hat it gives $\str{02110200}$, which has $22$ hits and is equivalent to $\mathbf{C}_3$, as every best strategy on three hats is. On three hats it gives something new (Section 7).
+For every proper strategy $s$, the result has $16 \, |H(s)| + 6$ hits, as for the double shift (Lean: `hits_tds`). The proof goes through a black reset. Let $b = \str{1010}$ be the strategy on two hats that points at the top hat when the bottom hat is white; it has $5$ hits, so $s \breset b$ has $16 \, |H(s)| + 5$. Changing what it does for one stack, $n$ white hats under a black one and a white one, gains one hit, and gives the twisted double shift up to the choice for the all-black stack. It is a different operation, and not the double shift under other names: on two hats, for none of the $16$ strategies $s$ is the result equivalent to $s\,\dshift$ (Lean: `tds_not_renamed_ds`). Its dual is a fourth operation of the same kind. On one hat it gives $\str{02110200}$, which has $22$ hits and is equivalent to $\mathbf{C}_3$, as every best strategy on three hats is. On three hats it gives something new (Section 7).
 
 That one changed letter is worth a remark. Resets and single shifts build a strategy on many hats out of strategies on fewer hats, and their hits add up as the formulas say. The double shift is not built that way: it is a block on two hats that does better than the two single shifts it is made of. A natural question is whether a block on three or more hats does better still. We come back to it in Section 8.
 
@@ -571,7 +579,7 @@ Unfolding the shifts gives a rule that is the same for every number of hats. Loo
 - If it is white, find the lowest black hat. If it is at an even position, point there. If it is at an odd position and the hat just above it is black too, point at the hat just above.
 - In every other case, point at the bottom hat.
 
-So $\mathbf{C}_n$ is one rule, cut to $n$ hats. Seeing stack $6$ of three hats (white, black, black from the bottom), the lowest black hat is at position $1$ and the hat above it is black: point at position $2$, the seventh letter of $\str{01002120}$.
+So $\mathbf{C}_n$ is one rule, cut to $n$ hats (Lean: `carterOdd_words`, `carterEven_words`; and `carter_cut` for the cut, in the sense of Section 7). Seeing stack $6$ of three hats (white, black, black from the bottom), the lowest black hat is at position $1$ and the hat above it is black: point at position $2$, the seventh letter of $\str{01002120}$.
 
 **Theorem 3 (the Carter strategies).** For every $n \geq 1$, the Carter strategy on $n$ hats has
 
@@ -635,7 +643,7 @@ Hits, out of $4^n$:
 | $8$ | $16{,}384$ | $21{,}845$ | $22{,}937$ | | $65{,}536$ |
 | $9$ | $65{,}536$ | $87{,}381$ | $91{,}750$ | $91{,}744$ | $262{,}144$ |
 
-The Carter and the Reyes strategies both climb toward $\frac{7}{20}$, at different paces. The Reyes strategy on $3j$ hats has exactly the win rate of the Carter strategy on $2j + 1$ hats, $\frac{7}{20} - \frac{1}{10 \cdot 16^j}$: the Carter strategies get there with fewer hats, and on the same number of hats they win more, as the table shows on $6$ and $9$ hats. We know no direct reason for this coincidence of win rates, no way to turn one strategy into the other (Section 9).
+The Carter and the Reyes strategies both climb toward $\frac{7}{20}$, at different paces. The Reyes strategy on $3j$ hats has exactly the win rate of the Carter strategy on $2j + 1$ hats, $\frac{7}{20} - \frac{1}{10 \cdot 16^j}$: the Carter strategies get there with fewer hats, and on the same number of hats they win more, as the table shows on $6$ and $9$ hats. We know no direct reason for this coincidence of win rates, no way to turn one strategy into the other (Section 10).
 
 What the Reyes strategies have for them is their shape: the same block, played again and again. That shape goes over to stacks that never end without any change, which is the subject of the next section.
 
@@ -859,7 +867,7 @@ On five hats the picture can be made simpler still. The twenty-seven classes are
 - the twisted double shift of $\mathbf{C}_3$ (Section 4);
 - the dual of the twisted double shift of the dual of $\mathbf{C}_3$.
 
-The last two are exchanged by the exchange of the colors. So up to the renamings of the positions, the exchange of the colors and the loose choices, there are two best strategies on five hats: the two ways to add two hats to $\mathbf{C}_3$ with a gain of $6$. With the twisted double shift among the operations, every best strategy on five hats is built.
+The last two are exchanged by the exchange of the colors. So up to the renamings of the positions, the exchange of the colors and the loose choices, there are two best strategies on five hats: the two ways to add two hats to $\mathbf{C}_3$ with a gain of $6$. With the twisted double shift among the operations, every best strategy on five hats is built, up to its two loose choices.
 
 So on four and on five hats, "built with resets and shifts" and "best at every smaller number of hats" say the same thing. The first primitive best strategies appear on four hats, and they owe nothing to a best strategy on three hats. (This is the answer of programs, `cuts.py` and `best_classes5.py` in the repository.)
 
@@ -875,6 +883,8 @@ Recall that $V_n$ is the best win rate on $n$ hats when Alice and Bob may use di
 
 1. $V = \frac{7}{20}$.
 2. For every $n \geq 1$, nothing on $n$ hats wins more pairs of stacks than the Carter strategy: $V_n = w(\mathbf{C}_n)$.
+
+(Lean: `conjecture_iff`.)
 
 *Proof.* A win rate on $n$ hats is a whole number of pairs out of $4^n$, with one strategy or with two. By [Theorem 3](#theorem-3) the Carter strategy wins $7 \cdot 4^n / 20$ pairs rounded down, and $7 \cdot 4^n / 20$ is never whole. So a plan on $n$ hats that wins one more pair than $\mathbf{C}_n$ has a win rate above $\frac{7}{20}$, and then $V > \frac{7}{20}$. Conversely, if nothing beats $\mathbf{C}_n$ for any $n$, every $V_n$ is below $\frac{7}{20}$, and so is their limit; and it is not less, by the Carter strategies themselves.
 
@@ -892,7 +902,7 @@ The double shift does better than two single shifts. Could an operation that add
 | $3$ | $s\,\dshift\,\wshift$ | $64 \, h + 25$ |
 | $4$ | $s\,\dshift\,\dshift$ | $256 \, h + 102$ |
 
-**Proposition 13 (the shifts cannot be improved).** An operation that adds $k$ hats has a gain of at most $1$, $6$, $25$, $102$ for $k = 1, 2, 3, 4$. The shifts above reach these gains.
+**Proposition 13 (the shifts cannot be improved).** An operation that adds $k$ hats has a gain of at most $1$, $6$, $25$, $102$ for $k = 1, 2, 3, 4$. The shifts above reach these gains. (Lean, with [Theorem 6](#theorem-6) below: `hits_sub_two_le`, `hits_sub_three_le`; `hits_sub_four_le` with a compiler trusted; for $k = 4$ the statement rests on solvers.)
 
 *Proof.* Apply the operation to the strategy $\str{00}$ on one hat, which has one hit. The result is a strategy on $k + 1$ hats with $4^k + c$ hits, at most the best score on $k + 1$ hats: $5$, $22$, $89$, $358$ (Section 7). So $c$ is at most $5 - 4$, $22 - 16$, $89 - 64$, $358 - 256$.
 
@@ -938,7 +948,7 @@ $$
 \frac{A + c}{4^m - |Z|^2} ,
 $$
 
-where $A$ is the number of hits $(t, u)$ of $a$ with neither $t$ nor $u$ in $Z$, and $c$ is the number of pairs $(t, u)$ with $t$ in $Z$, $u$ not in $Z$, and a black hat of $t$ at the position $a(u)$.
+where $A$ is the number of hits $(t, u)$ of $a$ with neither $t$ nor $u$ in $Z$, and $c$ is the number of pairs $(t, u)$ with $t$ in $Z$, $u$ not in $Z$, and a black hat of $t$ at the position $a(u)$. (Lean: `hits_sr`, `tendsto_rate_schemeChain`.)
 
 *Proof.* Let $x$ be the win rate, and look at the lowest blocks $t$ and $u$ of the two players. If neither is skipped, both play $a$ and win when $(t, u)$ is a hit of $a$: $A$ pairs out of $4^m$. If both are skipped, the game starts again above: $|Z|^2$ pairs, each won with probability $x$. If $t$ is skipped and $u$ is not, the player who wears $t$ sees $u$ and points at the position $a(u)$ of the block $t$; the other player skips $t$ and points at a hat above their lowest block, chosen without a look at their own hats: it is black half of the time. The same goes with the two players exchanged, which makes $2 \cdot \frac12 \cdot c$. Hence $4^m \, x = A + c + |Z|^2 \, x$.
 
@@ -948,7 +958,7 @@ $$
 x = \frac{|H(a)| - 1}{4^m - 4} .
 $$
 
-**Proposition 15 (double resets of the Carter strategies).** Reset the Carter strategy on $n$ hats by itself forever, with double resets. For odd $n \geq 3$ the win rate is $\frac{7}{20}$. For even $n$ it is $\dfrac{7 \cdot 4^n - 32}{20 \, (4^n - 4)}$, which is less.
+**Proposition 15 (double resets of the Carter strategies).** Reset the Carter strategy on $n$ hats by itself forever, with double resets. For odd $n \geq 3$ the win rate is $\frac{7}{20}$. For even $n$ it is $\dfrac{7 \cdot 4^n - 32}{20 \, (4^n - 4)}$, which is less. (Lean: `tendsto_rate_drChain_carterOdd`, `tendsto_rate_drChain_carterEven`, `carterEven_limit_lt`.)
 
 *Proof.* Put the hits of [Theorem 3](#theorem-3) in the formula: $20 \, |H(\mathbf{C}_n)|$ is $7 \cdot 4^n - 8$ for odd $n$ and $7 \cdot 4^n - 12$ for even $n$.
 
@@ -1072,7 +1082,89 @@ $$
 
 with $2$ in place of $3$ for odd $n$. If $V = \frac{7}{20}$, this is an equality ([Proposition 12](#proposition-12)), and no smaller gap is possible in any case: the gap between $\frac{7}{20}$ and a win rate on $n$ hats is at least $\frac{1}{5 \cdot 4^n}$, as [BCCZW] note. The same paper proves that $\frac{7}{20} - V_n$ is at most a constant times $(4^{1 - \varepsilon})^{-n}$, for every $\varepsilon > 0$. The Carter strategies give the exponent $4^{-n}$ itself.
 
-### 9. Open questions
+### 9. More players, and coins that are not fair
+
+The tools of this article were made for two players and fair coins. This section tries them elsewhere. It is shorter on proofs than the others: the statements are in Lean, and the programs and tables are in the repository of this site (`research/hats/players`, `research/hats/players4`, `research/hats/biased.py`; the record is in `docs/papers/hats`).
+
+#### Any number of players
+
+Let there be $n$ players, each with a stack; each sees the stacks of the others and points at one of their own hats; they win when all the hats pointed at are black. A plan on $T$ hats is now a table for each player, and its *wins* are the placements of the hats, out of $2^{nT}$, for which they win. [BFGKRTVY] give the best plans known for three and for four players: tables found by a search, on five and on four hats, and a way to stack a table on top of itself, a reset.
+
+The reset of a plan $S$ on $T$ hats by a plan $M$ on $k$ hats: a player who sees a stack that is all white on its $T$ lowest hats, or sees only stacks that are all black there, plays $M$ on the $k$ hats above; any other player plays $S$ on the $T$ lowest hats. With one all-white stack the game is lost on the lowest hats anyway; and a player who sees only all-black stacks has nothing to lose by going up, since the others are sure to point at black hats.
+
+**Theorem 7 (resets for any number of players).** Let $n \geq 2$, and let $S$ and $M$ be proper plans on $T$ and on $k$ hats in which no player uses their own stack. With $P = 2^T$, the reset of $S$ by $M$ has
+
+$$
+2^{nk} \, (W_S - 1) + R \, W_M \qquad \text{wins, with} \qquad R = P^n - (P - 1)^n - n \, (P - 1)^{n-1} + n + 1 ,
+$$
+
+where $W_S$ and $W_M$ are the wins of $S$ and of $M$. If $T \geq 2$, the win rates of $S$ reset by itself again and again tend to
+
+$$
+\frac{W_S - 1}{(P - 1)^n + n \, (P - 1)^{n-1} - (n + 1)} .
+$$
+
+(Lean: `winsN_reset`, `resetCard_add`, `tendsto_rateN`, `limitN_eq`.) The limit is the formula of [BFGKRTVY]; the count of the wins of one reset, and a proof that a machine checks, are ours. For $n = 2$ the limit is $\frac{W_S - 1}{4^T - 4}$, that of [Proposition 15](#proposition-15): the reset of [BFGKRTVY] for two players is our double reset.
+
+The proof sorts the ways to choose the $T$ lowest hats of everybody into three kinds. Everybody goes up: there are $R$ such ways, each worth the wins of $M$. One player is mixed and all the others are all black: the mixed player goes up alone, and points at a black hat for half of the hats above, exactly as often as by staying. All the others: either a player who is all white stays, and the game is lost, or nobody goes up and $S$ decides.
+
+The substitution of [Theorem 6](#theorem-6) also makes sense for three players, with $8^k \, (W_S - 1) + W_M$ wins for $M$ on $k + 1$ hats (Lean: `wins3_sub`). For two players it is the best way to add hats that we know; for three players the reset above does better.
+
+#### Three and four players
+
+The formula tells where to look. A table on six hats made of the best table on five hats (9,120 wins out of 32,768, the score of [BFGKRTVY], found again by our search) and one more hat has 73,050 wins; and a table on six hats gives a better limit than theirs as soon as it has 73,117. A search that starts from the first of these tables, and changes one entry at a time, passes that number in a few minutes. The same was done from six to seven hats and from seven to eight, and for four players from random tables on four hats.
+
+**Theorem 8 (three and four players).** Write $V_n$ for the best win rate of $n$ players. Then
+
+$$
+V_3 \geq \frac{73225}{261950} = 0.279538\ldots , \qquad V_4 \geq \frac{15191}{64120} = 0.236915\ldots
+$$
+
+(Lean: `tendsto_six`, `tendsto_four4`: a table on six hats with 73,226 wins, a table on four hats with 15,192 wins, and [Theorem 7](#theorem-7); the kernel of Lean counts the wins, placement by placement, so that no program is trusted.) The bounds of [BFGKRTVY] are $\frac{9119}{32670} = 0.279124\ldots$ and $\frac{14844}{64120} = 0.231503\ldots$
+
+| Players | Hats | Wins | Out of | Limit of the resets | Checked by |
+|---|---|---|---|---|---|
+| $3$ | $5$ | $9{,}120$ | $32{,}768$ | $0.279124$ | [BFGKRTVY]; our own table has the same score |
+| $3$ | $6$ | $73{,}226$ | $262{,}144$ | $0.279538$ | Lean |
+| $3$ | $7$ | $586{,}263$ | $2{,}097{,}152$ | $0.279603$ | two programs |
+| $3$ | $8$ | $4{,}690{,}902$ | $16{,}777{,}216$ | $0.279612$ | two programs |
+| $4$ | $3$ | $886$ | $4{,}096$ | $0.234873$ | Lean |
+| $4$ | $4$ | $15{,}192$ | $65{,}536$ | $0.236915$ | Lean |
+| $4$ | $5$ | $246{,}459$ | $1{,}048{,}576$ | $0.236370$ | two programs |
+
+Two remarks. For three players each hat added brings a little more, less and less; the tables are not built from smaller ones in any way that we see, and nothing says that the bounds are close to $V_3$ and $V_4$. For two players it is the opposite: the same search, started from the Carter strategies on seven and on eight hats, finds nothing better, as [Conjecture A](#conjecture-A) would have it.
+
+#### Coins that are not fair
+
+Back to two players, with hats that are black with probability $p$, and $q = 1 - p$. The *value* of a strategy is the probability that both players point at a black hat, and $V(p)$ the best value. [BFGKRTVY] give four strategies that are worth $\frac{7}{20}$ at $p = \frac12$ and differ elsewhere; [BCCZW] add a fifth, better for $p < 0.312$.
+
+**Proposition 18 (the exchange of the colors).** The dual of a proper strategy, at the probability $1 - p$, has the value of the strategy at $p$, plus $1 - 2p$. So $V(1 - p) = V(p) + 1 - 2p$: the loss $p - V(p)$ is the same at $p$ and at $1 - p$.
+
+*Proof.* A player points at a black hat with probability $p$, whatever the strategy, since the choice does not depend on the player's own hats. So both point at a white hat with probability $1 - 2p + x$, where $x$ is the value. Exchanging the colors turns white hats pointed at into black ones. (Lean: `val_dual`.)
+
+**Theorem 9 (white resets).** For $0 < p \leq 1$,
+
+$$
+V(p) \geq \frac{3p^2 - 6p^3 + 8p^4 - 6p^5 + 2p^6}{1 - (1 - p)^6} .
+$$
+
+The numerator is the value of $\mathbf{C}_3$. The strategy: play $\mathbf{C}_3$ on the first block of three hats seen that is not all white. (Lean: `val_lr`, `val_c3`, `tendsto_whiteChain`.)
+
+At $p = \frac12$ this is $\frac{22}{63}$, less than $\frac{7}{20}$. But at every $p = \frac{i}{20}$ with $i$ from $1$ to $8$ it is more than the five strategies of the papers, and by [Proposition 18](#proposition-18) the mirror strategy, with black resets, is better than them for $i$ from $12$ to $19$:
+
+| $p$ | Best of [BFGKRTVY] and [BCCZW] | White resets of $\mathbf{C}_3$ |
+|---|---|---|
+| $\frac{1}{10}$ | $0.052755$ | $\frac{24742}{468559} = 0.052804$ |
+| $\frac15$ | $0.112240$ | $\frac{1297}{11529} = 0.112499$ |
+| $\frac{3}{10}$ | $0.180491$ | $\frac{17742}{98039} = 0.180969$ |
+| $\frac25$ | $0.259458$ | $\frac{967}{3724} = 0.259667$ |
+| $\frac{9}{20}$ | $0.303257$ | $0.303080$ |
+
+Why white only? The substitution has a formula for every $p$ (Lean: `val_sub`), and all that depends on the bias in it is one term, which for $p < \frac12$ is a loss each time a player leaves the lowest hats on seeing them all black. The strategies of the papers leave on both colors, which costs nothing at $p = \frac12$ only. With blocks of four and five hats in place of three, the white resets do less well for the values of $p$ that we tried, and the best strategy that a search finds on six hats is within $0.000003$ of two blocks of white resets at $p = \frac{3}{10}$.
+
+What was looked at, for this section: [BFGKRTVY] and its first version, [BCCZW], [HT25], [AFKK] and the paper before it, the note [Ya26], the pages [Kh11] and [Wa14], and the papers that cite these according to two catalogs (the list is in `docs/papers/hats/literature.md`). We found no table for three or four players other than those of [BFGKRTVY], and no strategy for a biased coin other than the five above.
+
+### 10. Open questions
 
 The first three are in the papers. The others came up in this work; we do not know whether they were asked before.
 
@@ -1117,6 +1209,12 @@ It is for $d$ from $1$ to $4$. If it is for every $d$, then $V = \frac{7}{20}$, 
 **Question K (hereditary and primitive).** Is every hereditary best strategy built with resets and shifts? Are there primitive best strategies on every number of hats from four on, and how many classes?
 
 On four and on five hats the answer to the first question is yes, and the primitive classes are four out of ten, then eighteen out of twenty-seven (Section 7). On five hats the primitive ones come from one more operation, the twisted double shift of Section 4. Is there a finite list of operations that builds every best strategy, on every number of hats?
+
+**Question L (a biased coin).** For small $p$, is $V(p)$ the bound of [Theorem 9](#theorem-9)? More generally, what is the best chain of substitutions for each $p$?
+
+**Question M (three players and more).** Is there a rule to go up that does better than the reset of [Theorem 7](#theorem-7), and tables made for it? Do the bounds of [Theorem 8](#theorem-8) keep growing with the number of hats, and toward what?
+
+**Question N (hints as equations).** In the hint game of dimension $d$ (Section 8), Alice has to satisfy as many equations $a \cdot x = T(a)$ as she can, and the value is $\frac38$ less the expected share of equations that she must give up. Three targets on a line $a$, $b$, $a + b$ that do not add up force her to give up one. For the best ways to play that we know, on $d$ from $1$ to $4$ and for the Carter strategies up to $d = 6$, these lines are the only obstruction. Is it so for every $d$? A proof that the expected number of equations given up is at least $\frac{2^d}{20}$, less a term that is small before $2^d$, would prove [Conjecture A](#conjecture-A).
 
 ## References
 
