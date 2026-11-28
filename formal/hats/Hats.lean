@@ -37,4 +37,5 @@ import Hats.ThreeSub
 import Hats.ThreeLimit
 import Hats.Players
 import Hats.PlayersLimit
+import Hats.Biased
 import Hats.Audit

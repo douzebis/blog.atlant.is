@@ -54,4 +54,6 @@ the original: to be read before any claim.
 - Reading arXiv:2508.01737 in the original; a search of the literature
   for the white resets (they are simple; somebody may have them).
 - Pieces on five hats and more in the search for chains.
-- A proof in Lean of the formula of item 1.
+- A proof in Lean of the formula of item 1. (Items 2 and 3 are in Lean
+  since 2026-11-28: `val_dual`, `val_lr`, `val_c3`, `tendsto_whiteChain`
+  in `formal/hats/Hats/Biased.lean`.)
