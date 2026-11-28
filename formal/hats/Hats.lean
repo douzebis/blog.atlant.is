@@ -35,4 +35,6 @@ import Hats.Instances
 import Hats.Three
 import Hats.ThreeSub
 import Hats.ThreeLimit
+import Hats.Players
+import Hats.PlayersLimit
 import Hats.Audit

@@ -11,8 +11,8 @@ are those of four.c), slowly and plainly, checks that the table is proper
 and symmetric, and prints the limit of the win rates when the table is
 reset by itself again and again in the way of Buhler et al.
 (arXiv:1407.4711v8, appendix): (W - 1) / ((2^T - 1)^4 + 4 (2^T - 1)^3 - 5).
-For three players the same formula is proved in
-formal/hats/Hats/ThreeLimit.lean; for four players it is the paper's.
+The formula is proved for any number of players in
+formal/hats/Hats/PlayersLimit.lean (`tendsto_rateN`, `limitN_eq`).
 """
 
 import itertools

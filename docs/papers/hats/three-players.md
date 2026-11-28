@@ -110,7 +110,11 @@ Checked: both tables recounted by `score4.py` (proper, symmetric). The
 reset formula for four players, `16^k (W_S - 1) + R W_M` with
 `R = 16^t - ((2^t - 1)^4 + 4 (2^t - 1)^3 - 5)`, is the paper's; it was
 compared with full counts on five pairs of small tables (random ones
-too) and is not in Lean yet.
+too), and proved in Lean for any number of players the same day:
+`winsN_reset`, `resetCard_add`, `tendsto_rateN`, `limitN_eq` in
+`formal/hats/Hats/Players.lean` and `PlayersLimit.lean`. There the
+players may use different strategies, as long as nobody uses their own
+stack; one table for all is a special case.
 
 ## Next
 

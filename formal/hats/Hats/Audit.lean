@@ -16,6 +16,8 @@ import Hats.Instances
 import Hats.Three
 import Hats.ThreeSub
 import Hats.ThreeLimit
+import Hats.Players
+import Hats.PlayersLimit
 import Hats.Topology
 import Hats.Measurable
 import Hats.Readers
@@ -148,3 +150,7 @@ open Hats
 #print axioms wins3_reset
 #print axioms wins3_sub
 #print axioms tendsto_rate3
+#print axioms winsN_reset
+#print axioms resetCard_add
+#print axioms tendsto_rateN
+#print axioms limitN_eq
