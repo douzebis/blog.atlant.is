@@ -13,6 +13,8 @@ import Hats.Hints
 import Hats.TwistedShift
 import Hats.Substitute
 import Hats.Instances
+import Hats.Three
+import Hats.ThreeSub
 import Hats.Topology
 import Hats.Measurable
 import Hats.Readers
@@ -142,3 +144,5 @@ open Hats
 #print axioms rr_eq_sub
 #print axioms dr_eq_sub
 #print axioms hits_ds_of_sub
+#print axioms wins3_reset
+#print axioms wins3_sub

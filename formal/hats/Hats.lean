@@ -32,4 +32,6 @@ import Hats.Hints
 import Hats.TwistedShift
 import Hats.Substitute
 import Hats.Instances
+import Hats.Three
+import Hats.ThreeSub
 import Hats.Audit
