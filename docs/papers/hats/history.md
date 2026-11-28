@@ -16,7 +16,16 @@ their digests in `docs/papers/frozen-versions.sha256`.
 
 - "Towers of hats (1/3)" (2020-08-30), "Hats Calculator (2/3)"
   (2020-09-05) and "Infinitely Many Hats (3/3)" (2020-09-26), published
-  on the WordPress blog `blog.douzeb.is`. The dates are those of the
+  on the WordPress blog `blog.douzeb.is`.
+  In 2020 the blog was at `blog.atlant.is`. Dated traces of the posts
+  that do not depend on this repository (found 2026-11-28): the Internet
+  Archive has a capture of 28 September 2020 with the text of the posts,
+  <https://web.archive.org/web/20200928110447/https://blog.atlant.is/?paged=2&author=1>
+  (Carter strategies, resets, shifts), and captures of the same day that
+  list "Hats Calculator (2/3)" and "Infinitely Many Hats (3/3)"; the
+  public repository `github.com/douzebis/blog.atlant.is-import`, created
+  on 16 September 2020 according to GitHub, has the three posts with
+  commits of September 2020. The dates are those of the
   posts; the dates of their last edits are not known. The calculator
   that they link to was last changed on 2022-11-11
   (`github.com/douzebis/hats`, commit a7d108a).

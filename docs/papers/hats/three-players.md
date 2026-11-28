@@ -161,7 +161,17 @@ bound.
 From random tables, ten minutes each: 6 players 0.185739 (3 hats) and
 0.184650 (4 hats), below the published 0.187159; 7 to 12 players well
 below. As for three players, the search has to start from a structured
-table: next, from the tables of `winkler.py`.
+table.
+
+From the tables of `winkler.py` on 4 hats, fifteen minutes each:
+
+    V_6 >= 2988693/15946868 = 0.187416...
+
+(`playersn/results/n6-t4-2988694.txt`, 2,988,694 wins against 2,984,605
+for the recipe; recounted by `scoren.py`; published: 0.187159). Five
+players from the recipe: 206,347 wins, limit 0.203800, less than the
+three-hat table. Seven and eight players: no better table found in
+fifteen minutes; the temperatures were not tuned for them.
 
 ## Next
 
