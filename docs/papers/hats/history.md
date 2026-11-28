@@ -18,14 +18,24 @@ their digests in `docs/papers/frozen-versions.sha256`.
   (2020-09-05) and "Infinitely Many Hats (3/3)" (2020-09-26), published
   on the WordPress blog `blog.douzeb.is`.
   In 2020 the blog was at `blog.atlant.is`. Dated traces of the posts
-  that do not depend on this repository (found 2026-11-28): the Internet
-  Archive has a capture of 28 September 2020 with the text of the posts,
-  <https://web.archive.org/web/20200928110447/https://blog.atlant.is/?paged=2&author=1>
-  (Carter strategies, resets, shifts), and captures of the same day that
-  list "Hats Calculator (2/3)" and "Infinitely Many Hats (3/3)"; the
-  public repository `github.com/douzebis/blog.atlant.is-import`, created
-  on 16 September 2020 according to GitHub, has the three posts with
-  commits of September 2020. The dates are those of the
+  that do not depend on this repository (checked 2026-11-28 against the
+  frozen copies, sentence by sentence):
+
+  - Internet Archive, 28 September 2020, two days after the third post:
+    <https://web.archive.org/web/20200928125658/https://blog.atlant.is/?cat=16>
+    has the text of all three posts (206 of 207 plain sentences of the
+    first, 48 of 49 of the third, and the prose of the second). This is
+    the capture to cite.
+  - Same day, <https://web.archive.org/web/20200928110447/https://blog.atlant.is/?paged=2&author=1>:
+    the first and second posts.
+  - Captures of single posts, later: the third post on 21 June 2021,
+    <https://web.archive.org/web/20210621232806/https://blog.atlant.is/?p=2817>;
+    the first on 2 December 2022,
+    <https://web.archive.org/web/20221202084527/https://blog.atlant.is/?p=1183>.
+    The post numbers are 1183, 1893 and 2817.
+  - The public repository `github.com/douzebis/blog.atlant.is-import`,
+    created on 16 September 2020 according to GitHub, has the three
+    posts with commits of September 2020. The dates are those of the
   posts; the dates of their last edits are not known. The calculator
   that they link to was last changed on 2022-11-11
   (`github.com/douzebis/hats`, commit a7d108a).
