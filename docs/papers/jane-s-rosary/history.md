@@ -56,6 +56,24 @@ file is the detailed account. Earlier versions are kept, unmodified, under
   hour on 2026-11-17; it was replaced by this one at the author's request
   (three versions are kept: this one, the 2026 revision, the current
   paper). The export remains in its repository.
+- Dated traces that do not depend on this repository (found
+  2026-11-28):
+  - the public repository `github.com/douzebis/jane-s-rosary`, created
+    on 17 December 2022 and last pushed on 5 January 2023 according to
+    GitHub; archived by Software Heritage at the author's request on
+    2026-11-28, snapshot
+    `swh:1:snp:1da0f6dd2a569cf1e87843f414dec3892542fde5`;
+  - the export `github.com/douzebis/blog.atlant.is-import`, with the
+    state of 20 December 2022 (commit "Add jane-s-infinite-rosary");
+    archived the same day, snapshot
+    `swh:1:snp:9197146589929cb6281c633aef5e7640a2ef0b45`;
+  - Internet Archive: the front page of the blog shows the title and the
+    opening of the post on 28 January 2023,
+    <https://web.archive.org/web/20230128002112/https://blog.atlant.is/>;
+    the full text (253 of 254 plain sentences of the kept copy) is
+    captured on 4 December 2023,
+    <https://web.archive.org/web/20231204152720/https://blog.atlant.is/?p=4034>.
+    No earlier capture of the full text exists.
 
 ## 2026-11-17 — the revision with complete proofs
 

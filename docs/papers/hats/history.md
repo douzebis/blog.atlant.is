@@ -61,3 +61,13 @@ their digests in `docs/papers/frozen-versions.sha256`.
 - `content/posts/2020-08-30-the-game-of-hats/`, started on 2026-11-27
   (`docs/specs/0007-hats-article.md`). Until it is complete it is on the
   site but in no list and no feed.
+
+## Software Heritage (2026-11-28)
+
+The repository `github.com/douzebis/blog.atlant.is-import`, with its
+commits of September 2020 for the three posts, was archived by Software
+Heritage at the author's request on 2026-11-28: snapshot
+`swh:1:snp:9197146589929cb6281c633aef5e7640a2ef0b45`,
+<https://archive.softwareheritage.org/browse/origin/directory/?origin_url=https://github.com/douzebis/blog.atlant.is-import>.
+The date of the visit is 2026; the dates of 2020 are those of the
+commits and of the Internet Archive capture above.
