@@ -169,4 +169,37 @@ theorem tendsto_rate_drChain_carterOdd (k : ℕ) (hk : 1 ≤ k) :
   rw [v] at h
   exact h
 
+theorem carterEven_proper (k : ℕ) : Proper (2 * k + 2) (carterEven k) :=
+  rs_proper (carterOdd_proper k)
+
+/-- **The Carter strategy on an even number `n` of hats, double-reset by
+itself again and again, tends to `(7 * 4 ^ n - 32) / (20 * (4 ^ n - 4))`**,
+which is less than `7 / 20`. -/
+theorem tendsto_rate_drChain_carterEven (k : ℕ) :
+    Tendsto (fun j => rate ((2 * k + 2) * (j + 1)) (drChain (2 * k + 2) (carterEven k) j)) atTop
+      (𝓝 ((7 * 4 ^ (2 * k + 2) - 32) / (20 * (4 ^ (2 * k + 2) - 4)))) := by
+  have h := tendsto_rate_drChain (carterEven_proper k) (by omega : 2 ≤ 2 * k + 2)
+  have e := hits_carterEven k
+  have e' : (5 : ℝ) * hits (2 * k + 2) (carterEven k) + 3 = 28 * 16 ^ k := by exact_mod_cast e
+  have p : (4 : ℝ) ^ (2 * k + 2) = 16 * 16 ^ k := by
+    rw [pow_add, pow_mul]; norm_num; ring
+  have big : (1 : ℝ) ≤ 16 ^ k := one_le_pow₀ (by norm_num)
+  have v : ((hits (2 * k + 2) (carterEven k) : ℝ) - 1) / (4 ^ (2 * k + 2) - 4)
+      = (7 * 4 ^ (2 * k + 2) - 32) / (20 * (4 ^ (2 * k + 2) - 4)) := by
+    rw [p]
+    have hd : (16 : ℝ) * 16 ^ k - 4 ≠ 0 := by linarith
+    have hh : (hits (2 * k + 2) (carterEven k) : ℝ) = (28 * 16 ^ k - 3) / 5 := by linarith
+    have hd2 : (20 : ℝ) * (16 * 16 ^ k - 4) ≠ 0 := by positivity
+    rw [div_eq_div_iff hd hd2, hh]
+    ring
+  rw [v] at h
+  exact h
+
+theorem carterEven_limit_lt (n : ℕ) (hn : 2 ≤ n) :
+    ((7 : ℝ) * 4 ^ n - 32) / (20 * (4 ^ n - 4)) < 7 / 20 := by
+  have h : (4 : ℝ) ^ 2 ≤ 4 ^ n := pow_le_pow_right₀ (by norm_num) hn
+  have hd : (0 : ℝ) < 20 * (4 ^ n - 4) := by nlinarith
+  rw [div_lt_div_iff₀ hd (by norm_num)]
+  nlinarith
+
 end Hats

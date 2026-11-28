@@ -39,6 +39,11 @@ import Hats.Players
 import Hats.PlayersLimit
 import Hats.Biased
 import Hats.BiasedSub
+import Hats.Loose
+import Hats.Renamed
+import Hats.SchemeRate
+import Hats.CarterCut
+import Hats.CarterRule
 import Hats.TwistedNew
 import Hats.Four4
 import Hats.Three6

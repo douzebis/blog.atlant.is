@@ -20,6 +20,11 @@ import Hats.Players
 import Hats.PlayersLimit
 import Hats.Biased
 import Hats.BiasedSub
+import Hats.Loose
+import Hats.Renamed
+import Hats.SchemeRate
+import Hats.CarterCut
+import Hats.CarterRule
 import Hats.TwistedNew
 import Hats.Four4
 import Hats.Three6
@@ -166,6 +171,16 @@ open Hats
 #print axioms tendsto_whiteChain
 #print axioms val_dual
 #print axioms val_sub
+#print axioms carterOdd_words
+#print axioms carterEven_words
+#print axioms carter_cut
+#print axioms hits_sr
+#print axioms tendsto_rate_schemeChain
+#print axioms hits_renamed
+#print axioms dr_renamed_high
+#print axioms rr_eq_dual_lr
+#print axioms hits_dr_nestings
+#print axioms tendsto_rate_drChain_carterEven
 #print axioms tds_not_renamed_ds
 #print axioms conjecture_iff
 #print axioms hits_sub_le
