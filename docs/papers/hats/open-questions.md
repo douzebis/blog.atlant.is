@@ -209,7 +209,18 @@ the best win rate of two players with infinite stacks.
    15 of the 27 classes are (the 9 built and 6 others), 12 are not.
    The 12 are loose-choice variants of substitutions, so the exact
    statement on five hats is "a substitution up to the loose choices".
-   The 4 primitive classes on four hats remain unexplained. Open:
+   The 4 primitive classes on four hats remain unexplained.
+
+   **The primitive strategy on four hats, and six hats** (2026-11-28,
+   `research/hats/symmetric-search/`). The 4 primitive classes are one
+   strategy up to the colors and two loose choices, with a rule by
+   pairs of hats and the symmetry `(01)(23)`. Searches among symmetric
+   strategies on six hats stay below the Carter score (1,430 at best).
+   Plain annealing on six hats: 1,971 different strategies with 1,433
+   hits in 2,392 restarts, none with 1,434, and every one is a
+   substitution of a strategy on three hats into one on four, as it
+   stands or after loose choices. No primitive strategy seen on six
+   hats. Open:
    whether there are more operations of this kind (three hats added,
    gain 25; the 4 primitive classes on four hats are not explained by
    this one).
