@@ -56,3 +56,12 @@ Section 8, `H_4 = 57/160` and `V <= 57/160`: a result of programs
 (`research/hats/hint-search/hint4.c`, logs in its `results/`), which
 agrees with the note [Ya26] on the value, on the 11 classes and on the
 250,880 optimal sortings.
+
+Section 8, Theorem 6 (substitution): `hits_sub` in
+`formal/hats/Hats/Substitute.lean`, stated as
+`hits (n + k) (sub n m s) + 4 ^ k = 4 ^ k * hits n s + hits (k + 1) m`;
+`substitute` in `check_article.py` checks the formula on samples and
+that the shifts, the double shift, the twisted double shift and the
+resets are substitutions. Section 4, the twisted double shift:
+`hits_tds` (`Hats/TwistedShift.lean`), and `tds_eq_sub`
+(`Hats/Instances.lean`).

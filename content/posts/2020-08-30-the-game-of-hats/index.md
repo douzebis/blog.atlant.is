@@ -903,13 +903,24 @@ The proof above reads an operation as a strategy, by applying it to one hat. It 
 - when the $n$ lowest hats seen are not all of the same color, play $s$ on them;
 - when they are, read them as a single hat of that color under the $k$ others, and ask $m$. If $m$ points at its bottom hat, play $s$ on the $n$ lowest hats; if it points at another hat, point at that hat.
 
-For every $m$ and $s$ that we tried, the result has
+**Theorem 6 (substitution).** Let $s$ be a proper strategy on $n$ hats and $m$ a proper strategy on $k + 1$ hats. The substitution of $s$ for the bottom hat of $m$ has
 
 $$4^k \, |H(s)| + |H(m)| - 4^k$$
 
-hits: several thousand pairs, with $k$ from $1$ to $3$ and $n$ from $1$ to $3$. We have no proof yet. So each strategy $m$ on $k + 1$ hats is an operation that adds $k$ hats, of gain $|H(m)| - 4^k$, and the bound of [Proposition 13](#proposition-13) is reached by every best strategy on $k + 1$ hats, not only by shifts in a row.
+hits (Lean: `hits_sub`).
 
-All the operations of this article are substitutions. The white shift, the black shift, the double shift and the twisted double shift are the substitutions into what they make of the strategy on one hat: $\str{0010}$, $\str{0100}$, $\mathbf{C}_3 = \str{01002120}$ and $\str{02110200}$. The three resets of $s$ by $b$ are the substitutions into the resets of the strategy on one hat by $b$. For the white and the black reset by a strategy $b$ on $k$ hats, $|H(m)| = 4^k + |H(b)|$, and the formula above gives back [Theorem 1](#theorem-1).
+*Proof.* Sort the pairs of stacks by the $n$ lowest hats of each, which are *mixed* or of a single color.
+
+- Both mixed. Both players play $s$, so the pair is a hit when the two lower parts are a hit for $s$: each such pair of $s$ counts $4^k$ times, once for each choice of the hats above.
+- Both of a single color. Read each stack as a stack of $k + 1$ hats. The player who sees one of them points at a black hat exactly when $m$ does: if $m$ goes up, it is the same hat, and if $m$ points at the bottom hat, the player points among $n$ hats that all have the color of that bottom hat. These pairs give $|H(m)|$ hits.
+- One all white below, the other mixed. The player who sees the mixed stack plays $s$ and points at one of the $n$ white hats: no hit.
+- One all black below, the other mixed. The player who sees the mixed stack points at a black hat. The other one either plays $s$, and points at a fixed position among the lowest hats, or goes up to a fixed position above. In both cases the hat is black for $2^k \, (2^{n-1} - 1)$ of the $2^k \, (2^n - 2)$ stacks with a mixed lower part. With the $2^k$ stacks that are all black below, and the two orders, that is $2 \cdot 4^k \, (2^{n-1} - 1)$ hits.
+
+The same count for $s$ alone, with one hit for the pair of all-black stacks, gives $|H(s)| = M + 2 \, (2^{n-1} - 1) + 1$, where $M$ counts the hits of $s$ among mixed stacks. So the substitution has $4^k M + 2 \cdot 4^k (2^{n-1} - 1) + |H(m)| = 4^k \, (|H(s)| - 1) + |H(m)|$ hits. $\blacksquare$
+
+So each strategy $m$ on $k + 1$ hats is an operation that adds $k$ hats, of gain $|H(m)| - 4^k$, and the bound of [Proposition 13](#proposition-13) is reached by every best strategy on $k + 1$ hats, not only by shifts in a row.
+
+All the operations of this article are substitutions. The white shift, the black shift, the double shift and the twisted double shift are the substitutions into what they make of the strategy on one hat: $\str{0010}$, $\str{0100}$, $\mathbf{C}_3 = \str{01002120}$ and $\str{02110200}$. The three resets of $s$ by $b$ are the substitutions into the resets of the strategy on one hat by $b$. For the white and the black reset by a strategy $b$ on $k$ hats, $|H(m)| = 4^k + |H(b)|$, and the formula above gives back [Theorem 1](#theorem-1). For the twisted double shift, this is also proved in Lean (`tds_eq_sub`), which gives a second proof of its hits; for the others it is checked by program.
 
 The statement is as sure as the best scores it uses: proved for $k = 1$ and $2$, proved with a compiler trusted for $k = 3$, the answer of solvers for $k = 4$. So there is no "triple shift" of gain $26$: it would make a strategy with $90$ hits on four hats. In general, an operation that adds $k$ hats with a better gain than shifts in a row would beat the Carter strategy on $k + 1$ hats, and with it $\frac{7}{20}$.
 
