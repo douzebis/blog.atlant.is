@@ -43,8 +43,8 @@ of their own stack; they win when all the hats pointed at are black. We
 give an exact formula for the number of winning positions of a strategy
 obtained by putting one strategy in the place of a hat of another
 (\emph{substitution}), of which the resets and shifts used so far are
-cases. For two players it yields in one line the strategies of Carter on
-every number of hats, a second way to add two hats with the best possible
+cases. For two players it yields in one line a known family of strategies
+with $\lfloor 7\cdot 4^h/20\rfloor$ winning pairs on $h$ hats, a second way to add two hats with the best possible
 gain, and a reduction of the conjecture $V_2 = 7/20$ to finite stacks.
 With the same tools we improve the best known lower bounds: for three
 players, $V_3 \ge 73225/261950 \approx 0.279538$; for four players,
@@ -87,6 +87,39 @@ bound without computer is in \cite{HT25}. For more players, $V_n$
 decreases strictly with $n$ \cite{FKK21,AFKK}, and \cite{BFG} gives
 $V_3 \ge 9119/32670$ and $V_4 \ge 14844/64120$, from tables found by a
 search, due to Reyes and Carter.
+
+\subsection{Earlier constructions}
+
+The strategies that reach $7/20$ have a short history, part of which is
+not in journals.
+
+In 2014 the notes of Wagon \cite{Wa14} reported tables found by Carter
+and Reyes on up to eight hats, with $1, 5, 22, 89, 358, 1433, \ldots$
+winning pairs, and the idea of a \emph{reset}, due to Carter, Reyes and
+Rosenberg: when the lowest hats seen make the game hopeless or settled,
+start again on the hats above. Resetting a table on three hats with $22$
+winning pairs gives exactly $7/20$ (Tiefenbruck, Reyes, Carter and
+Rosenberg); this is the lower bound of \cite{BFG}. The book \cite{VW20}
+states, with a sketch of proof, that there is a strategy with
+$\lfloor 7\cdot 4^h/20\rfloor$ winning pairs on every number $h$ of hats.
+
+In 2020 the author described these strategies on a blog, in three posts
+\cite{R20}, without knowing the book. The posts introduce operations
+that act on arbitrary strategies, each with an exact formula for the
+number of winning pairs of the result: three \emph{resets} (on all
+white, on all black, on both), and three \emph{shifts}, which add one
+hat or two and change the choice for one or two stacks. They name
+\emph{Carter strategies} the family $\C_h$ obtained from the strategy on
+one hat by shifts alone, because it gives on few hats the scores of
+Carter's tables, and \emph{Reyes strategies} the resets of $\C_3$ by
+itself. These names and operations are used below; they are defined
+again in Section~\ref{sec:two}, so that the paper can be read alone.
+
+In 2025, \cite{BCCZW} gave a ``combining construction'', which is the
+reset on both colors, and strategies with the scores of $\C_h$ for odd
+$h$. The present paper replaces the separate formulas of the posts of
+2020 by one theorem, of which each is a case; a longer account, which
+revises those posts, is \cite{web}.
 
 \subsection{Results}
 
@@ -262,24 +295,34 @@ $4^k|H(s)|$ plus the gain.
 
 \subsection{Resets and shifts are substitutions}
 
-Let $\str{0}$ be the strategy on one hat. The operations in use are the
-following, for a strategy $s$ on $h$ hats and a strategy $b$ on $k$ hats.
+The following operations are those of \cite{R20} (where black and white
+are exchanged, and the white and black operations are called left and
+right). Let $s$ be a strategy on $h$ hats and $b$ a strategy on $k$ hats.
 \begin{itemize}
-\item The \emph{white reset} of $s$ by $b$: play $s$ on the $h$ lowest
-  hats, unless they are all white; then play $b$ on the hats above. The
-  \emph{black reset} is the same with ``all black'', and the
-  \emph{double reset} with ``all white or all black''. The double reset
-  is the reset of \cite{BFG} for two players and the combining
-  construction of \cite{BCCZW}.
-\item The \emph{white shift} and the \emph{black shift}, which add one
-  hat, are $m[s]$ for $m = \str{0010}$ and $m = \str{0100}$.
-\item The \emph{double shift}, which adds two hats, is $m[s]$ for
-  $m = \C_3 = \str{01002120}$.
+\item The \emph{white reset} of $s$ by $b$, on $h+k$ hats: play $s$ on
+  the $h$ lowest hats, unless they are all white; then play $b$ on the
+  $k$ hats above. The \emph{black reset} is the same with ``all black'',
+  and the \emph{double reset} with ``all white or all black''. The
+  double reset is the reset of \cite{BFG} for two players and the
+  combining construction of \cite{BCCZW}; the white reset is in
+  \cite{Wa14}.
+\item The \emph{white shift} of $s$, on $h+1$ hats: play $s$ on the $h$
+  lowest hats, except that $h$ white hats under a black one send to the
+  new hat. The \emph{black shift}: the same, except that $h$ black hats
+  under a white one send to the new hat.
+\item The \emph{double shift} of $s$, on $h+2$ hats: play $s$ on the $h$
+  lowest hats, with two exceptions. Seeing $h$ black hats with a white
+  hat just above them, point at the first new hat; seeing $h$ white hats
+  with a black hat at the top, point at the top hat.
 \end{itemize}
+Write $\str{0}$ for the strategy on one hat, and recall that a strategy
+is written as the word of its values.
 
 \begin{proposition}\label{prop:instances}
 Each reset of $s$ by $b$ is the substitution of $s$ into the same reset
-of $\str{0}$ by $b$. Consequently, for $b$ on $k$ hats,
+of $\str{0}$ by $b$. The white shift, the black shift and the double
+shift of $s$ are $m[s]$ for $m = \str{0010}$, $m = \str{0100}$ and
+$m = \str{01002120}$. Consequently, for $b$ on $k$ hats,
 \begin{align*}
   |H| &= 4^k|H(s)| + |H(b)| && \text{(white and black resets)},\\
   |H| &= 4^k|H(s)| + 4|H(b)| - 4^k && \text{(double reset)},
@@ -295,8 +338,12 @@ are also proved directly: \lean{hits\_lr}, \lean{hits\_rr},
 
 \subsection{The Carter strategies}
 
-Let $\C_1 = \str{0}$, $\C_{h+2} = \C_3[\C_h]$ for odd $h$, and
-$\C_{h+1} = \str{0100}[\C_h]$ for odd $h$. Strategies with these scores go back to 2014: Wagon's notes \cite{Wa14}
+Following \cite{R20}, the \emph{Carter strategy} $\C_h$ on $h$ hats is
+obtained from $\C_1 = \str{0}$ by double shifts for odd $h$, and by one
+more black shift for even $h$; so $\C_3 = \str{01002120}$, and in terms
+of substitutions $\C_{h+2} = \C_3[\C_h]$ and
+$\C_{h+1} = \str{0100}[\C_h]$ for odd $h$. The name is that of the posts
+of 2020, not of the literature. Strategies with these scores go back to 2014: Wagon's notes \cite{Wa14}
 give them on up to eight hats, with the recursion $x \mapsto 16x+6$, and
 Theorem~76.2 of \cite{VW20} states them for every $h$, with a sketch of
 proof, crediting Carter, Reyes, Rosenberg and Tiefenbruck for odd $h$ and
@@ -872,7 +919,7 @@ position that Bob chooses on seeing the all-black stack: $2^d$ stacks.
 
 The operations (resets and shifts), their formulas and the Carter
 strategy for every number of hats are from blog posts that the author
-wrote alone in 2020. The present work was done in November 2026 by the
+wrote alone in 2020 \cite{R20}. The present work was done in November 2026 by the
 author in collaboration with Claude, an AI system made by Anthropic. The
 collaboration covered the mathematics (the substitution theorem and its
 consequences, the bounds for three and four players and for biased
@@ -912,6 +959,14 @@ hat puzzle, preprint, 2025, arXiv:2503.09042.
 post, 2011,
 \url{https://blog.tanyakhovanova.com/2011/04/how-many-hats-can-fit-on-your-head/}.
 
+\bibitem{R20} F.~Ruget, Towers of hats (1/3), Hats calculator (2/3),
+Infinitely many hats (3/3), three blog posts, 30 August, 5 September and
+26 September 2020, first published at \texttt{blog.douzeb.is}; kept
+unchanged at
+\url{https://douzebis.github.io/blog.atlant.is/versions/the-game-of-hats/2020/2020-08-30-tower-of-hats/}
+and in the directory \texttt{content/versions/the-game-of-hats/2020} of
+\repo.
+
 \bibitem{VW20} D.~J.~Velleman and S.~Wagon, \emph{Bicycle or Unicycle? A
 Collection of Intriguing Mathematical Puzzles}, MAA Press, 2020,
 Problem~76.
@@ -920,8 +975,9 @@ Problem~76.
 problem, and its solution notes, Macalester Problem of the Week, 2014,
 \url{https://stanwagon.com/potw/current_solutions/s1179.html}.
 
-\bibitem{web} F.~Ruget, The game of hats, web article with Lean sources,
-programs and tables, 2020--2026, \repo.
+\bibitem{web} F.~Ruget, The game of hats, web article, 2026 (a revision of
+\cite{R20}), with the Lean sources, programs and tables of the present
+paper, \repo.
 
 \bibitem{Ya26} Yang Song, Exact referee relaxations for Levine's
 two-player hat problem, note with programs, 2026,
