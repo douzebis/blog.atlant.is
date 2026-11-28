@@ -362,3 +362,10 @@ has 9,120); the Carter choices of the two stacks seen, added modulo 3,
 give 8,704, and a table of 15 entries on them 8,903.
 
 Not within reach by these means: a proof of `V = 7/20`.
+
+## Three players (2026-11-28)
+
+A new lower bound, `V_3 >= 73223/261950 = 0.279530`, above the
+`9119/32670 = 0.279124` of Buhler et al.: see
+`docs/papers/hats/three-players.md`. The reset and the substitution for
+three players have exact formulas, proved in Lean.

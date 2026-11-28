@@ -18,6 +18,9 @@ T, by `score.py T < file`.
 | `t5-9108.txt` | 5 | 9,108 | 32,768 | `players climb 5 3600 16 - 4 0.1`, 2026-11-27 |
 | `t5-9120.txt` | 5 | 9,120 | 32,768 | `players climb 5 5400 32 - 5 0.12` (two runs of eight reached it, none passed it; equals the score of the 2014 table of Buhler et al.), 2026-11-27 |
 | `t5-9116.txt` | 5 | 9,116 | 32,768 | `players climb 5 3600 27 - 5 0.12`, 2026-11-27 |
+| `t6-73224.txt` | 6 | 73,224 | 262,144 | `players climb 6 2400 58 t6-73050.txt 2.5 0.2`, 2026-11-28; recounted by `compose.py --bound 6`: the resets of this table tend to 73223/261950 = 0.279530, above the 9119/32670 = 0.279124 of Buhler et al. |
+| `t6-73224b.txt` | 6 | 73,224 | 262,144 | the same with seed 56 and temperatures `1.5 0.2`: another table |
+| `t6-73050.txt` | 6 | 73,050 | 262,144 | `compose.py 5 t5-9120.txt 1`: the table on five hats reset by one hat, 2026-11-28 |
 | `t6-72950.txt` | 6 | 72,950 | 262,144 | `players climb 6 2400 41 t6-72900.txt 1.5 0.2` (annealing from the table with 8 states), 2026-11-27 |
 | `t6-72900.txt` | 6 | 72,900 | 262,144 | `players factor 6 8 1200 1` (8 states), 2026-11-27 |
 | `t6-71819.txt` | 6 | 71,819 | 262,144 | `players climb 6 1800 1`, 2026-11-27 |
