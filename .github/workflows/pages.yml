@@ -38,6 +38,15 @@ jobs:
             --check 2>&1 | tee /tmp/site-rebuild.log
       - name: Copy the site out of the Nix store
         run: cp -rL result public
+      # The draft of the hats paper (arxiv/hats), so that it has an address:
+      # <site>/papers/hats-draft.pdf.  It is added after the comparison of
+      # the two builds of the site, which it is not part of.
+      - name: Add the draft of the hats paper
+        run: |
+          nix-build arxiv/hats -o hats-paper 2>&1 | tee /tmp/hats-paper-build.log
+          chmod -R u+w public
+          mkdir -p public/papers
+          cp hats-paper/paper.pdf public/papers/hats-draft.pdf
       - uses: actions/upload-pages-artifact@v5
         with:
           path: public
