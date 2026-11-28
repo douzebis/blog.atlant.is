@@ -37,19 +37,38 @@ cite Alon et al. (tight stable graphs, the Bollobas-Erdos-Tuza
 conjecture, hitting maximum independent sets in dense graphs): not
 retrieved, not needed.
 
+## Received from the author on 2026-11-28, and read
+
+| Work | What it has |
+|---|---|
+| Velleman and Wagon, *Bicycle or Unicycle?* (MAA Press, 2020), Problem 76, Matching Hats (pp. 35, 214-216) | the game with "same color" in place of "both black" (twice the win rate); the triple-jump strategy with 7/10; **Theorem 76.2: a strategy on every number n of hats with the Carter scores**, with a sketch of proof (odd n: Carter, Reyes, Rosenberg, Tiefenbruck; even n: Wagon and Zimmermann, by a reset that overlaps by one hat); Yeroshkin's remark that these scores are the largest below 7/10, so best if the conjecture holds; Freiling's bound |
+| Wagon, solution notes of Problem 1179 (1 April 2014) | the history of the strategies; **the reset on all white only**, with 22/63 for three hats (Roche), 89/255, 358/1023, 1433/4095; the words of the strategies for t = 3 to 8; the recursion 4x + 1, 4x + 2, or 16x + 6; bounds of Stromquist (15/40; 89 by hand; 1496 on six hats); 89 best also for two different strategies and 358 best for one, by integer programs; two questions: 358 for two different strategies, 1433 on six hats. For three players: a table on four hats with 1,125 wins, said to give 64/225 with resets (see below); Reyes's three matrices on lowest black hats, 0.2617 |
+| Kalai, blog post of 12 December 2020, with comments | the conjecture for many players; a comment of Roche: an upper bound 89/256 for three players (December 2014), as in [BFGKRTVY] |
+| *Emissary*, Spring 2014, Puzzles Column | no hat puzzle in this issue: the column cited by [BFGKRTVY] must be in another one |
+| Burke, Gustafson, Kendall (EuroGP 2002) | Ebert's three-hat problem, another game |
+
+What this changes in our claims (2026-11-28):
+
+- The Carter strategies on every number of hats, with their scores, and
+  the remark that they are best if the conjecture holds, are in the book
+  of 2020 (with a sketch of proof). Ours: complete proofs, in Lean; the
+  rule in words; the substitution theorem that gives them in one line.
+- The reset on white only is on Wagon's page (2014) for fair coins. Ours:
+  its value for biased coins and the comparison with S1 to S5.
+- Wagon's first question (is 358 best on five hats for two different
+  strategies?) is answered yes by Proposition 17 with H_4 = 57/160.
+- "64/225 = 0.2844 for three players" on Wagon's page is above our
+  bound. With the reset of [BFGKRTVY] a table with 1,125 wins on four
+  hats gives 1124/4046 = 0.2778 (Theorem 7), and [BFGKRTVY], later and
+  by the same people, gives 0.279124 as the best known. We take it for a
+  slip; it should be said in the paper.
+
 ## Not retrieved
 
-1. Kalai's blog post on the problem (2019), cited by Buhler et al.: the
-   search page of the blog answers, the post itself was not located.
-2. Berlekamp and Buhler, Puzzles Column, *Emissary* (2014): the site of
-   MSRI did not answer.
-3. Velleman and Wagon, *Bicycle or Unicycle*, MAA Press (2020): a book.
-4. The email of Reyes and Carter (2014) with the tables for three and
+1. Berlekamp and Buhler, Puzzles Column, *Emissary* with the hat puzzle:
+   not the Spring 2014 issue.
+2. The email of Reyes and Carter (2014) with the tables for three and
    four players, and Winkler's message of 2010: not published.
-5. The solution page of Wagon's Problem 1179 (only the statement was
-   found).
-6. Burke, Gustafson, Kendall, *A puzzle to challenge genetic
-   programming* (Springer, 2002): another hat game; behind a paywall.
 
 ## What the check found
 

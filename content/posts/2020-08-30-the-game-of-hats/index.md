@@ -112,11 +112,11 @@ The rest of the article:
 
 #### What is new, and what is not
 
-The game, the plans that win $7$ times in $20$ and the strategies of Carter and Reyes on up to $8$ hats are not ours. The word "reset" is in [BFGKRTVY], and the formula for one of our resets, the double reset, is the "combining formula" of [BCCZW].
+The game, the plans that win $7$ times in $20$ and the strategies of Carter and Reyes on up to $8$ hats are not ours. Nor is the fact that there is a strategy with $7 \cdot 4^n / 20$ hits, rounded down, on every number $n$ of hats: it is the statement 76.2 of the book [VW20], with a sketch of proof, credited to Carter, Reyes, Rosenberg and Tiefenbruck for odd $n$ and to Wagon and Zimmermann for even $n$; the same pages have the remark, credited to Yeroshkin, that these scores are the best possible if $V = \frac{7}{20}$. The posts of 2020 came to the same strategies that year, without knowing the book. The word "reset" is in [BFGKRTVY], and the formula for one of our resets, the double reset, is the "combining formula" of [BCCZW].
 
 The posts of 2020 brought the operations with their formulas, the Carter strategy for every number of hats, and the description of the limit strategies by machines. This article adds:
 
-- the closed form $7 \cdot 4^n / 20$ rounded down and its link with the conjecture, and the proofs for stacks that never end;
+- complete proofs, checked by a proof assistant, of the closed form $7 \cdot 4^n / 20$ rounded down and of its link with the conjecture, and the proofs for stacks that never end;
 - the *substitution* of a strategy for a hat of another, with its formula, of which every reset and shift is a case (Section 8), and a new operation that adds two hats, the twisted double shift (Section 4);
 - a link between the upper bounds on $V$ and the Carter strategies (Section 8);
 - for three and for four players, tables that win more often than those of [BFGKRTVY], and for two players with a biased coin, a strategy that wins more often than those of [BFGKRTVY] and [BCCZW] for most biases (Section 9).
@@ -1148,7 +1148,7 @@ $$
 V(p) \geq \frac{3p^2 - 6p^3 + 8p^4 - 6p^5 + 2p^6}{1 - (1 - p)^6} .
 $$
 
-The numerator is the value of $\mathbf{C}_3$. The strategy: play $\mathbf{C}_3$ on the first block of three hats seen that is not all white. (Lean: `val_lr`, `val_c3`, `tendsto_whiteChain`.)
+The numerator is the value of $\mathbf{C}_3$. The strategy: play $\mathbf{C}_3$ on the first block of three hats seen that is not all white. (Lean: `val_lr`, `val_c3`, `tendsto_whiteChain`.) The strategy itself is not new: it is on the page [Wa14], for fair coins, where Roche gives it with its value $\frac{22}{63}$, before the double reset took its place. What we add is its value for a coin that is not fair, and the comparison below.
 
 At $p = \frac12$ this is $\frac{22}{63}$, less than $\frac{7}{20}$. But at every $p = \frac{i}{20}$ with $i$ from $1$ to $8$ it is more than the five strategies of the papers, and by [Proposition 18](#proposition-18) the mirror strategy, with black resets, is better than them for $i$ from $12$ to $19$:
 
@@ -1162,7 +1162,7 @@ At $p = \frac12$ this is $\frac{22}{63}$, less than $\frac{7}{20}$. But at every
 
 Why white only? The substitution has a formula for every $p$ (Lean: `val_sub`), and all that depends on the bias in it is one term, which for $p < \frac12$ is a loss each time a player leaves the lowest hats on seeing them all black. The strategies of the papers leave on both colors, which costs nothing at $p = \frac12$ only. With blocks of four and five hats in place of three, the white resets do less well for the values of $p$ that we tried, and the best strategy that a search finds on six hats is within $0.000003$ of two blocks of white resets at $p = \frac{3}{10}$.
 
-What was looked at, for this section: [BFGKRTVY] and its first version, [BCCZW], [HT25], [AFKK] and the paper before it, the note [Ya26], the pages [Kh11] and [Wa14], and the papers that cite these according to two catalogs (the list is in `docs/papers/hats/literature.md`). We found no table for three or four players other than those of [BFGKRTVY], and no strategy for a biased coin other than the five above.
+What was looked at, for this section: [BFGKRTVY] and its first version, [BCCZW], [HT25], [AFKK] and the paper before it, the note [Ya26], the book [VW20], the pages [Kh11] and [Wa14], and the papers that cite these according to two catalogs (the list is in `docs/papers/hats/literature.md`). For three and four players we found the tables of [BFGKRTVY] and, on the page [Wa14] of 2014, an earlier table on four hats with $1{,}125$ wins for three players. That page says that the table "augments to $64/225$ with the reset strategy", which is $0.2844$; by [Theorem 7](#theorem-7) a table on four hats with $1{,}125$ wins gives $\frac{1124}{4046} = 0.2778$, and [BFGKRTVY], written later by the same people, has $0.279124$ as the best bound known: we take the $64/225$ for a slip. For a biased coin we found no strategy other than the five above and the white resets.
 
 ### 10. Open questions
 
@@ -1174,7 +1174,7 @@ By [Proposition 12](#proposition-12) this says that on every number of hats, no 
 
 **Question B (two strategies).** On some number of hats, do Alice and Bob win more with two different strategies than with the best strategy that they can share?
 
-Not on one to four hats; not on five either, according to one solver (Section 7). If the answer is no for every number of hats, the game is that of this article: one strategy, counted by its hits.
+Not on one to four hats; not on five either, according to one solver (Section 7), and also by [Proposition 17](#proposition-17) with the value $H_4 = \frac{57}{160}$ of Section 8. The question for five hats is asked in [Wa14], with the one for six hats, which is open. If the answer is no for every number of hats, the game is that of this article: one strategy, counted by its hits.
 
 **Conjecture C (many players).** With more players, each wearing a stack and all of them having to point at a black hat, the best win rate tends to $0$ as the number of players grows (Levine; see [BFGKRTVY], where it is proved that the best win rate decreases with each player).
 
@@ -1225,5 +1225,6 @@ On four and on five hats the answer to the first question is yes, and the primit
 - [FL13] T. Friedrich and L. Levine, *Fast simulation of large-scale growth models*, Random Structures & Algorithms 42 (2013), 185–213, [arXiv:1006.1003](https://arxiv.org/abs/1006.1003).
 - [HT25] S. Heilman and O. Tamuz, *A Fourier approach to Levine's hat puzzle*, preprint, 2025 (as quoted in [BCCZW]).
 - [Kh11] T. Khovanova, *How many hats can fit on your head?*, blog post, 2011, <https://blog.tanyakhovanova.com/2011/04/how-many-hats-can-fit-on-your-head/>.
-- [Wa14] S. Wagon, *Problem 1179: An infinitely puzzling hat problem*, Macalester Problem of the Week, 2014, <http://stanwagon.com/potw/fall13/p1179.html>.
+- [VW20] D. J. Velleman and S. Wagon, *Bicycle or Unicycle? A Collection of Intriguing Mathematical Puzzles*, MAA Press, 2020, Problem 76 (Matching Hats).
+- [Wa14] S. Wagon, *Problem 1179: An infinitely puzzling hat problem*, Macalester Problem of the Week, 2014, <https://stanwagon.com/potw/fall13/p1179.html>, and its solution notes, <https://stanwagon.com/potw/current_solutions/s1179.html>.
 - [Ya26] "Yang" (GitHub account yangsong97), *levine-hat-bounds*, a note with programs, November 2026, not reviewed, <https://github.com/yangsong97/levine-hat-bounds>.
