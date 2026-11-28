@@ -76,6 +76,42 @@ Literature looked at on 2026-11-28 for a better `V_3`: arXiv:1407.4711v8
 github.com/yangsong97/levine-hat-bounds (two players only), and web
 searches. Nothing above 0.279124 found. Not a guarantee.
 
+## Seven hats (2026-11-28)
+
+    V_3 >= 6817/24381 = 586262/2096766 = 0.279603...
+
+from a symmetric table on 7 hats with 586,263 wins out of 2,097,152
+(`t7-586263.txt`), found by annealing from the six-hat table reset by
+one hat (585,978 wins); 586,112 were needed to pass the six-hat bound.
+Four runs of 90 minutes: 586,185, 586,197, 586,242, 586,263. Recounted
+by `compose.py --bound 7`. On six hats, four more runs of 90 minutes
+from the tables with 73,224 wins gave 73,224 three times and 73,226
+once: that search is near its end.
+
+## Four players (2026-11-28)
+
+Buhler et al.: a symmetric table on 4 hats with 14,845 wins out of
+65,536 (Reyes and Carter, 2014), and with resets
+`V_4 >= 14844/64120 = 0.231503`. Their formula for `n` players and a
+table on `t` hats with `W` wins:
+`(W - 1) / ((2^t - 1)^n + n (2^t - 1)^(n - 1) - (n + 1))`.
+
+Ours, with `research/hats/players4/` (`four.c`, `score4.py`):
+
+    V_4 >= 15191/64120 = 0.236915...
+
+from a symmetric table on 4 hats with 15,192 wins
+(`players4/results/t4-15192.txt`; annealing from a random table, 20
+minutes; three other runs: 15,088, 15,119, 15,169). A table on 3 hats
+with 886 wins out of 4,096 (`t3-886.txt`, ten seconds) already gives
+885/3768 = 0.234873, above the bound of the paper.
+
+Checked: both tables recounted by `score4.py` (proper, symmetric). The
+reset formula for four players, `16^k (W_S - 1) + R W_M` with
+`R = 16^t - ((2^t - 1)^4 + 4 (2^t - 1)^3 - 5)`, is the paper's; it was
+compared with full counts on five pairs of small tables (random ones
+too) and is not in Lean yet.
+
 ## Next
 
 - Longer annealing from the new tables; seven hats from the six-hat

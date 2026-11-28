@@ -405,7 +405,7 @@ fn main() {
             }
         };
         for t in heights {
-            assert!((1..=7).contains(&t), "T is between 1 and 7");
+            assert!((1..=8).contains(&t), "T is between 1 and 8");
             match table_of(&program, t) {
                 Ok(table) => println!("{t} hats: {} wins out of {}", table.wins(), 1u64 << (3 * t)),
                 Err(message) => {
@@ -423,7 +423,7 @@ fn main() {
         std::process::exit(2);
     }
     let t: usize = args[2].parse().expect("T is a number");
-    assert!((1..=7).contains(&t), "T is between 1 and 7");
+    assert!((1..=8).contains(&t), "T is between 1 and 8");
     match args[1].as_str() {
         "score" => match Table::parse(t, &read_stdin()) {
             Ok(table) => println!("{}", table.wins()),
