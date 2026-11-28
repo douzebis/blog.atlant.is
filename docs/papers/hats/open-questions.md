@@ -292,6 +292,37 @@ the best win rate of two players with infinite stacks.
    `H_d <= ` (game on `d + 1` hats) in general: a proof must bound the
    value, not transform the solutions.
 
+   **The hint game as equations, and inconsistent lines**
+   (2026-11-28, `research/hats/hint_lines.py`; its header has the
+   definitions). With `N = 2^d`: the value of a sorting is
+   `3/8 - E|U| / (2 (N - 1))`, where for each toss of the blocks Alice
+   must satisfy equations `a.x = T(a)` on the active `a` and `U` is what
+   her best point leaves unsatisfied. `V = 7/20` would follow from
+   `E|U| >= N/20 - o(N)` for every sorting. Facts:
+
+   - a line `a, b, a + b` is never inconsistent when the three pairs of
+     blocks make a triangle, and otherwise is with probability 1/16,
+     1/8 or 1/4 (a short argument, not in Lean);
+   - for the 11 orbits of best sortings in dimension 4, `E|U| = 9/16`
+     is exactly the expected least number of points that meet every
+     inconsistent line: at the optimum the lines are the only
+     obstruction;
+   - the sortings of the Carter strategies have only two kinds of lines,
+     triangles and lines with two equal edges, and for `d` = 3 to 6
+     `E|U|` = (number of lines with two equal edges) `/ (2 N)`: 3/16,
+     18/32, 87/64, 378/128. They come from a chain of subspaces of
+     codimension 2: the three cosets of `W` go to the three edges of a
+     triangle of blocks (N/4 points each), and `W` is sorted in the
+     same way; 2/5 of the lines are triangles in the limit;
+   - more blocks allow more triangles (20 of 35 lines with 6 blocks in
+     dimension 4, against 17), with no better value: the number of
+     triangles alone does not decide the value.
+
+   No bound better than the known ones comes out of this yet. The
+   crude count (each unsatisfied point lies on at most `(|D| - 1) / 2`
+   inconsistent lines) gives a bound of the right shape, with constants
+   that are too weak.
+
    What follows. (a) The affine hint of dimension `d` cannot prove a
    bound on `V` below that value, so this family of hints goes to 7/20
    no faster than `2^-d`. (b) An exact value of `H_d` is a proof that
