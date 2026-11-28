@@ -39,6 +39,7 @@ import Hats.Players
 import Hats.PlayersLimit
 import Hats.Biased
 import Hats.BiasedSub
+import Hats.TwistedNew
 import Hats.Four4
 import Hats.Three6
 import Hats.Four

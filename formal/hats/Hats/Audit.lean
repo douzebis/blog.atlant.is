@@ -20,6 +20,7 @@ import Hats.Players
 import Hats.PlayersLimit
 import Hats.Biased
 import Hats.BiasedSub
+import Hats.TwistedNew
 import Hats.Four4
 import Hats.Three6
 import Hats.Four
@@ -165,6 +166,7 @@ open Hats
 #print axioms tendsto_whiteChain
 #print axioms val_dual
 #print axioms val_sub
+#print axioms tds_not_renamed_ds
 #print axioms conjecture_iff
 #print axioms hits_sub_le
 #print axioms tendsto_rate_drChain_carterOdd
