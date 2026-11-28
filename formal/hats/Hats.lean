@@ -34,4 +34,5 @@ import Hats.Substitute
 import Hats.Instances
 import Hats.Three
 import Hats.ThreeSub
+import Hats.ThreeLimit
 import Hats.Audit

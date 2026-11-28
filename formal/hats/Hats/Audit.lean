@@ -15,6 +15,7 @@ import Hats.Substitute
 import Hats.Instances
 import Hats.Three
 import Hats.ThreeSub
+import Hats.ThreeLimit
 import Hats.Topology
 import Hats.Measurable
 import Hats.Readers
@@ -146,3 +147,4 @@ open Hats
 #print axioms hits_ds_of_sub
 #print axioms wins3_reset
 #print axioms wins3_sub
+#print axioms tendsto_rate3
